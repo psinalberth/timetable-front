@@ -4,13 +4,7 @@
 	<north style="background: lightgreen">
 		<vbox hflex="true" style="background: orange">
 			<div>
-				<navbar orient="horizontal">
-					<navitem label="Home"/>
-					<navitem label="Professores"/>
-					<navitem label="Locais"/>
-					<navitem label="Cursos"/>
-					<navitem label="Disciplinas"/>
-				</navbar>
+				
 			</div>
 		</vbox>
 	</north>
