@@ -1,0 +1,20 @@
+<?page title="Timetable" contentType="text/html;charset=UTF-8"?>
+<zk>
+<borderlayout hflex="true" style="background: green" vflex="true">
+	<north style="background: lightgreen">
+		<vbox hflex="true" style="background: orange">
+			<label>North</label>
+		</vbox>
+	</north>
+	<center>
+		<vbox hflex="true" style="background: lightgreen">
+			<label>Content!</label>
+		</vbox>
+	</center>
+	<south>
+		<vbox hflex="true" style="background: orange">
+			<label>South</label>
+		</vbox>
+	</south>
+</borderlayout>
+</zk>
