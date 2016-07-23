@@ -65,7 +65,11 @@
 		    <artifactId>zkmax</artifactId>
 		    <version>3.6.3</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.zkoss.zk</groupId>
+			<artifactId>zkex</artifactId>
+			<version>3.6.3</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
