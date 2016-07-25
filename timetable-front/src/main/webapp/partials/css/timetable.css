@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+.zk-container {
+	background: #fff;
+	min-height: 627px; 
+}
+
+@media(min-width:768px) {
+	.zk-container {
+		position: inherit;
+		margin: 0 0 0 250px; 
+		padding: 0 30px;
+		background: orange;
+	}
+}
+
+.no-row {
+	background: none !important;
+}

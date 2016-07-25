@@ -1,0 +1,23 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/template.zul"?>
+<zk>
+	<div self="@define(content)">	
+		<grid vflex="true" style="border: none">
+			<columns>
+				<column width="15%"/>
+				<column width="85%"/>
+			</columns>
+			<rows sclass="no-row">
+				<row style="background: none">
+					<label>Nome</label>
+					<textbox id="nome" hflex="true"/>
+				</row>
+				
+				<row style="background: none">
+					<label>Nome</label>
+					<textbox id="s" hflex="true"/>
+				</row>
+			</rows>
+		</grid>
+	</div>
+</zk>

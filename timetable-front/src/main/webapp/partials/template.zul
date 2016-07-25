@@ -1,54 +1,47 @@
 <?page title="Timetable" contentType="text/html;charset=UTF-8"?>
+<?meta name="viewport" content="width=device-width, initial-scale=1"?>
+
 <zk xmlns:n="native">
-<borderlayout hflex="true" style="background: green" vflex="true">
-	<north style="background: lightgreen">
-		<vbox hflex="true" style="background: orange">
-			<div>
-				<label>I'm North</label>
+<!-- 	<n:meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></n:meta> -->
+	<n:link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"></n:link>
+	<n:link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/1.0.8/css/sb-admin-2.min.css"></n:link>
+	<n:link rel="stylesheet" href="../partials/css/timetable.css"></n:link>
+	<n:script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></n:script>
+	<n:script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></n:script>
+	<n:script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/1.0.8/js/sb-admin-2.min.js"></n:script>
+	
+	
+	<div id="wrapper" hflex="true" vflex="true">
+		
+		<n:nav sclass="navbar navbar-default navbar-static-top" style="margin-bottom: 0">
+
+			<div class="navbar-header">
+				<n:button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle Navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</n:button>
+				<a href="" class="navbar-brand">Timetable</a>
 			</div>
-		</vbox>
-	</north>
-	<west width="20%" style="background: lightblue">
-		<vbox width="100%" zclass="z-navitem">
-			<n:ul>
-				<n:li >Home</n:li>
-				<n:li>Professores</n:li>
-				<n:li>Disciplinas</n:li>
-				<n:li>Locais</n:li>
-				<n:li>Horários</n:li>
-			</n:ul>
+
+			<div class="navbar-default sidebar">
+				<div class="sidebar-nav navbar-collapse">
+					<n:ul class="nav in">
+						<n:li><a>Home</a></n:li>
+						<n:li><a onClick='Messagebox.show("Hello!")'>Professores</a></n:li>
+						<n:li><a>Disciplinas</a></n:li>
+						<n:li><a>Horários</a></n:li>
+						<n:li><a>Locais</a></n:li>
+					</n:ul>
+				</div>
+			</div>
 			
-			<listbox style="background: none">
-				<listhead sizable="true">
-					
-				</listhead>
-				<listitem style="background: none">
-					<listcell style="background: none">Home</listcell>
-				</listitem>
-				<listitem>
-					<listcell>Professores</listcell>
-				</listitem>
-				<listitem>
-					<listcell>Disciplinas</listcell>
-				</listitem>
-				<listitem>
-					<listcell>Locais</listcell>
-				</listitem>
-				<listitem>
-					<listcell>Horários</listcell>
-				</listitem>
-			</listbox>
-		</vbox>
-	</west>
-	<center style="background: lightgreen">
-		<vbox hflex="true" style="background: yellow">
-			<label>Content!</label>
-		</vbox>
-	</center>
-	<south>
-		<vbox hflex="true" style="background: orange">
-			<label>South</label>
-		</vbox>
-	</south>
-</borderlayout>
+		</n:nav>
+		
+		<div class="zk-container" self="@insert(content)">
+		</div>
+		
+	</div>
+	
 </zk>

@@ -1,0 +1,30 @@
+<?page title="Timetable" contentType="text/html;charset=UTF-8"?>
+<?meta name="viewport" content="width=device-width, initial-scale=1"?>
+<zk xmlns:n="native">
+	<vlayout vflex="true" hflex="true" id="container">
+		<vlayout id="header" hflex="true" style="background: lightblue">
+			<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione laboriosam ducimus natus at velit autem facilis. Eum reprehenderit voluptates aperiam officia vel laudantium perspiciatis totam consequatur cum magnam culpa omnis.</div>
+			<div>Hic amet quasi dolores nihil neque distinctio voluptatem. Itaque illo doloremque distinctio illum perferendis odit sint reiciendis error. Sint quaerat incidunt ipsa possimus omnis explicabo quod dolore natus dolores eligendi.</div>
+		</vlayout>
+		<hbox widths="20%, 80%">
+			<vlayout style="background: lightgrey" vflex="true">
+				<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem et provident facere aut sunt fuga rem sint doloribus! Blanditiis voluptate cumque est aliquid dicta ratione assumenda. Voluptatibus distinctio aliquid officia!</div>
+				<div>Accusantium cumque reprehenderit fuga tenetur. Asperiores explicabo quia distinctio a minus doloribus deleniti eaque fugit animi? Quas ducimus dicta ullam quia vero sed eligendi animi perferendis assumenda nihil qui nesciunt?</div>
+				<div>Cumque error ea autem placeat eius laboriosam nemo eaque reiciendis cum laborum? Reprehenderit et ratione nihil distinctio eum quasi earum fugiat illo. Placeat porro non quas quasi iusto distinctio excepturi.</div>
+				<div>Ea vero voluptate quasi quisquam tempora explicabo praesentium dignissimos vel ipsam sed! Laborum natus autem eius quibusdam recusandae neque eos enim quod facere sed impedit explicabo pariatur id aut sequi.</div>
+			</vlayout>
+			<vlayout style="background: lightgreen">
+				<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem repellat odit impedit qui tenetur numquam fugiat iste magni similique ipsam porro maxime ut soluta ea officia aliquam adipisci accusamus dolor?</div>
+				<div>Aliquam animi ut est iusto voluptates recusandae pariatur similique blanditiis error modi illum quod enim dignissimos! Laudantium accusantium dicta veritatis officia delectus reiciendis suscipit optio doloribus modi enim quia odio!</div>
+				<div>Porro enim itaque non sint ipsa accusamus dolorem vitae fuga quibusdam magni. Quas sed tempore sint aspernatur eligendi vitae optio numquam quidem tempora porro ex reiciendis dolorum molestiae libero quia.</div>
+				<div>Facere at repellendus perspiciatis quo minus ex sed explicabo repudiandae quis fuga autem id placeat dolore saepe aspernatur rem adipisci doloribus quod accusantium neque necessitatibus aperiam tempora officia in quibusdam.</div>
+				<div>Possimus veritatis culpa aspernatur explicabo quas qui eveniet deserunt earum ullam optio maiores libero error praesentium eum sunt mollitia odio pariatur quis nisi dignissimos obcaecati perspiciatis nemo consequuntur assumenda maxime.</div>
+				<div>Fugiat distinctio dolor sapiente in quos fugit adipisci tempora et labore consequuntur harum quidem dolores quam modi sequi cum perspiciatis est ipsa cumque dicta architecto dolorem voluptatum similique iure nesciunt.</div>
+				<div>Veritatis odio dicta minima voluptatibus architecto aperiam nostrum? Aut ipsum tenetur debitis aspernatur itaque iste obcaecati repellendus deleniti vitae odio veniam eveniet maiores cum consequuntur labore odit quod doloremque asperiores.</div>
+				<div>Perspiciatis ipsa ex dolorem iusto soluta nisi magni et mollitia deleniti tempora incidunt beatae quia velit voluptatibus rem ut quas natus dolor similique nihil eos sint vel est obcaecati laborum?</div>
+				<div>Nisi at assumenda sequi quasi ipsam et id distinctio laudantium odio possimus eius iste saepe repudiandae est labore totam nesciunt? Praesentium reprehenderit cumque consectetur magni! Qui ut cum perferendis omnis?</div>
+				<div>Beatae sequi perferendis atque doloribus error nobis eius natus odit eos laudantium iure at porro quae itaque dolorum ullam nam deserunt. Voluptatum itaque numquam quos error ab sed libero deserunt!</div>
+			</vlayout>
+		</hbox>
+	</vlayout>
+</zk>
