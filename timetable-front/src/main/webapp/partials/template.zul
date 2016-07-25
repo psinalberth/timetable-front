@@ -23,7 +23,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</n:button>
-				<a href="" class="navbar-brand">Timetable</a>
+				<!-- <a href="" class="navbar-brand">Timetable</a> -->
 			</div>
 
 			<div class="navbar-default sidebar">

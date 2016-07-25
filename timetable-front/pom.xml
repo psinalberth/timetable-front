@@ -40,26 +40,31 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
+		
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkbind</artifactId>
 			<version>${zk.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zul</artifactId>
 			<version>${zk.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkplus</artifactId>
 			<version>${zk.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zhtml</artifactId>
 			<version>${zk.version}</version>
 		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.zkoss/zkfontawesome -->
 		<dependency>
 		    <groupId>org.zkoss</groupId>
@@ -67,21 +72,33 @@
 		    <version>1.1</version>
 		</dependency>
 		
-		<!-- <dependency>
-		    <groupId>org.zkoss.zk</groupId>
-		    <artifactId>zkmax</artifactId>
-		    <version>3.6.3</version>
-		</dependency>
 		<dependency>
-			<groupId>org.zkoss.zk</groupId>
-			<artifactId>zkex</artifactId>
-			<version>3.6.3</version>
-		</dependency> -->
+	        <groupId>javax.inject</groupId>
+	        <artifactId>javax.inject</artifactId>
+	        <version>1</version>
+	        <scope>provided</scope>
+	    </dependency>
+	    
+	    <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
+		<dependency>
+		    <groupId>javax</groupId>
+		    <artifactId>javaee-api</artifactId>
+		    <version>7.0</version>
+		</dependency>
+	    
+	    <dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-entitymanager</artifactId>
+		    <version>4.3.7.Final</version>
+		    <scope>provided</scope>
+		</dependency>
+	    
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>${commons-io}</version>
 		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 		    <groupId>mysql</groupId>
