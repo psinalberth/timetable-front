@@ -11,7 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import br.edu.ifma.csp.timetable.model.Entidade;
 import br.edu.ifma.csp.timetable.repository.Repository;
 
-public class RepositoryDao<T extends Entidade> implements Repository<T> {
+public abstract class RepositoryDao<T extends Entidade> implements Repository<T> {
 	
 	@Inject
 	protected EntityManager manager;
