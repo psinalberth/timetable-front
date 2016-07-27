@@ -10,6 +10,7 @@
 	<n:script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></n:script>
 	<n:script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></n:script>
 	<n:script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/1.0.8/js/sb-admin-2.min.js"></n:script>
+	<n:script src="http://blackrockdigital.github.io/startbootstrap-sb-admin-2/bower_components/metisMenu/dist/metisMenu.min.js"></n:script>
 	
 	
 	<div id="wrapper" hflex="true" vflex="true">
@@ -28,7 +29,7 @@
 
 			<div class="navbar-default sidebar">
 				<div class="sidebar-nav navbar-collapse">
-					<n:ul class="nav in">
+					<n:ul class="nav in" id="side-menu">
 						<n:li><a><n:i class="fa fa-user pull-left"></n:i>Home</a></n:li>
 						<n:li><a onClick='Messagebox.show("Hello!")'>Professores</a></n:li>
 						<n:li><a>Disciplinas</a></n:li>

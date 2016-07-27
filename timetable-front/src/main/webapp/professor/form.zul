@@ -1,23 +1,24 @@
 <?page contentType="text/html;charset=UTF-8"?>
-<?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/template.zul"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/zul/template.zul"?>
 <zk>
-	<div self="@define(content)">	
-		<grid vflex="true" style="border: none">
-			<columns>
-				<column width="15%"/>
-				<column width="85%"/>
-			</columns>
-			<rows sclass="no-row">
-				<row style="background: none">
-					<label>Nome</label>
-					<textbox id="nome" hflex="true"/>
-				</row>
-				
-				<row style="background: none">
-					<label>Nome</label>
-					<textbox id="s" hflex="true"/>
-				</row>
-			</rows>
-		</grid>
+	<div self="@define(content)" class="container-fluid">	
+	
+		<div class="form-horizontal">
+		
+			<div class="form-group">
+				<include src="/partials/zul/botoes.zul"/>
+			</div>
+			
+			<div sclass="form-group">
+				<label value="Nome"/>
+				<textbox width="100%"/>
+			</div>
+			
+			<div sclass="form-group">
+				<label value="Nome"/>
+				<textbox width="100%" sclass="form-control" placeholder="Nome"/>
+			</div>
+			
+		</div>
 	</div>
 </zk>

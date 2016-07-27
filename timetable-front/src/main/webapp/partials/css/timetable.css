@@ -18,7 +18,14 @@
 		position: inherit;
 		margin: 0 0 0 250px; 
 		padding: 0 30px;
-		background: orange;
+	}
+}
+
+@media(max-width:500px) {
+	.btn {
+		width: 100%;
+		display:block;
+		margin-bottom: 5px;
 	}
 }
 
