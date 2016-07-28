@@ -9,8 +9,8 @@
 		
 		<tabbox>
 			<tabs>
-				<tab label="Dados Pessoais"/>
-				<tab label="Preferências"/>
+				<tab label="Dados Pessoais" iconSclass="fa fa-user"/>
+				<tab label="Preferências" iconSclass="fa fa-plus"/>
 			</tabs>
 			<tabpanels>
 				
