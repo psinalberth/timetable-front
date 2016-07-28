@@ -1,5 +1,6 @@
 <zk>
-	<button label="Novo" sclass="btn btn-default"/>
-	<button label="Salvar" sclass="btn btn-default" onClick="$composer.save()"/>
-	<button label="Voltar" sclass="btn btn-default"/>
+	<button label="Novo" sclass="btn btn-default" iconSclass="fa fa-file-o"/>
+	<button label="Salvar" sclass="btn btn-default" onClick="$composer.save()" iconSclass="fa fa-save"/>
+	<button label="Excluir" sclass="btn btn-default" onClick="" iconSclass="fa fa-trash-o"/>
+	<button label="Voltar" sclass="btn btn-default" iconSclass="fa fa-rotate-left"/>
 </zk>
