@@ -1,24 +1,56 @@
 <?page contentType="text/html;charset=UTF-8"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/zul/template.zul"?>
-<zk>
+<zk xmlns:n="native">
 	<div self="@define(content)" class="container-fluid" apply="br.edu.ifma.csp.timetable.composer.ProfessorComposer">	
-	
-		<div class="form-horizontal">
 		
-			<div class="form-group">
-				<include src="/partials/zul/botoes.zul"/>
-			</div>
-			
-			<div sclass="form-group">
-				<label value="Nome"/>
-				<textbox width="100%"/>
-			</div>
-			
-			<div sclass="form-group">
-				<label value="Nome"/>
-				<textbox width="100%" sclass="form-control" placeholder="Nome"/>
-			</div>
-			
+		<div>
+			<n:h4>Manter Professor</n:h4>
 		</div>
+		
+		<tabbox>
+			<tabs>
+				<tab label="Dados Pessoais"/>
+				<tab label="Preferências"/>
+			</tabs>
+			<tabpanels>
+				
+				<tabpanel>
+				
+					<div>
+						<div class="form-group">
+							<include src="/partials/zul/botoes.zul"/>
+						</div>
+						
+						<div sclass="form-group">
+							<label value="Nome" sclass="form-label" />
+							<textbox id="nome" sclass="form-input"/>
+						</div>
+						
+						<div sclass="form-group">
+							<label value="Endereço" sclass="form-label"/>
+							<textbox width="100%" sclass="form-input"/>
+						</div>
+						
+					</div>
+					
+				</tabpanel>
+				
+				<tabpanel>
+				
+					<listbox>
+						<listhead>
+							<listheader label="Código"/>
+							<listheader label="Descrição"/>
+						</listhead>
+						<listitem>
+							<listcell></listcell>
+							<listcell></listcell>
+						</listitem>
+					</listbox>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+		
+		
 	</div>
 </zk>

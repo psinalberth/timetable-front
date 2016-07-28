@@ -32,3 +32,17 @@
 .no-row {
 	background: none !important;
 }
+
+.form-label {
+	color: #333; 
+	font-size: 14px; 
+	font-weight: 700; 
+	font-family: Helvetica;
+}
+
+.form-input {
+	color: #444;
+	font-size: 14px;
+	height: 30px;
+	width: 100%;
+}
