@@ -1,3 +1,5 @@
 <zk>
-	<window vflex="true"></window>
+	<window vflex="true">
+		<label value="Dummy Text!"/>
+	</window>
 </zk>
