@@ -1,5 +1,5 @@
 <zk>
 	<button label="Novo" sclass="btn btn-default"/>
-	<button label="Salvar" sclass="btn btn-default"/>
+	<button label="Salvar" sclass="btn btn-default" onClick="$composer.save()"/>
 	<button label="Voltar" sclass="btn btn-default"/>
 </zk>
