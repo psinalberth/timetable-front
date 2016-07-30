@@ -1,8 +1,8 @@
 <?page title="Timetable" contentType="text/html;charset=UTF-8"?>
 <?meta name="viewport" content="width=device-width, initial-scale=1"?>
+<?variable-resolver class="org.zkoss.zkplus.cdi.DelegatingVariableResolver"?>
 
 <zk xmlns:n="native">
-<!-- 	<n:meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></n:meta> -->
 	<n:link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"></n:link>
 	<n:link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/1.0.8/css/sb-admin-2.min.css"></n:link>
 	<n:link rel="stylesheet" href="../partials/css/timetable.css"></n:link>
@@ -33,6 +33,8 @@
 						<n:li><a><n:i class="fa fa-user pull-left"></n:i>Home</a></n:li>
 						<n:li><a onClick='Messagebox.show("Hello!")'>Professores</a></n:li>
 						<n:li><a>Disciplinas</a></n:li>
+						<n:li><a>Cursos</a></n:li>
+						<n:li><a>Matrizes Curriculares</a></n:li>
 						<n:li><a>Horários</a></n:li>
 						<n:li><a>Locais</a></n:li>
 					</n:ul>

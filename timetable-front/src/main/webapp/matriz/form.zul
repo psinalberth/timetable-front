@@ -1,0 +1,249 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/zul/template.zul"?>
+<?variable-resolver class="org.zkoss.zkplus.cdi.DelegatingVariableResolver"?>
+<zk xmlns:n="native">
+	<div self="@define(content)" class="container-fluid" apply="br.edu.ifma.csp.timetable.composer.ProfessorComposer">	
+		
+		<div>
+			<n:h4>Matriz Curricular</n:h4>
+		</div>
+		
+		<div class="form-group">
+			<include src="/partials/zul/botoes.zul"/>
+		</div>
+		
+		<tabbox>
+			<tabs>
+				<tab label="Dados Pessoais" iconSclass="fa fa-user"/>
+				<tab label="Disciplinas" iconSclass="fa fa-plus"/>
+			</tabs>
+			<tabpanels>
+				
+				<tabpanel>
+				
+					<div>
+						<div sclass="form-group">
+							<label value="Siape" sclass="form-label" />
+							<textbox id="siape" sclass="form-input"/>
+						</div>
+						
+						<div sclass="form-group">
+							<label value="Nome" sclass="form-label" />
+							<textbox id="nome" sclass="form-input"/>
+						</div>
+						
+						<div sclass="row">
+							<div class="col-md-11">
+								<div sclass="form-group">
+									<label value="Curso" sclass="form-label"/>
+									<bandbox id="curso" sclass="form-input">
+										<bandpopup>
+										 	<vbox>
+										 		<listbox sclass="form-input">
+										 			<listhead>
+										 				<listheader>Curso</listheader>
+										 				<listheader>Descrição</listheader>
+										 			</listhead>
+										 			<listitem>
+										 				<listcell></listcell>
+										 				<listcell></listcell>
+										 			</listitem>
+										 		</listbox>
+										 	</vbox>
+										</bandpopup>
+									</bandbox>
+								</div>
+							</div>
+							
+							<div class="col-md-1">
+								<div sclass="form-group">
+									<label value="Ano" sclass="form-label"/>
+									<textbox width="100%" sclass="form-input" id="telefone"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</tabpanel>
+				
+				<tabpanel>
+				
+					<listbox checkmark="true" multiple="true">
+						<listhead>
+							<listheader hflex="min"/>
+							<listheader label="Disciplina"/>
+						</listhead>
+						<listitem>
+							<listcell/>
+							<listcell>
+									
+									<div sclass="row">
+										<div sclass="col-md-7">
+											<div sclass="form-group">
+												<label value="Disciplina" sclass="form-label"/>
+												<bandbox id="disciplina" sclass="form-input" placeholder="Disciplina">
+													<bandpopup>
+													 	<vbox>
+													 		<listbox sclass="form-input">
+													 			<listhead>
+													 				<listheader>Curso</listheader>
+													 				<listheader>Descrição</listheader>
+													 			</listhead>
+													 			<listitem>
+													 				<listcell></listcell>
+													 				<listcell></listcell>
+													 			</listitem>
+													 		</listbox>
+													 	</vbox>
+													</bandpopup>
+												</bandbox>
+											</div>
+										</div>
+										
+										<div sclass="col-md-1">
+											<div sclass="form-group">
+												<label value="Créditos" sclass="form-label"/>
+												<textbox sclass="form-input" placeholder="Créditos"/>
+											</div>
+										</div>
+										
+										<div sclass="col-md-2">
+											<div sclass="form-group">
+												<label value="Carga Horária" sclass="form-label"/>
+												<textbox sclass="form-input" placeholder="Créditos"/>
+											</div>
+										</div>
+										
+										<div sclass="col-md-2">
+											<div sclass="form-group">
+											<label value="Obrigatória?" sclass="form-label"/>
+											<checkbox style="margin: 0; padding: 0"/>
+										</div>
+										</div>
+										
+									</div>
+									
+									
+									<div sclass="row">
+										<div sclass="col-md-4">
+											
+										</div>
+										<div sclass="col-md-4">
+											
+										</div>
+										
+									<!-- <hbox spacing="20px">
+										<div sclass="form-group">
+											<label value="Créditos" sclass="form-label"/>
+											<textbox sclass="form-input" placeholder="Créditos"/>
+										</div>
+										
+										<div sclass="form-group">
+											<label value="Carga Horária" sclass="form-label"/>
+											<textbox sclass="form-input" placeholder="Créditos"/>
+										</div>
+										
+										<div sclass="form-group">
+											<label value="Ano" sclass="form-label"/>
+											<checkbox sclass="form-input" label="Obrigatória" />
+										</div>
+										
+									</hbox> -->
+									
+									</div>
+									
+									
+							
+							</listcell>
+						</listitem>
+						<listitem>
+							<listcell/>
+							<listcell>
+									
+									<div sclass="row">
+										<div sclass="col-md-7">
+											<div sclass="form-group">
+												<label value="Disciplina" sclass="form-label"/>
+												<bandbox id="as" sclass="form-input" placeholder="Disciplina">
+													<bandpopup>
+													 	<vbox>
+													 		<listbox sclass="form-input">
+													 			<listhead>
+													 				<listheader>Curso</listheader>
+													 				<listheader>Descrição</listheader>
+													 			</listhead>
+													 			<listitem>
+													 				<listcell></listcell>
+													 				<listcell></listcell>
+													 			</listitem>
+													 		</listbox>
+													 	</vbox>
+													</bandpopup>
+												</bandbox>
+											</div>
+										</div>
+										
+										<div sclass="col-md-1">
+											<div sclass="form-group">
+												<label value="Créditos" sclass="form-label"/>
+												<textbox sclass="form-input" placeholder="Créditos"/>
+											</div>
+										</div>
+										
+										<div sclass="col-md-2">
+											<div sclass="form-group">
+												<label value="Carga Horária" sclass="form-label"/>
+												<textbox sclass="form-input" placeholder="Créditos"/>
+											</div>
+										</div>
+										
+										<div sclass="col-md-2">
+											<div sclass="form-group">
+											<label value="Obrigatória?" sclass="form-label"/>
+											<checkbox style="margin: 0; padding: 0"/>
+										</div>
+										</div>
+										
+									</div>
+									
+									
+									<div sclass="row">
+										<div sclass="col-md-4">
+											
+										</div>
+										<div sclass="col-md-4">
+											
+										</div>
+										
+									<!-- <hbox spacing="20px">
+										<div sclass="form-group">
+											<label value="Créditos" sclass="form-label"/>
+											<textbox sclass="form-input" placeholder="Créditos"/>
+										</div>
+										
+										<div sclass="form-group">
+											<label value="Carga Horária" sclass="form-label"/>
+											<textbox sclass="form-input" placeholder="Créditos"/>
+										</div>
+										
+										<div sclass="form-group">
+											<label value="Ano" sclass="form-label"/>
+											<checkbox sclass="form-input" label="Obrigatória" />
+										</div>
+										
+									</hbox> -->
+									
+									</div>
+									
+									
+							
+							</listcell>
+						</listitem>
+					</listbox>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+		
+		
+	</div>
+</zk>

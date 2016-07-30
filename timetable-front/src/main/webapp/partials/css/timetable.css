@@ -40,11 +40,30 @@
 	font-family: Helvetica;
 }
 
-.form-input {
+.form-input, input[type=checkbox]{
 	color: #444;
 	font-size: 14px;
 	height: 30px;
 	width: 100%;
+}
+
+input[type=radio], .z-radio-content {
+	color: #444;
+	font-size: 14px;
+	height: 20px;
+	width: 50%;
+}
+
+.z-bandbox-input {
+	color: #444;
+	font-size: 14px;
+	height: 30px;
+	width: 91.66666667%;
+}
+
+.z-bandbox-button {
+	height: 30px;
+	width: 8.33333333%;
 }
 
 .form-input:focus {

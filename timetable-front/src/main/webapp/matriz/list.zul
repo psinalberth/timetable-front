@@ -1,0 +1,18 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/zul/template.zul"?>
+<zk>
+	<div self="@define(content)" class="container-fluid">
+		<listbox>
+			<listhead>
+				<listheader label="Nome"/>
+				<listheader label="Endereço"/>
+				<listheader label="Telefone"/>
+			</listhead>
+			<listitem>
+				<listcell>LUAS</listcell>
+				<listcell>Avenida Getúlio Vargas</listcell>
+				<listcell>(98) 3218 9000</listcell>
+			</listitem>
+		</listbox>
+	</div>
+</zk>

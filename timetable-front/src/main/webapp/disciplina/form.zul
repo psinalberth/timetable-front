@@ -1,5 +1,6 @@
 <?page contentType="text/html;charset=UTF-8"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/zul/template.zul"?>
+<?variable-resolver class="org.zkoss.zkplus.cdi.DelegatingVariableResolver"?>
 <zk xmlns:n="native">
 	<div self="@define(content)" class="container-fluid" apply="br.edu.ifma.csp.timetable.composer.ProfessorComposer">	
 		
@@ -28,7 +29,7 @@
 						
 						<div sclass="form-group">
 							<label value="Nome" sclass="form-label" />
-							<textbox id="nome" sclass="form-input" value="@bind($composer.entidade.nome)"/>
+							<textbox id="nome" sclass="form-input"/>
 						</div>
 						
 						<div sclass="row">
