@@ -54,6 +54,10 @@
 		<servlet-name>zkLoader</servlet-name>
 		<url-pattern>*.zhtml</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>zkLoader</servlet-name>
+		<url-pattern>professor/*</url-pattern>
+	</servlet-mapping>
 	<!-- [Optional] Uncomment it if you want to use richlets.
 	<servlet-mapping>
 		<servlet-name>zkLoader</servlet-name>
@@ -196,5 +200,12 @@
 		<extension>zul</extension>
 		<mime-type>text/html</mime-type>
 	</mime-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>index.zul</welcome-file>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>form.zul</welcome-file>
+		<welcome-file>list.zul</welcome-file>
+	</welcome-file-list>
 
 </web-app>

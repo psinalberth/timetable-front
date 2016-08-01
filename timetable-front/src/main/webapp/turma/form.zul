@@ -3,9 +3,7 @@
 <zk xmlns:n="native">
 	<div self="@define(content)" class="container-fluid" apply="br.edu.ifma.csp.timetable.composer.ProfessorComposer">	
 		
-		<div>
-			<n:h4>Turma</n:h4>
-		</div>
+		<n:h4>Turma</n:h4>
 		
 		<div class="form-group">
 			<include src="/partials/zul/botoes.zul"/>
@@ -13,76 +11,51 @@
 		
 		<tabbox>
 			<tabs>
-				<tab label="Dados Pessoais" iconSclass="fa fa-user"/>
+				<tab label="Informações Gerais" iconSclass="fa fa-user"/>
 				<tab label="Disciplinas" iconSclass="fa fa-plus"/>
 			</tabs>
 			<tabpanels>
 				
 				<tabpanel>
-				
-					<div>
-						<div sclass="form-group">
-							<label value="Siape" sclass="form-label" />
-							<textbox id="siape" sclass="form-input"/>
-						</div>
-						
-						<div sclass="form-group">
-							<label value="Nome" sclass="form-label" />
-							<textbox id="nome" sclass="form-input"/>
-						</div>
-						
-						<div sclass="row">
-							
-							<div class="col-md-2">
-								<div sclass="form-group">
-									<label sclass="form-label" value="Ano"/>
-									<intbox id="ano" sclass="form-input"/>
-								</div>
+					
+					<div sclass="form-group">
+						<label value="Curso" sclass="form-label"/>
+						<include src="/partials/zul/bandbox-curso.zul"/>
+					</div>
+					
+					<div sclass="form-group">
+						<label value="Matriz Curricular" sclass="form-label"/>
+						<include src="/partials/zul/bandbox-matriz.zul"/>
+					</div>
+					
+					<div sclass="row">
+						<div class="col-md-1">
+							<div sclass="form-group">
+								<label sclass="form-label" value="Ano"/>
+								<intbox id="ano" sclass="form-input"/>
 							</div>
-							
-							<div sclass="col-md-2">
-								<div sclass="form-group">
-									<label sclass="form-label" value="Semestre"/>
-									<radiogroup sclass="form-input">
-										<div sclass="row">
-											<div sclass="col-md-6">
-												<radio label="1"/>
-											</div>
-											<div sclass="col-md-6">
-												<radio label="2"/>
-											</div>
+						</div>
+						
+						<div sclass="col-md-2">
+							<div sclass="form-group">
+								<label sclass="form-label" value="Semestre"/>
+								<radiogroup>
+									<div sclass="row">
+										<div sclass="col-md-6">
+											<radio label="1"/>
 										</div>
-									</radiogroup>
-								</div>
+										<div sclass="col-md-6">
+											<radio label="2"/>
+										</div>
+									</div>
+								</radiogroup>
 							</div>
-							
-							<div class="col-md-2">
-								<div sclass="form-group">
-									<label sclass="form-label" value="Capacidade"/>
-									<intbox id="capacidade" sclass="form-input"/>
-								</div>
-							</div>
-							
 						</div>
 						
-						<div sclass="form-group">
-							<label value="Matriz Curricular" sclass="form-label"/>
-							<include src="/partials/zul/bandbox-matriz.zul"/>
-						</div>
-						
-						<div sclass="row">
-							<div class="col-md-11">
-								<div sclass="form-group">
-									<label value="Curso" sclass="form-label"/>
-									<include src="/partials/zul/bandbox-curso.zul"/>
-								</div>
-							</div>
-							
-							<div class="col-md-1">
-								<div sclass="form-group">
-									<label value="Ano" sclass="form-label"/>
-									<textbox width="100%" sclass="form-input" id="telefone"/>
-								</div>
+						<div class="col-md-1">
+							<div sclass="form-group">
+								<label sclass="form-label" value="Tamanho"/>
+								<intbox id="tamanho" sclass="form-input"/>
 							</div>
 						</div>
 					</div>
@@ -104,22 +77,7 @@
 										<div sclass="col-md-7">
 											<div sclass="form-group">
 												<label value="Disciplina" sclass="form-label"/>
-												<bandbox id="disciplina" sclass="form-input" placeholder="Disciplina">
-													<bandpopup>
-													 	<vbox>
-													 		<listbox sclass="form-input">
-													 			<listhead>
-													 				<listheader>Curso</listheader>
-													 				<listheader>Descrição</listheader>
-													 			</listhead>
-													 			<listitem>
-													 				<listcell></listcell>
-													 				<listcell></listcell>
-													 			</listitem>
-													 		</listbox>
-													 	</vbox>
-													</bandpopup>
-												</bandbox>
+												<include src="/partials/zul/bandbox-disciplina.zul"/>
 											</div>
 										</div>
 										

@@ -1,6 +1,7 @@
 package br.edu.ifma.csp.timetable.composer;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Date;
 
 import org.zkoss.bind.BindComposer;
 import org.zkoss.zk.ui.Component;
@@ -29,6 +30,8 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 		super.doAfterCompose(comp);
 		
 		entidade = retornaTipo().newInstance();
+		entidade.setUsuarioUltAlteracao("user");
+		entidade.setDataUltAlteracao(new Date());
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -49,6 +52,10 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 	}
 	
 	public void edit() {
+		
+	}
+	
+	public void list() {
 		
 	}
 	

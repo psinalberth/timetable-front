@@ -24,9 +24,13 @@ public class Curso extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotNull
+	@NotNull(message="nome#O nome é obrigatório.")
 	@Column(name="NOME")
 	private String nome;
+	
+	@NotNull(message="descricao#A descrição é obrigatória.")
+	@Column(name="DESCRICAO")
+	private String descricao;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="curso")
 	private Set<Periodo> periodos = new HashSet<Periodo>();
@@ -53,6 +57,14 @@ public class Curso extends Entidade {
 	
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public String getDescricao() {
+		return descricao;
+	}
+	
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 	
 	public Set<Periodo> getPeriodos() {

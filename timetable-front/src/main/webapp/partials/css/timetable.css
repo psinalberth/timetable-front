@@ -93,4 +93,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b2e1ff', end
 background: orange;
 }
 
+.z-notification .z-notification-cl, 
+.z-notification .z-notification-cnt {
+    height: 500px;
+    width: 250px;
+}
+
 

@@ -31,10 +31,10 @@
 				<div class="sidebar-nav navbar-collapse">
 					<n:ul class="nav in" id="side-menu">
 						<n:li><a><n:i class="fa fa-user pull-left"></n:i>Home</a></n:li>
-						<n:li><a onClick='Messagebox.show("Hello!")'>Professores</a></n:li>
-						<n:li><a>Disciplinas</a></n:li>
-						<n:li><a>Cursos</a></n:li>
-						<n:li><a>Matrizes Curriculares</a></n:li>
+						<n:li><a href="/professor/">Professores</a></n:li>
+						<n:li><a href="/disciplina/">Disciplinas</a></n:li>
+						<n:li><a href="/curso/">Cursos</a></n:li>
+						<n:li><a href="/matriz/">Matrizes Curriculares</a></n:li>
 						<n:li><a>Horários</a></n:li>
 						<n:li><a>Locais</a></n:li>
 					</n:ul>

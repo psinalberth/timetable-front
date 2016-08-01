@@ -37,7 +37,7 @@ public abstract class RepositoryDao<T extends Entidade> {
 	    
 		Class<?> clazz = this.getClass();
 	     
-	    while (!clazz.getSuperclass().equals(Entidade.class)) {
+	    while (!clazz.getSuperclass().equals(RepositoryDao.class)) {
 	        clazz = clazz.getSuperclass();
 	    }
 	     
