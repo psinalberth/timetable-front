@@ -1,6 +1,13 @@
 <zk>
-	<button label="Novo" sclass="btn btn-default" iconSclass="fa fa-file-o"/>
-	<button label="Salvar" sclass="btn btn-default" onClick="$composer.save()" iconSclass="fa fa-save"/>
-	<button label="Excluir" sclass="btn btn-default" onClick="$composer.delete()" iconSclass="fa fa-trash-o"/>
-	<button label="Voltar" sclass="btn btn-default" onClick="$composer.list()" iconSclass="fa fa-rotate-left"/>
+	<div id="botoesForm" visible="@bind($composer.editando)">
+		<button label="Novo" sclass="btn btn-default" onClick="$composer.setup()" iconSclass="fa fa-file-o"/>
+		<button label="Salvar" sclass="btn btn-default" onClick="$composer.save()" iconSclass="fa fa-save"/>
+		<button label="Excluir" sclass="btn btn-default" onClick="$composer.delete()" iconSclass="fa fa-trash-o"/>
+		<button label="Voltar" sclass="btn btn-default" onClick="$composer.list()" iconSclass="fa fa-rotate-left"/>
+	</div>
+	
+	<div id="botoesList" visible="@bind($composer.consultando)">
+		<button label="Novo" sclass="btn btn-default" onClick="$composer.setup()" iconSclass="fa fa-file-o"/>
+		<button label="Editar" sclass="btn btn-default" onClick="$composer.edit()" iconSclass="fa fa-pencil"/>
+	</div>
 </zk>

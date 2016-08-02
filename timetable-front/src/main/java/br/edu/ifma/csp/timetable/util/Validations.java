@@ -9,6 +9,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 
 import org.zkoss.bind.Binder;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.WrongValuesException;
 
@@ -24,11 +25,22 @@ public class Validations {
 		
 		List<WrongValueException> listaExceções = new ArrayList<>();
 		
-		// exibe as violações
+		Component parent = binder.getView().getFellow("form");
+		
+		parent.getFirstChild().getFellows();
+		
+		StringBuilder sb = new StringBuilder("");
+		
 		for (ConstraintViolation<Entidade> cv : violations) {
-			listaExceções.add(new WrongValueException(binder.getView().getFellow(cv.getMessage().split("#")[0].trim()),
-					cv.getMessage().split("#")[1]));
+			
+			sb.append(cv.getMessage().split("#")[1] + "\n");
+			
+			/*listaExceções.add(new WrongValueException(parent.getFirstChild().getFellowIfAny(cv.getMessage().split("#")[0]),
+					cv.getMessage().split("#")[1]));*/
 		}
+		
+		
+		listaExceções.add(new WrongValueException(binder.getView(), sb.toString()));
 		
 		if (listaExceções.size() != 0) {
 			throw new WrongValuesException(listaExceções.toArray(new WrongValueException[0]));

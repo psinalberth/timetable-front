@@ -16,7 +16,13 @@ public abstract class RepositoryDao<T extends Entidade> {
 	protected EntityManager manager;
 	
 	public void save(T type) {
-		this.manager.persist(type);
+		
+		if (byId(type.getId()) != null) {
+			this.manager.merge(type);
+			
+		} else {
+			this.manager.persist(type);
+		}
 	}
 	
 	public T byId(int id) {
@@ -47,10 +53,6 @@ public abstract class RepositoryDao<T extends Entidade> {
 
 	public List<T> allBy() {
 		return null;
-	}
-
-	public void update(T type) {
-		this.manager.merge(type);
 	}
 
 	public void delete(T type) {

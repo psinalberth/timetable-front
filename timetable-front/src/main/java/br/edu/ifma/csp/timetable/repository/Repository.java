@@ -44,13 +44,6 @@ public interface Repository<T extends Entidade> {
 	public List<T> allBy();
 	
 	/**
-	 * Atualiza um objeto persistido no repositório de dados.
-	 * 
-	 * @param type Objeto a ser atualizado.
-	 */
-	public void update(T type);
-	
-	/**
 	 * Remove um objeto persistido no repositório de dados.
 	 * 
 	 * @param type Objeto a ser removido.

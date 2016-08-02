@@ -10,7 +10,7 @@ public class Lookup {
 		
 		try {
 			
-		   return (T) InitialContext.doLookup("java:module/" + clazz.getSimpleName());
+			return (T) InitialContext.doLookup("java:module/" + clazz.getSimpleName());
 		   
 		} catch (NamingException e) {
 			e.printStackTrace();

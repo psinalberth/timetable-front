@@ -1,27 +1,13 @@
 <?page contentType="text/html;charset=UTF-8"?>
-<?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/zul/template.zul"?>
 <zk xmlns:n="native">
-	<div self="@define(content)" class="container-fluid" apply="br.edu.ifma.csp.timetable.composer.CursoComposer">	
-		
-		<div>
-			<n:h4>Manter Curso</n:h4>
-			<div>
-				<div class="form-group">
-					<include src="/partials/zul/botoes.zul"/>
-				</div>
-				
-				<div sclass="form-group">
-					<label value="Nome" sclass="form-label" />
-					<textbox id="nome" sclass="form-input" value="@bind($composer.entidade.nome)"/>
-				</div>
-				
-				<div sclass="form-group">
-					<label value="Descrição" sclass="form-label" />
-					<textbox id="descricao" sclass="form-input" style="resize: none" rows="3" value="@bind($composer.entidade.descricao)"/>
-				</div>
-				
-			</div>	
-		</div>
-		
+	
+	<div sclass="form-group">
+		<label value="Nome" sclass="form-label" />
+		<textbox id="nome" sclass="form-input" value="@bind($composer.entidade.nome)"/>
+	</div>
+	
+	<div sclass="form-group">
+		<label value="Descrição" sclass="form-label" />
+		<textbox id="descricao" sclass="form-input" style="resize: none" rows="3" value="@bind($composer.entidade.descricao)"/>
 	</div>
 </zk>
