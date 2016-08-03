@@ -28,6 +28,14 @@ public interface Repository<T extends Entidade> {
 	 */
 	public T byId(int id);
 	
+	/**
+	 * Recupera um objeto a partir de uma coluna selecionada.
+	 * 
+	 * @param coluna Coluna a ser utilizada como critério de busca.
+	 * @param valor Valor da coluna a ser procurado.
+	 * @return Retorna o objeto recuperado ou <code>null</code> caso não seja encontrado.
+	 */
+	public T by(String coluna, Object valor);
 	
 	/**
 	 * Recupera todos os objetos do modelo referenciado.
@@ -39,9 +47,11 @@ public interface Repository<T extends Entidade> {
 	/**
 	 * Recupera todos os objetos do modelo referenciado a partir de um critério de seleção.
 	 * 
+	 * @param coluna Coluna a ser utilizada como critério de busca.
+	 * @param valor Valor da coluna a ser procurado.
 	 * @return Retorna uma lista de objetos ou <code>null</code> caso não sejam encontrados.
 	 */
-	public List<T> allBy();
+	public List<T> allBy(String coluna, Object valor);
 	
 	/**
 	 * Remove um objeto persistido no repositório de dados.

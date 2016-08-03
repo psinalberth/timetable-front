@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.naming.InitialContext;
+import javax.validation.ValidationException;
 
 import org.zkoss.bind.BindComposer;
 import org.zkoss.zk.ui.Component;
@@ -72,11 +73,14 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 			
 			this.repository.save(entidade);
 			
-			Clients.showNotification("Informações salvas com sucesso.", "info", null, "middle_center", 2000);
+			Clients.showNotification("Informações salvas com sucesso.", "info", null, "middle_center", 1000);
 			
 			list();
 			
 		} catch (WrongValuesException ex) {	
+			ex.printStackTrace();
+			
+		} catch (ValidationException ex) {
 			ex.printStackTrace();
 		}
 	}
@@ -88,7 +92,6 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 	public void list() {
 		
 		entidade = null;
-		
 		setCol(this.repository.all());
 		
 		getBinder().notifyChange(this, "*");
@@ -104,6 +107,10 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 	
 	public void delete() {
 		this.repository.delete(entidade);
+		
+		Clients.showNotification("Registro excluído com sucesso.", "info", null, "middle_center", 1000);
+		
+		list();
 	}
 	
 	public T getEntidade() {

@@ -4,9 +4,11 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import br.edu.ifma.csp.timetable.model.Entidade;
 
@@ -22,6 +24,24 @@ public abstract class RepositoryDao<T extends Entidade> {
 			
 		} else {
 			this.manager.persist(type);
+		}
+	}
+	
+	public T by(String coluna, Object valor) {
+		
+		Class<T> clazz = retornaTipo();
+		
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<T> criteria = builder.createQuery(clazz);
+		Root<T> root = criteria.from(clazz);
+		criteria.where(builder.equal(root.get(coluna), valor));
+		
+		try {
+			
+			return manager.createQuery(criteria).getSingleResult();
+			
+		} catch (NoResultException ex) {
+			return null;
 		}
 	}
 	
@@ -51,11 +71,19 @@ public abstract class RepositoryDao<T extends Entidade> {
 	    return (Class<T>) tipoGenerico.getActualTypeArguments()[0];
     }
 
-	public List<T> allBy() {
-		return null;
+	public List<T> allBy(String coluna, Object valor) {
+		
+		Class<T> clazz = retornaTipo();
+		
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<T> criteria = builder.createQuery(clazz);
+		Root<T> root = criteria.from(clazz);
+		criteria.where(builder.equal(root.get(coluna), valor));
+		
+		return manager.createQuery(criteria).getResultList();
 	}
 
 	public void delete(T type) {
-		this.manager.remove(type);
+		this.manager.remove(byId(type.getId()));
 	}
 }

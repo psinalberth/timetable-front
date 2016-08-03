@@ -11,7 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.AssertTrue;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+import br.edu.ifma.csp.timetable.dao.CursoDao;
+import br.edu.ifma.csp.timetable.repository.CursoRepository;
+import br.edu.ifma.csp.timetable.util.Lookup;
 
 @Entity
 @Table(name="CURSO")
@@ -24,11 +30,15 @@ public class Curso extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotNull(message="nome#O nome é obrigatório.")
+	@NotBlank(message="codigo#O código é obrigatório.")
+	@Column(name="CODIGO", unique=true)
+	private String codigo;
+	
+	@NotBlank(message="nome#O nome é obrigatório.")
 	@Column(name="NOME")
 	private String nome;
 	
-	@NotNull(message="descricao#A descrição é obrigatória.")
+	@NotBlank(message="descricao#A descrição é obrigatória.")
 	@Column(name="DESCRICAO")
 	private String descricao;
 	
@@ -49,6 +59,14 @@ public class Curso extends Entidade {
 	
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public String getCodigo() {
+		return codigo;
+	}
+	
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 	
 	public String getNome() {
@@ -81,5 +99,17 @@ public class Curso extends Entidade {
 	
 	public void setMatrizes(Set<MatrizCurricular> matrizes) {
 		this.matrizes = matrizes;
+	}
+	
+	@AssertTrue(message="codigo#O código já está sendo utilizado.")
+	public boolean isCodigoDisponivel() {
+		
+		CursoRepository cursos = Lookup.dao(CursoDao.class);
+		Curso c = cursos.by("codigo", this.getCodigo());
+		
+		if (c != null)
+			return this.getCodigo().equals(c.getCodigo()) && (this.getId() == c.getId());
+		
+		return true;
 	}
 }
