@@ -7,7 +7,6 @@ import java.util.List;
 import javax.naming.InitialContext;
 
 import org.zkoss.bind.BindComposer;
-import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValuesException;
 import org.zkoss.zk.ui.util.Clients;
@@ -28,7 +27,6 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 	private static final long serialVersionUID = 8906495139436799294L;
 	
 	protected Repository<T> repository;
-	
 	protected T entidade;
 	
 	private List<T> col;
@@ -40,7 +38,7 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 		super.doAfterCompose(comp);
 		
 		repository = InitialContext.doLookup("java:module/" + retornaTipo().getSimpleName() + "Dao");
-		
+		setCol(repository.all());
 		setup();
 	}
 	
@@ -52,8 +50,6 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 	    while (!clazz.getSuperclass().equals(Composer.class)) {
 	        clazz = clazz.getSuperclass();
 	    }
-	    
-	    getBinder().notifyChange(this, "*");
 	     
 	    ParameterizedType tipoGenerico = (ParameterizedType) clazz.getGenericSuperclass();
 	    return (Class<T>) tipoGenerico.getActualTypeArguments()[0];
@@ -64,6 +60,8 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 		entidade = retornaTipo().newInstance();
 		entidade.setUsuarioUltAlteracao("user");
 		entidade.setDataUltAlteracao(new Date());
+		
+		getBinder().notifyChange(this, "*");
 	}
 	
 	public void save() {
@@ -83,8 +81,8 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 		}
 	}
 	
-	public void edit() {
-	
+	public void edit() {		
+		getBinder().notifyChange(this, "*");
 	}
 	
 	public void list() {
@@ -92,6 +90,8 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 		entidade = null;
 		
 		setCol(this.repository.all());
+		
+		getBinder().notifyChange(this, "*");
 	}
 	
 	public boolean isEditando() {
@@ -110,7 +110,6 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 		return entidade;
 	}
 	
-	@NotifyChange("*")
 	public void setEntidade(T entidade) {
 		this.entidade = entidade;
 	}

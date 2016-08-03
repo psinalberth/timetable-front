@@ -29,18 +29,15 @@ public class Validations {
 		
 		parent.getFirstChild().getFellows();
 		
-		StringBuilder sb = new StringBuilder("");
+		StringBuilder sb = new StringBuilder();
 		
 		for (ConstraintViolation<Entidade> cv : violations) {
 			
 			sb.append(cv.getMessage().split("#")[1] + "\n");
-			
-			/*listaExceções.add(new WrongValueException(parent.getFirstChild().getFellowIfAny(cv.getMessage().split("#")[0]),
-					cv.getMessage().split("#")[1]));*/
 		}
 		
-		
-		listaExceções.add(new WrongValueException(binder.getView(), sb.toString()));
+		if (sb.length() > 0)
+			listaExceções.add(new WrongValueException(binder.getView(), sb.toString()));
 		
 		if (listaExceções.size() != 0) {
 			throw new WrongValuesException(listaExceções.toArray(new WrongValueException[0]));
