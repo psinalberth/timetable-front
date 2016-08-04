@@ -35,12 +35,15 @@ public abstract class RepositoryDao<T extends Entidade> {
 		CriteriaQuery<T> criteria = builder.createQuery(clazz);
 		Root<T> root = criteria.from(clazz);
 		criteria.where(builder.equal(root.get(coluna), valor));
-		
+
 		try {
 			
 			return manager.createQuery(criteria).getSingleResult();
 			
 		} catch (NoResultException ex) {
+			return null;
+			
+		} catch (Exception e) {
 			return null;
 		}
 	}

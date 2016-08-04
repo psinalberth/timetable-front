@@ -4,7 +4,7 @@
 		 	<vbox>
 		 		<listbox sclass="form-input">
 		 			<listhead>
-		 				<listheader>Curso</listheader>
+		 				<listheader>Código</listheader>
 		 				<listheader>Descrição</listheader>
 		 			</listhead>
 		 			<listitem>

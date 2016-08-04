@@ -38,7 +38,7 @@ public class DetalheDisciplina extends Entidade {
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="PERIODO_ID")
-	private Periodo periodo;
+	private Turma periodo;
 	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -81,11 +81,11 @@ public class DetalheDisciplina extends Entidade {
 		this.matrizCurricular = matrizCurricular;
 	}
 	
-	public Periodo getPeriodo() {
+	public Turma getPeriodo() {
 		return periodo;
 	}
 	
-	public void setPeriodo(Periodo periodo) {
+	public void setPeriodo(Turma periodo) {
 		this.periodo = periodo;
 	}
 	

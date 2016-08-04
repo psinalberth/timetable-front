@@ -11,6 +11,6 @@ public class DetalheDisciplina_ extends Entidade_ {
 	public static volatile SingularAttribute<DetalheDisciplina, Integer> creditos;
 	public static volatile SingularAttribute<DetalheDisciplina, Integer> cargaHoraria;
 	public static volatile SingularAttribute<DetalheDisciplina, MatrizCurricular> matrizCurricular;
-	public static volatile SingularAttribute<DetalheDisciplina, Periodo> periodo;
+	public static volatile SingularAttribute<DetalheDisciplina, Turma> periodo;
 	public static volatile SingularAttribute<DetalheDisciplina, Disciplina> disciplina;
 }

@@ -16,7 +16,7 @@ import javax.validation.constraints.AssertTrue;
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.edu.ifma.csp.timetable.dao.CursoDao;
-import br.edu.ifma.csp.timetable.repository.CursoRepository;
+import br.edu.ifma.csp.timetable.repository.Cursos;
 import br.edu.ifma.csp.timetable.util.Lookup;
 
 @Entity
@@ -43,14 +43,10 @@ public class Curso extends Entidade {
 	private String descricao;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="curso")
-	private Set<Periodo> periodos = new HashSet<Periodo>();
+	private Set<Turma> periodos = new HashSet<Turma>();
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="curso")
 	private Set<MatrizCurricular> matrizes = new HashSet<MatrizCurricular>();
-	
-	public Curso() {
-	
-	}
 
 	@Override
 	public int getId() {
@@ -85,11 +81,11 @@ public class Curso extends Entidade {
 		this.descricao = descricao;
 	}
 	
-	public Set<Periodo> getPeriodos() {
+	public Set<Turma> getPeriodos() {
 		return periodos;
 	}
 	
-	public void setPeriodos(Set<Periodo> periodos) {
+	public void setPeriodos(Set<Turma> periodos) {
 		this.periodos = periodos;
 	}
 	
@@ -104,12 +100,13 @@ public class Curso extends Entidade {
 	@AssertTrue(message="codigo#O código já está sendo utilizado.")
 	public boolean isCodigoDisponivel() {
 		
-		CursoRepository cursos = Lookup.dao(CursoDao.class);
+		Cursos cursos = Lookup.dao(CursoDao.class);		
 		Curso c = cursos.by("codigo", this.getCodigo());
 		
-		if (c != null)
-			return this.getCodigo().equals(c.getCodigo()) && (this.getId() == c.getId());
+		if (c == null) {
+			return true;
+		}
 		
-		return true;
+		return this.getCodigo().equals(c.getCodigo()) && (this.getId() == c.getId());
 	}
 }

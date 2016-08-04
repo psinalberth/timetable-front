@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="PERIODO")
-public class Periodo extends Entidade {
+public class Turma extends Entidade {
 
 	private static final long serialVersionUID = -1031109365878584073L;
 	
@@ -42,7 +42,7 @@ public class Periodo extends Entidade {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="periodo")
 	private Set<DetalheDisciplina> detalhes = new HashSet<DetalheDisciplina>();
 	
-	public Periodo() {
+	public Turma() {
 	
 	}
 

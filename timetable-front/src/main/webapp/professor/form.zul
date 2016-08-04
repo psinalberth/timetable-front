@@ -1,72 +1,82 @@
 <?page contentType="text/html;charset=UTF-8"?>
-<?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/zul/template.zul"?>
 <zk xmlns:n="native">
-	<div self="@define(content)" class="container-fluid" apply="br.edu.ifma.csp.timetable.composer.ProfessorComposer">	
 		
-		<div>
-			<n:h4>Manter Professor</n:h4>
-		</div>
-		
-		<tabbox>
-			<tabs>
-				<tab label="Dados Pessoais" iconSclass="fa fa-user"/>
-				<tab label="Preferências" iconSclass="fa fa-plus"/>
-			</tabs>
-			<tabpanels>
-				
-				<tabpanel>
-				
-					<div>
-						<div class="form-group">
-							<include src="/partials/zul/botoes.zul"/>
-						</div>
-						
+	<tabbox>
+		<tabs>
+			<tab label="Dados Pessoais" iconSclass="fa fa-user"/>
+			<tab label="Preferências" iconSclass="fa fa-plus"/>
+			<tab label="Disponibilidade" iconSclass="fa fa-calendar-o"/>
+		</tabs>
+		<tabpanels>
+			
+			<tabpanel>
+				<div class="row">
+					<div class="col-md-2">
 						<div sclass="form-group">
 							<label value="Siape" sclass="form-label" />
 							<textbox id="siape" sclass="form-input"/>
 						</div>
-						
+					</div>
+					<div class="col-md-10">
 						<div sclass="form-group">
 							<label value="Nome" sclass="form-label" />
 							<textbox id="nome" sclass="form-input" value="@bind($composer.entidade.nome)"/>
 						</div>
-						
-						<div sclass="row">
-							<div class="col-md-8">
-								<div sclass="form-group">
-									<label value="Endereço" sclass="form-label"/>
-									<textbox width="100%" sclass="form-input" id="endereco"/>
-								</div>
-							</div>
-							
-							<div class="col-md-4">
-								<div sclass="form-group">
-									<label value="Telefone" sclass="form-label"/>
-									<textbox width="100%" sclass="form-input" id="telefone"/>
-								</div>
-							</div>
+					</div>
+				</div>		
+				
+				<div sclass="row">
+					<div class="col-md-8">
+						<div sclass="form-group">
+							<label value="Endereço" sclass="form-label"/>
+							<textbox width="100%" sclass="form-input" id="endereco"/>
 						</div>
-						
 					</div>
 					
-				</tabpanel>
-				
-				<tabpanel>
-				
-					<listbox>
-						<listhead>
-							<listheader label="Código"/>
-							<listheader label="Descrição"/>
-						</listhead>
-						<listitem>
-							<listcell></listcell>
-							<listcell></listcell>
-						</listitem>
-					</listbox>
-				</tabpanel>
-			</tabpanels>
-		</tabbox>
-		
-		
-	</div>
+					<div class="col-md-4">
+						<div sclass="form-group">
+							<label value="Telefone" sclass="form-label"/>
+							<textbox width="100%" sclass="form-input" id="telefone"/>
+						</div>
+					</div>
+				</div>	
+			</tabpanel>
+			
+			<tabpanel>
+				<listbox checkmark="true" multiple="true" emptyMessage="Nenhum registro encontrado.">
+					<listhead>
+						<listheader hflex="min"/>
+						<listheader label="Disciplinas"/>
+					</listhead>
+					<listitem>
+						<listcell/>
+						<listcell>
+							<div sclass="form-group">
+								<label value="Disciplina" sclass="form-label"/>
+								<include src="/partials/zul/disciplinalookup.zul"/>
+							</div>
+						</listcell>
+					</listitem>
+				</listbox>
+			</tabpanel>
+			
+			<tabpanel>
+				<listbox checkmark="true" multiple="true" emptyMessage="Nenhum registro encontrado.">
+					<listhead>
+						<listheader hflex="min"/>
+						<listheader label="Horários"/>
+					</listhead>
+					<listitem>
+						<listcell/>
+						<listcell>
+							<div sclass="form-group">
+								<label value="Horário" sclass="form-label"/>
+								<include src="/partials/zul/horariolookup.zul"/>
+							</div>
+						</listcell>
+					</listitem>
+				</listbox>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
 </zk>

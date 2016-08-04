@@ -12,6 +12,6 @@ public class Curso_ extends Entidade_ {
 	public static volatile SingularAttribute<Curso, String> codigo;
 	public static volatile SingularAttribute<Curso, String> nome;
 	public static volatile SingularAttribute<Curso, String> descricao;
-	public static volatile SetAttribute<Curso, Periodo> periodos;
+	public static volatile SetAttribute<Curso, Turma> periodos;
 	public static volatile SetAttribute<Curso, MatrizCurricular> matrizes;
 }

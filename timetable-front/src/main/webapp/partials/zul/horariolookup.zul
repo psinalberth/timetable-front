@@ -1,0 +1,18 @@
+<zk>
+	<bandbox id="horario" sclass="form-input">
+		<bandpopup>
+		 	<vbox>
+		 		<listbox sclass="form-input">
+		 			<listhead>
+		 				<listheader>Curso</listheader>
+		 				<listheader>Descrição</listheader>
+		 			</listhead>
+		 			<listitem>
+		 				<listcell></listcell>
+		 				<listcell></listcell>
+		 			</listitem>
+		 		</listbox>
+		 	</vbox>
+		</bandpopup>
+	</bandbox>
+</zk>
