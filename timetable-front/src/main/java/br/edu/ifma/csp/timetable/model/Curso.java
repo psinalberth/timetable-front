@@ -11,16 +11,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.AssertTrue;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import br.edu.ifma.csp.timetable.annotation.Codigo;
 import br.edu.ifma.csp.timetable.dao.CursoDao;
 import br.edu.ifma.csp.timetable.repository.Cursos;
 import br.edu.ifma.csp.timetable.util.Lookup;
 
 @Entity
 @Table(name="CURSO")
+@Codigo(columnName="codigo")
 public class Curso extends Entidade {
 
 	private static final long serialVersionUID = 2945698851298486207L;
@@ -97,7 +98,7 @@ public class Curso extends Entidade {
 		this.matrizes = matrizes;
 	}
 	
-	@AssertTrue(message="codigo#O código já está sendo utilizado.")
+	/*@AssertTrue(message="codigo#O código já está sendo utilizado.")*/
 	public boolean isCodigoDisponivel() {
 		
 		Cursos cursos = Lookup.dao(CursoDao.class);		

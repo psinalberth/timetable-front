@@ -19,42 +19,36 @@
 				</div>
 				
 				<div sclass="row">
-					<div class="col-md-1">
+					<div sclass="col-md-1">
 						<div sclass="form-group">
 							<label sclass="form-label" value="Ano"/>
-							<intbox id="ano" sclass="form-input"/>
+							<intbox id="ano" sclass="form-input" maxlength="4"/>
 						</div>
 					</div>
 					
-					<div sclass="col-md-2">
+					<div sclass="col-md-1">
 						<div sclass="form-group">
 							<label sclass="form-label" value="Semestre"/>
-							<radiogroup id="semestre">
-								<div sclass="row">
-									<div sclass="col-md-6">
-										<radio label="1"/>
-									</div>
-									<div sclass="col-md-6">
-										<radio label="2"/>
-									</div>
-								</div>
-							</radiogroup>
+							<combobox id="semestre" readonly="true" autodrop="true" cols="1" sclass="form-input">
+								<comboitem value="1" label="1"/>
+								<comboitem value="2" label="2"/>
+							</combobox>
 						</div>
 					</div>
 					
 					<div sclass="col-md-1">
 						<div class="form-group">
 							<label sclass="form-label" value="Código"/>
-							<combobox id="codigo" model="@load($composer.colCodigos)" readonly="true" autodrop="true" cols="2">
+							<combobox id="codigo" model="@load($composer.colCodigos)" readonly="true" autodrop="true" cols="2" sclass="form-input">
 								<template name=""></template>
 							</combobox>
 						</div>
 					</div>
 					
-					<div class="col-md-1">
+					<div sclass="col-md-1">
 						<div sclass="form-group">
 							<label sclass="form-label" value="Tamanho"/>
-							<intbox id="tamanho" sclass="form-input"/>
+							<intbox id="tamanho" sclass="form-input" maxlength="3"/>
 						</div>
 					</div>
 				</div>
@@ -73,7 +67,7 @@
 								<div sclass="col-md-1">
 									<div sclass="form-group">
 										<label value="Código" sclass="form-label"/>
-										<textbox sclass="form-input"/>
+										<intbox sclass="form-input" maxlength="3"/>
 									</div>
 								</div>
 							
@@ -87,14 +81,14 @@
 								<div sclass="col-md-1">
 									<div sclass="form-group">
 										<label value="Créditos" sclass="form-label"/>
-										<textbox sclass="form-input" placeholder="Créditos"/>
+										<intbox sclass="form-input" maxlength="3"/>
 									</div>
 								</div>
 								
 								<div sclass="col-md-1">
 									<div sclass="form-group">
 										<label value="C. H." sclass="form-label"/>
-										<textbox sclass="form-input" placeholder="Créditos"/>
+										<intbox sclass="form-input" maxlength="3"/>
 									</div>
 								</div>
 								

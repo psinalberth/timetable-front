@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.naming.InitialContext;
-import javax.validation.ValidationException;
 
 import org.zkoss.bind.BindComposer;
 import org.zkoss.zk.ui.Component;
@@ -79,9 +78,6 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 			
 		} catch (WrongValuesException ex) {	
 			ex.printStackTrace();
-			
-		} catch (ValidationException ex) {
-			ex.printStackTrace();
 		}
 	}
 	
@@ -103,6 +99,10 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 	
 	public boolean isConsultando() {
 		return !isEditando();
+	}
+	
+	public boolean isRemovivel() {
+		return !(isEditando() && entidade.getId() != 0);
 	}
 	
 	public void delete() {
