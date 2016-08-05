@@ -40,11 +40,12 @@
 	font-family: Helvetica;
 }
 
-.form-input, input[type=checkbox]{
+.form-input, input[type=checkbox] {
 	color: #444;
 	font-size: 14px;
 	height: 30px;
 	width: 100%;
+	margin: 0;
 }
 
 input[type=radio], .z-radio-content {
@@ -54,19 +55,23 @@ input[type=radio], .z-radio-content {
 	width: 50%;
 }
 
-.z-bandbox-input {
+.z-bandpopup > .z-vbox {
+	width: 70%;
+}
+
+.z-timebox-input, .z-combobox-input,.z-bandbox-input {
 	color: #444;
 	font-size: 14px;
 	height: 30px;
 	width: 91.66666667%;
 }
 
-.z-bandbox-button {
+.z-timebox-button, .z-combobox-button, .z-bandbox-button {
 	height: 30px;
 	width: 8.33333333%;
 }
 
-.form-input:focus {
+.z-timebox-input:focus, .z-bandbox-input:focus, .z-combobox-input:focus, .form-input:focus {
 	border: solid 1px orange;
 	-webkit-box-shadow: 0px 0px 15px 5px rgba(255, 255, 190, .75);
 -moz-box-shadow: 0px 0px 15px 5px rgba(255, 255, 190, .75);
@@ -90,7 +95,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b2e1ff', end
 
  .navbar-default .sidebar{
 
-background: orange;
+
 }
 
 .z-notification .z-notification-cl, 

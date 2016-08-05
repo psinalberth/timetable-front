@@ -42,10 +42,10 @@
 						</div>
 					</div>
 					
-					<div sclass="col-md-2">
+					<div sclass="col-md-1">
 						<div class="form-group">
 							<label sclass="form-label" value="Código"/>
-							<combobox id="codigo" model="@load($composer.colCodigos)" readonly="true" autodrop="true">
+							<combobox id="codigo" model="@load($composer.colCodigos)" readonly="true" autodrop="true" cols="2">
 								<template name=""></template>
 							</combobox>
 						</div>
@@ -70,7 +70,14 @@
 						<listcell/>
 						<listcell>
 							<div sclass="row">
-								<div sclass="col-md-7">
+								<div sclass="col-md-1">
+									<div sclass="form-group">
+										<label value="Código" sclass="form-label"/>
+										<textbox sclass="form-input"/>
+									</div>
+								</div>
+							
+								<div sclass="col-md-8">
 									<div sclass="form-group">
 										<label value="Disciplina" sclass="form-label"/>
 										<include src="/partials/zul/disciplinalookup.zul"/>
@@ -84,16 +91,16 @@
 									</div>
 								</div>
 								
-								<div sclass="col-md-2">
+								<div sclass="col-md-1">
 									<div sclass="form-group">
-										<label value="Carga Horária" sclass="form-label"/>
+										<label value="C. H." sclass="form-label"/>
 										<textbox sclass="form-input" placeholder="Créditos"/>
 									</div>
 								</div>
 								
-								<div sclass="col-md-2">
+								<div sclass="col-md-1">
 									<div sclass="form-group">
-										<label value="Obrigatória?" sclass="form-label"/>
+										<label value="OBR" sclass="form-label"/>
 										<checkbox style="margin: 0; padding: 0"/>
 									</div>
 								</div>
