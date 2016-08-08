@@ -26,7 +26,6 @@ public class Horario extends Entidade {
 
 	@Override
 	public void setId(int id) {
-		// TODO Auto-generated method stub
 		
 	}
 	

@@ -36,7 +36,7 @@
 						<n:li><a href="/matriz/">Matrizes Curriculares</a></n:li>
 						<n:li><a href="/turma/">Turmas</a></n:li>
 						<n:li><a href="/horario/">Horários</a></n:li>
-						<n:li><a>Locais</a></n:li>
+						<n:li><a href="/local/">Locais</a></n:li>
 					</n:ul>
 				</div>
 			</div>

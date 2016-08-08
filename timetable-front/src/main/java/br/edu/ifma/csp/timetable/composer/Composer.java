@@ -1,6 +1,5 @@
 package br.edu.ifma.csp.timetable.composer;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.Date;
 import java.util.List;

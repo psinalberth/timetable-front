@@ -4,7 +4,7 @@
 	<tabbox>
 		<tabs>
 			<tab label="Dados Pessoais" iconSclass="fa fa-user"/>
-			<tab label="Preferências" iconSclass="fa fa-plus"/>
+			<tab label="Preferências" iconSclass="fa fa-star-o"/>
 			<tab label="Disponibilidade" iconSclass="fa fa-calendar-o"/>
 		</tabs>
 		<tabpanels>

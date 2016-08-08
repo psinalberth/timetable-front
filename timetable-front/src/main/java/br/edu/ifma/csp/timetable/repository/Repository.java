@@ -2,8 +2,6 @@ package br.edu.ifma.csp.timetable.repository;
 
 import java.util.List;
 
-import org.hibernate.Session;
-
 import br.edu.ifma.csp.timetable.model.Entidade;
 
 /**
@@ -61,8 +59,4 @@ public interface Repository<T extends Entidade> {
 	 * @param type Objeto a ser removido.
 	 */
 	public void delete(T type);
-	
-	public int countByCodigo(int id, String codigo);
-	
-	public Session getSession();
 }

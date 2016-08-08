@@ -5,68 +5,31 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.SynchronizationType;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.Session;
-
 import br.edu.ifma.csp.timetable.model.Entidade;
 
 public abstract class RepositoryDao<T extends Entidade> {
 	
-	@PersistenceContext(unitName="timetable-front", synchronization=SynchronizationType.SYNCHRONIZED)
+	@PersistenceContext(synchronization=SynchronizationType.SYNCHRONIZED)
 	protected EntityManager manager;
 	
-	@PersistenceContext(synchronization=SynchronizationType.UNSYNCHRONIZED)
-	protected Session session;
-	
 	public void save(T type) {
-		
 		this.manager.merge(type);
-//		this.session.save(type);
-	}
-	
-	public int countByCodigo(int id, String codigo) {
-		
-		Class<T> clazz = retornaTipo();
-		
-		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		CriteriaQuery<T> criteria = builder.createQuery(clazz);
-		Root<T> root = criteria.from(clazz);
-		
-		criteria.where(builder.equal(root.get("codigo"), codigo));
-		criteria.where(builder.equal(root.get("id"), id));
-		
-		return manager.createQuery(criteria).getResultList().size();
 	}
 	
 	public T by(String coluna, Object valor) {
 		
-		/*Criteria criteria = this.session.createCriteria(retornaTipo());
-		criteria.add(Restrictions.eq(coluna, valor));
-		
-		if (criteria.uniqueResult() == null)
-			return null;
-		
-		return (T) criteria.uniqueResult();*/
-		
-		
-		/*List<T> result = allBy(coluna, valor);
-		
-		if (result.size() > 0)
-			return result.get(0);
-		
-		return null;*/
 		Class<T> clazz = retornaTipo();
 		
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<T> criteria = builder.createQuery(clazz);
 		Root<T> root = criteria.from(clazz);
 		criteria.where(builder.equal(root.get(coluna), valor));
-
+		
 		try {
 			
 			return manager.createQuery(criteria).getSingleResult();
@@ -116,9 +79,5 @@ public abstract class RepositoryDao<T extends Entidade> {
 
 	public void delete(T type) {
 		this.manager.remove(byId(type.getId()));
-	}
-	
-	public Session getSession() {
-		return session;
 	}
 }
