@@ -74,27 +74,6 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 		
 		Validations.validate(getBinder(), entidade);
 		
-		/*Field f;
-		String codigo = null;
-		try {
-			f = entidade.getClass().getDeclaredField("codigo");
-			System.out.println(f.isAccessible());
-			
-			f.setAccessible(true);
-			
-			codigo = (String) f.get(entidade);
-
-		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		if (this.repository.by("codigo", codigo) != null) {
-			
-			System.out.println("Existe");
-		}*/
-		
 		try {
 			
 			this.repository.save(entidade);

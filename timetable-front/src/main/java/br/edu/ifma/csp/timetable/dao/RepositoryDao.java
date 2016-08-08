@@ -4,30 +4,29 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+import javax.persistence.SynchronizationType;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
 import br.edu.ifma.csp.timetable.model.Entidade;
 
 public abstract class RepositoryDao<T extends Entidade> {
 	
-	@PersistenceContext(unitName="timetable-front")
+	@PersistenceContext(unitName="timetable-front", synchronization=SynchronizationType.SYNCHRONIZED)
 	protected EntityManager manager;
 	
-	@PersistenceContext
+	@PersistenceContext(synchronization=SynchronizationType.UNSYNCHRONIZED)
 	protected Session session;
 	
 	public void save(T type) {
 		
-//		this.manager.merge(type);
-		this.session.merge(type);
+		this.manager.merge(type);
+//		this.session.save(type);
 	}
 	
 	public int countByCodigo(int id, String codigo) {
@@ -46,13 +45,13 @@ public abstract class RepositoryDao<T extends Entidade> {
 	
 	public T by(String coluna, Object valor) {
 		
-		Criteria criteria = this.session.createCriteria(retornaTipo());
+		/*Criteria criteria = this.session.createCriteria(retornaTipo());
 		criteria.add(Restrictions.eq(coluna, valor));
 		
 		if (criteria.uniqueResult() == null)
 			return null;
 		
-		return (T) criteria.uniqueResult();
+		return (T) criteria.uniqueResult();*/
 		
 		
 		/*List<T> result = allBy(coluna, valor);
@@ -61,34 +60,20 @@ public abstract class RepositoryDao<T extends Entidade> {
 			return result.get(0);
 		
 		return null;*/
-//		Class<T> clazz = retornaTipo();
-//		
-//		CriteriaBuilder builder = manager.getCriteriaBuilder();
-//		CriteriaQuery<T> criteria = builder.createQuery(clazz);
-//		Root<T> root = criteria.from(clazz);
-//		criteria.where(builder.equal(root.get(coluna), valor));
-//
-//		try {
-//			
-//			return manager.createQuery(criteria).getSingleResult();
-//			
-//		} catch (Exception ex) {
-//			try {
-//				
-//				T result = clazz.newInstance();
-//				result.setId(-1);
-//				
-//				return result;
-//			} catch (InstantiationException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (IllegalAccessException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		return null;
+		Class<T> clazz = retornaTipo();
+		
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<T> criteria = builder.createQuery(clazz);
+		Root<T> root = criteria.from(clazz);
+		criteria.where(builder.equal(root.get(coluna), valor));
+
+		try {
+			
+			return manager.createQuery(criteria).getSingleResult();
+			
+		} catch (Exception ex) {
+			return null;
+		}
 	}
 	
 	public T byId(int id) {

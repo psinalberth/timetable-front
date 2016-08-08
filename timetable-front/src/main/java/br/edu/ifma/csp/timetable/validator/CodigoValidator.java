@@ -31,7 +31,7 @@ public class CodigoValidator implements ConstraintValidator<Codigo, Entidade> {
 		
 		if (value == null)
 			return true;
-		
+			
 		try {
 			
 			Repository<Entidade> repository = InitialContext.doLookup("java:module/" + value.getClass().getSimpleName() + "Dao");
@@ -44,29 +44,47 @@ public class CodigoValidator implements ConstraintValidator<Codigo, Entidade> {
 			
 			String codigo = (String) f.get(value);
 			
-			List<Entidade> re = repository.all();
+			/*List<Entidade> re = repository.all();
 			
 			if (repository.getSession().isOpen())
-				repository.getSession().close();
+				repository.getSession().close();*/
 			
 			
-			//Entidade outro = repository.by(this.codigo, codigo);
+			Entidade outro = repository.by(this.codigo, codigo);
 			
-			/*if (outro != null) {
+			if (outro != null) {
 				
-				String outroCodigo = (String) outro.getClass().getField(this.codigo).get(outro);
+				f = outro.getClass().getDeclaredField(this.codigo);
+				f.setAccessible(true);
 				
-				if (outroCodigo == null)
+				
+				
+				String outroCodigo = (String) f.get(outro);
+				
+				/*if (outroCodigo == null)
 					return true;
 				
 				if (outro.getId() == value.getId() && outroCodigo.equals(codigo))
 					return true;
 				
-				return false; 
-			}*/
-			
-		} catch (Exception ex) {
-			
+				return false; */
+				return outro.getId() == value.getId() && outroCodigo.equals(codigo);
+			}
+		
+		} catch (NamingException ex) {
+			ex.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return true;
