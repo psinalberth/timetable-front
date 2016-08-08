@@ -2,6 +2,14 @@
 
 body {
 	font-family: 'Open Sans', sans-serif;
+	font-family: 'Raleway', sans-serif;
+	background: rgb(99,182,219); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(99,182,219,1) 0%, rgba(48,157,207,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', endColorstr='#309dcf',GradientType=0 ); /* IE6-9 */
+line-height: 1.42857143;
+margin: 0;
 }
 
 @font-face {
@@ -12,22 +20,56 @@ body {
     url('../partials/fonts/fontawesome-webfont.ttf?v=3.0.1') format('truetype');
 }
 
-h4 {
-	font-family: 'Open Sans', sans-serif;
+.page-title {
+	font-size: 22px;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 600;
+	border-bottom: 1px dashed grey;
+	line-height: inherit;
+	color: #343842;
+}
+
+#wrapper {
+	width: 100%;
+}
+
+a, li {
+	/*font-family: 'Open Sans', sans-serif;*/
+	font-family: 'Raleway', sans-serif;
 	font-weight: 600;
 }
 
-.zk-container {
-	background: #f8f8f8;
-	min-height: 627px; 
+.z-button {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 400;
+	
 }
+
+li {
+	font-family: 'Raleway', sans-serif;
+}
+
 
 @media(min-width:768px) {
 	.zk-container {
 		position: inherit;
 		margin: 0 0 0 250px; 
 		padding: 0 30px;
+		border-left: 1px solid red;
 	}
+	
+	.sidebar {
+		z-index: 1;
+		position: absolute;
+		width: 250px;
+		margin-top: 51px;
+	}
+}
+
+.zk-container {
+	background: #f8f8f8;
+	min-height: 603px; 
+	padding: 0 15px;
 }
 
 @media(max-width:500px) {
@@ -38,19 +80,21 @@ h4 {
 	}
 }
 
-.no-row {
-	background: none !important;
+td, .z-listbox-emptybody {
+	font-family: 'Raleway', sans-serif;
 }
 
-.form-label {
+.form-label, .z-listheader-content, .z-label {
+	font-family: 'Raleway', sans-serif;
 	color: #555; 
-	font-size: 13px; 
-	font-weight: 700; 
+	font-size: 14px; 
+	font-weight: 600; 
 }
 
 .form-input, input[type=checkbox] {
+	font-family: 'Raleway', sans-serif;
 	color: #444;
-	font-size: 14px;
+	font-size: 15px;
 	height: 30px;
 	width: 100%;
 	margin: 0;
@@ -58,7 +102,7 @@ h4 {
 
 input[type=radio], .z-radio-content {
 	color: #444;
-	font-size: 14px;
+	font-size: 15px;
 	height: 20px;
 	width: 50%;
 }
@@ -68,8 +112,9 @@ input[type=radio], .z-radio-content {
 }
 
 .z-timebox-input, .z-combobox-input,.z-bandbox-input {
+	font-family: 'Raleway', sans-serif;
 	color: #444;
-	font-size: 14px;
+	font-size: 15px;
 	height: 30px;
 	width: 91.66666667%;
 }
@@ -87,6 +132,7 @@ input[type=radio], .z-radio-content {
 }
 
 .z-timebox-input {
+	font-family: 'Raleway', sans-serif;
 	width: 100%;
 }
 
@@ -106,9 +152,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', end
 copy; 
 }
 
- .navbar-default .sidebar {
-
+ .navbar-default {
+	font-family: 'Raleway', sans-serif;
 }
+
+
 
 .z-notification .z-notification-cl, 
 .z-notification .z-notification-cnt {

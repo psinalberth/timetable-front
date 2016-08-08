@@ -13,7 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name="DISCIPLINA")
@@ -26,11 +27,7 @@ public class Disciplina extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotNull
-	@Column(name="CODIGO")
-	private String codigo;
-	
-	@NotNull
+	@NotBlank(message="descricao#A descrição é obrigatória.")
 	@Column(name="DESCRICAO")
 	private String descricao;
 	
@@ -59,14 +56,6 @@ public class Disciplina extends Entidade {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
 	}
 
 	public String getDescricao() {

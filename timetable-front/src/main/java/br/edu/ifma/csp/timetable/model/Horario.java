@@ -23,5 +23,11 @@ public class Horario extends Entidade {
 	public int getId() {
 		return id;
 	}
+
+	@Override
+	public void setId(int id) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

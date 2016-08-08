@@ -1,5 +1,6 @@
 package br.edu.ifma.csp.timetable.composer;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +10,10 @@ import javax.naming.InitialContext;
 import org.zkoss.bind.BindComposer;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValuesException;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Messagebox;
 
 import br.edu.ifma.csp.timetable.model.Entidade;
 import br.edu.ifma.csp.timetable.repository.Repository;
@@ -66,7 +70,30 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 	
 	public void save() {
 		
+		getBinder().notifyChange(this, "*");
+		
 		Validations.validate(getBinder(), entidade);
+		
+		/*Field f;
+		String codigo = null;
+		try {
+			f = entidade.getClass().getDeclaredField("codigo");
+			System.out.println(f.isAccessible());
+			
+			f.setAccessible(true);
+			
+			codigo = (String) f.get(entidade);
+
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		if (this.repository.by("codigo", codigo) != null) {
+			
+			System.out.println("Existe");
+		}*/
 		
 		try {
 			
@@ -106,11 +133,25 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 	}
 	
 	public void delete() {
-		this.repository.delete(entidade);
 		
-		Clients.showNotification("Registro excluído com sucesso.", "info", null, "middle_center", 1000);
 		
-		list();
+		Messagebox.show("Deseja realmente excluir o registro selecionado?", "Excluir Registro?", (Messagebox.YES | Messagebox.NO), Messagebox.QUESTION, new EventListener<Event>() {
+
+			@Override
+			public void onEvent(Event ev) throws Exception {
+				if (ev.getName().equals(Messagebox.ON_YES)) {
+					
+					repository.delete(entidade);
+					
+					Clients.showNotification("Registro excluído com sucesso.", "info", null, "middle_center", 1000);
+					
+					list();
+				} 
+				
+			}
+		});
+		
+		
 	}
 	
 	public T getEntidade() {

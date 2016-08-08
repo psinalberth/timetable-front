@@ -1,109 +1,116 @@
 <?page contentType="text/html;charset=UTF-8"?>
 <zk xmlns:n="native">
-	<tabbox>
-		<tabs>
-			<tab label="Informações Gerais" iconSclass="fa fa-user"/>
-			<tab label="Disciplinas" iconSclass="fa fa-plus"/>
-		</tabs>
-		<tabpanels>
-			
-			<tabpanel>
-				<div sclass="form-group">
-					<label value="Curso" sclass="form-label"/>
-					<include src="/partials/zul/cursolookup.zul"/>
-				</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+		<tabbox>
+			<tabs>
+				<tab label="Informações Gerais" iconSclass="fa fa-user"/>
+				<tab label="Disciplinas" iconSclass="fa fa-plus"/>
+			</tabs>
+			<tabpanels>
 				
-				<div sclass="form-group">
-					<label value="Matriz Curricular" sclass="form-label"/>
-					<include src="/partials/zul/matrizlookup.zul"/>
-				</div>
-				
-				<div sclass="row">
-					<div sclass="col-md-1">
-						<div sclass="form-group">
-							<label sclass="form-label" value="Ano"/>
-							<intbox id="ano" sclass="form-input" maxlength="4"/>
-						</div>
+				<tabpanel>
+					<div sclass="form-group">
+						<label value="Curso" sclass="form-label"/>
+						<include src="/partials/zul/cursolookup.zul"/>
 					</div>
 					
-					<div sclass="col-md-1">
-						<div sclass="form-group">
-							<label sclass="form-label" value="Semestre"/>
-							<combobox id="semestre" readonly="true" autodrop="true" cols="1" sclass="form-input">
-								<comboitem value="1" label="1"/>
-								<comboitem value="2" label="2"/>
-							</combobox>
-						</div>
+					<div sclass="form-group">
+						<label value="Matriz Curricular" sclass="form-label"/>
+						<include src="/partials/zul/matrizlookup.zul"/>
 					</div>
 					
-					<div sclass="col-md-1">
-						<div class="form-group">
-							<label sclass="form-label" value="Código"/>
-							<combobox id="codigo" model="@load($composer.colCodigos)" readonly="true" autodrop="true" cols="2" sclass="form-input">
-								<template name=""></template>
-							</combobox>
-						</div>
-					</div>
-					
-					<div sclass="col-md-1">
-						<div sclass="form-group">
-							<label sclass="form-label" value="Tamanho"/>
-							<intbox id="tamanho" sclass="form-input" maxlength="3"/>
-						</div>
-					</div>
-				</div>
-			</tabpanel>
-			
-			<tabpanel>
-				<listbox checkmark="true" multiple="true">
-					<listhead>
-						<listheader hflex="min"/>
-						<listheader label="Disciplina"/>
-					</listhead>
-					<listitem>
-						<listcell/>
-						<listcell>
-							<div sclass="row">
-								<div sclass="col-md-1">
-									<div sclass="form-group">
-										<label value="Código" sclass="form-label"/>
-										<intbox sclass="form-input" maxlength="3"/>
-									</div>
-								</div>
-							
-								<div sclass="col-md-8">
-									<div sclass="form-group">
-										<label value="Disciplina" sclass="form-label"/>
-										<include src="/partials/zul/disciplinalookup.zul"/>
-									</div>
-								</div>
-								
-								<div sclass="col-md-1">
-									<div sclass="form-group">
-										<label value="Créditos" sclass="form-label"/>
-										<intbox sclass="form-input" maxlength="3"/>
-									</div>
-								</div>
-								
-								<div sclass="col-md-1">
-									<div sclass="form-group">
-										<label value="C. H." sclass="form-label"/>
-										<intbox sclass="form-input" maxlength="3"/>
-									</div>
-								</div>
-								
-								<div sclass="col-md-1">
-									<div sclass="form-group">
-										<label value="OBR" sclass="form-label"/>
-										<checkbox style="margin: 0; padding: 0"/>
-									</div>
-								</div>
+					<div sclass="row">
+						<div sclass="col-md-1">
+							<div sclass="form-group">
+								<label sclass="form-label" value="Ano"/>
+								<intbox id="ano" sclass="form-input" maxlength="4"/>
 							</div>
-						</listcell>
-					</listitem>
-				</listbox>
-			</tabpanel>
-			
-		</tabpanels>
-	</tabbox>
+						</div>
+						
+						<div sclass="col-md-1">
+							<div sclass="form-group">
+								<label sclass="form-label" value="Semestre"/>
+								<combobox id="semestre" readonly="true" autodrop="true" cols="1" sclass="form-input">
+									<comboitem value="1" label="1"/>
+									<comboitem value="2" label="2"/>
+								</combobox>
+							</div>
+						</div>
+						
+						<div sclass="col-md-1">
+							<div class="form-group">
+								<label sclass="form-label" value="Código"/>
+								<combobox id="codigo" model="@load($composer.colCodigos)" readonly="true" autodrop="true" cols="2" sclass="form-input">
+									<template name=""></template>
+								</combobox>
+							</div>
+						</div>
+						
+						<div sclass="col-md-1">
+							<div sclass="form-group">
+								<label sclass="form-label" value="Tamanho"/>
+								<intbox id="tamanho" sclass="form-input" maxlength="3"/>
+							</div>
+						</div>
+					</div>
+				</tabpanel>
+				
+				<tabpanel>
+					<listbox checkmark="true" multiple="true">
+						<listhead>
+							<listheader hflex="min"/>
+							<listheader label="Disciplina">
+									<button iconSclass="fa fa-plus"/><button iconSclass="fa fa-minus"/>
+							</listheader>
+						</listhead>
+						<listitem>
+							<listcell/>
+							<listcell>
+								<div sclass="row">
+									<div sclass="col-md-1">
+										<div sclass="form-group">
+											<label value="Código" sclass="form-label"/>
+											<intbox sclass="form-input" maxlength="3"/>
+										</div>
+									</div>
+								
+									<div sclass="col-md-8">
+										<div sclass="form-group">
+											<label value="Disciplina" sclass="form-label"/>
+											<include src="/partials/zul/disciplinalookup.zul"/>
+										</div>
+									</div>
+									
+									<div sclass="col-md-1">
+										<div sclass="form-group">
+											<label value="Créditos" sclass="form-label"/>
+											<intbox sclass="form-input" maxlength="3"/>
+										</div>
+									</div>
+									
+									<div sclass="col-md-1">
+										<div sclass="form-group">
+											<label value="C. H." sclass="form-label"/>
+											<intbox sclass="form-input" maxlength="3"/>
+										</div>
+									</div>
+									
+									<div sclass="col-md-1">
+										<div sclass="form-group">
+											<label value="OBR" sclass="form-label"/>
+											<checkbox style="margin: 0; padding: 0"/>
+										</div>
+									</div>
+								</div>
+							</listcell>
+						</listitem>
+					</listbox>
+				</tabpanel>
+				
+			</tabpanels>
+		</tabbox>
+		</div>
+	</div>
 </zk>

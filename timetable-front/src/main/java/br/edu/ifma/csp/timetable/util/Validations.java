@@ -26,7 +26,13 @@ public class Validations {
 		StringBuilder sb = new StringBuilder();
 		
 		for (ConstraintViolation<Entidade> cv : violations) {
-			sb.append(cv.getMessage().split("#")[1] + "\n");
+			
+			if (!cv.getMessage().contains("#")) {
+				sb.append(cv.getMessage() + "\n");
+			
+			} else {
+				sb.append(cv.getMessage().split("#")[1] + "\n");
+			}
 		}
 		
 		if (sb.length() > 0)

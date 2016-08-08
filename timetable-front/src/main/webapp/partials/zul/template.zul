@@ -7,12 +7,13 @@
 	<n:link rel="stylesheet" href="../partials/css/timetable.css"></n:link>
 	<n:link rel="stylesheet" href="../partials/css/font-awesome.min.css"></n:link>
 	<n:link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,800' rel='stylesheet' type='text/css'></n:link>
+	<n:link href='https://fonts.googleapis.com/css?family=Raleway:400,800,900' rel='stylesheet' type='text/css'></n:link>
 	<n:script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></n:script>
 	<n:script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></n:script>
 	<n:script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/1.0.8/js/sb-admin-2.min.js"></n:script>
 	<n:script src="http://blackrockdigital.github.io/startbootstrap-sb-admin-2/bower_components/metisMenu/dist/metisMenu.min.js"></n:script>
 	
-	<div id="wrapper" hflex="true" vflex="true">
+	<div id="wrapper" sclass="ss" style="width: 100%">
 		
 		<n:nav sclass="navbar navbar-default navbar-static-top" style="margin-bottom: 0">
 
@@ -42,7 +43,7 @@
 			
 		</n:nav>
 		
-		<div class="zk-container" self="@insert(content)">
+		<div id="page-wrapper" class="zk-container" self="@insert(content)">
 		</div>
 		
 	</div>

@@ -21,7 +21,7 @@
 					</listhead>
 					<template name="model" var="obj">
 						<listitem value="@bind(obj)">
-							<listcell label="@load(obj.nome)"/>
+							<listcell label=""/>
 							<listcell label="@load(obj.descricao)"/>
 						</listitem>
 					</template>

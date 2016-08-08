@@ -31,6 +31,8 @@ public abstract class Entidade implements Serializable {
 	
 	public abstract int getId();
 	
+	public abstract void setId(int id);
+	
 	public Entidade() {
 		
 	}

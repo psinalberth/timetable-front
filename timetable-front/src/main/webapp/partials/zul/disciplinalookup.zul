@@ -1,17 +1,19 @@
 <zk>
-	<bandbox id="disciplina" sclass="form-input">
+	<bandbox id="disciplina" sclass="form-input" apply="br.edu.ifma.csp.timetable.composer.lookup.DisciplinaLookupComposer" autodrop="true" readonly="true">
 		<bandpopup>
 		 	<vbox>
-		 		<listbox sclass="form-input">
+		 		<listbox sclass="form-input" model="@load($composer.col)" emptyMessage="Nenhum registro encontrado." mold="paging" autopaging="true" height="100%"
+		 		onSelect="disciplina.value = self.selectedItem.label; disciplina.close();">
 		 			<listhead>
-		 				<listheader>Código</listheader>
 		 				<listheader>Descrição</listheader>
 		 			</listhead>
-		 			<listitem>
-		 				<listcell></listcell>
-		 				<listcell></listcell>
-		 			</listitem>
-		 		</listbox>
+		 			<template name="model" var="obj">
+						<listitem value="@bind(obj)">
+							
+							<listcell label="@load(obj.descricao)" sclass="page-title"/>
+						</listitem>
+					</template>
+				</listbox>
 		 	</vbox>
 		</bandpopup>
 	</bandbox>

@@ -2,6 +2,6 @@
 <zk xmlns:n="native">
 	<div sclass="form-group">
 		<label value="Descrição" sclass="form-label" />
-		<textbox id="descricao" sclass="form-input"/>
+		<textbox id="descricao" sclass="form-input" value="@bind($composer.entidade.descricao)"/>
 	</div>
 </zk>
