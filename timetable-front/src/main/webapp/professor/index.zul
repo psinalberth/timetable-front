@@ -6,7 +6,7 @@
 		<div sclass="row">
 		
 			<div class="form-group">
-				<n:h4 class="page-title">Professor</n:h4>
+				<n:h4 class="page-title"><n:i class="fa fa-user fa-fw" ></n:i>Professor</n:h4>
 			</div>
 		
 			<div class="form-group">
