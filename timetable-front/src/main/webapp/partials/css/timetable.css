@@ -25,7 +25,7 @@ padding: 0;
 	font-size: 22px;
 	font-family: 'Raleway', sans-serif;
 	font-weight: 600;
-	border-bottom: 1px dashed grey;
+	border-bottom: 1px dashed #343842;
 	line-height: inherit;
 	color: #343842;
 }
@@ -46,8 +46,9 @@ a, li {
 	
 }
 
-li {
+li, .z-window-header, .z-window-content, .z-messagebox > .z-label {
 	font-family: 'Raleway', sans-serif;
+	font-weight: 400;
 }
 
 
@@ -56,7 +57,7 @@ li {
 		position: inherit;
 		margin: 0 0 0 250px; 
 		padding: 0 30px;
-		border-left: 1px solid red;
+		border-left: 1px solid #d3d7cf;
 	}
 	
 	.sidebar {
