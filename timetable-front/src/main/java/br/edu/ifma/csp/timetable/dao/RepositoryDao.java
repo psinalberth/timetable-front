@@ -4,8 +4,8 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.SynchronizationType;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -14,7 +14,7 @@ import br.edu.ifma.csp.timetable.model.Entidade;
 
 public abstract class RepositoryDao<T extends Entidade> {
 	
-	@PersistenceContext(synchronization=SynchronizationType.SYNCHRONIZED)
+	@PersistenceContext(unitName="timetable-front")
 	protected EntityManager manager;
 	
 	public void save(T type) {
@@ -34,7 +34,7 @@ public abstract class RepositoryDao<T extends Entidade> {
 			
 			return manager.createQuery(criteria).getSingleResult();
 			
-		} catch (Exception ex) {
+		} catch (NoResultException ex) {
 			return null;
 		}
 	}
