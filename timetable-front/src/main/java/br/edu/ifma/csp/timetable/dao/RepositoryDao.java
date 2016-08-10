@@ -32,11 +32,17 @@ public abstract class RepositoryDao<T extends Entidade> {
 		
 		try {
 			
-			return manager.createQuery(criteria).getSingleResult();
+			T result = manager.createQuery(criteria).getSingleResult();
 			
-		} catch (NoResultException ex) {
+			if (result != null)
+				return result;
+			
+			
+		} catch (Exception ex) {
 			return null;
 		}
+		
+		return null;
 	}
 	
 	public T byId(int id) {

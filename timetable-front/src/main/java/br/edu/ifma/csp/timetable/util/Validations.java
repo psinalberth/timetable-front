@@ -13,12 +13,14 @@ import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.WrongValuesException;
 
 import br.edu.ifma.csp.timetable.model.Entidade;
+import br.edu.ifma.csp.timetable.repository.Repository;
+import br.edu.ifma.csp.timetable.validator.TimetableValidatorFactory;
 
 public class Validations {
 	
-	public static void validate(Binder binder, Entidade entidade) {
+	public static void validate(Binder binder, Entidade entidade, Repository<Entidade> repository) {
 		
-		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+		Validator validator = Validation.buildDefaultValidatorFactory().usingContext().constraintValidatorFactory(new TimetableValidatorFactory(repository)).getValidator();
 		
 		Set<ConstraintViolation<Entidade>> violations = validator.validate(entidade);
 		List<WrongValueException> listaExceções = new ArrayList<>();

@@ -10,8 +10,8 @@ import javax.validation.Constraint;
 
 @Retention(RUNTIME)
 @Target({TYPE})
-@Constraint(validatedBy=br.edu.ifma.csp.timetable.validator.CodigoValidator.class)
-public @interface Codigo {
+@Constraint(validatedBy={br.edu.ifma.csp.timetable.validator.UniqueValidator.class})
+public @interface Unique {
 	
 	String columnName();
 	String message() default "codigo#O código selecionado já está em uso.";

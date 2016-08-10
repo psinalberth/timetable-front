@@ -2,21 +2,20 @@ package br.edu.ifma.csp.timetable.validator;
 
 import java.lang.reflect.Field;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import br.edu.ifma.csp.timetable.annotation.Codigo;
+import br.edu.ifma.csp.timetable.annotation.Unique;
 import br.edu.ifma.csp.timetable.model.Entidade;
 import br.edu.ifma.csp.timetable.repository.Repository;
 
-public class CodigoValidator implements ConstraintValidator<Codigo, Entidade> {
+public class UniqueValidator implements ConstraintValidator<Unique, Entidade>, RepositoryValidation {
 	
 	private String codigo;
+	private Repository<Entidade> repository;
 	
 	@Override
-	public void initialize(Codigo constraintAnnotation) {
+	public void initialize(Unique constraintAnnotation) {
 		this.codigo = constraintAnnotation.columnName();
 	}
 	
@@ -24,18 +23,23 @@ public class CodigoValidator implements ConstraintValidator<Codigo, Entidade> {
 	@Override
 	public boolean isValid(Entidade value, ConstraintValidatorContext context) {
 		
-		if (value == null)
+		if (value == null || repository == null)
 			return true;
 			
 		try {
-			
-			Repository<Entidade> repository = InitialContext.doLookup("java:module/" + value.getClass().getSimpleName() + "Dao");
 			
 			Field f = value.getClass().getDeclaredField(this.codigo);
 			f.setAccessible(true);
 			
 			String codigo = (String) f.get(value);
+			
+			if (repository == null)
+				return true;
+			
 			Entidade outro = repository.by(this.codigo, codigo);
+			
+			if (outro == null)
+				return true;
 			
 			if (outro != null) {
 				
@@ -45,25 +49,30 @@ public class CodigoValidator implements ConstraintValidator<Codigo, Entidade> {
 				String outroCodigo = (String) f.get(outro);
 		
 				return outro.getId() == value.getId() && outroCodigo.equals(codigo);
+			} else {
+				
+				return true;
 			}
-		
-		} catch (NamingException ex) {
-			ex.printStackTrace();
-			
+					
 		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
+			return true;
 			
 		} catch (SecurityException e) {
 			e.printStackTrace();
 			
 		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
+			return true;
 			
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			return true;
 			
 		}
 		
 		return true;
+	}
+
+	@Override
+	public void setRepository(Repository<Entidade> repository) {
+		this.repository = repository;
 	}
 }

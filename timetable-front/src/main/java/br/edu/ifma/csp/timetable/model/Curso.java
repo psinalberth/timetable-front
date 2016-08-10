@@ -14,14 +14,14 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import br.edu.ifma.csp.timetable.annotation.Codigo;
+import br.edu.ifma.csp.timetable.annotation.Unique;
 import br.edu.ifma.csp.timetable.dao.CursoDao;
 import br.edu.ifma.csp.timetable.repository.Cursos;
 import br.edu.ifma.csp.timetable.util.Lookup;
 
 @Entity
 @Table(name="CURSO")
-@Codigo(columnName="codigo")
+@Unique(columnName="codigo")
 public class Curso extends Entidade {
 
 	private static final long serialVersionUID = 2945698851298486207L;

@@ -71,7 +71,7 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 		
 		getBinder().notifyChange(this, "*");
 		
-		Validations.validate(getBinder(), entidade);
+		Validations.validate(getBinder(), entidade, (Repository<Entidade>) repository);
 		
 		try {
 			
