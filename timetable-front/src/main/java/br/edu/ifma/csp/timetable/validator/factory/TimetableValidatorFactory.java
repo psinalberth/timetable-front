@@ -1,10 +1,11 @@
-package br.edu.ifma.csp.timetable.validator;
+package br.edu.ifma.csp.timetable.validator.factory;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorFactory;
 
 import br.edu.ifma.csp.timetable.model.Entidade;
 import br.edu.ifma.csp.timetable.repository.Repository;
+import br.edu.ifma.csp.timetable.validator.RepositoryValidation;
 
 public class TimetableValidatorFactory implements ConstraintValidatorFactory {
 	

@@ -14,7 +14,7 @@ import org.zkoss.zk.ui.WrongValuesException;
 
 import br.edu.ifma.csp.timetable.model.Entidade;
 import br.edu.ifma.csp.timetable.repository.Repository;
-import br.edu.ifma.csp.timetable.validator.TimetableValidatorFactory;
+import br.edu.ifma.csp.timetable.validator.factory.TimetableValidatorFactory;
 
 public class Validations {
 	

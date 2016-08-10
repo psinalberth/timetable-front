@@ -49,9 +49,6 @@ public class UniqueValidator implements ConstraintValidator<Unique, Entidade>, R
 				String outroCodigo = (String) f.get(outro);
 		
 				return outro.getId() == value.getId() && outroCodigo.equals(codigo);
-			} else {
-				
-				return true;
 			}
 					
 		} catch (NoSuchFieldException e) {

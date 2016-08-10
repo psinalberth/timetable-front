@@ -15,9 +15,6 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.edu.ifma.csp.timetable.annotation.Unique;
-import br.edu.ifma.csp.timetable.dao.CursoDao;
-import br.edu.ifma.csp.timetable.repository.Cursos;
-import br.edu.ifma.csp.timetable.util.Lookup;
 
 @Entity
 @Table(name="CURSO")
@@ -96,18 +93,5 @@ public class Curso extends Entidade {
 	
 	public void setMatrizes(Set<MatrizCurricular> matrizes) {
 		this.matrizes = matrizes;
-	}
-	
-	/*@AssertTrue(message="codigo#O código já está sendo utilizado.")*/
-	public boolean isCodigoDisponivel() {
-		
-		Cursos cursos = Lookup.dao(CursoDao.class);		
-		Curso c = cursos.by("codigo", this.getCodigo());
-		
-		if (c == null) {
-			return true;
-		}
-		
-		return this.getCodigo().equals(c.getCodigo()) && (this.getId() == c.getId());
 	}
 }

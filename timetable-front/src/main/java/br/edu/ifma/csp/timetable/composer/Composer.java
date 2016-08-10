@@ -60,6 +60,8 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 	
 	public void setup() throws InstantiationException, IllegalAccessException {
 		
+		Clients.clearWrongValue(getBinder().getView());
+		
 		entidade = retornaTipo().newInstance();
 		entidade.setUsuarioUltAlteracao("user");
 		entidade.setDataUltAlteracao(new Date());
@@ -67,6 +69,7 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 		getBinder().notifyChange(this, "*");
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void save() {
 		
 		getBinder().notifyChange(this, "*");
@@ -92,6 +95,8 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 	
 	public void list() {
 		
+		Clients.clearWrongValue(getBinder().getView());
+		
 		entidade = null;
 		setCol(this.repository.all());
 		
@@ -111,7 +116,6 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 	}
 	
 	public void delete() {
-		
 		
 		Messagebox.show("Deseja realmente excluir o registro selecionado?", "Excluir Registro?", (Messagebox.YES | Messagebox.NO), Messagebox.QUESTION, new EventListener<Event>() {
 

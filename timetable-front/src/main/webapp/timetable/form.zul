@@ -1,0 +1,103 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<zk xmlns:n="native">
+
+	<div class="row">
+		<div class="col-lg-12">
+		<tabbox>
+			<tabs>
+				<tab label="Informações Gerais" iconSclass="fa fa-edit"/>
+				<tab label="Disciplinas Ofertadas" iconSclass="fa fa-book"/>
+			</tabs>
+			<tabpanels>
+				
+				<tabpanel>
+					<div sclass="form-group">
+						<label value="Curso" sclass="form-label"/>
+						<include src="/partials/zul/cursolookup.zul"/>
+					</div>
+					
+					<div sclass="form-group">
+						<label value="Matriz Curricular" sclass="form-label"/>
+						<include src="/partials/zul/matrizlookup.zul"/>
+					</div>
+					
+					<div sclass="row">
+						<div sclass="col-md-1">
+							<div sclass="form-group">
+								<label sclass="form-label" value="Ano"/>
+								<intbox id="ano" sclass="form-input" maxlength="4"/>
+							</div>
+						</div>
+						
+						<div sclass="col-md-1">
+							<div class="form-group">
+								<label sclass="form-label" value="Código"/>
+								<combobox id="codigo" model="@load($composer.colCodigos)" readonly="true" autodrop="true" cols="2" sclass="form-input">
+									<template name=""></template>
+								</combobox>
+							</div>
+						</div>
+						
+						<div sclass="col-md-1">
+							<div sclass="form-group">
+								<label sclass="form-label" value="Tamanho"/>
+								<intbox id="tamanho" sclass="form-input" maxlength="3"/>
+							</div>
+						</div>
+					</div>
+				</tabpanel>
+				
+				<tabpanel>
+					<listbox checkmark="true" multiple="true">
+						<listhead>
+							<listheader hflex="min"/>
+							<listheader label="Disciplina">
+									<button iconSclass="fa fa-plus"/><button iconSclass="fa fa-minus"/>
+							</listheader>
+						</listhead>
+						<listitem>
+							<listcell/>
+							<listcell>
+								<div sclass="row">
+									<div sclass="col-md-1">
+										<div sclass="form-group">
+											<label sclass="form-label" value="Semestre"/>
+											<combobox id="semestre" readonly="true" autodrop="true" cols="1" sclass="form-input">
+												<comboitem value="1" label="1"/>
+												<comboitem value="2" label="2"/>
+											</combobox>
+										</div>
+									</div>
+								</div>
+								<div sclass="row">
+									<div class="col-md-6">
+										<listbox>
+											<listhead>
+												<listheader label="Disponíveis"/>
+											</listhead>
+											<listitem>
+												<listcell droppable="true" draggable="true"/>
+											</listitem>
+										</listbox>
+									</div>
+									<div class="col-md-6">
+										<listbox>
+											<listhead>
+												<listheader label="Selecionadas"/>
+											</listhead>
+											<listitem>
+												<listcell droppable="true" draggable="true"/>
+											</listitem>
+										</listbox>
+									</div>
+								</div>
+							</listcell>
+						</listitem>
+					</listbox>
+				</tabpanel>
+				
+			</tabpanels>
+		</tabbox>
+		</div>
+	</div>
+</zk>
