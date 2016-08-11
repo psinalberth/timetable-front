@@ -114,7 +114,7 @@ input[type=radio], .z-radio-content {
 }
 
 .z-bandpopup > .z-vbox {
-	width: 70%;
+	width: inherit;
 }
 
 .z-timebox-input, .z-combobox-input,.z-bandbox-input {

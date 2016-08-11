@@ -113,6 +113,6 @@ public class Disciplina extends Entidade {
 	
 	@PostLoad
 	public void postLoad() {
-		
+		System.out.println("Okay!");
 	}
 }

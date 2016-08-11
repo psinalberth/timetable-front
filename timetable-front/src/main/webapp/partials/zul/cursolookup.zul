@@ -2,12 +2,14 @@
 	<bandbox id="curso" sclass="form-input">
 		<bandpopup>
 		 	<vbox>
-		 		<listbox sclass="form-input">
+		 		<listbox sclass="form-input" model="@load($composer.col)" emptyMessage="Nenhum registro encontrado." mold="paging" autopaging="true" height="100%">
 		 			<listhead>
-		 				<listheader>Curso</listheader>
+		 				<listheader>Código</listheader>
+		 				<listheader>Nome</listheader>
 		 				<listheader>Descrição</listheader>
 		 			</listhead>
 		 			<listitem>
+		 				<listcell></listcell>
 		 				<listcell></listcell>
 		 				<listcell></listcell>
 		 			</listitem>
