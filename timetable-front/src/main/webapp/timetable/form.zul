@@ -52,10 +52,13 @@
 						<listhead>
 							<listheader hflex="min"/>
 							<listheader label="Disciplina">
-									<button iconSclass="fa fa-plus"/><button iconSclass="fa fa-minus"/>
+								<hbox style="float: right">
+									<button iconSclass="fa fa-plus" sclass="btn btn-default"/>
+									<button iconSclass="fa fa-minus" sclass="btn btn-default"/>
+								</hbox>
 							</listheader>
 						</listhead>
-						<listitem>
+						<listitem self="@{each=detalhe}" value="@{detalhe}">
 							<listcell/>
 							<listcell>
 								<div sclass="row">

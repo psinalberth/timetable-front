@@ -30,6 +30,11 @@ body {
 	color: #343842;
 }
 
+.z-listcell-content {
+	
+	height: auto !important;
+}
+
 #wrapper {
 	width: 100%;
 }

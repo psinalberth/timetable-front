@@ -1,11 +1,15 @@
 package br.edu.ifma.csp.timetable.composer;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.util.Clients;
 
 import br.edu.ifma.csp.timetable.dao.DisciplinaDao;
+import br.edu.ifma.csp.timetable.model.DetalheDisciplina;
 import br.edu.ifma.csp.timetable.model.Disciplina;
 import br.edu.ifma.csp.timetable.model.Turma;
 import br.edu.ifma.csp.timetable.repository.Disciplinas;
@@ -17,6 +21,8 @@ public class TurmaComposer extends Composer<Turma>{
 	
 	private List<Integer> colCodigos;
 	private List<Disciplina> colDisciplinas;
+	
+	private DetalheDisciplina detalheSelecionado;
 
 	@Init
 	public void init() {
@@ -31,7 +37,42 @@ public class TurmaComposer extends Composer<Turma>{
 		colCodigos.add(4);
 		colCodigos.add(20);
 		
+		Clients.resize(getBinder().getView());
+		
 		getBinder().notifyChange(this, "*");
+	}
+	
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		
+		initDetalhes();
+	}
+	
+	public void initDetalhes() {
+		
+		entidade.setDetalhes(new HashSet<DetalheDisciplina>());
+		
+		detalheSelecionado = new DetalheDisciplina();
+		detalheSelecionado.setPeriodo(entidade);
+		
+		entidade.getDetalhes().add(detalheSelecionado);
+	}
+	
+	public void adicionarDetalhe() {
+		
+		detalheSelecionado = new DetalheDisciplina();
+		detalheSelecionado.setPeriodo(entidade);
+		
+		entidade.getDetalhes().add(detalheSelecionado);
+		
+		Clients.resize(getBinder().getView());
+		
+		getBinder().notifyChange(this, "*");
+	}
+	
+	public void removerDetalhe() {
+		
 	}
 	
 	public List<Integer> getColCodigos() {
@@ -48,5 +89,13 @@ public class TurmaComposer extends Composer<Turma>{
 	
 	public void setColDisciplinas(List<Disciplina> colDisciplinas) {
 		this.colDisciplinas = colDisciplinas;
+	}
+
+	public DetalheDisciplina getDetalheSelecionado() {
+		return detalheSelecionado;
+	}
+
+	public void setDetalheSelecionado(DetalheDisciplina detalheSelecionado) {
+		this.detalheSelecionado = detalheSelecionado;
 	}
 }

@@ -46,7 +46,12 @@
 				<listbox checkmark="true" multiple="true" emptyMessage="Nenhum registro encontrado.">
 					<listhead>
 						<listheader hflex="min"/>
-						<listheader label="Disciplinas"/>
+						<listheader label="Disciplinas">
+							<hbox style="float: right">
+								<button iconSclass="fa fa-plus" sclass="btn btn-default"/>
+								<button iconSclass="fa fa-minus" sclass="btn btn-default"/>
+							</hbox>
+						</listheader>
 					</listhead>
 					<listitem>
 						<listcell/>
@@ -64,7 +69,12 @@
 				<listbox checkmark="true" multiple="true" emptyMessage="Nenhum registro encontrado.">
 					<listhead>
 						<listheader hflex="min"/>
-						<listheader label="Horários"/>
+						<listheader label="Horários">
+							<hbox style="float: right">
+								<button iconSclass="fa fa-plus" sclass="btn btn-default"/>
+								<button iconSclass="fa fa-minus" sclass="btn btn-default"/>
+							</hbox>
+						</listheader>
 					</listhead>
 					<listitem>
 						<listcell/>

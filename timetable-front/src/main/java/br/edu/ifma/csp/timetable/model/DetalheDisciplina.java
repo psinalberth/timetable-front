@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name="DETALHE_DISCIPLINA")
 public class DetalheDisciplina extends Entidade {
@@ -22,6 +24,10 @@ public class DetalheDisciplina extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
+	@NotBlank(message="O código é obrigatório.")
+	@Column(name="CODIGO")
+	private String codigo;
+	
 	@NotNull
 	@Column(name="CREDITOS")
 	private int creditos;
@@ -29,6 +35,10 @@ public class DetalheDisciplina extends Entidade {
 	@NotNull
 	@Column(name="CARGA_HORARIA")
 	private int cargaHoraria;
+	
+	@NotNull
+	@Column(name="OBRIGATORIA")
+	private boolean obrigatoria;
 	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -95,5 +105,21 @@ public class DetalheDisciplina extends Entidade {
 	
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
+	}
+
+	public boolean isObrigatoria() {
+		return obrigatoria;
+	}
+
+	public void setObrigatoria(boolean obrigatoria) {
+		this.obrigatoria = obrigatoria;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 }

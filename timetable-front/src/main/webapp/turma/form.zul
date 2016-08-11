@@ -58,21 +58,26 @@
 				</tabpanel>
 				
 				<tabpanel>
-					<listbox checkmark="true" multiple="true">
+					<listbox checkmark="true" multiple="true" mold="paging" model="@load($composer.entidade.detalhes)"
+							emptyMessage="Nenhum registro adicionado." rows="10" autopaging="true">
 						<listhead>
 							<listheader hflex="min"/>
 							<listheader label="Disciplina">
-									<button iconSclass="fa fa-plus"/><button iconSclass="fa fa-minus"/>
+								<hbox style="float: right">
+									<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="$composer.adicionarDetalhe()"/>
+									<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="$composer.removerDetalhe()"/>
+								</hbox>
 							</listheader>
 						</listhead>
-						<listitem>
+						<template name="model">
+						<listitem value="@bind($composer.detalheSelecionado)" style="overflow: auto">
 							<listcell/>
 							<listcell>
 								<div sclass="row">
 									<div sclass="col-md-1">
 										<div sclass="form-group">
 											<label value="Código" sclass="form-label"/>
-											<intbox sclass="form-input" maxlength="3"/>
+											<intbox sclass="form-input" maxlength="3" value="@bind(obj.codigo)"/>
 										</div>
 									</div>
 								
@@ -86,26 +91,27 @@
 									<div sclass="col-md-1">
 										<div sclass="form-group">
 											<label value="Créditos" sclass="form-label"/>
-											<intbox sclass="form-input" maxlength="3"/>
+											<intbox sclass="form-input" maxlength="3" value="@bind($composer.detalheSelecionado.creditos)"/>
 										</div>
 									</div>
 									
 									<div sclass="col-md-1">
 										<div sclass="form-group">
 											<label value="C. H." sclass="form-label"/>
-											<intbox sclass="form-input" maxlength="3"/>
+											<intbox sclass="form-input" maxlength="3" value="@bind($composer.detalheSelecionado.cargaHoraria)"/>
 										</div>
 									</div>
 									
 									<div sclass="col-md-1">
 										<div sclass="form-group">
 											<label value="OBR" sclass="form-label"/>
-											<checkbox style="margin: 0; padding: 0"/>
+											<checkbox style="margin: 0; padding: 0" value="@bind($composer.detalheSelecionado.obrigatoria)"/>
 										</div>
 									</div>
 								</div>
 							</listcell>
 						</listitem>
+						</template>
 					</listbox>
 				</tabpanel>
 				
