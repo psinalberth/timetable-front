@@ -1,7 +1,9 @@
 package br.edu.ifma.csp.timetable.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -41,7 +43,7 @@ public class Turma extends Entidade {
 	private Curso curso;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="periodo")
-	private Set<DetalheDisciplina> detalhes = new LinkedHashSet<DetalheDisciplina>();
+	private List<DetalheDisciplina> detalhes = new ArrayList<DetalheDisciplina>();
 	
 	public Turma() {
 	
@@ -79,11 +81,11 @@ public class Turma extends Entidade {
 		this.curso = curso;
 	}
 
-	public Set<DetalheDisciplina> getDetalhes() {
+	public List<DetalheDisciplina> getDetalhes() {
 		return detalhes;
 	}
-
-	public void setDetalhes(Set<DetalheDisciplina> detalhes) {
+	
+	public void setDetalhes(List<DetalheDisciplina> detalhes) {
 		this.detalhes = detalhes;
 	}
 }

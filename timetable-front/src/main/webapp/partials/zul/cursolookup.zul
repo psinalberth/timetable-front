@@ -1,20 +1,23 @@
-<zk>
-	<bandbox id="curso" sclass="form-input">
-		<bandpopup>
-		 	<vbox>
-		 		<listbox sclass="form-input" model="@load($composer.col)" emptyMessage="Nenhum registro encontrado." mold="paging" autopaging="true" height="100%">
+<!-- <zk> -->
+<!-- 	<bandbox id="curso" sclass="form-input"> -->
+<!-- 		<bandpopup> -->
+		 	<vbox apply="br.edu.ifma.csp.timetable.composer.lookup.CursoLookupComposer">
+		 		<listbox sclass="form-input" model="@load($composer.col)" emptyMessage="Nenhum registro encontrado." mold="paging" autopaging="true" height="100%" hflex="min"
+		 		onSelect="curso.value = self.selectedItem.label; curso.close();">
 		 			<listhead>
-		 				<listheader>Código</listheader>
-		 				<listheader>Nome</listheader>
-		 				<listheader>Descrição</listheader>
+		 				<listheader hflex="min" label="Código"/>
+		 				<listheader hflex="min" label="Nome"/>
+		 				<listheader hflex="true" label="Descrição"/>
 		 			</listhead>
-		 			<listitem>
-		 				<listcell></listcell>
-		 				<listcell></listcell>
-		 				<listcell></listcell>
-		 			</listitem>
+		 			<template name="model" var="obj">
+						<listitem value="@bind(obj)">
+							<listcell label="@load(obj.codigo)" sclass="page-title"/>
+							<listcell label="@load(obj.nome)" sclass="page-title"/>
+							<listcell label="@load(obj.descricao)" sclass="page-title"/>
+						</listitem>
+					</template>
 		 		</listbox>
 		 	</vbox>
-		</bandpopup>
-	</bandbox>
-</zk>
+<!-- 		</bandpopup> -->
+<!-- 	</bandbox> -->
+<!-- </zk> -->

@@ -1,5 +1,5 @@
 <zk>
-	<bandbox id="disciplina" sclass="form-input" autodrop="true" readonly="true" mold="rounded">
+	<bandbox id="disciplina" sclass="form-input" autodrop="true" readonly="true" mold="rounded" value="@bind(detalheSelecionado.disciplina)">
 		<bandpopup>
 		 	<vbox>
 		 		<listbox sclass="form-input" model="@load($composer.colDisciplinas)" emptyMessage="Nenhum registro encontrado." mold="paging" autopaging="true" height="100%"

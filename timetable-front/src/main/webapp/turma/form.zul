@@ -13,12 +13,16 @@
 				<tabpanel>
 					<div sclass="form-group">
 						<label value="Curso" sclass="form-label"/>
-						<include src="/partials/zul/cursolookup.zul"/>
+						<bandbox id="curso">
+							<bandpopup>
+						<include src="/partials/zul/cursolookup.zul" />
+						</bandpopup>
+						</bandbox>
 					</div>
 					
 					<div sclass="form-group">
 						<label value="Matriz Curricular" sclass="form-label"/>
-						<include src="/partials/zul/matrizlookup.zul"/>
+						<lookupdialog></lookupdialog>
 					</div>
 					
 					<div sclass="row">
@@ -58,8 +62,8 @@
 				</tabpanel>
 				
 				<tabpanel>
-					<listbox checkmark="true" multiple="true" mold="paging" model="@load($composer.entidade.detalhes)"
-							emptyMessage="Nenhum registro adicionado." rows="10" autopaging="true">
+					<listbox checkmark="true" multiple="true" mold="paging" model="@bind($composer.entidade.detalhes)"
+							emptyMessage="Nenhum registro adicionado." rows="4" autopaging="true">
 						<listhead>
 							<listheader hflex="min"/>
 							<listheader label="Disciplina">
@@ -69,43 +73,43 @@
 								</hbox>
 							</listheader>
 						</listhead>
-						<template name="model">
-						<listitem value="@bind($composer.detalheSelecionado)" style="overflow: auto">
+						<template name="model" var="detalheSelecionado">
+						<listitem style="overflow: auto">
 							<listcell/>
 							<listcell>
 								<div sclass="row">
 									<div sclass="col-md-1">
 										<div sclass="form-group">
 											<label value="Código" sclass="form-label"/>
-											<intbox sclass="form-input" maxlength="3" value="@bind(obj.codigo)"/>
+											<intbox sclass="form-input" maxlength="3" value="@bind(detalheSelecionado.codigo)"/>
 										</div>
 									</div>
 								
 									<div sclass="col-md-8">
 										<div sclass="form-group">
 											<label value="Disciplina" sclass="form-label"/>
-											<include src="/partials/zul/disciplinalookup.zul"/>
+											<include src="/partials/zul/disciplinalookup.zul" value="@bind(detalheSelecionado.disciplina)"/>
 										</div>
 									</div>
 									
 									<div sclass="col-md-1">
 										<div sclass="form-group">
 											<label value="Créditos" sclass="form-label"/>
-											<intbox sclass="form-input" maxlength="3" value="@bind($composer.detalheSelecionado.creditos)"/>
+											<intbox sclass="form-input" maxlength="3" value="@bind(detalheSelecionado.creditos)"/>
 										</div>
 									</div>
 									
 									<div sclass="col-md-1">
 										<div sclass="form-group">
 											<label value="C. H." sclass="form-label"/>
-											<intbox sclass="form-input" maxlength="3" value="@bind($composer.detalheSelecionado.cargaHoraria)"/>
+											<intbox sclass="form-input" maxlength="3" value="@bind(detalheSelecionado.cargaHoraria)"/>
 										</div>
 									</div>
 									
 									<div sclass="col-md-1">
 										<div sclass="form-group">
 											<label value="OBR" sclass="form-label"/>
-											<checkbox style="margin: 0; padding: 0" value="@bind($composer.detalheSelecionado.obrigatoria)"/>
+											<checkbox style="margin: 0; padding: 0" value="@bind(detalheSelecionado.obrigatoria)"/>
 										</div>
 									</div>
 								</div>
