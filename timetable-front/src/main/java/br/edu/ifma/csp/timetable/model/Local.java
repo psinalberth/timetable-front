@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name="LOCAL")
 public class Local extends Entidade {
@@ -24,12 +26,12 @@ public class Local extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotNull
-	@Column(name="NOME")
+	@NotBlank(message="nome#O nome é obrigatório.")
+	@Column(name="NOME", length=80)
 	private String nome;
 	
 	@NotNull
-	@Column(name="CAPACIDADE")
+	@Column(name="CAPACIDADE", scale=3)
 	private int capacidade;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="local")

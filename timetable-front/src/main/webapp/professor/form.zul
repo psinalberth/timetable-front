@@ -39,7 +39,17 @@
 							<textbox width="100%" sclass="form-input" id="telefone"/>
 						</div>
 					</div>
-				</div>	
+				</div>
+				
+				<div sclass="row">
+					<div sclass="col-md-12">
+						<div sclass="form-group">
+							<label value="Departamento" sclass="form-label" />
+							<combobox id="departamento" sclass="form-input" value="@bind($composer.entidade.nome)"/>
+						</div>
+					</div>
+				</div>
+					
 			</tabpanel>
 			
 			<tabpanel>

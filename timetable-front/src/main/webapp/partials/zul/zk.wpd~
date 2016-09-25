@@ -1,0 +1,3 @@
+<package name="br.edu.ifma.timetable.component" language="xul/html">
+    <widget name="lookupbox"/>
+</package>

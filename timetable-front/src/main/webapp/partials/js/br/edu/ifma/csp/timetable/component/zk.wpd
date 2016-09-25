@@ -1,0 +1,3 @@
+<package name="br.edu.ifma.csp.timetable.component" language="xul/html" depends="zul">
+    <widget name="LookupBox"/>
+</package>

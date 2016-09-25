@@ -13,11 +13,21 @@ public class LookupComposer<T extends Entidade> extends BindComposer<Component> 
 	
 	private List<T> col;
 	
+	private T entidade;
+	
 	public List<T> getCol() {
 		return col;
 	}
 	
 	public void setCol(List<T> col) {
 		this.col = col;
+	}
+	
+	public T getEntidade() {
+		return entidade;
+	}
+	
+	public void setEntidade(T entidade) {
+		this.entidade = entidade;
 	}
 }

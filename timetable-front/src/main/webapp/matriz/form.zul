@@ -2,22 +2,39 @@
 <zk xmlns:n="native">
 	<div sclass="form-group">
 		<label sclass="form-label" value="Ano"/>
-		<textbox sclass="form-input" cols="4"/>
+		<intbox id="ano" sclass="form-input" cols="4" value="@bind($composer.entidade.ano)"/>
 	</div>
 	
-	<div class="row">
-		<div sclass="col-md-10">
+	<div sclass="row">
+<!-- 	<div class="col-md-12"> -->
+		<div sclass="col-md-8">
 			<div class="form-group">
 				<label sclass="form-label" value="Curso"/>
-				<include src="/partials/zul/cursolookup.zul"/>
+				<combobox id="curso" sclass="form-input" model="@load($composer.colCursos)" selectedItem="@bind($composer.entidade.curso)">
+					<template name="model">
+						<comboitem label="@load(each.nome)"/>
+					</template>
+				</combobox>
+			</div>
+		</div>
+		
+		<div sclass="col-md-2">
+			<div class="form-group">
+				<label sclass="form-label" value="Turno"/>
+				<combobox id="turno" sclass="form-input">
+<!-- 					<template name="model"> -->
+<!-- 						<comboitem label="@load(each.nome)"/> -->
+<!-- 					</template> -->
+				</combobox>
 			</div>
 		</div>
 		
 		<div class="col-md-2">
 			<div sclass="form-group">
 				<label sclass="form-label" value="Semestres"/>
-				<intbox sclass="form-input"/>
+				<intbox id="semestres" sclass="form-input" value="@bind($composer.entidade.semestres)"/>
 			</div>
 		</div>
+<!-- 	</div> -->
 	</div>
 </zk>

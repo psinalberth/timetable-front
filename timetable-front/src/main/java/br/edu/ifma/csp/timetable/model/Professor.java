@@ -9,9 +9,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name="PROFESSOR")
@@ -25,13 +29,18 @@ public class Professor extends Entidade {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@NotNull
-	@Column(name="NOME")
+	@NotBlank(message="nome#O nome é obrigatório.")
+	@Column(name="NOME", length=100)
 	private String nome;
 	
-	@NotNull
-	@Column(name="ENDERECO")
+	@NotBlank(message="endereco#O endereço é obrigatório.")
+	@Column(name="ENDERECO", length=140)
 	private String endereco;
+	
+	@NotNull(message="O departamento é obrigatório.")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="ID_DEPARTAMENTO")
+	private Departamento departamento;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="professor")
 	private Set<Aula> aulas = new HashSet<Aula>();
@@ -66,6 +75,14 @@ public class Professor extends Entidade {
 	
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
+	}
+	
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+	
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
 	}
 	
 	public Set<Aula> getAulas() {

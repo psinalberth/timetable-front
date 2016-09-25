@@ -16,7 +16,7 @@ public abstract class Entidade implements Serializable {
 	private static final long serialVersionUID = 109632090320375714L;
 
 	@NotNull
-	@Column(name="USUARIO_ULT_ALTERACAO")
+	@Column(name="USUARIO_ULT_ALTERACAO", length=11)
 	private String usuarioUltAlteracao;
 	
 	@NotNull
@@ -26,7 +26,7 @@ public abstract class Entidade implements Serializable {
 	
 	@NotNull
 	@Version
-	@Column(name="VERSAO")
+	@Column(name="VERSAO", scale=3)
 	private int versao;
 	
 	public abstract int getId();

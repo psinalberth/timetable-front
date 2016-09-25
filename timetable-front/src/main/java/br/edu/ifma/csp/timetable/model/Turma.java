@@ -1,9 +1,6 @@
 package br.edu.ifma.csp.timetable.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -18,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name="PERIODO")
 public class Turma extends Entidade {
@@ -29,21 +28,21 @@ public class Turma extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotNull
+	@NotBlank(message="codigo#O código é obrigatório.")
 	@Column(name="CODIGO")
 	private String codigo;
 	
 	@NotNull
-	@Column(name="QTD_ALUNOS")
+	@Column(name="QTD_ALUNOS", scale=3)
 	private int qtdAlunos;
 	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="CURSO_ID")
-	private Curso curso;
+	@JoinColumn(name="ID_MATRIZ")
+	private MatrizCurricular matrizCurricular;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="periodo")
-	private List<DetalheDisciplina> detalhes = new ArrayList<DetalheDisciplina>();
+	private Set<DetalheDisciplina> detalhes = new HashSet<DetalheDisciplina>();
 	
 	public Turma() {
 	
@@ -73,19 +72,19 @@ public class Turma extends Entidade {
 		this.qtdAlunos = qtdAlunos;
 	}
 	
-	public Curso getCurso() {
-		return curso;
+	public MatrizCurricular getMatrizCurricular() {
+		return matrizCurricular;
 	}
 	
-	public void setCurso(Curso curso) {
-		this.curso = curso;
+	public void setMatrizCurricular(MatrizCurricular matrizCurricular) {
+		this.matrizCurricular = matrizCurricular;
 	}
 
-	public List<DetalheDisciplina> getDetalhes() {
+	public Set<DetalheDisciplina> getDetalhes() {
 		return detalhes;
 	}
 	
-	public void setDetalhes(List<DetalheDisciplina> detalhes) {
+	public void setDetalhes(Set<DetalheDisciplina> detalhes) {
 		this.detalhes = detalhes;
 	}
 }

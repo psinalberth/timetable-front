@@ -22,22 +22,23 @@ public class MatrizCurricular extends Entidade {
 	@Column(name="ID_MATRIZ")
 	private int id;
 	
-	@NotNull
-	@Column(name="ANO")
+	@NotNull(message="O ano é obrigatório.")
+	@Column(name="ANO", scale=4)
 	private int ano;
 	
-	@NotNull
-	@Column(name="TURNO")
-	private String turno;
-	
-	@NotNull
-	@Column(name="SEMESTRES")
+	@NotNull(message="A quantidade de semestres é obrigatória.")
+	@Column(name="SEMESTRES", scale=2)
 	private int semestres;
 	
-	@NotNull
+	@NotNull(message="O curso é obrigatório.")
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_CURSO")
 	private Curso curso;
+	
+	@NotNull(message="O turno é obrigatório.")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="ID_TURNO")
+	private Turno turno;
 	
 	public MatrizCurricular() {
 		
@@ -59,11 +60,11 @@ public class MatrizCurricular extends Entidade {
 		this.ano = ano;
 	}
 
-	public String getTurno() {
+	public Turno getTurno() {
 		return turno;
 	}
-
-	public void setTurno(String turno) {
+	
+	public void setTurno(Turno turno) {
 		this.turno = turno;
 	}
 

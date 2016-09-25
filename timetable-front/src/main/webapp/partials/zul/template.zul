@@ -31,11 +31,13 @@
 				<div class="sidebar-nav navbar-collapse">
 					<n:ul class="nav in" id="side-menu">
 						<n:li sclass="li-menu"><a iconSclass="fa fa-user fa-fw" href="/professor/">Professores</a></n:li>
+						<n:li sclass="li-menu"><a iconSclass="fa fa-user fa-fw" href="/departamento/">Departamentos</a></n:li>
 						<n:li sclass="li-menu"><a iconSclass="fa fa-book fa-fw" href="/disciplina/">Disciplinas</a></n:li>
 						<n:li sclass="li-menu"><a iconSclass="fa fa-university fa-fw" href="/curso/">Cursos</a></n:li>
 						<n:li sclass="li-menu"><a href="/matriz/">Matrizes Curriculares</a></n:li>
 						<n:li sclass="li-menu"><a iconSclass="fa fa-calendar-o fa-fw" href="/timetable/">Timetable</a></n:li>
 						<n:li sclass="li-menu"><a iconSclass="fa fa-mortar-board fa-fw" href="/turma/">Turmas</a></n:li>
+						<n:li sclass="li-menu"><a iconSclass="fa fa-university fa-fw" href="/turno/">Turnos</a></n:li>
 						<n:li sclass="li-menu"><a iconSclass="fa fa-clock-o fa-fw" href="/horario/">Horários</a></n:li>
 						<n:li sclass="li-menu"><a href="/local/">Locais</a></n:li>
 					</n:ul>

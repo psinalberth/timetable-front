@@ -9,30 +9,27 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.edu.ifma.csp.timetable.annotation.Unique;
 
 @Entity
-@Table(name="CURSO")
+@Table(name="DEPARTAMENTO")
 @Unique(columnName="codigo")
-public class Curso extends Entidade {
+public class Departamento extends Entidade {
 
-	private static final long serialVersionUID = 2945698851298486207L;
+	private static final long serialVersionUID = 1279015074878610823L;
 	
 	@Id
-	@Column(name="ID_CURSO")
+	@Column(name="ID_DEPARTAMENTO")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
 	@NotBlank(message="codigo#O código é obrigatório.")
-	@Column(name="CODIGO", unique=true, length=2)
+	@Column(name="CODIGO", unique=true, length=5)
 	private String codigo;
 	
 	@NotBlank(message="nome#O nome é obrigatório.")
@@ -43,19 +40,18 @@ public class Curso extends Entidade {
 	@Column(name="DESCRICAO", length=100)
 	private String descricao;
 	
-	@NotNull(message="O departamento é obrigatório.")
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="ID_DEPARTAMENTO")
-	private Departamento departamento;
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="departamento")
+	private Set<Professor> professores = new HashSet<Professor>();
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="curso")
-	private Set<MatrizCurricular> matrizes = new HashSet<MatrizCurricular>();
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="departamento")
+	private Set<Curso> cursos = new HashSet<Curso>();
 
 	@Override
 	public int getId() {
 		return id;
 	}
-	
+
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -84,19 +80,19 @@ public class Curso extends Entidade {
 		this.descricao = descricao;
 	}
 	
-	public Departamento getDepartamento() {
-		return departamento;
+	public Set<Professor> getProfessores() {
+		return professores;
 	}
 	
-	public void setDepartamento(Departamento departamento) {
-		this.departamento = departamento;
+	public void setProfessores(Set<Professor> professores) {
+		this.professores = professores;
 	}
 	
-	public Set<MatrizCurricular> getMatrizes() {
-		return matrizes;
+	public Set<Curso> getCursos() {
+		return cursos;
 	}
 	
-	public void setMatrizes(Set<MatrizCurricular> matrizes) {
-		this.matrizes = matrizes;
+	public void setCursos(Set<Curso> cursos) {
+		this.cursos = cursos;
 	}
 }

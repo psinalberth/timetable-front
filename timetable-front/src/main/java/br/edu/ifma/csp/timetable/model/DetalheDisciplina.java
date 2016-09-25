@@ -25,15 +25,15 @@ public class DetalheDisciplina extends Entidade {
 	private int id;
 	
 	@NotBlank(message="O código é obrigatório.")
-	@Column(name="CODIGO")
+	@Column(name="CODIGO", length=3)
 	private String codigo;
 	
 	@NotNull
-	@Column(name="CREDITOS")
+	@Column(name="CREDITOS", scale=2)
 	private int creditos;
 	
 	@NotNull
-	@Column(name="CARGA_HORARIA")
+	@Column(name="CARGA_HORARIA", scale=3)
 	private int cargaHoraria;
 	
 	@NotNull
@@ -42,17 +42,17 @@ public class DetalheDisciplina extends Entidade {
 	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="MATRIZ_ID")
+	@JoinColumn(name="ID_MATRIZ")
 	private MatrizCurricular matrizCurricular;
 	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="PERIODO_ID")
+	@JoinColumn(name="ID_PERIODO")
 	private Turma periodo;
 	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="DISCIPLINA_ID")
+	@JoinColumn(name="ID_DISCIPLINA")
 	private Disciplina disciplina;
 	
 	public DetalheDisciplina() {

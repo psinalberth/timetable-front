@@ -1,9 +1,9 @@
-<!-- <zk> -->
-<!-- 	<bandbox id="curso" sclass="form-input"> -->
-<!-- 		<bandpopup> -->
+<zk>
+ 	<bandbox id="curso" sclass="form-input">
+ 		<bandpopup>
 		 	<vbox apply="br.edu.ifma.csp.timetable.composer.lookup.CursoLookupComposer">
-		 		<listbox sclass="form-input" model="@load($composer.col)" emptyMessage="Nenhum registro encontrado." mold="paging" autopaging="true" height="100%" hflex="min"
-		 		onSelect="curso.value = self.selectedItem.label; curso.close();">
+		 		<listbox id="listbox" sclass="form-input" model="@load($composer.col)" emptyMessage="Nenhum registro encontrado." mold="paging" autopaging="true" height="100%" hflex="min"
+		 		onSelect="curso.value = self.selectedItem.label; curso.close()" selectedItem="@bind($composer.entidade)">
 		 			<listhead>
 		 				<listheader hflex="min" label="Código"/>
 		 				<listheader hflex="min" label="Nome"/>
@@ -18,6 +18,6 @@
 					</template>
 		 		</listbox>
 		 	</vbox>
-<!-- 		</bandpopup> -->
-<!-- 	</bandbox> -->
-<!-- </zk> -->
+		</bandpopup>
+	</bandbox>
+</zk>

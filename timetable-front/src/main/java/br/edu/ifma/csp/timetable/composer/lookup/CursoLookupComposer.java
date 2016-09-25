@@ -19,5 +19,4 @@ public class CursoLookupComposer extends LookupComposer<Curso> {
 		setCol(cursos.all());
 		getBinder().notifyChange(this, "*");
 	}
-
 }

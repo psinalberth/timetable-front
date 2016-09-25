@@ -28,7 +28,7 @@ public class Disciplina extends Entidade {
 	private int id;
 	
 	@NotBlank(message="descricao#A descrição é obrigatória.")
-	@Column(name="DESCRICAO")
+	@Column(name="DESCRICAO", length=100)
 	private String descricao;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="disciplina")

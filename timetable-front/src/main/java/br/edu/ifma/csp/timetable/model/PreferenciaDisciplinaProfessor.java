@@ -23,12 +23,12 @@ public class PreferenciaDisciplinaProfessor extends Entidade {
 	private int id;
 	
 	@NotNull
-	@JoinColumn(name="PROFESSOR_ID")
+	@JoinColumn(name="ID_PROFESSOR")
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Professor professor;
 	
 	@NotNull
-	@JoinColumn(name="DISCIPLINA_ID")
+	@JoinColumn(name="ID_DISCIPLINA")
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Disciplina disciplina;
 	

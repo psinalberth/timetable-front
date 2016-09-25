@@ -54,7 +54,7 @@ public class TurmaComposer extends Composer<Turma>{
 	
 	public void initDetalhes() {
 		
-		entidade.setDetalhes(new ArrayList<DetalheDisciplina>());
+		entidade.setDetalhes(new HashSet<DetalheDisciplina>());
 		
 		DetalheDisciplina detalheSelecionado = new DetalheDisciplina();
 		detalheSelecionado.setPeriodo(entidade);

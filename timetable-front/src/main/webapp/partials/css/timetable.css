@@ -60,6 +60,11 @@ li, .z-window-header, .z-window-content, .z-messagebox > .z-label {
 	color: #f8f8f8;
 }
 
+.z-a {
+	font-family: 'Raleway', sans-serif;
+	font-size: 16px;
+}
+
 
 @media(min-width:768px) {
 	.zk-container {
@@ -100,6 +105,7 @@ td, .z-listbox-emptybody {
 	color: #555; 
 	font-size: 14px; 
 	font-weight: 600; 
+	padding: 0;
 }
 
 .form-input, input[type=checkbox] {
@@ -109,6 +115,7 @@ td, .z-listbox-emptybody {
 	height: 30px;
 	width: 100%;
 	margin: 0;
+	padding: 0;
 }
 
 input[type=radio], .z-radio-content {
@@ -127,12 +134,12 @@ input[type=radio], .z-radio-content {
 	color: #444;
 	font-size: 15px;
 	height: 30px;
-	width: 91.66666667%;
+	width: 97.66666667%;
 }
 
 .z-timebox-button, .z-combobox-button, .z-bandbox-button {
 	height: 30px;
-	width: 8.33333333%;
+	width: 2.33333333%;
 }
 
 .z-timebox-input:focus, .z-bandbox-input:focus, .z-combobox-input:focus, .form-input:focus {

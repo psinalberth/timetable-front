@@ -24,22 +24,22 @@ public class Aula extends Entidade {
 	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="PROFESSOR_ID")
+	@JoinColumn(name="ID_PROFESSOR")
 	private Professor professor;
 	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="DISCIPLINA_ID")
+	@JoinColumn(name="ID_DISCIPLINA")
 	private Disciplina disciplina;
 	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="LOCAL_ID")
+	@JoinColumn(name="ID_LOCAL")
 	private Local local;
 	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="HORARIO_ID")
+	@JoinColumn(name="ID_HORARIO")
 	private Horario horario;
 	
 	public Aula() {
