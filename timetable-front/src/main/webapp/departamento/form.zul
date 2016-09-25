@@ -5,7 +5,7 @@
 		<div class="col-md-1">
 			<div sclass="form-group">
 				<label value="Código" sclass="form-label" />
-				<textbox id="codigo" cols="2" sclass="form-input" value="@bind($composer.entidade.codigo)" maxlength="2"/>
+				<textbox id="codigo" cols="3" sclass="form-input" value="@bind($composer.entidade.codigo)" maxlength="3"/>
 			</div>
 		</div>
 		<div class="col-md-11">

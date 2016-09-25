@@ -26,16 +26,12 @@ public abstract class Entidade implements Serializable {
 	
 	@NotNull
 	@Version
-	@Column(name="VERSAO", scale=3)
+	@Column(name="VERSAO", columnDefinition="TINYINT(3)")
 	private int versao;
 	
 	public abstract int getId();
 	
 	public abstract void setId(int id);
-	
-	public Entidade() {
-		
-	}
 	
 	public String getUsuarioUltAlteracao() {
 		return usuarioUltAlteracao;

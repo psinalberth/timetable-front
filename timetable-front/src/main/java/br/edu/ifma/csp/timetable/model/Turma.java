@@ -33,7 +33,7 @@ public class Turma extends Entidade {
 	private String codigo;
 	
 	@NotNull
-	@Column(name="QTD_ALUNOS", scale=3)
+	@Column(name="QTD_ALUNOS", columnDefinition="TINYINT(3)")
 	private int qtdAlunos;
 	
 	@NotNull
@@ -43,10 +43,6 @@ public class Turma extends Entidade {
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="periodo")
 	private Set<DetalheDisciplina> detalhes = new HashSet<DetalheDisciplina>();
-	
-	public Turma() {
-	
-	}
 
 	public int getId() {
 		return id;

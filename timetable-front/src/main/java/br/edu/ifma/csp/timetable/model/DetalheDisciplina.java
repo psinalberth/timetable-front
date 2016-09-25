@@ -29,11 +29,11 @@ public class DetalheDisciplina extends Entidade {
 	private String codigo;
 	
 	@NotNull
-	@Column(name="CREDITOS", scale=2)
+	@Column(name="CREDITOS", columnDefinition="TINYINT(2)")
 	private int creditos;
 	
 	@NotNull
-	@Column(name="CARGA_HORARIA", scale=3)
+	@Column(name="CARGA_HORARIA", columnDefinition="TINYINT(3)")
 	private int cargaHoraria;
 	
 	@NotNull

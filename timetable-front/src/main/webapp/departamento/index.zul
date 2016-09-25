@@ -1,7 +1,7 @@
 <?page title="" contentType="text/html;charset=UTF-8"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/zul/template.zul"?>
 <zk xmlns:n="native">
-	<div self="@define(content)" class="container-fluid" apply="br.edu.ifma.csp.timetable.composer.CursoComposer">
+	<div self="@define(content)" class="container-fluid" apply="br.edu.ifma.csp.timetable.composer.DepartamentoComposer">
 		
 		<div sclass="row">
 		

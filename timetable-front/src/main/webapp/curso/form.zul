@@ -19,7 +19,13 @@
 		<div sclass="col-md-6">
 			<div sclass="form-group">
 				<label value="Departamento" sclass="form-label" />
-				<combobox id="departamento" sclass="form-input" value="@bind($composer.entidade.departamento)"/>
+				<combobox id="departamento" sclass="form-input" model="@load($composer.colDepartamentos)" 
+						  selectedItem="@bind($composer.entidade.departamento)" 
+						  value="@bind($composer.entidade.departamento.nome)">
+					<template name="model">
+						<comboitem label="@load(each.nome)" value="@load(each.id)"/>
+					</template>
+				</combobox>
 			</div>
 		</div>
 	</div>

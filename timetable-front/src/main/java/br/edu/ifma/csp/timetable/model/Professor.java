@@ -26,7 +26,7 @@ public class Professor extends Entidade {
 	@Id
 	@NotNull
 	@Column(name="ID_PROFESSOR")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
 	@NotBlank(message="nome#O nome é obrigatório.")
@@ -47,10 +47,6 @@ public class Professor extends Entidade {
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="professor")
 	private Set<PreferenciaDisciplinaProfessor> preferencias = new HashSet<PreferenciaDisciplinaProfessor>();
-	
-	public Professor() {
-	
-	}
 
 	@Override
 	public int getId() {

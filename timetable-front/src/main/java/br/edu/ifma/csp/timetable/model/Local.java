@@ -31,15 +31,11 @@ public class Local extends Entidade {
 	private String nome;
 	
 	@NotNull
-	@Column(name="CAPACIDADE", scale=3)
+	@Column(name="CAPACIDADE", columnDefinition="TINYINT(3)")
 	private int capacidade;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="local")
 	private Set<Aula> aulas = new HashSet<Aula>();
-	
-	public Local() {
-	
-	}
 
 	public int getId() {
 		return id;

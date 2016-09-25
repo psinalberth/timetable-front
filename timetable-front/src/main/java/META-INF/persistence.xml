@@ -11,6 +11,7 @@
 			<property name="javax.persistence.sql-load-script-source" value="META-INF/load-script.jdbc"/>
 			<property name="hibernate.show_sql" value="true" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+            <property name="hibernate.enable_lazy_load_no_trans" value="true" />
 		</properties>
 	</persistence-unit>
 </persistence>

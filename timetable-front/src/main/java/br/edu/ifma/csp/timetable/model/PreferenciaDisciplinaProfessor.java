@@ -32,10 +32,6 @@ public class PreferenciaDisciplinaProfessor extends Entidade {
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Disciplina disciplina;
 	
-	public PreferenciaDisciplinaProfessor() {
-	
-	}
-	
 	public int getId() {
 		return id;
 	}

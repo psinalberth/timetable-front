@@ -42,10 +42,6 @@ public class Aula extends Entidade {
 	@JoinColumn(name="ID_HORARIO")
 	private Horario horario;
 	
-	public Aula() {
-		
-	}
-	
 	public int getId() {
 		return id;
 	}

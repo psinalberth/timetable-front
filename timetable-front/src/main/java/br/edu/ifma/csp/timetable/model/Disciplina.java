@@ -45,10 +45,6 @@ public class Disciplina extends Entidade {
 	
 	@Transient
 	private transient int creditos;
-	
-	public Disciplina() {
-	
-	}
 
 	public int getId() {
 		return id;
