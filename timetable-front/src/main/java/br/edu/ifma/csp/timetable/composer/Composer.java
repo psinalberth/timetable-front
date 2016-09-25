@@ -34,7 +34,7 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 	
 	private List<T> col;
 	
-	abstract void init();
+	public abstract void init();
 	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
