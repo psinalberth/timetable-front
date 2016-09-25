@@ -22,7 +22,6 @@
 					
 					<div sclass="form-group">
 						<label value="Matriz Curricular" sclass="form-label"/>
-						<lookupdialog></lookupdialog>
 					</div>
 					
 					<div sclass="row">

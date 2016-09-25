@@ -15,11 +15,11 @@ public abstract class Entidade implements Serializable {
 
 	private static final long serialVersionUID = 109632090320375714L;
 
-	@NotNull
+	@NotNull(message="O usuário é obrigatório.")
 	@Column(name="USUARIO_ULT_ALTERACAO", length=11)
 	private String usuarioUltAlteracao;
 	
-	@NotNull
+	@NotNull(message="A data de alteração é obrigatória.")
 	@Column(name="DATA_ULT_ALTERACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataUltAlteracao;

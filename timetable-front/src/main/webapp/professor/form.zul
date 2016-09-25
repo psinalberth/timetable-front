@@ -29,7 +29,7 @@
 					<div class="col-md-8">
 						<div sclass="form-group">
 							<label value="Endereço" sclass="form-label"/>
-							<textbox width="100%" sclass="form-input" id="endereco"/>
+							<textbox width="100%" sclass="form-input" id="endereco" value="@bind($composer.entidade.endereco)"/>
 						</div>
 					</div>
 					
@@ -45,7 +45,13 @@
 					<div sclass="col-md-12">
 						<div sclass="form-group">
 							<label value="Departamento" sclass="form-label" />
-							<combobox id="departamento" sclass="form-input" value="@bind($composer.entidade.nome)"/>
+							<combobox id="departamento" sclass="form-input" model="@load($composer.colDepartamentos)" 
+									  selectedItem="@bind($composer.entidade.departamento)" 
+									  value="@bind($composer.entidade.departamento.nome)">
+								<template name="model">
+									<comboitem label="@load(each.nome)" value="@load(each.id)"/>
+								</template>
+							</combobox>
 						</div>
 					</div>
 				</div>
@@ -53,25 +59,35 @@
 			</tabpanel>
 			
 			<tabpanel>
-				<listbox checkmark="true" multiple="true" emptyMessage="Nenhum registro encontrado.">
+				<listbox checkmark="true" multiple="true" mold="paging" model="@bind($composer.entidade.preferencias)"
+							emptyMessage="Nenhum registro adicionado." rows="4" autopaging="true">
 					<listhead>
 						<listheader hflex="min"/>
 						<listheader label="Disciplinas">
 							<hbox style="float: right">
-								<button iconSclass="fa fa-plus" sclass="btn btn-default"/>
-								<button iconSclass="fa fa-minus" sclass="btn btn-default"/>
+								<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="$composer.adicionarDetalhe()"/>
+									<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="$composer.removerDetalhe()"/>
 							</hbox>
 						</listheader>
 					</listhead>
-					<listitem>
-						<listcell/>
-						<listcell>
-							<div sclass="form-group">
-								<label value="Disciplina" sclass="form-label"/>
-								<include src="/partials/zul/disciplinalookup.zul"/>
-							</div>
-						</listcell>
-					</listitem>
+					<template name="model" var="preferenciaSelecionada">
+						<listitem>
+							<listcell/>
+							<listcell>
+								<div sclass="form-group">
+									<label value="Disciplina" sclass="form-label"/>
+									<combobox id="disciplina" model="@load($composer.colDisciplinas)" 
+											  value="@bind(preferenciaSelecionada.disciplina.descricao)" 
+											  selectedItem="@bind(preferenciaSelecionada.disciplina)">
+										<template name="model">
+											<comboitem label="@load(each.descricao)" value="@load(each.id)"/>
+										</template>
+									</combobox>
+	<!-- 								<include src="/partials/zul/disciplinalookup.zul"/> -->
+								</div>
+							</listcell>
+						</listitem>
+					</template>
 				</listbox>
 			</tabpanel>
 			

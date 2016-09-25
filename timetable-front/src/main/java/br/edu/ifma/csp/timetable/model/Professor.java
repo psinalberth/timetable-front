@@ -3,6 +3,7 @@ package br.edu.ifma.csp.timetable.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -45,7 +48,9 @@ public class Professor extends Entidade {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="professor")
 	private Set<Aula> aulas = new HashSet<Aula>();
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="professor")
+	@Valid
+	@Size(min=1, message="Nenhuma preferência adicionada.")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="professor", cascade=CascadeType.ALL)
 	private Set<PreferenciaDisciplinaProfessor> preferencias = new HashSet<PreferenciaDisciplinaProfessor>();
 
 	@Override

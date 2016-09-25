@@ -22,12 +22,12 @@ public class PreferenciaDisciplinaProfessor extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotNull
+	@NotNull(message="O professor é obrigatório.")
 	@JoinColumn(name="ID_PROFESSOR")
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Professor professor;
 	
-	@NotNull
+	@NotNull(message="A disciplina é obrigatória.")
 	@JoinColumn(name="ID_DISCIPLINA")
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Disciplina disciplina;
