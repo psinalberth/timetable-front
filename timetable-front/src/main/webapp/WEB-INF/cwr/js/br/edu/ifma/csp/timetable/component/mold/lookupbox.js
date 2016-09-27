@@ -1,1 +1,1 @@
-zul.inp.ComboWidget.$redraw
+zul.inp.Bandbox.$redraw

@@ -16,7 +16,7 @@
 	}
 });*/
 
-br.edu.ifma.csp.timetable.component.LookupBox = zk.$extends(zul.inp.ComboWidget, {
+br.edu.ifma.csp.timetable.component.LookupBox = zk.$extends(zul.inp.Bandbox, {
         //super
         getPopupSize_: function (pp) {
             var bp = this.firstChild, //bandpopup
