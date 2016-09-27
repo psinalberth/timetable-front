@@ -29,6 +29,14 @@
 			</div>
 		</div>
 		
+<!-- 		<lookupbox></lookupbox> -->
+<!-- 		<errmsg id="errMsg" msg="error" -->
+<!--         onClick="alert(self.getMsg());" /> -->
+        
+        <lookupbox id="ccc" sclass="form-input" width="500px" value="aaa">
+        	
+        </lookupbox>
+		
 		<div class="col-md-2">
 			<div sclass="form-group">
 				<label sclass="form-label" value="Semestres"/>

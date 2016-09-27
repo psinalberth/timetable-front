@@ -2,10 +2,10 @@
 <!DOCTYPE xml>
 
 <language-addon>
-	<addon-name>lookupbox</addon-name>
+	<addon-name>custom</addon-name>
 	<language-name>xul/html</language-name>
 	<version>
-<!-- 		<version-class>custom.zk.Version</version-class> -->
+		<version-class>br.edu.ifma.csp.timetable.component.Version</version-class>
 		<version-uid>0.0.1</version-uid>
 		<zk-version>8.0.1.1</zk-version><!-- or later -->
 	</version>
@@ -19,8 +19,18 @@
 		<widget-class>br.edu.ifma.csp.timetable.component.LookupBox</widget-class>
 		<mold>
 			<mold-name>default</mold-name>
-<!-- 			<mold-uri>mold/lookupbox.js</mold-uri> -->
-			<mold-uri>br/edu/ifma/csp/timetable/component/mold/lookupbox.js</mold-uri>
+			<mold-uri>mold/lookupbox.js</mold-uri>
+<!-- 			<mold-uri>br/edu/ifma/csp/timetable/component/mold/lookupbox.js</mold-uri> -->
+		</mold>
+	</component>
+	
+	<component>
+		<component-name>errmsg</component-name>
+		<component-class>br.edu.ifma.csp.timetable.component.ErrMsg</component-class>
+		<widget-class>br.edu.ifma.csp.timetable.component.ErrMsg</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/errmsg.js</mold-uri>
 		</mold>
 	</component>
 	
