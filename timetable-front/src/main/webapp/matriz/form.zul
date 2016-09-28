@@ -33,7 +33,7 @@
 <!-- 		<errmsg id="errMsg" msg="error" -->
 <!--         onClick="alert(self.getMsg());" /> -->
         
-        <lookupbox id="ccc" sclass="form-input" width="500px" value="aaa">
+        <lookupbox id="ccc" sclass="form-input" width="500px" value="@bind($composer.entidade.curso.nome)">
         	
         </lookupbox>
 		

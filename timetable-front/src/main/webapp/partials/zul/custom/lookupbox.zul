@@ -1,2 +1,10 @@
 <bandpopup sclass="form-input">
+	<listbox>
+		<listhead>
+			<listheader label="Dummy"/>
+		</listhead>
+		<listitem>
+			<listcell label="AAAA"/>
+		</listitem>
+	</listbox>
 </bandpopup>

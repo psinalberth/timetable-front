@@ -108,7 +108,7 @@ td, .z-listbox-emptybody {
 	padding: 0;
 }
 
-.form-input, input[type=checkbox] {
+.form-input, input[type=checkbox], .z-lookupbox {
 	font-family: 'Raleway', sans-serif;
 	color: #444;
 	font-size: 15px;
@@ -129,7 +129,7 @@ input[type=radio], .z-radio-content {
 	width: inherit;
 }
 
-.z-timebox-input, .z-combobox-input,.z-bandbox-input {
+.z-timebox-input, .z-combobox-input,.z-bandbox-input, .z-lookupbox-input {
 	font-family: 'Raleway', sans-serif;
 	color: #444;
 	font-size: 15px;
@@ -137,7 +137,7 @@ input[type=radio], .z-radio-content {
 	width: 97.66666667%;
 }
 
-.z-timebox-button, .z-combobox-button, .z-bandbox-button {
+.z-timebox-button, .z-combobox-button, .z-bandbox-button, .z-lookupbox-button {
 	height: 30px;
 	width: 2.33333333%;
 }
