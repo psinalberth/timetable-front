@@ -2,6 +2,7 @@ package br.edu.ifma.csp.timetable.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -37,6 +38,10 @@ public abstract class RepositoryDao<T extends Entidade> {
 		} catch (NoResultException ex) {
 			return null;
 		}
+	}
+	
+	public T by(Map<String, Object> params) {
+		return null;
 	}
 	
 	public T byId(int id) {
@@ -75,6 +80,10 @@ public abstract class RepositoryDao<T extends Entidade> {
 		criteria.where(builder.equal(root.get(coluna), valor));
 		
 		return manager.createQuery(criteria).getResultList();
+	}
+	
+	public List<T> allBy(Map<String, Object> params) {
+		return null;
 	}
 
 	public void delete(T type) {

@@ -1,6 +1,7 @@
 package br.edu.ifma.csp.timetable.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import br.edu.ifma.csp.timetable.model.Entidade;
 
@@ -37,6 +38,9 @@ public interface Repository<T extends Entidade> {
 	 */
 	public T by(String coluna, Object valor);
 	
+	
+	public T by(Map<String, Object> params);
+	
 	/**
 	 * Recupera todos os objetos do modelo referenciado.
 	 * 
@@ -52,6 +56,9 @@ public interface Repository<T extends Entidade> {
 	 * @return Retorna uma lista de objetos ou <code>null</code> caso não sejam encontrados.
 	 */
 	public List<T> allBy(String coluna, Object valor);
+	
+	
+	public List<T> allBy(Map<String, Object> params);
 	
 	/**
 	 * Remove um objeto persistido no repositório de dados.
