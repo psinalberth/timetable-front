@@ -134,12 +134,37 @@ input[type=radio], .z-radio-content {
 	color: #444;
 	font-size: 15px;
 	height: 30px;
-	width: 97.66666667%;
+	/**width: 97.66666667%; **/
+	/**right: 83.33333333%;**/
+	width: 97.3333333%;
 }
 
 .z-timebox-button, .z-combobox-button, .z-bandbox-button, .z-lookupbox-button {
 	height: 30px;
-	width: 2.33333333%;
+	/**right: 16.66666667%;**/
+	width: 2.66666667%;
+
+	
+	/**width: 2.33333333%;**/
+}
+
+@media(max-width:1100px) {
+	
+	.z-timebox-input, .z-combobox-input,.z-bandbox-input, .z-lookupbox-input {
+		
+		/**width: 97.66666667%; **/
+		width: 93.33333333%;
+		/**width: 97.3333333%;**/
+	}
+	
+	.z-timebox-button, .z-combobox-button, .z-bandbox-button, .z-lookupbox-button {
+		
+		width: 6.66666667%;
+		/**width: 2.66666667%;**/
+	
+		
+		/**width: 2.33333333%;**/
+	}
 }
 
 .z-timebox-input:focus, .z-bandbox-input:focus, .z-combobox-input:focus, .form-input:focus {
