@@ -20,7 +20,7 @@ public class Validations {
 	
 	public static void validate(Binder binder, Entidade entidade, Repository<Entidade> repository) {
 		
-		Validator validator = Validation.buildDefaultValidatorFactory().usingContext().constraintValidatorFactory(new TimetableValidatorFactory(repository)).getValidator();
+		Validator validator = Validation.buildDefaultValidatorFactory().usingContext().constraintValidatorFactory(new TimetableValidatorFactory(repository, entidade)).getValidator();
 		
 		Set<ConstraintViolation<Entidade>> violations = validator.validate(entidade);
 		List<WrongValueException> listaExceções = new ArrayList<>();

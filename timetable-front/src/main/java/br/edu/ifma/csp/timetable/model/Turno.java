@@ -14,11 +14,8 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import br.edu.ifma.csp.timetable.annotation.Unique;
-
 @Entity
 @Table(name="TURNO")
-@Unique(columnName="codigo")
 public class Turno extends Entidade {
 
 	private static final long serialVersionUID = 1739895240053862613L;

@@ -5,14 +5,16 @@ import javax.validation.ConstraintValidatorFactory;
 
 import br.edu.ifma.csp.timetable.model.Entidade;
 import br.edu.ifma.csp.timetable.repository.Repository;
-import br.edu.ifma.csp.timetable.validator.RepositoryValidation;
+import br.edu.ifma.csp.timetable.validator.BeanConstraintValidation;
 
 public class TimetableValidatorFactory implements ConstraintValidatorFactory {
 	
 	private Repository<Entidade> repository;
+	private Entidade entidade;
 	
-	public TimetableValidatorFactory(Repository<Entidade> repository) {
+	public TimetableValidatorFactory(Repository<Entidade> repository, Entidade entidade) {
 		this.repository = repository;
+		this.entidade = entidade;
 	}
 
 	@Override
@@ -26,10 +28,11 @@ public class TimetableValidatorFactory implements ConstraintValidatorFactory {
 			e.printStackTrace();
 		}
 		
-		if (RepositoryValidation.class.isAssignableFrom(key)) {
+		if (BeanConstraintValidation.class.isAssignableFrom(key)) {
 			
-			RepositoryValidation validation = (RepositoryValidation) instance;
+			BeanConstraintValidation validation = (BeanConstraintValidation) instance;
 			validation.setRepository(repository);
+			validation.setEntidade(entidade);
 		}
 		
 		return instance;

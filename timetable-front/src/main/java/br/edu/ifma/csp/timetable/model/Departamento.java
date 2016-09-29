@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -18,7 +19,6 @@ import br.edu.ifma.csp.timetable.annotation.Unique;
 
 @Entity
 @Table(name="DEPARTAMENTO")
-@Unique(columnName="codigo")
 public class Departamento extends Entidade {
 
 	private static final long serialVersionUID = 1279015074878610823L;
@@ -30,6 +30,8 @@ public class Departamento extends Entidade {
 	
 	@NotBlank(message="codigo#O código é obrigatório.")
 	@Column(name="CODIGO", unique=true, length=5)
+	@Unique(message="codigo#O código selecionado já está em uso.")
+	@Pattern(regexp="^[\\p{Alpha}]{3,5}$", message="O código deve ser alfabético de três a cinco dígitos.")
 	private String codigo;
 	
 	@NotBlank(message="nome#O nome é obrigatório.")

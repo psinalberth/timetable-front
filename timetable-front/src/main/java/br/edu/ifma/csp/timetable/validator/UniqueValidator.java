@@ -1,6 +1,9 @@
 package br.edu.ifma.csp.timetable.validator;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -9,46 +12,78 @@ import br.edu.ifma.csp.timetable.annotation.Unique;
 import br.edu.ifma.csp.timetable.model.Entidade;
 import br.edu.ifma.csp.timetable.repository.Repository;
 
-public class UniqueValidator implements ConstraintValidator<Unique, Entidade>, RepositoryValidation {
+public class UniqueValidator implements ConstraintValidator<Unique, Object>, BeanConstraintValidation {
 	
-	private String codigo;
 	private Repository<Entidade> repository;
+	private Entidade entidade;
 	
 	@Override
 	public void initialize(Unique constraintAnnotation) {
-		this.codigo = constraintAnnotation.columnName();
+		
+	}
+	
+	public List<Field> getAnnotatedFields() {
+		
+		List<Field> fields = new ArrayList<Field>();
+		
+		for (Field field : getEntidade().getClass().getDeclaredFields()) {
+			
+			if (field.isAnnotationPresent(Unique.class)) {
+				fields.add(field);
+			}
+		}
+		
+		return fields;
+	}
+	
+	public List<Method> getAnnotatedMethods() {
+		
+		List<Method> methods = new ArrayList<Method>();
+		
+		for (Method method : getEntidade().getClass().getDeclaredMethods()) {
+			
+			if (method.isAnnotationPresent(Unique.class)) {
+				methods.add(method);
+			}
+		}
+		
+		return methods;
 	}
 	
 	@SuppressWarnings("all")
 	@Override
-	public boolean isValid(Entidade value, ConstraintValidatorContext context) {
+	public boolean isValid(Object value, ConstraintValidatorContext context) {
 		
-		if (value == null || repository == null)
+		if (entidade == null || repository == null || value == null)
 			return true;
 			
 		try {
 			
-			Field f = value.getClass().getDeclaredField(this.codigo);
-			f.setAccessible(true);
+			List<Field> fields = getAnnotatedFields();
 			
-			String codigo = (String) f.get(value);
-			
-			if (repository == null)
-				return true;
-			
-			Entidade outro = repository.by(this.codigo, codigo);
-			
-			if (outro == null)
-				return true;
-			
-			if (outro != null) {
+			if (fields.size() > 0) {
 				
-				f = outro.getClass().getDeclaredField(this.codigo);
-				f.setAccessible(true);
+				for (Field field : fields) {
+					
+					field.setAccessible(true);
+					
+					Object fieldValue = field.get(entidade);
+					
+					Entidade outro = repository.by(field.getName(), fieldValue);
+					
+					if (outro == null)
+						return true;
+					
+					if (outro != null) {
 						
-				String outroCodigo = (String) f.get(outro);
-		
-				return outro.getId() == value.getId() && outroCodigo.equals(codigo);
+						Field outroField = outro.getClass().getDeclaredField(field.getName());
+						outroField.setAccessible(true);
+						
+						Object outroValue = outroField.get(outro);
+				
+						return (outro.getId() == entidade.getId() && outroValue.equals(fieldValue));
+					}
+				}
 			}
 					
 		} catch (NoSuchFieldException e) {
@@ -71,5 +106,14 @@ public class UniqueValidator implements ConstraintValidator<Unique, Entidade>, R
 	@Override
 	public void setRepository(Repository<Entidade> repository) {
 		this.repository = repository;
+	}
+
+	@Override
+	public void setEntidade(Entidade entidade) {
+		this.entidade = entidade;
+	}
+	
+	public Entidade getEntidade() {
+		return entidade;
 	}
 }

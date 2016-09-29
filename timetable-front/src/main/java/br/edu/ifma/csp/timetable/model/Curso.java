@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -21,7 +22,6 @@ import br.edu.ifma.csp.timetable.annotation.Unique;
 
 @Entity
 @Table(name="CURSO")
-@Unique(columnName="codigo")
 public class Curso extends Entidade {
 
 	private static final long serialVersionUID = 2945698851298486207L;
@@ -33,6 +33,8 @@ public class Curso extends Entidade {
 	
 	@NotBlank(message="codigo#O código é obrigatório.")
 	@Column(name="CODIGO", unique=true, length=2)
+	@Unique(message="codigo#O código selecionado já está em uso.")
+	@Pattern(regexp="^[\\p{Alpha}]{3}$", message="O código deve ser alfabético de três dígitos.")
 	private String codigo;
 	
 	@NotBlank(message="nome#O nome é obrigatório.")
