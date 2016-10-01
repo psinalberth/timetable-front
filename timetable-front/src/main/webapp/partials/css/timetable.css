@@ -1,17 +1,67 @@
 @CHARSET "UTF-8";
 
+/* ------------------ */
+/* Tags padrão */
+/* ------------------ */
+
 body {
-	font-family: 'Open Sans', sans-serif;
+	/* font-family: 'Open Sans', sans-serif; */
 	font-family: 'Raleway', sans-serif;
-	background: rgb(99,182,219); /* Old browsers */
-	background: -moz-linear-gradient(top, rgba(99,182,219,1) 0%, rgba(48,157,207,1) 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(top, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', endColorstr='#309dcf',GradientType=0 ); /* IE6-9 */
+	background: #fff;
+	/* background: rgb(99,182,219); Old browsers
+	background: -moz-linear-gradient(top, rgba(99,182,219,1) 0%, rgba(48,157,207,1) 100%); FF3.6-15
+	background: -webkit-linear-gradient(top, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); Chrome10-25,Safari5.1-6
+	background: linear-gradient(to bottom, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', endColorstr='#309dcf',GradientType=0 ); IE6-9 */
 	line-height: 1.42857143;
 	margin: 0;
 	padding: 0;
 }
+
+a, li {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 600;
+}
+
+li, .z-window-header, .z-window-content, .z-messagebox > .z-label {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 600;
+}
+
+td {
+	font-family: 'Raleway', sans-serif;
+}
+
+input[type=radio], .z-radio-content {
+	color: #444;
+	font-size: 15px;
+	height: 20px;
+	width: 50%;
+}
+input[type=text] {
+  background: transparent;
+  outline: none;
+  height:20px;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 3px solid #b9b9b9;
+  transition: all 0.3s ease;
+  /* width: 100%; */
+  /* margin-left:1px;
+  box-shadow: -8px 10px 0px -7px #b9b9b9, 8px 10px 0px -7px #b9b9b9;
+  -webkit-transition: box-shadow 0.3s;
+  transition: box-shadow 0.3s; */
+  /* left: -100%; */
+}
+input[type=text]:focus, input[type=text]:after {
+  outline: none;
+  border-bottom: 0;
+  box-shadow: -8px 10px 0px -7px #347abe, 8px 10px 0px -7px #347abe;
+}
+
+/* ------------------ */
+/* Definição de Fontes */
+/* ------------------ */
 
 @font-face {
 	font-family: 'FontAwesome';
@@ -21,17 +71,79 @@ body {
     url('../partials/fonts/fontawesome-webfont.ttf?v=3.0.1') format('truetype');
 }
 
+/* ------------------ */
+/* Classes CSS puro */
+/* ------------------ */
+
 .page-title {
 	font-size: 22px;
 	font-family: 'Raleway', sans-serif;
 	font-weight: 600;
-	border-bottom: 1px dashed #343842;
+	border-bottom: 2px solid #347abe;
 	line-height: inherit;
-	color: #343842;
+	color: #777;
 }
 
+.form-label, .z-listheader-content, .z-label {
+	font-family: 'Raleway', sans-serif;
+	color: #347abe; 
+	font-size: 14px; 
+	font-weight: 600; 
+	padding: 0;
+}
+
+.form-input, input[type=checkbox], .z-lookupbox {
+	font-family: 'Raleway', sans-serif;
+	color: #444;
+	font-size: 15px;
+	height: 30px;
+	width: 100%;
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.navbar-default {
+
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#63b6db+0,309dcf+100;Blue+3D+%234 */
+	/* background: rgb(99,182,219); Old browsers
+	background: -moz-linear-gradient(top, rgba(99,182,219,1) 0%, rgba(48,157,207,1) 100%); FF3.6-15
+	background: -webkit-linear-gradient(top, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); Chrome10-25,Safari5.1-6
+	background: linear-gradient(to bottom, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', endColorstr='#309dcf',GradientType=0 ); IE6-9 */
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f9fcf7+0,f5f9f0+100;L+Green+3D */
+background: #ffffff; /* Old browsers */
+/* background: -moz-linear-gradient(top,  #ffffff 0%, #f5f9f0 100%); FF3.6-15
+background: -webkit-linear-gradient(top,  #FFFFF1 0%,#ffffff 100%); Chrome10-25,Safari5.1-6
+background: linear-gradient(to bottom,  #f9fcf7 0%,#f5f9f0 100%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9fcf7', endColorstr='#f5f9f0',GradientType=0 ); IE6-9 */	
+}
+
+.zk-container {
+	background: #fffffb;
+	min-height: 630px; 
+	padding: 0 15px;
+}
+
+.sidebar ul li > .z-a {
+	font-family: 'Raleway', sans-serif;
+	font-size: 16px;
+	color: #777;
+	transition: all 0.2s ease-in-out;
+}
+
+.sidebar ul li > .z-a:hover, .sidebar ul li > .z-a:focus {
+	background: #347abe;
+	color: white;
+}
+
+/* ------------------ */
+/* Classes CSS ZK */
+/* ------------------ */
+
+/* Listcell */
+
 .z-listcell-content {
-	
 	height: auto !important;
 }
 
@@ -39,32 +151,80 @@ body {
 	width: 100%;
 }
 
-a, li {
-	/*font-family: 'Open Sans', sans-serif;*/
-	font-family: 'Raleway', sans-serif;
-	font-weight: 600;
-}
+/* Button */
 
 .z-button {
 	font-family: 'Raleway', sans-serif;
-	font-weight: 400;
-	
+	font-weight: 400;	
 }
 
-li, .z-window-header, .z-window-content, .z-messagebox > .z-label {
+.z-button:hover, .z-tab-content:hover {
+	text-decoration: none;
+	background: linear-gradient(lightgrey, white);
+}
+
+/* Input (Timebox, Combobox, Bandbox) */
+
+.z-timebox-input, .z-combobox-input,.z-bandbox-input, .z-lookupbox-input {
 	font-family: 'Raleway', sans-serif;
-	font-weight: 400;
+	color: #444;
+	font-size: 15px;
+	height: 30px;
+	width: 97.3333333%;
 }
 
-.li-menu {
-	color: #f8f8f8;
+/* Input Button (Timebox, Combobox, Bandbox) */
+
+.z-timebox-button, .z-combobox-button, .z-bandbox-button, .z-lookupbox-button {
+	height: 30px;
+	width: 2.66666667%;
 }
 
-.z-a {
+/* Tabpanel */
+
+.z-tabpanel {
+	border: 0;
+	border-top: 1px solid #347abe;
+}
+
+/* Tabs */
+
+.z-tabs-content {
+	border: 0;
+	border-bottom: 1px solid #347abe;
+}
+
+/* Tab */
+
+.z-tab-selected {
+	background: #347abe;
+}
+
+.z-tab-selected .z-tab-text {
+	color: white;
+}
+
+/* Anchor */
+
+/* .z-a {
 	font-family: 'Raleway', sans-serif;
 	font-size: 16px;
+	color: #777;
+	transition: color 0.2s ease-in-out;
 }
 
+.z-a:hover {
+	color: white;
+	background: #347abe;
+} */
+
+@media(max-width:500px) {
+	.btn {
+		width: 100%;
+		display:block;
+		margin-bottom: 5px;
+	}
+}
 
 @media(min-width:768px) {
 	.zk-container {
@@ -82,128 +242,26 @@ li, .z-window-header, .z-window-content, .z-messagebox > .z-label {
 	}
 }
 
-.zk-container {
-	background: #f8f8f8;
-	min-height: 630px; 
-	padding: 0 15px;
-}
-
-@media(max-width:500px) {
-	.btn {
-		width: 100%;
-		display:block;
-		margin-bottom: 5px;
-	}
-}
-
-td, .z-listbox-emptybody {
-	font-family: 'Raleway', sans-serif;
-}
-
-.form-label, .z-listheader-content, .z-label {
-	font-family: 'Raleway', sans-serif;
-	color: #555; 
-	font-size: 14px; 
-	font-weight: 600; 
-	padding: 0;
-}
-
-.form-input, input[type=checkbox], .z-lookupbox {
-	font-family: 'Raleway', sans-serif;
-	color: #444;
-	font-size: 15px;
-	height: 30px;
-	width: 100%;
-	margin: 0;
-	padding: 0;
-}
-
-input[type=radio], .z-radio-content {
-	color: #444;
-	font-size: 15px;
-	height: 20px;
-	width: 50%;
-}
-
-.z-bandpopup > .z-vbox {
-	width: inherit;
-}
-
-.z-timebox-input, .z-combobox-input,.z-bandbox-input, .z-lookupbox-input {
-	font-family: 'Raleway', sans-serif;
-	color: #444;
-	font-size: 15px;
-	height: 30px;
-	/**width: 97.66666667%; **/
-	/**right: 83.33333333%;**/
-	width: 97.3333333%;
-}
-
-.z-timebox-button, .z-combobox-button, .z-bandbox-button, .z-lookupbox-button {
-	height: 30px;
-	/**right: 16.66666667%;**/
-	width: 2.66666667%;
-
-	
-	/**width: 2.33333333%;**/
-}
-
 @media(max-width:1100px) {
 	
 	.z-timebox-input, .z-combobox-input,.z-bandbox-input, .z-lookupbox-input {
-		
-		/**width: 97.66666667%; **/
 		width: 93.33333333%;
-		/**width: 97.3333333%;**/
 	}
 	
 	.z-timebox-button, .z-combobox-button, .z-bandbox-button, .z-lookupbox-button {
-		
 		width: 6.66666667%;
-		/**width: 2.66666667%;**/
-	
-		
-		/**width: 2.33333333%;**/
 	}
 }
 
 .z-timebox-input:focus, .z-bandbox-input:focus, .z-combobox-input:focus, .form-input:focus {
-	border: solid 1px rgba(0, 153, 255, .75);
-	-webkit-box-shadow: 0px 0px 6px 1px rgba(102, 153, 255, .75);
+	/* border-bottom: 2px solid red;
+	outline: none; */
+	/**-webkit-box-shadow: 0px 0px 6px 1px rgba(102, 153, 255, .75);
 	-moz-box-shadow: 0px 0px 6px 1px rgba(102, 153, 255, .75);
-	box-shadow: 0px 0px 6px 1px rgba(102, 153, 255, .75);
+	box-shadow: 0px 0px 6px 1px rgba(102, 153, 255, .75);**/
 }
 
 .z-timebox-input {
 	font-family: 'Raleway', sans-serif;
 	width: 100%;
 }
-
-.z-button:hover, .z-tab-content:hover {
-	text-decoration: none;
-	background: linear-gradient(lightgrey, white);
-}
-
-.navbar-default {
-
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#63b6db+0,309dcf+100;Blue+3D+%234 */
-	background: rgb(99,182,219); /* Old browsers */
-	background: -moz-linear-gradient(top, rgba(99,182,219,1) 0%, rgba(48,157,207,1) 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(top, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', endColorstr='#309dcf',GradientType=0 ); /* IE6-9 */
-}
-
- .navbar-default {
-	font-family: 'Raleway', sans-serif;
-}
-
-
-
-.z-notification .z-notification-cl, 
-.z-notification .z-notification-cnt {
-    height: 500px;
-    width: 250px;
-}
-
-
