@@ -6,7 +6,7 @@
 		<div sclass="row">
 		
 			<div class="form-group">
-				<n:h4 class="page-title"><n:i class="fa fa-university fa-fw" ></n:i>Departamento</n:h4>
+				<n:h4 class="page-title">Departamento</n:h4>
 			</div>
 		
 			<div class="form-group">
@@ -16,11 +16,13 @@
 			<div id="list" visible="@bind($composer.consultando)">
 				<listbox model="@bind($composer.col)" selectedItem="@bind($composer.entidade)" onSelect="$composer.edit()" emptyMessage="Nenhum registro encontrado.">
 					<listhead>
-						<listheader label="Nome"/>
-						<listheader label="Descrição"/>
+						<listheader label="Código" sort="auto(codigo)"/>
+						<listheader label="Nome" sort="auto(nome)"/>
+						<listheader label="Descrição" sort="auto(descricao)"/>
 					</listhead>
 					<template name="model" var="obj">
 						<listitem value="@bind(obj)">
+							<listcell label="@load(obj.codigo)"/>
 							<listcell label="@load(obj.nome)"/>
 							<listcell label="@load(obj.descricao)"/>
 						</listitem>

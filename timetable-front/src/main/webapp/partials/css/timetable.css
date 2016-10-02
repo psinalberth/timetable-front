@@ -41,10 +41,10 @@ input[type=radio], .z-radio-content {
 input[type=text] {
   background: transparent;
   outline: none;
-  height:20px;
+  height:22px;
   border: 0;
   border-radius: 0;
-  border-bottom: 3px solid #b9b9b9;
+  border-bottom: 2px solid #b9b9b9;
   transition: all 0.3s ease;
   /* width: 100%; */
   /* margin-left:1px;
@@ -53,11 +53,25 @@ input[type=text] {
   transition: box-shadow 0.3s; */
   /* left: -100%; */
 }
-input[type=text]:focus, input[type=text]:after {
+input[type=text]:focus
+ {
   outline: none;
   border-bottom: 0;
   box-shadow: -8px 10px 0px -7px #347abe, 8px 10px 0px -7px #347abe;
 }
+
+.z-combobox {
+	
+	margin: 0;
+	padding: 0;
+	transition: all 0.3s ease;
+}
+
+.z-combobox:focus {
+	/* box-shadow: -8px 10px 0px -7px #b9b9b9, 8px 10px 0px -7px #b9b9b9; */
+	border-bottom: 2px dashed orange;
+}
+
 
 /* ------------------ */
 /* Definição de Fontes */
@@ -84,6 +98,10 @@ input[type=text]:focus, input[type=text]:after {
 	color: #777;
 }
 
+.navbar-default {
+	background: white;
+}
+
 .form-label, .z-listheader-content, .z-label {
 	font-family: 'Raleway', sans-serif;
 	color: #347abe; 
@@ -103,24 +121,8 @@ input[type=text]:focus, input[type=text]:after {
 	padding: 0;
 }
 
-.navbar-default {
-
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#63b6db+0,309dcf+100;Blue+3D+%234 */
-	/* background: rgb(99,182,219); Old browsers
-	background: -moz-linear-gradient(top, rgba(99,182,219,1) 0%, rgba(48,157,207,1) 100%); FF3.6-15
-	background: -webkit-linear-gradient(top, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); Chrome10-25,Safari5.1-6
-	background: linear-gradient(to bottom, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', endColorstr='#309dcf',GradientType=0 ); IE6-9 */
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f9fcf7+0,f5f9f0+100;L+Green+3D */
-background: #ffffff; /* Old browsers */
-/* background: -moz-linear-gradient(top,  #ffffff 0%, #f5f9f0 100%); FF3.6-15
-background: -webkit-linear-gradient(top,  #FFFFF1 0%,#ffffff 100%); Chrome10-25,Safari5.1-6
-background: linear-gradient(to bottom,  #f9fcf7 0%,#f5f9f0 100%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9fcf7', endColorstr='#f5f9f0',GradientType=0 ); IE6-9 */	
-}
-
 .zk-container {
-	background: #fffffb;
+	background: transparent;
 	min-height: 630px; 
 	padding: 0 15px;
 }
@@ -147,9 +149,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9fcf7', end
 	height: auto !important;
 }
 
-#wrapper {
-	width: 100%;
-}
 
 /* Button */
 
@@ -169,15 +168,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9fcf7', end
 	font-family: 'Raleway', sans-serif;
 	color: #444;
 	font-size: 15px;
-	height: 30px;
+	height: 22px;
 	width: 97.3333333%;
+	transition: all 0.3s ease;
 }
 
 /* Input Button (Timebox, Combobox, Bandbox) */
 
 .z-timebox-button, .z-combobox-button, .z-bandbox-button, .z-lookupbox-button {
-	height: 30px;
+	min-height: 22px;
+	height: 22px !important;
 	width: 2.66666667%;
+	padding-top: 0;
+	border: 0;
+  border-radius: 0;
+ /*  border-bottom: 2px solid #b9b9b9;
+  transition: all 0.3s ease; */
 }
 
 /* Tabpanel */
@@ -196,6 +202,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9fcf7', end
 
 /* Tab */
 
+.z-tab {
+	border-radius: 0;
+	background: transparent;
+}
+
+.z-tab-content:hover {
+	background: cyan;
+}
+
 .z-tab-selected {
 	background: #347abe;
 }
@@ -204,19 +219,42 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9fcf7', end
 	color: white;
 }
 
-/* Anchor */
+/* Listbox */
 
-/* .z-a {
-	font-family: 'Raleway', sans-serif;
-	font-size: 16px;
-	color: #777;
-	transition: color 0.2s ease-in-out;
+.z-listbox {
+	border: 0;
 }
 
-.z-a:hover {
-	color: white;
+.z-listbox-header-border {
+	border-bottom: 2px solid #777;
+}
+
+.z-listheader, .z-listbox-header {
+	border: 0;
+	background: transparent;
+}
+
+.z-listcell-content {
+	font-family: 'Raleway', sans-serif;
+	color: #444;
+	font-size: 15px;
+	height: 22px;
+}
+
+.z-listitem .z-listcell {
+	border: 0;
+	transition: all 0.3s ease;
+}
+
+.z-listitem:hover .z-listcell {
 	background: #347abe;
-} */
+	
+}
+
+.z-listitem:hover .z-listcell > .z-listcell-content {
+	color: white;
+	font-weight: 600;
+}
 
 @media(max-width:500px) {
 	.btn {
@@ -253,13 +291,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9fcf7', end
 	}
 }
 
-.z-timebox-input:focus, .z-bandbox-input:focus, .z-combobox-input:focus, .form-input:focus {
-	/* border-bottom: 2px solid red;
-	outline: none; */
-	/**-webkit-box-shadow: 0px 0px 6px 1px rgba(102, 153, 255, .75);
-	-moz-box-shadow: 0px 0px 6px 1px rgba(102, 153, 255, .75);
-	box-shadow: 0px 0px 6px 1px rgba(102, 153, 255, .75);**/
-}
 
 .z-timebox-input {
 	font-family: 'Raleway', sans-serif;
