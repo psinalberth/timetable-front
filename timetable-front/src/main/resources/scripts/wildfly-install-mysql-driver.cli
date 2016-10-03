@@ -1,0 +1,15 @@
+# Connect to Wildfly instance
+connect
+
+# Create Oracle JDBC Driver Module
+# If the module already exists, Wildfly will output a message saying that the module already exists and the script exits.
+module add \
+    --name=com.mysql \
+    --resources=${settings.localRepository}/com/mysql/mysql-connector-java-5.1.39.jar \
+    --dependencies=javax.api,javax.transaction.api
+
+# Add Driver Properties
+/subsystem=datasources/jdbc-driver=mysql: \
+    add( \
+        driver-name="mysql", \
+        driver-module-name="com.mysql")

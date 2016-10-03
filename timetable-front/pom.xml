@@ -117,6 +117,99 @@
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
+			<!-- Wildfly Installation -->
+			<plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-dependency-plugin</artifactId>
+	            <version>2.10</version>
+	            <executions>
+	                <execution>
+	                    <id>unpack</id>
+	                    <phase>package</phase>
+	                    <goals>
+	                        <goal>unpack</goal>
+	                    </goals>
+	                    <configuration>
+	                        <artifactItems>
+	                            <artifactItem>
+	                                <groupId>org.wildfly</groupId>
+	                                <artifactId>wildfly-dist</artifactId>
+	                                <version>8.2.1.Final</version>
+	                                <type>zip</type>
+	                                <overWrite>false</overWrite>
+	                                <outputDirectory>target</outputDirectory>
+	                            </artifactItem>
+	                        </artifactItems>
+	                    </configuration>
+	                </execution>
+	            </executions>
+	            <dependencies>
+	                <dependency>
+	                    <groupId>mysql</groupId>
+					    <artifactId>mysql-connector-java</artifactId>
+					    <version>5.1.39</version>
+	                </dependency>
+	            </dependencies>
+	        </plugin>
+	        <!-- Wildfly Dir -->
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-war-plugin</artifactId>
+	            <version>2.3</version>
+	            <configuration>
+	                <failOnMissingWebXml>false</failOnMissingWebXml>
+	                <outputDirectory>target/wildfly-8.2.1.Final/standalone/deployments</outputDirectory>
+	                <warName>timetable-front</warName>
+	            </configuration>
+	        </plugin>
+			<!-- Maven Configuration Script Files -->
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-resources-plugin</artifactId>
+			    <version>2.6</version>
+			    <executions>
+			        <execution>
+			            <id>copy-resources</id>
+			            <phase>process-resources</phase>
+			            <goals>
+			                <goal>copy-resources</goal>
+			            </goals>
+			            <configuration>
+			                <outputDirectory>${basedir}/target/scripts</outputDirectory>
+			                <resources>
+			                    <resource>
+			                        <directory>src/main/resources/scripts</directory>
+			                        <filtering>true</filtering>
+			                    </resource>
+			                </resources>
+			                <filters>
+			                    <filter>${basedir}/src/main/resources/configuration.properties</filter>
+			                </filters>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+			<!-- Maven Wildly Plugin -->
+			<plugin>
+			    <groupId>org.wildfly.plugins</groupId>
+			    <artifactId>wildfly-maven-plugin</artifactId>
+			    <version>1.0.2.Final</version>
+			    <configuration>
+			        <executeCommands>
+			            <batch>false</batch>
+			            <scripts>
+			                <script>target/scripts/${cli.file}</script>
+			            </scripts>
+			        </executeCommands>
+			    </configuration>
+			    <dependencies>
+			        <dependency>
+					    <groupId>mysql</groupId>
+					    <artifactId>mysql-connector-java</artifactId>
+					    <version>5.1.39</version>
+					</dependency>
+			    </dependencies>
+			</plugin>
 			<!-- Run with Jetty -->
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
@@ -169,4 +262,33 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+	    <profile>
+	        <id>install-driver</id>
+	        <properties>
+	            <cli.file>wildfly-install-mysql-driver.cli</cli.file>
+	        </properties>
+	    </profile>
+	
+	    <profile>
+	        <id>remove-driver</id>
+	        <properties>
+	            <cli.file>wildfly-remove-mysql-driver.cli</cli.file>
+	        </properties>
+	    </profile>
+	
+	    <profile>
+	        <id>install-wow-auctions</id>
+	        <properties>
+	            <cli.file>wow-auctions-install.cli</cli.file>
+	        </properties>
+	    </profile>
+	
+	    <profile>
+	        <id>remove-wow-auctions</id>
+	        <properties>
+	            <cli.file>wow-auctions-remove.cli</cli.file>
+	        </properties>
+	    </profile>
+	</profiles>
 </project>

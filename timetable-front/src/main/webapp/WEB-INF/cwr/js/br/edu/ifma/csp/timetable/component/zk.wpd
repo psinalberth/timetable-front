@@ -1,3 +1,4 @@
+<!DOCTYPE xml>
 <package name="br.edu.ifma.csp.timetable.component" language="xul/html" depends="zul, zul.inp">
     <widget name="LookupBox"/>
     <widget name="ErrMsg"/>
