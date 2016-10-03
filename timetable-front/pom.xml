@@ -159,7 +159,7 @@
 	            <configuration>
 	                <failOnMissingWebXml>false</failOnMissingWebXml>
 	                <outputDirectory>target/wildfly-8.2.1.Final/standalone/deployments</outputDirectory>
-	                <warName>timetable-front</warName>
+	                <warName>${project.artifactId}</warName>
 	            </configuration>
 	        </plugin>
 			<!-- Maven Configuration Script Files -->
@@ -233,12 +233,6 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-			<!-- Build war -->
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<groupId>org.apache.maven.plugins</groupId>
-				<version>2.1.1</version>
-			</plugin>
 			<!-- Pack zips -->
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>

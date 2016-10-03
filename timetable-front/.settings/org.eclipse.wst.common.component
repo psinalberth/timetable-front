@@ -4,7 +4,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <property name="context-root" value="timetable-front"/>
         <property name="java-output-path" value="/timetable-front/target/classes"/>
+        <property name="context-root" value="timetable-front"/>
     </wb-module>
 </project-modules>
