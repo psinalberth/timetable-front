@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.Clients;
@@ -74,7 +73,6 @@ public class TurmaComposer extends Composer<Turma>{
 		setModel(new ListModelList<>(entidade.getDetalhes()));
 		
 		getBinder().notifyChange(entidade, "detalhes");
-		BindUtils.postNotifyChange(null, null, this, "model");
 	}
 	
 	public void removerDetalhe() {

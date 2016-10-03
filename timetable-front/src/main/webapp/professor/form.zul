@@ -76,7 +76,7 @@
 							<listcell>
 								<div sclass="form-group">
 									<label value="Disciplina" sclass="form-label"/>
-									<combobox id="disciplina" model="@load($composer.colDisciplinas)" 
+									<combobox id="disciplina" sclass="form-input" model="@load($composer.colDisciplinas)" 
 											  value="@bind(preferenciaSelecionada.disciplina.descricao)" 
 											  selectedItem="@bind(preferenciaSelecionada.disciplina)">
 										<template name="model">

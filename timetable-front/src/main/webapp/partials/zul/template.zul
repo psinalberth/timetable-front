@@ -2,16 +2,16 @@
 <?meta name="viewport" content="width=device-width, initial-scale=1"?>
 
 <zk xmlns:n="native">
-	<n:link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"></n:link>
-	<n:link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/1.0.8/css/sb-admin-2.min.css"></n:link>
+	<n:link rel="stylesheet" href="../partials/css/bootstrap.min.css"></n:link>
+	<n:link rel="stylesheet" href="../partials/css/sb-admin-2.min.css"></n:link>
 	<n:link rel="stylesheet" href="../partials/css/timetable.css"></n:link>
 	<n:link rel="stylesheet" href="../partials/css/font-awesome.min.css"></n:link>
 	<n:link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,800' rel='stylesheet' type='text/css'></n:link>
 	<n:link href='https://fonts.googleapis.com/css?family=Raleway:400,800,900' rel='stylesheet' type='text/css'></n:link>
-	<n:script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></n:script>
-	<n:script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></n:script>
-	<n:script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/1.0.8/js/sb-admin-2.min.js"></n:script>
-	<n:script src="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.5.2/metisMenu.min.js"></n:script>
+	<n:script src="../partials/js/jquery.min.js"></n:script>
+	<n:script src="../partials/js/bootstrap.min.js"></n:script>
+	<n:script src="../partials/js/sb-admin-2.min.js"></n:script>
+	<n:script src="../partials/js/metisMenu.min.js"></n:script>
 	
 	<div id="wrapper" sclass="ss" style="width: 100%">
 		

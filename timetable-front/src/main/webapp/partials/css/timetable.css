@@ -1,5 +1,14 @@
 @CHARSET "UTF-8";
 
+@font-face {
+	font-family: 'Raleway';
+	src: url('../fonts/raleway/Raleway-Bold.ttf'),
+	url('../fonts/raleway/Raleway-Regular.ttf'),
+	url('../fonts/raleway/Raleway-Heavy.ttf'),
+	url('../fonts/raleway/Raleway-Light.ttf'),
+	url('../fonts/raleway/Raleway-Medium.ttf');
+}
+
 /* ------------------ */
 /* Tags padrão */
 /* ------------------ */
@@ -134,9 +143,18 @@ input[type=text]:focus
 	transition: all 0.2s ease-in-out;
 }
 
-.sidebar ul li > .z-a:hover, .sidebar ul li > .z-a:focus {
+.sidebar ul li > .z-a:hover, .sidebar ul li > .z-a:focus, .sidebar ul li > .z-a.active {
 	background: #347abe;
 	color: white;
+}
+
+.navbar-brand.z-a {
+	font-family: 'Raleway', sans-serif;
+	transition: all 0.3s ease;
+}
+
+.navbar-brand.z-a:hover {
+	color: #347abe;
 }
 
 /* ------------------ */
@@ -190,34 +208,38 @@ input[type=text]:focus
 
 .z-tabpanel {
 	border: 0;
-	border-top: 1px solid #347abe;
+	/* border-top: 2px solid #347abe; */
 }
 
 /* Tabs */
 
 .z-tabs-content {
 	border: 0;
-	border-bottom: 1px solid #347abe;
+	/* border-bottom: 2px solid #347abe; */
 }
 
 /* Tab */
 
 .z-tab {
 	border-radius: 0;
-	background: transparent;
+	background: white;
+	border: 0;
+	color: #777;
+	border-bottom: 2px solid #777;
+	transition: border-color 0.3s ease;
 }
 
-.z-tab-content:hover {
-	background: cyan;
+.z-tab:hover, .z-tab:hover .z-tab-text {
+	background: white;
+	color: #347abe;
+	border-color: #347abe;
 }
 
-.z-tab-selected {
-	background: #347abe;
+ .z-tab.z-tab-selected,  .z-tab-selected .z-tab-text {
+	border-color: #347abe;
+	color: #347abe;
 }
 
-.z-tab-selected .z-tab-text {
-	color: white;
-}
 
 /* Listbox */
 
