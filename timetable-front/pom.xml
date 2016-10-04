@@ -136,7 +136,7 @@
 	                                <artifactId>wildfly-dist</artifactId>
 	                                <version>8.2.1.Final</version>
 	                                <type>zip</type>
-	                                <overWrite>false</overWrite>
+	                                <overWrite>true</overWrite>
 	                                <outputDirectory>target</outputDirectory>
 	                            </artifactItem>
 	                        </artifactItems>
@@ -189,19 +189,53 @@
 			        </execution>
 			    </executions>
 			</plugin>
-			<!-- Maven Wildly Plugin -->
-			<plugin>
+			<!--  Maven Wildly Plugin -->
+			<!-- <plugin>
 			    <groupId>org.wildfly.plugins</groupId>
 			    <artifactId>wildfly-maven-plugin</artifactId>
 			    <version>1.0.2.Final</version>
-			    <configuration>
-			        <executeCommands>
-			            <batch>false</batch>
-			            <scripts>
-			                <script>target/scripts/${cli.file}</script>
-			            </scripts>
-			        </executeCommands>
-			    </configuration>
+			     <executions>
+
+                            Deploy Mysql driver
+                            <execution>
+                                <id>deploy-mysql</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>deploy-artifact</goal>
+                                </goals>
+                                <configuration>
+                                    <groupId>mysql</groupId>
+                                    <artifactId>mysql-connector-java</artifactId>
+                                    <name>mysql</name>
+                                </configuration>
+                            </execution>
+
+                            Init datasource
+                            <execution>
+                                <id>add-datasource</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>add-resource</goal>
+                                </goals>
+                                <configuration>
+                                    <address>subsystem=datasources,data-source=java:jboss/datasources/TimetableDS</address>
+                                    <resources>
+                                        <resource>
+                                            <properties>
+                                                <connection-url>jjdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_6ecdb71e25009b0</connection-url>
+                                                <jndi-name>java:jboss/datasources/msiDS</jndi-name>
+                                                <enabled>true</enabled>
+                                                <driver-name>mysql</driver-name>
+                                                <user-name>b397f96d2aef41</user-name>
+                                                <password>7d8b1ee8</password>
+                                                <pool-name>TimetableDS</pool-name>
+                                            </properties>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+
+                        </executions>
 			    <dependencies>
 			        <dependency>
 					    <groupId>mysql</groupId>
@@ -209,7 +243,7 @@
 					    <version>5.1.39</version>
 					</dependency>
 			    </dependencies>
-			</plugin>
+			</plugin> -->
 			<!-- Run with Jetty -->
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
@@ -253,6 +287,23 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+			  <groupId>org.codehaus.mojo</groupId>
+			  <artifactId>exec-maven-plugin</artifactId>
+			  <version>1.5.0</version>
+			    <executions>
+			        <execution>
+			            <id>configure-wildfly</id>
+			            <phase>package</phase>
+			            <goals>
+			                <goal>exec</goal>
+			            </goals>
+			            <configuration>
+			                <executable>./src/main/resources/scripts/configure-wildfly.sh</executable>
+			            </configuration>
+			        </execution>
+			    </executions>
 			</plugin>
 		</plugins>
 	</build>
