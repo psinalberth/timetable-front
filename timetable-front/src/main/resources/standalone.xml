@@ -146,29 +146,22 @@
                         <password>sa</password>
                     </security>
                 </datasource>
-                <datasource jta="true" jndi-name="java:jboss/datasources/TimetableDS" pool-name="AAAA" enabled="true" use-ccm="true">
+                <datasource jta="true" jndi-name="java:jboss/datasources/TimetableDS" pool-name="TimetableDS" enabled="true" use-java-context="true">
                     <connection-url>jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_6ecdb71e25009b0</connection-url>
-                    <driver-class>com.mysql.jdbc.Driver</driver-class>
                     <driver>mysql</driver>
+                    <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
+                    <pool>
+                        <min-pool-size>10</min-pool-size>
+                        <max-pool-size>100</max-pool-size>
+                        <prefill>true</prefill>
+                    </pool>
                     <security>
                         <user-name>b397f96d2aef41</user-name>
                         <password>7d8b1ee8</password>
                     </security>
-                    <validation>
-                        <validate-on-match>false</validate-on-match>
-                        <background-validation>false</background-validation>
-                    </validation>
-                    <timeout>
-                        <set-tx-query-timeout>false</set-tx-query-timeout>
-                        <blocking-timeout-millis>0</blocking-timeout-millis>
-                        <idle-timeout-minutes>0</idle-timeout-minutes>
-                        <query-timeout>0</query-timeout>
-                        <use-try-lock>0</use-try-lock>
-                        <allocation-retry>0</allocation-retry>
-                        <allocation-retry-wait-millis>0</allocation-retry-wait-millis>
-                    </timeout>
                     <statement>
-                        <share-prepared-statements>false</share-prepared-statements>
+                        <prepared-statement-cache-size>32</prepared-statement-cache-size>
+                        <share-prepared-statements>true</share-prepared-statements>
                     </statement>
                 </datasource>
                 <drivers>
@@ -350,7 +343,6 @@
                 </process-id>
             </core-environment>
             <recovery-environment socket-binding="txn-recovery-environment" status-socket-binding="txn-status-manager"/>
-            <coordinator-environment default-timeout="400"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:undertow:1.2">
             <buffer-cache name="default"/>
@@ -400,13 +392,13 @@
     </interfaces>
 
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
-        <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
+        <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9494}"/>
         <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9993}"/>
-        <socket-binding name="ajp" port="${jboss.ajp.port:8009}"/>
-        <socket-binding name="http" port="${jboss.http.port:8888}"/>
-        <socket-binding name="https" port="${jboss.https.port:8443}"/>
-        <socket-binding name="txn-recovery-environment" port="4712"/>
-        <socket-binding name="txn-status-manager" port="4713"/>
+        <socket-binding name="ajp" port="${jboss.ajp.port:8008}"/>
+        <socket-binding name="http" port="${jboss.http.port:8484}"/>
+        <socket-binding name="https" port="${jboss.https.port:8444}"/>
+        <socket-binding name="txn-recovery-environment" port="4714"/>
+        <socket-binding name="txn-status-manager" port="4715"/>
         <outbound-socket-binding name="mail-smtp">
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
