@@ -151,14 +151,18 @@
                     <driver>mysql</driver>
                     <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
                     <pool>
-                        <min-pool-size>10</min-pool-size>
-                        <max-pool-size>100</max-pool-size>
-                        <prefill>true</prefill>
+	                    <min-pool-size>10</min-pool-size>
+	                    <max-pool-size>100</max-pool-size>
+	                    <prefill>true</prefill>
                     </pool>
-                    <!-- <validation>
+                    <security>
+                        <user-name>b397f96d2aef41</user-name>
+                        <password>7d8b1ee8</password>
+                    </security>
+                    <validation>
                         <validate-on-match>false</validate-on-match>
                         <background-validation>false</background-validation>
-                    </validation> -->
+                    </validation>
                     <timeout>
                         <set-tx-query-timeout>false</set-tx-query-timeout>
                         <blocking-timeout-millis>0</blocking-timeout-millis>
@@ -169,7 +173,6 @@
                         <allocation-retry-wait-millis>0</allocation-retry-wait-millis>
                     </timeout>
                     <statement>
-                    	<prepared-statement-cache-size>32</prepared-statement-cache-size>
                         <share-prepared-statements>false</share-prepared-statements>
                     </statement>
                 </datasource>
