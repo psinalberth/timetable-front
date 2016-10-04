@@ -147,7 +147,7 @@
                     </security>
                 </datasource>
                 <datasource jta="true" jndi-name="java:jboss/datasources/TimetableDS" pool-name="TimetableDS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_6ecdb71e25009b0?reconnect=true</connection-url>
+                    <connection-url>jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_6ecdb71e25009b0?autoReconnect=true</connection-url>
                     <driver>mysql</driver>
                     <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
                     <pool>
@@ -160,10 +160,12 @@
                         <password>7d8b1ee8</password>
                     </security>
                     <validation>
-                        <validate-on-match>false</validate-on-match>
-                        <background-validation>false</background-validation>
-                    </validation>
-                    <timeout>
+		              	<check-valid-connection-sql>select 1</check-valid-connection-sql>
+		              	<validate-on-match>false</validate-on-match>
+		              	<background-validation>true</background-validation>
+		              	<background-validation-millis>10000</background-validation-millis>
+		          	</validation>
+                    <!-- <timeout>
                         <set-tx-query-timeout>false</set-tx-query-timeout>
                         <blocking-timeout-millis>0</blocking-timeout-millis>
                         <idle-timeout-minutes>0</idle-timeout-minutes>
@@ -171,7 +173,7 @@
                         <use-try-lock>0</use-try-lock>
                         <allocation-retry>0</allocation-retry>
                         <allocation-retry-wait-millis>0</allocation-retry-wait-millis>
-                    </timeout>
+                    </timeout> -->
                     <statement>
                         <share-prepared-statements>false</share-prepared-statements>
                     </statement>
