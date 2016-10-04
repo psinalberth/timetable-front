@@ -147,7 +147,7 @@
                     </security>
                 </datasource>
                 <datasource jta="true" jndi-name="java:jboss/datasources/TimetableDS" pool-name="TimetableDS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_6ecdb71e25009b0</connection-url>
+                    <connection-url>jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_6ecdb71e25009b0?reconnect=true</connection-url>
                     <driver>mysql</driver>
                     <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
                     <pool>
