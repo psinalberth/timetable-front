@@ -60,7 +60,8 @@
 			
 			<tabpanel>
 				<listbox checkmark="true" multiple="true" mold="paging" model="@bind($composer.entidade.preferencias)"
-							emptyMessage="Nenhum registro adicionado." rows="4" autopaging="true">
+							emptyMessage="Nenhum registro adicionado." rows="4" autopaging="true" 
+							selectedItems="@bind($composer.preferenciasSelecionadas)">
 					<listhead>
 						<listheader hflex="min"/>
 						<listheader label="Disciplinas">
@@ -76,7 +77,7 @@
 							<listcell>
 								<div sclass="form-group">
 									<label value="Disciplina" sclass="form-label"/>
-									<combobox id="disciplina" sclass="form-input" model="@load($composer.colDisciplinas)" 
+									<combobox sclass="form-input" model="@load($composer.colDisciplinas)" 
 											  value="@bind(preferenciaSelecionada.disciplina.descricao)" 
 											  selectedItem="@bind(preferenciaSelecionada.disciplina)">
 										<template name="model">

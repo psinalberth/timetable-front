@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
@@ -55,5 +57,12 @@ public abstract class Entidade implements Serializable {
 	
 	public void setVersao(int versao) {
 		this.versao = versao;
+	}
+	
+	@PreUpdate
+	@PrePersist
+	public void prePersist() {
+		this.setDataUltAlteracao(new Date());
+		this.setUsuarioUltAlteracao("user");
 	}
 }

@@ -7,7 +7,6 @@ import java.util.List;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.Clients;
-import org.zkoss.zul.ListModelList;
 
 import br.edu.ifma.csp.timetable.dao.DisciplinaDao;
 import br.edu.ifma.csp.timetable.model.DetalheDisciplina;
@@ -22,7 +21,6 @@ public class TurmaComposer extends Composer<Turma>{
 	
 	private List<Integer> colCodigos;
 	private List<Disciplina> colDisciplinas;
-	private ListModelList<DetalheDisciplina> model;
 	
 	private DetalheDisciplina detalheSelecionado;
 
@@ -70,21 +68,11 @@ public class TurmaComposer extends Composer<Turma>{
 		
 		entidade.getDetalhes().add(detalheSelecionado);		
 		
-		setModel(new ListModelList<>(entidade.getDetalhes()));
-		
 		getBinder().notifyChange(entidade, "detalhes");
 	}
 	
 	public void removerDetalhe() {
 		
-	}
-	
-	public ListModelList<DetalheDisciplina> getModel() {
-		return model;
-	}
-	
-	public void setModel(ListModelList<DetalheDisciplina> model) {
-		this.model = model;
 	}
 	
 	public List<Integer> getColCodigos() {

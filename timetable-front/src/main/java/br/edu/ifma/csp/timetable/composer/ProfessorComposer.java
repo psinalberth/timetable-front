@@ -26,6 +26,8 @@ public class ProfessorComposer extends Composer<Professor> {
 	private List<Disciplina> colDisciplinas;
 	private List<Departamento> colDepartamentos;
 	
+	private List<PreferenciaDisciplinaProfessor> preferenciasSelecionadas;
+	
 	private PreferenciaDisciplinaProfessor preferenciaSelecionada;
 
 	@Init
@@ -53,8 +55,6 @@ public class ProfessorComposer extends Composer<Professor> {
 		
 		PreferenciaDisciplinaProfessor preferencia = new PreferenciaDisciplinaProfessor();
 		preferencia.setProfessor(entidade);
-		preferencia.setDataUltAlteracao(entidade.getDataUltAlteracao());
-		preferencia.setUsuarioUltAlteracao(entidade.getUsuarioUltAlteracao());
 		
 		entidade.getPreferencias().add(preferencia);
 		
@@ -65,10 +65,15 @@ public class ProfessorComposer extends Composer<Professor> {
 		
 		PreferenciaDisciplinaProfessor preferencia = new PreferenciaDisciplinaProfessor();
 		preferencia.setProfessor(entidade);
+		
+		entidade.getPreferencias().add(preferencia);
+		
+		getBinder().notifyChange(entidade, "preferencias");
 	}
 	
 	public void removerDetalhe() {
-		
+		entidade.getPreferencias().removeAll(preferenciasSelecionadas);
+		getBinder().notifyChange(entidade, "preferencias");
 	}
 	
 	public PreferenciaDisciplinaProfessor getPreferenciaSelecionada() {
@@ -93,5 +98,13 @@ public class ProfessorComposer extends Composer<Professor> {
 	
 	public void setColDepartamentos(List<Departamento> colDepartamentos) {
 		this.colDepartamentos = colDepartamentos;
+	}
+
+	public List<PreferenciaDisciplinaProfessor> getPreferenciasSelecionadas() {
+		return preferenciasSelecionadas;
+	}
+
+	public void setPreferenciasSelecionadas(List<PreferenciaDisciplinaProfessor> preferenciasSelecionadas) {
+		this.preferenciasSelecionadas = preferenciasSelecionadas;
 	}
 }
