@@ -47,7 +47,7 @@ input[type=radio], .z-radio-content {
 	height: 20px;
 	width: 50%;
 }
-input[type=text], textarea {
+input[type=text], textarea.class {
   background: transparent;
   outline: none;
   height:22px;
@@ -62,8 +62,7 @@ input[type=text], textarea {
   transition: box-shadow 0.3s; */
   /* left: -100%; */
 }
-input[type=text]:focus, textarea:focus
- {
+input[type=text]:focus, textarea:focus {
   outline: none;
   border-bottom: 0;
   box-shadow: -8px 10px 0px -7px #347abe, 8px 10px 0px -7px #347abe;
@@ -95,7 +94,7 @@ input[type=text]:focus, textarea:focus
 }
 
 /* ------------------ */
-/* Classes CSS puro */
+/* Classes CSS puro   */
 /* ------------------ */
 
 .page-title {
@@ -229,6 +228,11 @@ input[type=text]:focus, textarea:focus
 	transition: border-color 0.3s ease;
 }
 
+.z-comboitem:hover {
+	background: #347abe;
+	color: white;
+}
+
 .z-tab:hover, .z-tab:hover .z-tab-text {
 	background: white;
 	color: #347abe;
@@ -268,7 +272,7 @@ input[type=text]:focus, textarea:focus
 	transition: all 0.3s ease;
 }
 
-.z-listitem:hover .z-listcell {
+.z-listitem.list:hover .z-listcell {
 	background: #347abe;
 	
 }
@@ -276,6 +280,10 @@ input[type=text]:focus, textarea:focus
 .z-listitem:hover .z-listcell > .z-listcell-content {
 	color: white;
 	font-weight: 600;
+}
+
+.z-listbox-paging-bottom {
+	border: 0;
 }
 
 @media(max-width:500px) {

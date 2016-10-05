@@ -20,7 +20,7 @@
 						<listheader label="Descrição"/>
 					</listhead>
 					<template name="model" var="obj">
-						<listitem value="@bind(obj)">
+						<listitem value="@bind(obj)" sclass="list">
 							<listcell label=""/>
 							<listcell label="@load(obj.descricao)"/>
 						</listitem>
