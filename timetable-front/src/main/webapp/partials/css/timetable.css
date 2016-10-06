@@ -156,6 +156,14 @@ input[type=text]:focus, textarea:focus {
 	color: #347abe;
 }
 
+.btn {
+	border: 0;
+	outline: 0;
+	font-size: 16px;
+	font-weight: 600;
+	color: #777;
+}
+
 /* ------------------ */
 /* Classes CSS ZK */
 /* ------------------ */
