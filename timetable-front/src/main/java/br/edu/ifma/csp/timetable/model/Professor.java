@@ -50,7 +50,7 @@ public class Professor extends Entidade {
 	
 	@Valid
 	@Size(min=1, message="Nenhuma preferência adicionada.")
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="professor", cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="professor", cascade=CascadeType.ALL, orphanRemoval=true)
 	private Set<PreferenciaDisciplinaProfessor> preferencias = new HashSet<PreferenciaDisciplinaProfessor>();
 
 	@Override
