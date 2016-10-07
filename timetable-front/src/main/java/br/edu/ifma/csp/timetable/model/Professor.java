@@ -51,7 +51,11 @@ public class Professor extends Entidade {
 	@Valid
 	@Size(min=1, message="Nenhuma preferência adicionada.")
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="professor", cascade=CascadeType.ALL, orphanRemoval=true)
-	private Set<PreferenciaDisciplinaProfessor> preferencias = new HashSet<PreferenciaDisciplinaProfessor>();
+	private Set<PreferenciaDisciplinaProfessor> preferenciasDisciplina = new HashSet<PreferenciaDisciplinaProfessor>();
+	
+	@Valid
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="professor", cascade=CascadeType.ALL, orphanRemoval=true)
+	private Set<PreferenciaHorarioProfessor> preferenciasHorario = new HashSet<PreferenciaHorarioProfessor>();
 
 	@Override
 	public int getId() {
@@ -94,12 +98,20 @@ public class Professor extends Entidade {
 		this.aulas = aulas;
 	}
 	
-	public Set<PreferenciaDisciplinaProfessor> getPreferencias() {
-		return preferencias;
+	public Set<PreferenciaDisciplinaProfessor> getPreferenciasDisciplina() {
+		return preferenciasDisciplina;
 	}
 	
-	public void setPreferencias(Set<PreferenciaDisciplinaProfessor> preferencias) {
-		this.preferencias = preferencias;
+	public void setPreferenciasDisciplina(Set<PreferenciaDisciplinaProfessor> preferenciasDisciplina) {
+		this.preferenciasDisciplina = preferenciasDisciplina;
+	}
+	
+	public Set<PreferenciaHorarioProfessor> getPreferenciasHorario() {
+		return preferenciasHorario;
+	}
+	
+	public void setPreferenciasHorario(Set<PreferenciaHorarioProfessor> preferenciasHorario) {
+		this.preferenciasHorario = preferenciasHorario;
 	}
 	
 	@Override

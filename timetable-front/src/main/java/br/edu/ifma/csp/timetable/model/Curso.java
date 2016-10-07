@@ -34,7 +34,7 @@ public class Curso extends Entidade {
 	@NotBlank(message="codigo#O código é obrigatório.")
 	@Column(name="CODIGO", unique=true, length=2)
 	@Unique(message="codigo#O código selecionado já está em uso.")
-	@Pattern(regexp="^[\\p{Alpha}]{3}$", message="O código deve ser alfabético de três dígitos.")
+	@Pattern(regexp="^[\\p{Alpha}]{2}$", message="O código deve ser alfabético de dois dígitos.")
 	private String codigo;
 	
 	@NotBlank(message="nome#O nome é obrigatório.")

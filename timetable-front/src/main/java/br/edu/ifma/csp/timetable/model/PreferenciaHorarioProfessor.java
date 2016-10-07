@@ -12,10 +12,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="PREFERENCIA_DISCIPLINA_PROFESSOR")
-public class PreferenciaDisciplinaProfessor extends Entidade {
-
-	private static final long serialVersionUID = 5311232373351030581L;
+@Table(name="PREFERENCIA_HORARIO_PROFESSOR")
+public class PreferenciaHorarioProfessor extends Entidade {
+	
+	private static final long serialVersionUID = 5657565247702409911L;
 	
 	@Id
 	@Column(name="ID_PREFERENCIA")
@@ -27,45 +27,34 @@ public class PreferenciaDisciplinaProfessor extends Entidade {
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Professor professor;
 	
-	@NotNull(message="A disciplina é obrigatória.")
-	@JoinColumn(name="ID_DISCIPLINA")
+	@NotNull(message="O horário é obrigatório.")
+	@JoinColumn(name="ID_HORARIO")
 	@ManyToOne(fetch=FetchType.LAZY)
-	private Disciplina disciplina;
-	
+	private Horario horario;
+
+	@Override
 	public int getId() {
 		return id;
 	}
-	
+
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public Professor getProfessor() {
 		return professor;
 	}
-	
+
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
-	
-	public Disciplina getDisciplina() {
-		return disciplina;
+
+	public Horario getHorario() {
+		return horario;
 	}
-	
-	public void setDisciplina(Disciplina disciplina) {
-		this.disciplina = disciplina;
-	}
-	
-	public boolean equals(PreferenciaDisciplinaProfessor outra) {
-		
-		if (this.getDisciplina() != null && this.getProfessor() != null) {
-			
-			if (outra.getDisciplina() != null && outra.getProfessor() != null) {
-				
-				return this.getDisciplina().equals(outra.getDisciplina()) && this.getProfessor().equals(outra.getProfessor());
-			}
-		}
-		
-		return true;
+
+	public void setHorario(Horario horario) {
+		this.horario = horario;
 	}
 }

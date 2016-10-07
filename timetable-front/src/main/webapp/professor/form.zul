@@ -59,15 +59,15 @@
 			</tabpanel>
 			
 			<tabpanel>
-				<listbox checkmark="true" multiple="true" mold="paging" model="@bind($composer.entidade.preferencias)"
+				<listbox checkmark="true" multiple="true" mold="paging" model="@bind($composer.entidade.preferenciasDisciplina)"
 							emptyMessage="Nenhum registro adicionado." rows="4" autopaging="true" 
 							selectedItems="@bind($composer.preferenciasSelecionadas)">
 					<listhead>
 						<listheader hflex="min"/>
 						<listheader label="Disciplinas">
 							<hbox style="float: right">
-								<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="$composer.adicionarDetalhe()"/>
-									<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="$composer.removerDetalhe()"/>
+								<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="$composer.adicionarPreferenciaDisciplina()"/>
+									<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="$composer.removerPreferenciaDisciplina()"/>
 							</hbox>
 						</listheader>
 					</listhead>
@@ -98,8 +98,8 @@
 						<listheader hflex="min"/>
 						<listheader label="Horários">
 							<hbox style="float: right">
-								<button iconSclass="fa fa-plus" sclass="btn btn-default"/>
-								<button iconSclass="fa fa-minus" sclass="btn btn-default"/>
+								<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="$composer.adicionarPreferenciaHorario()"/>
+								<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="$composer.removerPreferenciaHorario()"/>
 							</hbox>
 						</listheader>
 					</listhead>

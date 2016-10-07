@@ -11,6 +11,7 @@ import br.edu.ifma.csp.timetable.dao.DisciplinaDao;
 import br.edu.ifma.csp.timetable.model.Departamento;
 import br.edu.ifma.csp.timetable.model.Disciplina;
 import br.edu.ifma.csp.timetable.model.PreferenciaDisciplinaProfessor;
+import br.edu.ifma.csp.timetable.model.PreferenciaHorarioProfessor;
 import br.edu.ifma.csp.timetable.model.Professor;
 import br.edu.ifma.csp.timetable.repository.Departamentos;
 import br.edu.ifma.csp.timetable.repository.Disciplinas;
@@ -26,9 +27,8 @@ public class ProfessorComposer extends Composer<Professor> {
 	private List<Disciplina> colDisciplinas;
 	private List<Departamento> colDepartamentos;
 	
-	private List<PreferenciaDisciplinaProfessor> preferenciasSelecionadas;
-	
-	private PreferenciaDisciplinaProfessor preferenciaSelecionada;
+	private List<PreferenciaDisciplinaProfessor> preferenciasDisciplinaSelecionadas;
+	private List<PreferenciaHorarioProfessor> preferenciasHorarioSelecionadas;
 
 	@Init
 	public void init() {
@@ -51,37 +51,44 @@ public class ProfessorComposer extends Composer<Professor> {
 	
 	public void initDetalhes() {
 		
-		entidade.setPreferencias(new HashSet<PreferenciaDisciplinaProfessor>());
+		entidade.setPreferenciasDisciplina(new HashSet<PreferenciaDisciplinaProfessor>());
 		
 		PreferenciaDisciplinaProfessor preferencia = new PreferenciaDisciplinaProfessor();
 		preferencia.setProfessor(entidade);
 		
-		entidade.getPreferencias().add(preferencia);
+		entidade.getPreferenciasDisciplina().add(preferencia);
 		
 		getBinder().notifyChange(this, "*");
 	}
 	
-	public void adicionarDetalhe() {
+	public void adicionarPreferenciaDisciplina() {
 		
 		PreferenciaDisciplinaProfessor preferencia = new PreferenciaDisciplinaProfessor();
 		preferencia.setProfessor(entidade);
 		
-		entidade.getPreferencias().add(preferencia);
+		entidade.getPreferenciasDisciplina().add(preferencia);
 		
-		getBinder().notifyChange(entidade, "preferencias");
+		getBinder().notifyChange(entidade, "preferenciasDisciplina");
 	}
 	
-	public void removerDetalhe() {
-		entidade.getPreferencias().removeAll(preferenciasSelecionadas);
-		getBinder().notifyChange(entidade, "preferencias");
+	public void removerPreferenciaDisciplina() {
+		entidade.getPreferenciasDisciplina().removeAll(preferenciasDisciplinaSelecionadas);
+		getBinder().notifyChange(entidade, "preferenciasDisciplina");
 	}
 	
-	public PreferenciaDisciplinaProfessor getPreferenciaSelecionada() {
-		return preferenciaSelecionada;
+	public void adicionarPreferenciaHorario() {
+		
+		PreferenciaHorarioProfessor preferencia = new PreferenciaHorarioProfessor();
+		preferencia.setProfessor(entidade);
+		
+		entidade.getPreferenciasHorario().add(preferencia);
+		
+		getBinder().notifyChange(entidade, "preferenciasHorario");
 	}
 	
-	public void setPreferenciaSelecionada(PreferenciaDisciplinaProfessor preferenciaSelecionada) {
-		this.preferenciaSelecionada = preferenciaSelecionada;
+	public void removerPreferenciaHorario() {
+		entidade.getPreferenciasHorario().removeAll(preferenciasHorarioSelecionadas);
+		getBinder().notifyChange(entidade, "preferenciasHorario");
 	}
 	
 	public List<Disciplina> getColDisciplinas() {
@@ -100,11 +107,19 @@ public class ProfessorComposer extends Composer<Professor> {
 		this.colDepartamentos = colDepartamentos;
 	}
 
-	public List<PreferenciaDisciplinaProfessor> getPreferenciasSelecionadas() {
-		return preferenciasSelecionadas;
+	public List<PreferenciaDisciplinaProfessor> getPreferenciasDisciplinaSelecionadas() {
+		return preferenciasDisciplinaSelecionadas;
 	}
 
-	public void setPreferenciasSelecionadas(List<PreferenciaDisciplinaProfessor> preferenciasSelecionadas) {
-		this.preferenciasSelecionadas = preferenciasSelecionadas;
+	public void setPreferenciasDisciplinaSelecionadas(List<PreferenciaDisciplinaProfessor> preferenciasDisciplinaSelecionadas) {
+		this.preferenciasDisciplinaSelecionadas = preferenciasDisciplinaSelecionadas;
+	}
+
+	public List<PreferenciaHorarioProfessor> getPreferenciasHorarioSelecionadas() {
+		return preferenciasHorarioSelecionadas;
+	}
+
+	public void setPreferenciasHorarioSelecionadas(List<PreferenciaHorarioProfessor> preferenciasHorarioSelecionadas) {
+		this.preferenciasHorarioSelecionadas = preferenciasHorarioSelecionadas;
 	}
 }

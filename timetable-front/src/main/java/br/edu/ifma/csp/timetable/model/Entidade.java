@@ -31,6 +31,11 @@ public abstract class Entidade implements Serializable {
 	@Column(name="VERSAO", columnDefinition="TINYINT(3)")
 	private int versao;
 	
+	public Entidade() {
+		setDataUltAlteracao(new Date());
+		setUsuarioUltAlteracao("user");
+	}
+	
 	public abstract int getId();
 	
 	public abstract void setId(int id);
