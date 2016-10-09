@@ -13,7 +13,7 @@
 	<n:script src="../partials/js/sb-admin-2.min.js"></n:script>
 	<n:script src="../partials/js/metisMenu.min.js"></n:script>
 	
-	<div id="wrapper" sclass="ss" style="width: 100%">
+	<div id="wrapper" sclass="ss">
 		
 		<n:nav sclass="navbar navbar-default navbar-static-top" style="margin-bottom: 0">
 

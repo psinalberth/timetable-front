@@ -55,10 +55,12 @@ public interface Repository<T extends Entidade> {
 	 * @param valor Valor da coluna a ser procurado.
 	 * @return Retorna uma lista de objetos ou <code>null</code> caso não sejam encontrados.
 	 */
-	public List<T> allBy(String coluna, Object valor);
+	public List<T> allBy(String coluna, Object valor, boolean like);
 	
 	
 	public List<T> allBy(Map<String, Object> params);
+	
+	public List<T> allByCodigoOrDescricao(String codigo, String descricao);
 	
 	/**
 	 * Remove um objeto persistido no repositório de dados.

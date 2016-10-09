@@ -1,0 +1,18 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<zk>
+	<listbox model="@bind($composer.col)" selectedItem="@bind($composer.entidade)" onSelect="$composer.edit()" 
+	         emptyMessage="Nenhum registro encontrado." mold="paging" autopaging="true" rows="10">
+		<listhead>
+			<listheader label="Dia"/>
+			<listheader label="Início"/>
+			<listheader label="Fim"/>
+		</listhead>
+		<template name="model" var="obj">
+			<listitem value="@bind(obj)" sclass="list">
+				<listcell label="@load(obj.dia.descricao)"/>
+				<listcell label="@load(obj.horaInicio)"/>
+				<listcell label="@load(obj.horaFim)"/>
+			</listitem>
+		</template>
+	</listbox>
+</zk>

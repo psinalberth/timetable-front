@@ -70,14 +70,38 @@ public abstract class RepositoryDao<T extends Entidade> {
 	    return (Class<T>) tipoGenerico.getActualTypeArguments()[0];
     }
 
-	public List<T> allBy(String coluna, Object valor) {
+	public List<T> allBy(String coluna, Object valor, boolean like) {
 		
 		Class<T> clazz = retornaTipo();
 		
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<T> criteria = builder.createQuery(clazz);
 		Root<T> root = criteria.from(clazz);
-		criteria.where(builder.equal(root.get(coluna), valor));
+		
+		if (like) {
+			criteria.where(builder.like(root.get(coluna), "%" + valor + "%"));
+		} else {
+			criteria.where(builder.equal(root.get(coluna), valor));
+		}
+		
+		return manager.createQuery(criteria).getResultList();
+	}
+	
+	public List<T> allByCodigoOrDescricao(String codigo, String descricao) {
+		
+		Class<T> clazz = retornaTipo();
+		
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<T> criteria = builder.createQuery(clazz);
+		Root<T> root = criteria.from(clazz);
+		
+		if (codigo != null && !codigo.isEmpty()) {
+			criteria.where(builder.like(root.get("codigo"), "%" + codigo + "%"));
+		}
+		
+		if (descricao != null && !descricao.isEmpty()) {
+			criteria.where(builder.like(root.get("nome"), "%" + codigo + "%"));
+		}
 		
 		return manager.createQuery(criteria).getResultList();
 	}

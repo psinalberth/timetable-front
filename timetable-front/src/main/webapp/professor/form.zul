@@ -1,9 +1,8 @@
 <?page contentType="text/html;charset=UTF-8"?>
 <zk xmlns:n="native">
-		
 	<tabbox>
 		<tabs>
-			<tab label="Dados Pessoais" iconSclass="fa fa-user"/>
+			<tab label="Dados Pessoais" iconSclass="fa fa-user" selected="@load($composer.editando)"/>
 			<tab label="Preferências" iconSclass="fa fa-star-o"/>
 			<tab label="Disponibilidade" iconSclass="fa fa-calendar-o"/>
 		</tabs>
@@ -44,14 +43,8 @@
 				<div sclass="row">
 					<div sclass="col-md-12">
 						<div sclass="form-group">
-							<label value="Departamento" sclass="form-label" />
-							<combobox id="departamento" sclass="form-input" model="@load($composer.colDepartamentos)" 
-									  selectedItem="@bind($composer.entidade.departamento)" 
-									  value="@bind($composer.entidade.departamento.nome)">
-								<template name="model">
-									<comboitem label="@load(each.nome)" value="@load(each.id)"/>
-								</template>
-							</combobox>
+							<label value="Departamento" sclass="form-label" />					
+							<include src="/partials/zul/lookup/departamentolookup.zul"/>
 						</div>
 					</div>
 				</div>
@@ -60,8 +53,8 @@
 			
 			<tabpanel>
 				<listbox checkmark="true" multiple="true" mold="paging" model="@bind($composer.entidade.preferenciasDisciplina)"
-							emptyMessage="Nenhum registro adicionado." rows="4" autopaging="true" 
-							selectedItems="@bind($composer.preferenciasSelecionadas)">
+						 emptyMessage="Nenhum registro adicionado." rows="4" autopaging="true" 
+						 selectedItems="@bind($composer.preferenciasDisciplinaSelecionadas)">
 					<listhead>
 						<listheader hflex="min"/>
 						<listheader label="Disciplinas">
@@ -71,20 +64,13 @@
 							</hbox>
 						</listheader>
 					</listhead>
-					<template name="model" var="preferenciaSelecionada">
+					<template name="model" var="disciplinaSelecionada">
 						<listitem>
 							<listcell/>
 							<listcell>
 								<div sclass="form-group">
 									<label value="Disciplina" sclass="form-label"/>
-									<combobox sclass="form-input" model="@load($composer.colDisciplinas)" 
-											  value="@bind(preferenciaSelecionada.disciplina.descricao)" 
-											  selectedItem="@bind(preferenciaSelecionada.disciplina)">
-										<template name="model">
-											<comboitem label="@load(each.descricao)" value="@load(each.id)"/>
-										</template>
-									</combobox>
-	<!-- 								<include src="/partials/zul/disciplinalookup.zul"/> -->
+									<include src="/partials/zul/lookup/disciplinalookup.zul"/>							
 								</div>
 							</listcell>
 						</listitem>
@@ -93,7 +79,9 @@
 			</tabpanel>
 			
 			<tabpanel>
-				<listbox checkmark="true" multiple="true" emptyMessage="Nenhum registro encontrado.">
+				<listbox checkmark="true" multiple="true" model="@bind($composer.entidade.preferenciasHorario)" 
+						 emptyMessage="Nenhum registro encontrado." rows="4" autopaging="true"
+						 selectedItems="@bind($composer.preferenciasHorarioSelecionadas)">
 					<listhead>
 						<listheader hflex="min"/>
 						<listheader label="Horários">
@@ -103,15 +91,17 @@
 							</hbox>
 						</listheader>
 					</listhead>
-					<listitem>
-						<listcell/>
-						<listcell>
-							<div sclass="form-group">
-								<label value="Horário" sclass="form-label"/>
-								<include src="/partials/zul/horariolookup.zul"/>
-							</div>
-						</listcell>
-					</listitem>
+					<template name="model" var="horarioSelecionado">
+						<listitem>
+							<listcell/>
+							<listcell>
+								<div sclass="form-group">
+									<label value="Horário" sclass="form-label"/>
+									<include src="/partials/zul/lookup/horariolookup.zul" />
+								</div>
+							</listcell>
+						</listitem>
+					</template>
 				</listbox>
 			</tabpanel>
 		</tabpanels>

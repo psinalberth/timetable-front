@@ -6,8 +6,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.zk.ui.WrongValuesException;
+import org.zkoss.zk.ui.util.Clients;
 
+import br.edu.ifma.csp.timetable.handler.HorarioHandler;
 import br.edu.ifma.csp.timetable.model.Horario;
+import br.edu.ifma.csp.timetable.util.Validations;
 
 public class HorarioComposer extends Composer<Horario> {
 
@@ -28,5 +32,28 @@ public class HorarioComposer extends Composer<Horario> {
 	
 	public void setColDias(List<String> colDias) {
 		this.colDias = colDias;
+	}
+	
+	@Override
+	public void save() {
+		
+		HorarioHandler handler = new HorarioHandler();
+		
+		getBinder().notifyChange(this, "*");
+		
+		Validations.validate(getBinder(), entidade, repository);
+		
+		try {
+			
+			handler.metodo(entidade);
+			
+			Clients.showNotification("Informações salvas com sucesso.", "info", null, "middle_center", 1000);
+			
+			list();
+			
+		} catch (WrongValuesException ex) {	
+			ex.printStackTrace();
+		}
+		
 	}
 }

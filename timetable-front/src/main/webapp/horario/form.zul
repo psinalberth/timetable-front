@@ -1,31 +1,19 @@
 <?page contentType="text/html;charset=UTF-8"?>
 <zk xmlns:n="native">
 	<div class="row">
-		<div class="col-md-4">
-			<div sclass="form-group">
-				<label value="Dia" sclass="form-label"/>
-				<combobox id="dia" model="@load($composer.colDias)" readonly="true" autodrop="true" sclass="form-input" cols="4"/>
-			</div>
-		</div>
 		
 		<div class="col-md-2">
 			<div class="form-group">
 				<label value="Início" sclass="form-label" />
-				<timebox id="" sclass="form-input" format="short" buttonVisible="false" cols="4"/>
+				<timebox id="horaInicio" value="@bind($composer.entidade.horaInicio)" sclass="form-input" format="short" buttonVisible="false" cols="4"/>
 			</div>
 		</div>
 		
 		<div class="col-md-2">
 			<div class="form-group">
 				<label value="Fim" sclass="form-label" />
-				<timebox id="" sclass="form-input" format="short" buttonVisible="false" cols="4"/>
+				<timebox id="horaFim" value="@bind($composer.entidade.horaFim)" sclass="form-input" format="short" buttonVisible="false" cols="4"/>
 			</div>
 		</div>
-	</div>
-	<div sclass="row">
-		
-	</div>
-	<div sclass="row">
-		
 	</div>
 </zk>

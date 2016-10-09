@@ -7,6 +7,7 @@ import java.util.List;
 import javax.naming.InitialContext;
 
 import org.zkoss.bind.BindComposer;
+import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValuesException;
 import org.zkoss.zk.ui.event.Event;
@@ -34,6 +35,7 @@ public abstract class Composer<T extends Entidade> extends BindComposer<Componen
 	
 	private List<T> col;
 	
+	@Init
 	public abstract void init();
 	
 	@Override

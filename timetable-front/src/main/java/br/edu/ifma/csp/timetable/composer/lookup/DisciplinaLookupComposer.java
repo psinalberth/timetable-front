@@ -13,6 +13,8 @@ public class DisciplinaLookupComposer extends LookupComposer<Disciplina> {
 	
 	private Disciplinas disciplinas;
 	
+	private String descricao;
+	
 	@Init
 	public void init() {
 		disciplinas = Lookup.dao(DisciplinaDao.class);
@@ -22,8 +24,30 @@ public class DisciplinaLookupComposer extends LookupComposer<Disciplina> {
 	
 	public void search() {
 		
-		setCol(disciplinas.all());
+		boolean like = false;
+		
+		if (getDescricao() != null && !getDescricao().isEmpty()) {
+			setCol(disciplinas.allBy("descricao", getDescricao(), like));
+			
+		} else {
+			setCol(disciplinas.all());
+		}
+		
 		getBinder().notifyChange(this, "*");
 	}
-
+	
+	public void clear() {
+		
+		setDescricao(null);
+		
+		search();
+	}
+	
+	public String getDescricao() {
+		return descricao;
+	}
+	
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 }

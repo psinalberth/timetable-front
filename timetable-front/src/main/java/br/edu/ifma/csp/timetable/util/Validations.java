@@ -18,7 +18,8 @@ import br.edu.ifma.csp.timetable.validator.factory.TimetableValidatorFactory;
 
 public class Validations {
 	
-	public static void validate(Binder binder, Entidade entidade, Repository<Entidade> repository) {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void validate(Binder binder, Entidade entidade, Repository repository) {
 		
 		Validator validator = Validation.buildDefaultValidatorFactory().usingContext().constraintValidatorFactory(new TimetableValidatorFactory(repository, entidade)).getValidator();
 		

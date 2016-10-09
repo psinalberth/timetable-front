@@ -164,6 +164,23 @@ input[type=text]:focus, textarea:focus {
 	color: #777;
 }
 
+.btn.btn-default {
+	background: transparent;
+	transition: all 0.4s;
+	border-radius: 0;
+}
+
+.btn.btn-default:hover {
+	background: transparent;
+	color: #347abe;
+	border-bottom: 1px solid #347abe;
+	font-weight: 500;
+}
+
+.btn.btn-default .disabled {
+	color: red;
+}
+
 /* ------------------ */
 /* Classes CSS ZK */
 /* ------------------ */

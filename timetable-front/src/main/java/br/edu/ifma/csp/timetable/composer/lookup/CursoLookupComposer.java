@@ -14,7 +14,7 @@ public class CursoLookupComposer extends LookupComposer<Curso> {
 	private static final long serialVersionUID = -5971563460064982966L;
 	
 	@Init
-	public void init() {
+	public void setup() {
 		cursos = Lookup.dao(CursoDao.class);
 		setCol(cursos.all());
 		getBinder().notifyChange(this, "*");
