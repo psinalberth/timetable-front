@@ -3,6 +3,7 @@ package br.edu.ifma.csp.timetable.composer;
 import java.util.HashSet;
 import java.util.List;
 
+import org.zkoss.bind.annotation.Init;
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 
@@ -17,6 +18,7 @@ public class ProfessorComposer extends Composer<Professor> {
 	private List<PreferenciaDisciplinaProfessor> preferenciasDisciplinaSelecionadas;
 	private List<PreferenciaHorarioProfessor> preferenciasHorarioSelecionadas;
 	
+	@Init
 	public void init() {
 		
 		this.getBinder().notifyChange(this, "*");

@@ -1,23 +1,57 @@
-<zk>
- 	<bandbox id="curso" sclass="form-input">
- 		<bandpopup>
-		 	<vbox apply="br.edu.ifma.csp.timetable.composer.lookup.CursoLookupComposer">
-		 		<listbox id="listbox" sclass="form-input" model="@load($composer.col)" emptyMessage="Nenhum registro encontrado." mold="paging" autopaging="true" height="100%" hflex="min"
-		 		onSelect="curso.value = self.selectedItem.label; curso.close()" selectedItem="@bind($composer.entidade)">
-		 			<listhead>
-		 				<listheader hflex="min" label="Código"/>
-		 				<listheader hflex="min" label="Nome"/>
-		 				<listheader hflex="true" label="Descrição"/>
-		 			</listhead>
-		 			<template name="model" var="obj">
-						<listitem value="@bind(obj)">
-							<listcell label="@load(obj.codigo)" sclass="page-title"/>
-							<listcell label="@load(obj.nome)" sclass="page-title"/>
-							<listcell label="@load(obj.descricao)" sclass="page-title"/>
-						</listitem>
-					</template>
-		 		</listbox>
-		 	</vbox>
+<zk xmlns:n="native">
+	<bandbox id="lookup" sclass="form-input" autodrop="true" readonly="true" mold="rounded" 
+	         value="@load($composer.entidade.curso.nome)">
+		<bandpopup>
+		 	<vlayout apply="br.edu.ifma.csp.timetable.composer.lookup.CursoLookupComposer" style="padding: 0 15px">
+		 		
+		 		<div class="row">
+		 			<div class="col-md-12">
+		 				<n:h5 class="page-title">Curso</n:h5>
+		 			</div>
+		 		</div>
+		 		
+		 		<div sclass="row">
+		 			<div class="col-md-2">
+			 			<div sclass="form-group">
+			 				<label value="Código" sclass="form-label"/>
+			 				<textbox sclass="form-input" value="@bind($composer.codigo)" maxlength="8" cols="8" onOK="$composer.search()"/>
+			 			</div>
+		 			</div>
+		 			<div class="col-md-8">
+			 			<div sclass="form-group">
+			 				<label value="Descrição" sclass="form-label"/>
+			 				<textbox sclass="form-input" value="@bind($composer.nome)" onOK="$composer.search()"/>
+			 			</div>
+		 			</div>
+		 			<div class="col-md-2">
+			 			<div sclass="form-group">
+			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="fa fa-search" onClick="$composer.search()"/>
+			 				<button sclass="btn btn-default" label="Limpar" iconSclass="fa fa-eraser" onClick="$composer.clear()"/>
+			 			</div>
+		 			</div>
+		 		</div>
+		 		<div sclass="row">
+		 			<div sclass="col-md-12">
+				 		<listbox emptyMessage="Nenhum registro encontrado."
+				 				 onSelect="lookup.value = self.selectedItem.label; lookup.close();"
+				 				 mold="paging" autopaging="true" rows="5"
+				 				 model="@load($composer.col)" selectedItem="@bind(ctrl.entidade.curso)">
+				 			<listhead>
+								<listheader label="Código"/>
+								<listheader label="Nome"/>
+								<listheader label="Descrição"/>
+							</listhead>
+							<template name="model" var="obj">
+								<listitem value="@bind(obj)" sclass="list">
+									<listcell label="@load(obj.codigo)"/>
+									<listcell label="@load(obj.nome)"/>
+									<listcell label="@load(obj.descricao)"/>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
+				</div>
+		 	</vlayout>
 		</bandpopup>
 	</bandbox>
 </zk>

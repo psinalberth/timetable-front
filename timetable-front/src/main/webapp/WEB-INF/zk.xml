@@ -2,21 +2,12 @@
 <!DOCTYPE xml>
 <zk>
 	<!-- [Optional]
-	Uncomment if you want to defines the application's name 
+	Uncomment if you want to defines the application's name
+	--> 
 	
 	<preference>
 		<name>org.zkoss.zk.ui.WebApp.name</name>
-		<value>timetable-front</value>
+		<value>timetable</value>
 	</preference>
-	-->
-	
-	<language-config>
-	    <addon-uri>/WEB-INF/lang-addon.xml</addon-uri>
-	</language-config>
-
-	<library-property>
-	    <name>org.zkoss.web.util.resource.dir</name>
-	    <value>/WEB-INF/cwr</value>
-	</library-property>
 	
 </zk>

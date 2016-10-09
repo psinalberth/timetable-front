@@ -2,10 +2,10 @@
 <zk xmlns:n="native">
 
 	<div class="row">
-		<div class="col-lg-12">
+		<div sclass="col-md-12">
 		<tabbox>
 			<tabs>
-				<tab label="Informações Gerais" iconSclass="fa fa-edit"/>
+				<tab label="Informações Gerais" iconSclass="fa fa-edit" selected="@load($composer.editando)"/>
 				<tab label="Disciplinas" iconSclass="fa fa-book"/>
 			</tabs>
 			<tabpanels>
@@ -13,11 +13,6 @@
 				<tabpanel>
 					<div sclass="form-group">
 						<label value="Curso" sclass="form-label"/>
-						<bandbox id="curso">
-							<bandpopup>
-						<include src="/partials/zul/cursolookup.zul" />
-						</bandpopup>
-						</bandbox>
 					</div>
 					
 					<div sclass="form-group">
@@ -87,7 +82,7 @@
 									<div sclass="col-md-8">
 										<div sclass="form-group">
 											<label value="Disciplina" sclass="form-label"/>
-											<include src="/partials/zul/disciplinalookup.zul" value="@bind(detalheSelecionado.disciplina)"/>
+											<include src="/partials/zul/lookup/disciplinalookup.zul"/>
 										</div>
 									</div>
 									

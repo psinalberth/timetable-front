@@ -1,23 +1,24 @@
 <?page contentType="text/html;charset=UTF-8"?>
 <zk xmlns:n="native">
-	<div sclass="form-group">
-		<label sclass="form-label" value="Ano"/>
-		<intbox id="ano" sclass="form-input" cols="4" value="@bind($composer.entidade.ano)"/>
-	</div>
 	
 	<div sclass="row">
-<!-- 	<div class="col-md-12"> -->
-		<div sclass="col-md-8">
+		<div class="col-md-1">
+			<div sclass="form-group">
+				<label sclass="form-label" value="Ano"/>
+				<intbox id="ano" sclass="form-input" maxlength="4" cols="4" value="@bind($composer.entidade.ano)"/>
+			</div>
+		</div>
+		<div sclass="col-md-11">
 			<div class="form-group">
 				<label sclass="form-label" value="Curso"/>
-				<combobox id="curso" sclass="form-input" model="@load($composer.colCursos)" selectedItem="@bind($composer.entidade.curso)">
-					<template name="model">
-						<comboitem label="@load(each.nome)"/>
-					</template>
-				</combobox>
+				<include src="/partials/zul/lookup/cursolookup.zul"/>
 			</div>
 		</div>
 		
+		
+	</div>
+	
+	<div sclass="row">
 		<div sclass="col-md-2">
 			<div class="form-group">
 				<label sclass="form-label" value="Turno"/>
@@ -29,20 +30,11 @@
 			</div>
 		</div>
 		
-<!-- 		<lookupbox></lookupbox> -->
-<!-- 		<errmsg id="errMsg" msg="error" -->
-<!--         onClick="alert(self.getMsg());" /> -->
-        
-        <lookupbox id="ccc" sclass="form-input" width="500px" value="@bind($composer.entidade.curso.nome)">
-        	
-        </lookupbox>
-		
-		<div class="col-md-2">
+		<div class="col-md-1">
 			<div sclass="form-group">
 				<label sclass="form-label" value="Semestres"/>
-				<intbox id="semestres" sclass="form-input" value="@bind($composer.entidade.semestres)"/>
+				<intbox id="semestres" sclass="form-input" maxlength="2" value="@bind($composer.entidade.semestres)"/>
 			</div>
 		</div>
-<!-- 	</div> -->
 	</div>
 </zk>

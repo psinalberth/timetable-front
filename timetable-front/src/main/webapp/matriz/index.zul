@@ -1,32 +1,17 @@
-<?page title="" contentType="text/html;charset=UTF-8"?>
+<?page title="Timetable - Matriz Curricular" contentType="text/html;charset=UTF-8"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/zul/template.zul"?>
 <zk xmlns:n="native">
-	<custom-attributes composerName="vm"/>
 	<div self="@define(content)" class="container-fluid" apply="br.edu.ifma.csp.timetable.composer.MatrizCurricularComposer">
-		
+		<custom-attributes composerName="ctrl"/>
 		<div sclass="row">
 		
 			<div class="form-group">
 				<n:h4 class="page-title">Matriz Curricular</n:h4>
-			</div>
-		
-			<div class="form-group">
 				<include src="/partials/zul/botoes.zul"/>
 			</div>
 			
 			<div id="list" visible="@bind($composer.consultando)">
-				<listbox model="@bind($composer.col)" selectedItem="@bind($composer.entidade)" onSelect="$composer.edit()" emptyMessage="Nenhum registro encontrado.">
-					<listhead>
-						<listheader label="Nome"/>
-						<listheader label="Descrição"/>
-					</listhead>
-					<template name="model" var="obj">
-						<listitem value="@bind(obj)">
-							<listcell label="@load(obj.nome)"/>
-							<listcell label="@load(obj.descricao)"/>
-						</listitem>
-					</template>
-				</listbox>
+				<include src="list.zul"/>
 			</div>
 			
 			<div id="form" visible="@bind($composer.editando)">

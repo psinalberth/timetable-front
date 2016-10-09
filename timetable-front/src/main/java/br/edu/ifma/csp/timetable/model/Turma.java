@@ -41,7 +41,7 @@ public class Turma extends Entidade {
 	@JoinColumn(name="ID_MATRIZ")
 	private MatrizCurricular matrizCurricular;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="periodo")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="periodo", orphanRemoval=true)
 	private Set<DetalheDisciplina> detalhes = new HashSet<DetalheDisciplina>();
 
 	public int getId() {

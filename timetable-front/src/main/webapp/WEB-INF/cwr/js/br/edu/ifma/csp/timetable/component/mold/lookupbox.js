@@ -1,1 +1,0 @@
-zul.inp.Bandbox.$redraw

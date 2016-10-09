@@ -2,13 +2,13 @@
 <zk xmlns:n="native">
 	
 	<div class="row">
-		<div class="col-md-1">
+		<div class="col-md-2">
 			<div sclass="form-group">
 				<label value="Código" sclass="form-label" />
-				<textbox id="codigo" cols="2" sclass="form-input" value="@bind($composer.entidade.codigo)" maxlength="2"/>
+				<textbox id="codigo" cols="10" sclass="form-input" value="@bind($composer.entidade.codigo)" maxlength="10"/>
 			</div>
 		</div>
-		<div class="col-md-11">
+		<div class="col-md-10">
 			<div sclass="form-group">
 				<label value="Nome" sclass="form-label" />
 				<textbox id="nome" sclass="form-input" value="@bind($composer.entidade.nome)"/>
