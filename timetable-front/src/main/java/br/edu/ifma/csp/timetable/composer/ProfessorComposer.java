@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.zkoss.bind.annotation.Init;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 
 import br.edu.ifma.csp.timetable.model.PreferenciaDisciplinaProfessor;
@@ -22,7 +21,6 @@ public class ProfessorComposer extends Composer<Professor> {
 	public void init() {
 		
 		this.getBinder().notifyChange(this, "*");
-		Messagebox.show("It Works!");
 	}
 	
 	@Override

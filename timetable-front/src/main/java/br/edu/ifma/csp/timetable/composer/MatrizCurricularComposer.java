@@ -4,33 +4,43 @@ import java.util.List;
 
 import org.zkoss.bind.annotation.Init;
 
-import br.edu.ifma.csp.timetable.dao.CursoDao;
-import br.edu.ifma.csp.timetable.model.Curso;
 import br.edu.ifma.csp.timetable.model.MatrizCurricular;
-import br.edu.ifma.csp.timetable.repository.Cursos;
-import br.edu.ifma.csp.timetable.util.Lookup;
+import br.edu.ifma.csp.timetable.model.Periodo;
 
 public class MatrizCurricularComposer extends Composer<MatrizCurricular> {
 
 	private static final long serialVersionUID = 20928881137239658L;
 	
-	private Cursos cursos;
-	
-	private List<Curso> colCursos;
+	private List<Periodo> periodosSelecionados;
 
 	@Init
 	public void init() {
 		
-		cursos = Lookup.dao(CursoDao.class);
-		setColCursos(cursos.all());
 		getBinder().notifyChange(this, "*");
 	}
 	
-	public List<Curso> getColCursos() {
-		return colCursos;
+	
+	public void adicionarPeriodo() {
+		
+		Periodo periodo = new Periodo();
+		periodo.setMatrizCurricular(entidade);
+		entidade.getPeriodos().add(periodo);
+		
+		getBinder().notifyChange(entidade, "periodos");
 	}
 	
-	public void setColCursos(List<Curso> colCursos) {
-		this.colCursos = colCursos;
+	public void removerPeriodo() {
+		
+		entidade.getPeriodos().removeAll(periodosSelecionados);
+		
+		getBinder().notifyChange(entidade, "periodos");
+	}
+	
+	public List<Periodo> getPeriodosSelecionados() {
+		return periodosSelecionados;
+	}
+	
+	public void setPeriodosSelecionados(List<Periodo> periodosSelecionados) {
+		this.periodosSelecionados = periodosSelecionados;
 	}
 }

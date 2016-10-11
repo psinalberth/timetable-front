@@ -67,7 +67,7 @@
 								</hbox>
 							</listheader>
 						</listhead>
-						<template name="model" var="detalheSelecionado">
+						<template name="model" var="disciplinaSelecionada">
 						<listitem style="overflow: auto">
 							<listcell/>
 							<listcell>
@@ -75,7 +75,7 @@
 									<div sclass="col-md-1">
 										<div sclass="form-group">
 											<label value="Código" sclass="form-label"/>
-											<intbox sclass="form-input" maxlength="3" value="@bind(detalheSelecionado.codigo)"/>
+											<intbox sclass="form-input" maxlength="3" value="@bind(disciplinaSelecionada.codigo)"/>
 										</div>
 									</div>
 								
@@ -89,21 +89,21 @@
 									<div sclass="col-md-1">
 										<div sclass="form-group">
 											<label value="Créditos" sclass="form-label"/>
-											<intbox sclass="form-input" maxlength="3" value="@bind(detalheSelecionado.creditos)"/>
+											<intbox sclass="form-input" maxlength="3" value="@bind(disciplinaSelecionada.creditos)"/>
 										</div>
 									</div>
 									
 									<div sclass="col-md-1">
 										<div sclass="form-group">
 											<label value="C. H." sclass="form-label"/>
-											<intbox sclass="form-input" maxlength="3" value="@bind(detalheSelecionado.cargaHoraria)"/>
+											<intbox sclass="form-input" maxlength="3" value="@bind(disciplinaSelecionada.cargaHoraria)"/>
 										</div>
 									</div>
 									
 									<div sclass="col-md-1">
 										<div sclass="form-group">
 											<label value="OBR" sclass="form-label"/>
-											<checkbox style="margin: 0; padding: 0" value="@bind(detalheSelecionado.obrigatoria)"/>
+											<checkbox style="margin: 0; padding: 0" checked="@bind(disciplinaSelecionada.obrigatoria)" />
 										</div>
 									</div>
 								</div>

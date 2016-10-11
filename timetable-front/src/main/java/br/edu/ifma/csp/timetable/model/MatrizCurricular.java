@@ -1,5 +1,9 @@
 package br.edu.ifma.csp.timetable.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,8 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="MATRIZ_CURRICULAR")
@@ -39,6 +46,11 @@ public class MatrizCurricular extends Entidade {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_TURNO")
 	private Turno turno;
+	
+	@Size(min=1, message="Nenhum período adicionado.")
+	@Valid
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="matrizCurricular", cascade=CascadeType.ALL, orphanRemoval=true)
+	private Set<Periodo> periodos = new HashSet<Periodo>();
 	
 	public int getId() {
 		return id;
@@ -78,5 +90,13 @@ public class MatrizCurricular extends Entidade {
 
 	public void setCurso(Curso curso) {
 		this.curso = curso;
+	}
+	
+	public Set<Periodo> getPeriodos() {
+		return periodos;
+	}
+	
+	public void setPeriodos(Set<Periodo> periodos) {
+		this.periodos = periodos;
 	}
 }

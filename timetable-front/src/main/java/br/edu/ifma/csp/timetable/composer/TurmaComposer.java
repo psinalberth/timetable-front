@@ -9,9 +9,9 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.Clients;
 
 import br.edu.ifma.csp.timetable.model.DetalheDisciplina;
-import br.edu.ifma.csp.timetable.model.Turma;
+import br.edu.ifma.csp.timetable.model.Periodo;
 
-public class TurmaComposer extends Composer<Turma> {
+public class TurmaComposer extends Composer<Periodo> {
 
 	private static final long serialVersionUID = 7381784160763808819L;
 	

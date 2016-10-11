@@ -28,11 +28,11 @@ public class DetalheDisciplina extends Entidade {
 	@Column(name="CODIGO", length=3)
 	private String codigo;
 	
-	@NotNull
+	@NotNull(message="Os créditos são obrigatórios.")
 	@Column(name="CREDITOS", columnDefinition="TINYINT(2)")
 	private int creditos;
 	
-	@NotNull
+	@NotNull(message="A carga horária é obrigatória.")
 	@Column(name="CARGA_HORARIA", columnDefinition="TINYINT(3)")
 	private int cargaHoraria;
 	
@@ -42,15 +42,10 @@ public class DetalheDisciplina extends Entidade {
 	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="ID_MATRIZ")
-	private MatrizCurricular matrizCurricular;
-	
-	@NotNull
-	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_PERIODO")
-	private Turma periodo;
+	private Periodo periodo;
 	
-	@NotNull
+	@NotNull(message="A disciplina é obrigatória.")
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_DISCIPLINA")
 	private Disciplina disciplina;
@@ -83,19 +78,11 @@ public class DetalheDisciplina extends Entidade {
 		this.cargaHoraria = cargaHoraria;
 	}
 	
-	public MatrizCurricular getMatrizCurricular() {
-		return matrizCurricular;
-	}
-	
-	public void setMatrizCurricular(MatrizCurricular matrizCurricular) {
-		this.matrizCurricular = matrizCurricular;
-	}
-	
-	public Turma getPeriodo() {
+	public Periodo getPeriodo() {
 		return periodo;
 	}
 	
-	public void setPeriodo(Turma periodo) {
+	public void setPeriodo(Periodo periodo) {
 		this.periodo = periodo;
 	}
 	
