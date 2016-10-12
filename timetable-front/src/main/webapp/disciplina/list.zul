@@ -1,12 +1,14 @@
 <zk>
 	<listbox model="@bind($composer.col)" selectedItem="@bind($composer.entidade)" onSelect="$composer.edit()" emptyMessage="Nenhum registro encontrado.">
 		<listhead>
-			<listheader label="Nome"/>
+			<listheader label="Código"/>
+			<listheader label="Sigla"/>
 			<listheader label="Descrição"/>
 		</listhead>
 		<template name="model" var="obj">
 			<listitem value="@bind(obj)" sclass="list">
-				<listcell label=""/>
+				<listcell label="@load(obj.codigo)"/>
+				<listcell label="@load(obj.sigla)"/>
 				<listcell label="@load(obj.descricao)"/>
 			</listitem>
 		</template>

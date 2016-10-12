@@ -174,7 +174,6 @@ input[type=text]:focus, textarea:focus {
 .btn.btn-default:hover {
 	background: transparent;
 	color: #347abe;
-	border-bottom: 1px solid #347abe;
 	font-weight: 500;
 }
 

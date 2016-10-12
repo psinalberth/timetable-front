@@ -4,11 +4,10 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2016-10-10T20:50:07.497-0300")
+@Generated(value="Dali", date="2016-10-12T20:23:41.040-0300")
 @StaticMetamodel(DetalheDisciplina.class)
 public class DetalheDisciplina_ extends Entidade_ {
 	public static volatile SingularAttribute<DetalheDisciplina, Integer> id;
-	public static volatile SingularAttribute<DetalheDisciplina, String> codigo;
 	public static volatile SingularAttribute<DetalheDisciplina, Integer> creditos;
 	public static volatile SingularAttribute<DetalheDisciplina, Integer> cargaHoraria;
 	public static volatile SingularAttribute<DetalheDisciplina, Boolean> obrigatoria;

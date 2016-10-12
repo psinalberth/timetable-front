@@ -13,8 +13,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import br.edu.ifma.csp.timetable.annotation.Unique;
 
 @Entity
 @Table(name="DISCIPLINA")
@@ -26,6 +29,16 @@ public class Disciplina extends Entidade {
 	@Column(name="ID_DISCIPLINA")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	
+	@Unique(message="A sigla selecionada já está em uso.")
+	@NotBlank(message="A sigla é obrigatória.")
+	@Column(name="SIGLA", length=10)
+	private String sigla;
+	
+	@Unique(message="O código selecionado já está em uso.")
+	@NotNull(message="O código é obrigatório.")
+	@Column(name="CODIGO", columnDefinition="TINYINT(3)")
+	private Integer codigo;
 	
 	@NotBlank(message="descricao#A descrição é obrigatória.")
 	@Column(name="DESCRICAO", length=100)
@@ -52,6 +65,22 @@ public class Disciplina extends Entidade {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public String getSigla() {
+		return sigla;
+	}
+	
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+	
+	public Integer getCodigo() {
+		return codigo;
+	}
+	
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getDescricao() {

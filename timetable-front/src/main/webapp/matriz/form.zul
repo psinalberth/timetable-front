@@ -50,14 +50,14 @@
 			
 			<tabpanel>
 				<listbox checkmark="true" multiple="true" mold="paging" model="@bind($composer.entidade.periodos)"
-						 emptyMessage="Nenhum registro adicionado." rows="1" autopaging="true" 
+						 emptyMessage="Nenhum registro adicionado." rows="0" autopaging="true" style="height: 100%"
 						 selectedItems="@bind($composer.periodosSelecionados)">
 					<listhead>
 						<listheader hflex="min"/>
 						<listheader label="Períodos">
 							<hbox style="float: right">
 								<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="$composer.adicionarPeriodo()"/>
-									<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="$composer.removerPeriodo()"/>
+								<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="$composer.removerPeriodo()"/>
 							</hbox>
 						</listheader>
 					</listhead>
@@ -65,55 +65,59 @@
 						<listitem>
 							<listcell/>
 							<listcell>
-								<groupbox title="Lorem">
-									<div sclass="row">
-										<div sclass="col-md-1">
-											<div sclass="form-group">
-												<label value="Código" sclass="form-label"/>
-												<intbox sclass="form-input" maxlength="3" value="@bind(disciplinaSelecionada.codigo)"/>
-											</div>
-										</div>
-									
-										<div sclass="col-md-8">
-											<div sclass="form-group">
-												<label value="Disciplina" sclass="form-label"/>
-												<include src="/partials/zul/lookup/disciplinalookup.zul"/>
-											</div>
-										</div>
-										
-										<div sclass="col-md-1">
-											<div sclass="form-group">
-												<label value="Créditos" sclass="form-label"/>
-												<intbox sclass="form-input" maxlength="3" value="@bind(disciplinaSelecionada.creditos)"/>
-											</div>
-										</div>
-										
-										<div sclass="col-md-1">
-											<div sclass="form-group">
-												<label value="C. H." sclass="form-label"/>
-												<intbox sclass="form-input" maxlength="3" value="@bind(disciplinaSelecionada.cargaHoraria)"/>
-											</div>
-										</div>
-										
-										<div sclass="col-md-1">
-											<div sclass="form-group">
-												<label value="OBR" sclass="form-label"/>
-												<checkbox style="margin: 0; padding: 0" checked="@bind(disciplinaSelecionada.obrigatoria)" />
-											</div>
-										</div>
-									</div>
-								</groupbox>
+								<listbox checkmark="true" multiple="true" mold="paging" model="@bind(periodoSelecionado.detalhes)"
+										 emptyMessage="Nenhum registro selecionado." autopaging="false"
+										 rows="3"
+										 selectedItems="@bind($composer.disciplinasSelecionadas)">
+									<listhead>
+										<listheader hflex="min"/>
+										<listheader label="Disciplinas">
+											<hbox style="float: right">
+												<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="$composer.adicionarDisciplina(periodoSelecionado)"/>
+												<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="$composer.removerDisciplina(periodoSelecionado)"/>
+											</hbox>
+										</listheader>
+									</listhead>
+									<template name="model" var="disciplinaSelecionada">
+										<listitem>
+											<listcell/>
+												<listcell>
+													<div sclass="row">
+														
+														<div sclass="col-md-9">
+															<div sclass="form-group">
+																<label value="Disciplina" sclass="form-label"/>
+																<include src="/partials/zul/lookup/disciplinalookup.zul"/>
+															</div>
+														</div>
+														
+														<div sclass="col-md-1">
+															<div sclass="form-group">
+																<label value="Créditos" sclass="form-label"/>
+																<intbox sclass="form-input" maxlength="3" value="@bind(disciplinaSelecionada.creditos)"/>
+															</div>
+														</div>
+														
+														<div sclass="col-md-1">
+															<div sclass="form-group">
+																<label value="C. H." sclass="form-label"/>
+																<intbox sclass="form-input" maxlength="3" value="@bind(disciplinaSelecionada.cargaHoraria)"/>
+															</div>
+														</div>
+														
+														<div sclass="col-md-1">
+															<div sclass="form-group">
+																<label value="OBR" sclass="form-label"/>
+																<checkbox style="margin: 0; padding: 0" checked="@bind(disciplinaSelecionada.obrigatoria)" />
+															</div>
+														</div>
+												</div>
+											</listcell>
+										</listitem>
+								</template>
+								</listbox>
 							</listcell>
 						</listitem>
-						<!-- <listitem>
-							<listcell/>
-							<listcell>
-								<div sclass="form-group">
-									<label value="Disciplina" sclass="form-label"/>
-									<include src="/partials/zul/lookup/disciplinalookup.zul"/>							
-								</div>
-							</listcell>
-						</listitem> -->
 					</template>
 				</listbox>
 			</tabpanel>
