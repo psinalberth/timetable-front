@@ -37,7 +37,7 @@ public class Turma extends Entidade {
 	
 	@NotNull(message="O número de alunos é obrigatório.")
 	@Column(name="QTD_ALUNOS", columnDefinition="TINYINT(3)")
-	private int qtdAlunos;
+	private Integer qtdAlunos;
 
 	@Override
 	public int getId() {
@@ -73,11 +73,11 @@ public class Turma extends Entidade {
 		this.semestre = semestre;
 	}
 	
-	public int getQtdAlunos() {
+	public Integer getQtdAlunos() {
 		return qtdAlunos;
 	}
 	
-	public void setQtdAlunos(int qtdAlunos) {
+	public void setQtdAlunos(Integer qtdAlunos) {
 		this.qtdAlunos = qtdAlunos;
 	}
 }

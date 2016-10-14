@@ -5,7 +5,7 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2016-10-12T14:02:39.281-0300")
+@Generated(value="Dali", date="2016-10-13T21:33:48.920-0300")
 @StaticMetamodel(MatrizCurricular.class)
 public class MatrizCurricular_ extends Entidade_ {
 	public static volatile SingularAttribute<MatrizCurricular, Integer> id;

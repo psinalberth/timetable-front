@@ -25,7 +25,7 @@ public class Horario extends Entidade {
 	@Column(name="ID_HORARIO")
 	private int id;
 	
-	@Column(name="DIA")
+	@Column(name="DIA", length=15)
 	@Enumerated(EnumType.STRING)
 	private Dia dia;
 	

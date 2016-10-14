@@ -2,7 +2,7 @@
 	<bandbox id="lookup" sclass="form-input" autodrop="true" readonly="true" mold="rounded" 
 	         value="@load(disciplinaSelecionada.disciplina.descricao)">
 		<bandpopup>
-		 	<vlayout apply="br.edu.ifma.csp.timetable.composer.lookup.DisciplinaLookupComposer" style="padding: 0 15px">
+		 	<vlayout apply="br.edu.ifma.csp.timetable.composer.lookup.DisciplinaLookupComposer" style="padding: 0 15px" onCreate="self.width = lookup.width">
 		 		
 		 		<div class="row">
 		 			<div class="col-md-12">
@@ -35,7 +35,8 @@
 				 		<listbox emptyMessage="Nenhum registro encontrado."
 				 				 onSelect="lookup.value = self.selectedItem.label; lookup.close();"
 				 				 mold="paging" autopaging="true" rows="5"
-				 				 model="@load($composer.col)" selectedItem="@bind(disciplinaSelecionada.disciplina)">
+				 				 model="@load($composer.col)" selectedItem="@bind(disciplinaSelecionada.disciplina)"
+				 				 onCreate="self.width = lookup.width">
 				 			<listhead>
 								<listheader label="Código"/>
 								<listheader label="Sigla"/>

@@ -31,11 +31,11 @@ public class MatrizCurricular extends Entidade {
 	
 	@NotNull(message="O ano é obrigatório.")
 	@Column(name="ANO", columnDefinition="TINYINT(4)")
-	private int ano;
+	private Integer ano;
 	
 	@NotNull(message="A quantidade de semestres é obrigatória.")
 	@Column(name="SEMESTRES", columnDefinition="TINYINT(2)")
-	private int semestres;
+	private Integer semestres;
 	
 	@NotNull(message="O curso é obrigatório.")
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -47,8 +47,8 @@ public class MatrizCurricular extends Entidade {
 	@JoinColumn(name="ID_TURNO")
 	private Turno turno;
 	
-	@Size(min=1, message="Nenhum período adicionado.")
 	@Valid
+	@Size(min=1, message="Nenhum período adicionado.")
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="matrizCurricular", cascade=CascadeType.ALL, orphanRemoval=true)
 	private Set<Periodo> periodos = new HashSet<Periodo>();
 	
@@ -60,11 +60,11 @@ public class MatrizCurricular extends Entidade {
 		this.id = id;
 	}
 
-	public int getAno() {
+	public Integer getAno() {
 		return ano;
 	}
 
-	public void setAno(int ano) {
+	public void setAno(Integer ano) {
 		this.ano = ano;
 	}
 
@@ -76,11 +76,11 @@ public class MatrizCurricular extends Entidade {
 		this.turno = turno;
 	}
 
-	public int getSemestres() {
+	public Integer getSemestres() {
 		return semestres;
 	}
 
-	public void setSemestres(int semestres) {
+	public void setSemestres(Integer semestres) {
 		this.semestres = semestres;
 	}
 

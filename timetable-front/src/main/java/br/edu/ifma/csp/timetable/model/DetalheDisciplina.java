@@ -24,11 +24,11 @@ public class DetalheDisciplina extends Entidade {
 	
 	@NotNull(message="Os créditos são obrigatórios.")
 	@Column(name="CREDITOS", columnDefinition="TINYINT(2)")
-	private int creditos;
+	private Integer creditos;
 	
 	@NotNull(message="A carga horária é obrigatória.")
 	@Column(name="CARGA_HORARIA", columnDefinition="TINYINT(3)")
-	private int cargaHoraria;
+	private Integer cargaHoraria;
 	
 	@NotNull
 	@Column(name="OBRIGATORIA")
@@ -56,19 +56,19 @@ public class DetalheDisciplina extends Entidade {
 		this.id = id;
 	}
 	
-	public int getCreditos() {
+	public Integer getCreditos() {
 		return creditos;
 	}
 	
-	public void setCreditos(int creditos) {
+	public void setCreditos(Integer creditos) {
 		this.creditos = creditos;
 	}
 	
-	public int getCargaHoraria() {
+	public Integer getCargaHoraria() {
 		return cargaHoraria;
 	}
 	
-	public void setCargaHoraria(int cargaHoraria) {
+	public void setCargaHoraria(Integer cargaHoraria) {
 		this.cargaHoraria = cargaHoraria;
 	}
 	
