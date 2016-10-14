@@ -2,7 +2,6 @@
 <zk xmlns:n="native">
 	
 	<div sclass="row">
-<!-- 		<div sclass="col-md-12"> -->
 		<div sclass="col-md-1">
 			<div sclass="form-group">
 				<label value="Código" sclass="form-label" />

@@ -65,6 +65,10 @@
 						<listitem>
 							<listcell/>
 							<listcell>
+								<div sclass="form-group">
+									<label value="Código" sclass="form-label"/>
+									<combobox sclass="form-input"></combobox>
+								</div>
 								<listbox checkmark="true" multiple="true" mold="paging" model="@bind(periodoSelecionado.detalhes)"
 										 emptyMessage="Nenhum registro selecionado." autopaging="false"
 										 rows="3"

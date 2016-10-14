@@ -14,7 +14,7 @@
 		 			<div class="col-md-2">
 			 			<div sclass="form-group">
 			 				<label value="Código" sclass="form-label"/>
-			 				<textbox sclass="form-input" maxlength="8" cols="8"/>
+			 				<intbox sclass="form-input" value="@bind($composer.codigo)" maxlength="8" cols="8" onOK="$composer.search()"/>
 			 			</div>
 		 			</div>
 		 			<div class="col-md-8">
@@ -37,12 +37,14 @@
 				 				 mold="paging" autopaging="true" rows="5"
 				 				 model="@load($composer.col)" selectedItem="@bind(disciplinaSelecionada.disciplina)">
 				 			<listhead>
-								<listheader label="Dia"/>
+								<listheader label="Código"/>
+								<listheader label="Sigla"/>
 								<listheader label="Descrição"/>
 							</listhead>
 							<template name="model" var="obj">
 								<listitem value="@bind(obj)" sclass="list">
-									<listcell label="A"/>
+									<listcell label="@load(obj.codigo)"/>
+									<listcell label="@load(obj.sigla)"/>
 									<listcell label="@load(obj.descricao)"/>
 								</listitem>
 							</template>

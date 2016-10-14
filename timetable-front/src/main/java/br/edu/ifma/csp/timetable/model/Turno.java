@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import br.edu.ifma.csp.timetable.annotation.Unique;
+
 @Entity
 @Table(name="TURNO")
 public class Turno extends Entidade {
@@ -25,6 +27,7 @@ public class Turno extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
+	@Unique(message="O código selecionado já está em uso.")
 	@NotBlank(message="codigo#O código é obrigatório.")
 	@Column(name="CODIGO", unique=true, length=10)
 	private String codigo;

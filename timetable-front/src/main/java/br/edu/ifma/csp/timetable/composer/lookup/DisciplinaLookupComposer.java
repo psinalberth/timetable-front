@@ -13,6 +13,8 @@ public class DisciplinaLookupComposer extends LookupComposer<Disciplina> {
 	
 	private Disciplinas disciplinas;
 	
+	private Integer codigo;
+	private String sigla;
 	private String descricao;
 	
 	@Init
@@ -27,6 +29,9 @@ public class DisciplinaLookupComposer extends LookupComposer<Disciplina> {
 		boolean like = false;
 		
 		if (getDescricao() != null && !getDescricao().isEmpty()) {
+			
+			like = true;
+			
 			setCol(disciplinas.allBy("descricao", getDescricao(), like));
 			
 		} else {
@@ -41,6 +46,22 @@ public class DisciplinaLookupComposer extends LookupComposer<Disciplina> {
 		setDescricao(null);
 		
 		search();
+	}
+	
+	public Integer getCodigo() {
+		return codigo;
+	}
+	
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+	
+	public String getSigla() {
+		return sigla;
+	}
+	
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
 	}
 	
 	public String getDescricao() {

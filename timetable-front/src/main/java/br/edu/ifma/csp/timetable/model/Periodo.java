@@ -15,8 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 @Entity
 @Table(name="PERIODO")
 public class Periodo extends Entidade {
@@ -28,9 +26,9 @@ public class Periodo extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotBlank(message="codigo#O código é obrigatório.")
-	@Column(name="CODIGO")
-	private String codigo;
+	@NotNull(message="O código é obrigatório.")
+	@Column(name="CODIGO", columnDefinition="TINYINT(2)")
+	private Integer codigo;
 	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -51,11 +49,11 @@ public class Periodo extends Entidade {
 		this.id = id;
 	}
 
-	public String getCodigo() {
+	public Integer getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
 	

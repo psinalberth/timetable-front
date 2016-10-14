@@ -9,33 +9,23 @@
 		<tabpanels>
 			
 			<tabpanel>
-				<div class="row">
-					<div class="col-md-2">
-						<div sclass="form-group">
-							<label value="Siape" sclass="form-label" />
-							<textbox id="siape" sclass="form-input"/>
-						</div>
-					</div>
-					<div class="col-md-10">
-						<div sclass="form-group">
-							<label value="Nome" sclass="form-label" />
-							<textbox id="nome" sclass="form-input" value="@bind($composer.entidade.nome)"/>
-						</div>
-					</div>
-				</div>		
+				<div sclass="form-group">
+					<label value="Nome" sclass="form-label" />
+					<textbox id="nome" sclass="form-input" value="@bind($composer.entidade.nome)"/>
+				</div>
 				
 				<div sclass="row">
 					<div class="col-md-8">
 						<div sclass="form-group">
 							<label value="Endereço" sclass="form-label"/>
-							<textbox width="100%" sclass="form-input" id="endereco" value="@bind($composer.entidade.endereco)"/>
+							<textbox sclass="form-input" id="endereco" value="@bind($composer.entidade.endereco)"/>
 						</div>
 					</div>
 					
 					<div class="col-md-4">
 						<div sclass="form-group">
 							<label value="Telefone" sclass="form-label"/>
-							<textbox width="100%" sclass="form-input" id="telefone"/>
+							<textbox sclass="form-input" id="telefone"/>
 						</div>
 					</div>
 				</div>
