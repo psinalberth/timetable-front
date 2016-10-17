@@ -27,12 +27,7 @@ body {
 	padding: 0;
 }
 
-a, li {
-	font-family: 'Raleway', sans-serif;
-	font-weight: 600;
-}
-
-li, .z-window-header, .z-window-content, .z-messagebox > .z-label {
+a, li, .z-window-header, .z-window-content, .z-messagebox > .z-label {
 	font-family: 'Raleway', sans-serif;
 	font-weight: 600;
 }
@@ -47,6 +42,7 @@ input[type=radio], .z-radio-content {
 	height: 20px;
 	width: 50%;
 }
+
 input[type=text], textarea.class {
   background: transparent;
   outline: none;
@@ -184,6 +180,27 @@ input[type=text]:focus, textarea:focus {
 /* ------------------ */
 /* Classes CSS ZK */
 /* ------------------ */
+
+.z-errorbox-close {
+	font-family: 'Raleway', sans-serif;
+	color: #523434;
+}
+
+.z-errorbox>.z-errorbox-icon {
+	font-size: 20px;
+	color: #523434;
+}
+
+.z-errorbox-content {
+	font-family: 'Raleway', sans-serif;
+	color: #523434;
+	font-size: 14px;
+	background: #ffc4c4;
+}
+
+.z-icon-exclamation-triangle:before {
+	content: '\f12a';
+}
 
 /* Listcell */
 

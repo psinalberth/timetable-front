@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -35,6 +36,7 @@ public class Periodo extends Entidade {
 	@JoinColumn(name="ID_MATRIZ")
 	private MatrizCurricular matrizCurricular;
 	
+	@Valid
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="periodo", orphanRemoval=true)
 	private Set<DetalheDisciplina> detalhes = new HashSet<DetalheDisciplina>();
 	

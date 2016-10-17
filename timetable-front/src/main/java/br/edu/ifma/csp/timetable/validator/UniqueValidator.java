@@ -72,7 +72,7 @@ public class UniqueValidator implements ConstraintValidator<Unique, Object>, Bea
 					Entidade outro = repository.by(field.getName(), fieldValue);
 					
 					if (outro == null)
-						return true;
+						continue;
 					
 					if (outro != null) {
 						
@@ -80,6 +80,14 @@ public class UniqueValidator implements ConstraintValidator<Unique, Object>, Bea
 						outroField.setAccessible(true);
 						
 						Object outroValue = outroField.get(outro);
+						
+						if (fieldValue instanceof Integer) {
+							return outro.getId() == entidade.getId() && ((Integer)fieldValue).equals(((Integer)outroValue)); 
+						}
+						
+						if (fieldValue instanceof String) {
+							return outro.getId() == entidade.getId() && ((String)fieldValue).equalsIgnoreCase(((String)outroValue));
+						}
 				
 						return (outro.getId() == entidade.getId() && outroValue.equals(fieldValue));
 					}

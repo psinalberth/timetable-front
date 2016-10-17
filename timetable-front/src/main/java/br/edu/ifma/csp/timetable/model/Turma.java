@@ -28,7 +28,7 @@ public class Turma extends Entidade {
 	private Periodo periodo;
 	
 	@NotNull(message="O ano é obrigatório.")
-	@Column(name="ANO", columnDefinition="TINYINT(4)")
+	@Column(name="ANO", columnDefinition="SMALLINT(4)")
 	private Integer ano;
 	
 	@NotNull(message="O semestre é obrigatório.")

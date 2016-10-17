@@ -28,13 +28,13 @@
 	</div>
 	
 	<div sclass="row">
-		<div sclass="col-md-2">
+		<div sclass="col-md-3">
 			<div class="form-group">
 				<label sclass="form-label" value="Turno"/>
-				<combobox id="turno" sclass="form-input">
-<!-- 					<template name="model"> -->
-<!-- 						<comboitem label="@load(each.nome)"/> -->
-<!-- 					</template> -->
+				<combobox id="turno" sclass="form-input" model="@load($composer.colTurnos)">
+					<template name="model">
+						<comboitem label="@load(each.nome)"/>
+					</template>
 				</combobox>
 			</div>
 		</div>
@@ -88,7 +88,7 @@
 												<listcell>
 													<div sclass="row">
 														
-														<div sclass="col-md-9">
+														<div sclass="col-md-8">
 															<div sclass="form-group">
 																<label value="Disciplina" sclass="form-label"/>
 																<include src="/partials/zul/lookup/disciplinalookup.zul"/>
@@ -113,6 +113,18 @@
 															<div sclass="form-group">
 																<label value="OBR" sclass="form-label"/>
 																<checkbox style="margin: 0; padding: 0" checked="@bind(disciplinaSelecionada.obrigatoria)" />
+															</div>
+														</div>
+														
+														<div sclass="col-md-1" visible="@load(!disciplinaSelecionada.obrigatoria)">
+															<div sclass="form-group">
+																<label value="Grupo" sclass="form-label"/>
+																<combobox model="@load($composer.colGrupoEletivas)" readonly="true" autodrop="true" 
+																          selectedItem="@bind(disciplinaSelecionada.grupoEletiva)">
+																	<template name="model">
+																		<comboitem label="@load(each)" value="@bind(each)"/>
+																	</template>
+																</combobox>
 															</div>
 														</div>
 												</div>

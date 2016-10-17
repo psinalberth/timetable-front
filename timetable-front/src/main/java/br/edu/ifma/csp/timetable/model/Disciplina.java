@@ -37,7 +37,7 @@ public class Disciplina extends Entidade {
 	
 	@Unique(message="O código selecionado já está em uso.")
 	@NotNull(message="O código é obrigatório.")
-	@Column(name="CODIGO", columnDefinition="TINYINT(3)")
+	@Column(name="CODIGO", columnDefinition="SMALLINT(3)")
 	private Integer codigo;
 	
 	@NotBlank(message="descricao#A descrição é obrigatória.")

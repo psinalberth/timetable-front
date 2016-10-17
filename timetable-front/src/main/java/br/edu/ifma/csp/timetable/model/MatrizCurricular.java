@@ -30,7 +30,7 @@ public class MatrizCurricular extends Entidade {
 	private int id;
 	
 	@NotNull(message="O ano é obrigatório.")
-	@Column(name="ANO", columnDefinition="TINYINT(4)")
+	@Column(name="ANO", columnDefinition="SMALLINT(4)")
 	private Integer ano;
 	
 	@NotNull(message="A quantidade de semestres é obrigatória.")
