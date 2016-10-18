@@ -11,46 +11,47 @@
 			<tabpanel>
 			
 				<div sclass="row">
-		<div class="col-md-1">
-			<div sclass="form-group">
-				<label sclass="form-label" value="Ano"/>
-				<intbox id="ano" sclass="form-input" maxlength="4" cols="4" value="@bind($composer.entidade.ano)"/>
-			</div>
-		</div>
-		<div sclass="col-md-11">
-			<div class="form-group">
-				<label sclass="form-label" value="Curso"/>
-				<include src="/partials/zul/lookup/cursolookup.zul"/>
-			</div>
-		</div>
-		
-		
-	</div>
+					<div class="col-md-1">
+						<div sclass="form-group">
+							<label sclass="form-label" value="Ano"/>
+							<intbox id="ano" sclass="form-input" maxlength="4" cols="4" value="@bind($composer.entidade.ano)"/>
+						</div>
+					</div>
+					<div sclass="col-md-11">
+						<div class="form-group">
+							<label sclass="form-label" value="Curso"/>
+							<include src="/partials/zul/lookup/cursolookup.zul"/>
+						</div>
+					</div>
+				</div>
 	
-	<div sclass="row">
-		<div sclass="col-md-3">
-			<div class="form-group">
-				<label sclass="form-label" value="Turno"/>
-				<combobox id="turno" sclass="form-input" model="@load($composer.colTurnos)">
-					<template name="model">
-						<comboitem label="@load(each.nome)"/>
-					</template>
-				</combobox>
-			</div>
-		</div>
-		
-		<div class="col-md-1">
-			<div sclass="form-group">
-				<label sclass="form-label" value="Semestres"/>
-				<intbox id="semestres" sclass="form-input" maxlength="2" value="@bind($composer.entidade.semestres)"/>
-			</div>
-		</div>
-	</div>
+				<div sclass="row">
+					<div sclass="col-md-3">
+						<div class="form-group">
+							<label sclass="form-label" value="Turno"/>
+							<combobox id="turno" sclass="form-input" model="@load($composer.colTurnos)" 
+									  selectedItem="@bind($composer.entidade.turno)">
+								<template name="model">
+									<comboitem label="@load(each.nome)"/>
+								</template>
+							</combobox>
+						</div>
+					</div>
+					
+					<div class="col-md-1">
+						<div sclass="form-group">
+							<label sclass="form-label" value="Semestres"/>
+							<intbox id="semestres" sclass="form-input" maxlength="2" value="@bind($composer.entidade.semestres)" 
+									onChange="$composer.adicionarColPeriodos(self.value)"/>
+						</div>
+					</div>
+				</div>
 			</tabpanel>
 			
 			<tabpanel>
 				<listbox checkmark="true" multiple="true" mold="paging" model="@bind($composer.entidade.periodos)"
 						 emptyMessage="Nenhum registro adicionado." rows="0" autopaging="true" style="height: 100%"
+						 nonselectableTags="*"
 						 selectedItems="@bind($composer.periodosSelecionados)">
 					<listhead>
 						<listheader hflex="min"/>
@@ -65,73 +66,86 @@
 						<listitem>
 							<listcell/>
 							<listcell>
-								<div sclass="form-group">
-									<label value="Código" sclass="form-label"/>
-									<combobox sclass="form-input"></combobox>
+								<div class="row">
+									<div class="col-md-1">
+										<div sclass="form-group">
+											<label value="Código" sclass="form-label"/>
+											<!-- <combobox sclass="form-input" model="@load($composer.colPeriodos)"
+													  selectedItem="@bind(periodoSelecionado.codigo)">
+												<template name="model">
+													<comboitem label="@load(each)" value="@bind(each)"/>
+												</template>
+											</combobox> -->
+											<intbox sclass="form-input" value="@bind(periodoSelecionado.codigo)"/>
+										</div>
+									</div>
 								</div>
-								<listbox checkmark="true" multiple="true" mold="paging" model="@bind(periodoSelecionado.detalhes)"
-										 emptyMessage="Nenhum registro selecionado." autopaging="false"
-										 rows="3"
-										 selectedItems="@bind($composer.disciplinasSelecionadas)">
-									<listhead>
-										<listheader hflex="min"/>
-										<listheader label="Disciplinas">
-											<hbox style="float: right">
-												<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="$composer.adicionarDisciplina(periodoSelecionado)"/>
-												<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="$composer.removerDisciplina(periodoSelecionado)"/>
-											</hbox>
-										</listheader>
-									</listhead>
-									<template name="model" var="disciplinaSelecionada">
-										<listitem>
-											<listcell/>
-												<listcell>
-													<div sclass="row">
-														
-														<div sclass="col-md-8">
-															<div sclass="form-group">
-																<label value="Disciplina" sclass="form-label"/>
-																<include src="/partials/zul/lookup/disciplinalookup.zul"/>
+								
+								<div sclass="row">
+									<listbox checkmark="true" multiple="true" mold="paging" model="@bind(periodoSelecionado.detalhes)"
+											 emptyMessage="Nenhum registro selecionado." autopaging="false"
+											 rows="3" nonselectableTags="*"
+											 selectedItems="@bind($composer.disciplinasSelecionadas)">
+										<listhead>
+											<listheader hflex="min"/>
+											<listheader label="Disciplinas">
+												<hbox style="float: right">
+													<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="$composer.adicionarDisciplina(periodoSelecionado)"/>
+													<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="$composer.removerDisciplina(periodoSelecionado)"/>
+												</hbox>
+											</listheader>
+										</listhead>
+										<template name="model" var="disciplinaSelecionada">
+											<listitem>
+												<listcell/>
+													<listcell>
+														<div sclass="row">
+															
+															<div sclass="col-md-8">
+																<div sclass="form-group">
+																	<label value="Disciplina" sclass="form-label"/>
+																	<include src="/partials/zul/lookup/disciplinalookup.zul"/>
+																</div>
 															</div>
-														</div>
-														
-														<div sclass="col-md-1">
-															<div sclass="form-group">
-																<label value="Créditos" sclass="form-label"/>
-																<intbox sclass="form-input" maxlength="3" value="@bind(disciplinaSelecionada.creditos)"/>
+															
+															<div sclass="col-md-1">
+																<div sclass="form-group">
+																	<label value="Créditos" sclass="form-label"/>
+																	<intbox sclass="form-input" maxlength="3" value="@bind(disciplinaSelecionada.creditos)"/>
+																</div>
 															</div>
-														</div>
-														
-														<div sclass="col-md-1">
-															<div sclass="form-group">
-																<label value="C. H." sclass="form-label"/>
-																<intbox sclass="form-input" maxlength="3" value="@bind(disciplinaSelecionada.cargaHoraria)"/>
+															
+															<div sclass="col-md-1">
+																<div sclass="form-group">
+																	<label value="C. H." sclass="form-label"/>
+																	<intbox sclass="form-input" maxlength="3" value="@bind(disciplinaSelecionada.cargaHoraria)"/>
+																</div>
 															</div>
-														</div>
-														
-														<div sclass="col-md-1">
-															<div sclass="form-group">
-																<label value="OBR" sclass="form-label"/>
-																<checkbox style="margin: 0; padding: 0" checked="@bind(disciplinaSelecionada.obrigatoria)" />
+															
+															<div sclass="col-md-1">
+																<div sclass="form-group">
+																	<label value="OBR" sclass="form-label"/>
+																	<checkbox style="margin: 0; padding: 0" checked="@bind(disciplinaSelecionada.obrigatoria)" />
+																</div>
 															</div>
-														</div>
-														
-														<div sclass="col-md-1" visible="@load(!disciplinaSelecionada.obrigatoria)">
-															<div sclass="form-group">
-																<label value="Grupo" sclass="form-label"/>
-																<combobox model="@load($composer.colGrupoEletivas)" readonly="true" autodrop="true" 
-																          selectedItem="@bind(disciplinaSelecionada.grupoEletiva)">
-																	<template name="model">
-																		<comboitem label="@load(each)" value="@bind(each)"/>
-																	</template>
-																</combobox>
+															
+															<div sclass="col-md-1" visible="@load(!disciplinaSelecionada.obrigatoria)">
+																<div sclass="form-group">
+																	<label value="Grupo" sclass="form-label"/>
+																	<combobox model="@load($composer.colGrupoEletivas)" readonly="true" autodrop="true" 
+																	          selectedItem="@bind(disciplinaSelecionada.grupoEletiva)">
+																		<template name="model">
+																			<comboitem label="@load(each)" value="@bind(each)"/>
+																		</template>
+																	</combobox>
+																</div>
 															</div>
-														</div>
-												</div>
-											</listcell>
-										</listitem>
-								</template>
-								</listbox>
+													</div>
+												</listcell>
+											</listitem>
+									</template>
+									</listbox>
+								</div>
 							</listcell>
 						</listitem>
 					</template>

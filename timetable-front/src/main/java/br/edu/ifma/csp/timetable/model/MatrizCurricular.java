@@ -1,7 +1,7 @@
 package br.edu.ifma.csp.timetable.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -50,7 +50,7 @@ public class MatrizCurricular extends Entidade {
 	@Valid
 	@Size(min=1, message="Nenhum período adicionado.")
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="matrizCurricular", cascade=CascadeType.ALL, orphanRemoval=true)
-	private Set<Periodo> periodos = new HashSet<Periodo>();
+	private List<Periodo> periodos = new ArrayList<Periodo>();
 	
 	public int getId() {
 		return id;
@@ -92,11 +92,11 @@ public class MatrizCurricular extends Entidade {
 		this.curso = curso;
 	}
 	
-	public Set<Periodo> getPeriodos() {
+	public List<Periodo> getPeriodos() {
 		return periodos;
 	}
 	
-	public void setPeriodos(Set<Periodo> periodos) {
+	public void setPeriodos(List<Periodo> periodos) {
 		this.periodos = periodos;
 	}
 }

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -108,8 +108,8 @@ public class DetalheDisciplina extends Entidade {
 		this.obrigatoria = obrigatoria;
 	}
 	
-	@AssertTrue(message="O grupo de eletivas é obrigatório.")
-	public boolean isGrupoEletivaSelecionado() {
-		return (!isObrigatoria() && getGrupoEletiva() != null);
+	@AssertFalse(message="O grupo de eletivas é obrigatório.")
+	public boolean isGrupoEletivasObrigatorio() {
+		return ((!isObrigatoria()) && getGrupoEletiva() == null);
 	}
 }

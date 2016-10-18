@@ -1,8 +1,9 @@
 package br.edu.ifma.csp.timetable.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,11 +38,11 @@ public class Periodo extends Entidade {
 	private MatrizCurricular matrizCurricular;
 	
 	@Valid
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="periodo", orphanRemoval=true)
-	private Set<DetalheDisciplina> detalhes = new HashSet<DetalheDisciplina>();
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="periodo", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<DetalheDisciplina> detalhes = new ArrayList<DetalheDisciplina>();
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="periodo", orphanRemoval=true)
-	private Set<Turma> turmas = new HashSet<Turma>();
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="periodo", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<Turma> turmas = new ArrayList<Turma>();
 
 	public int getId() {
 		return id;
@@ -67,19 +68,19 @@ public class Periodo extends Entidade {
 		this.matrizCurricular = matrizCurricular;
 	}
 
-	public Set<DetalheDisciplina> getDetalhes() {
+	public List<DetalheDisciplina> getDetalhes() {
 		return detalhes;
 	}
 	
-	public void setDetalhes(Set<DetalheDisciplina> detalhes) {
+	public void setDetalhes(List<DetalheDisciplina> detalhes) {
 		this.detalhes = detalhes;
 	}
 	
-	public Set<Turma> getTurmas() {
+	public List<Turma> getTurmas() {
 		return turmas;
 	}
 	
-	public void setTurmas(Set<Turma> turmas) {
+	public void setTurmas(List<Turma> turmas) {
 		this.turmas = turmas;
 	}
 }

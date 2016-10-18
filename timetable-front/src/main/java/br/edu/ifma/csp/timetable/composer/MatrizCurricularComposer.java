@@ -2,6 +2,8 @@ package br.edu.ifma.csp.timetable.composer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.impl.ReferenceBindingImpl;
@@ -22,6 +24,7 @@ public class MatrizCurricularComposer extends Composer<MatrizCurricular> {
 	private List<DetalheDisciplina> disciplinasSelecionadas;
 	private List<Turno> colTurnos;
 	private List<String> colGrupoEletivas;
+	private List<Integer> colPeriodos;
 	
 	private Turnos turnos;
 
@@ -32,11 +35,23 @@ public class MatrizCurricularComposer extends Composer<MatrizCurricular> {
 		setColTurnos(turnos.all());
 		
 		colGrupoEletivas = new ArrayList<String>();
-		colGrupoEletivas.add("IA");
-		colGrupoEletivas.add("IB");
+		colGrupoEletivas.add("I-A");
+		colGrupoEletivas.add("I-B");
 		colGrupoEletivas.add("II");
 		
 		getBinder().notifyChange(this, "*");
+	}
+	
+	@Override
+	public void edit() {
+		
+		super.edit();
+		
+		setColTurnos(turnos.all());
+		
+		if (entidade != null && entidade.getSemestres() != null) {
+			adicionarColPeriodos(entidade.getSemestres());
+		}
 	}
 	
 	
@@ -63,7 +78,7 @@ public class MatrizCurricularComposer extends Composer<MatrizCurricular> {
 		DetalheDisciplina detalheDisciplina = new DetalheDisciplina();
 		detalheDisciplina.setPeriodo(periodoSelecionado);
 		
-		periodoSelecionado.getDetalhes().add(detalheDisciplina);
+		periodoSelecionado.getDetalhes().add(0, detalheDisciplina);
 		
 		getBinder().notifyChange(periodoSelecionado, "detalhes");
 	}
@@ -75,6 +90,11 @@ public class MatrizCurricularComposer extends Composer<MatrizCurricular> {
 		periodoSelecionado.getDetalhes().removeAll(disciplinasSelecionadas);
 		
 		getBinder().notifyChange(periodoSelecionado, "detalhes");
+	}
+	
+	public void adicionarColPeriodos(int semestres) {
+		setColPeriodos(IntStream.of(IntStream.rangeClosed(1, semestres).toArray()).boxed().collect(Collectors.toList()));
+		getBinder().notifyChange(this, "colPeriodos");
 	}
 	
 	public List<Periodo> getPeriodosSelecionados() {
@@ -107,5 +127,13 @@ public class MatrizCurricularComposer extends Composer<MatrizCurricular> {
 	
 	public void setColTurnos(List<Turno> colTurnos) {
 		this.colTurnos = colTurnos;
+	}
+
+	public List<Integer> getColPeriodos() {
+		return colPeriodos;
+	}
+
+	public void setColPeriodos(List<Integer> colPeriodos) {
+		this.colPeriodos = colPeriodos;
 	}
 }

@@ -46,7 +46,7 @@
 			
 		</n:nav>
 		
-		<div id="page-wrapper" class="zk-container" self="@insert(content)">
+		<div class="zk-container page-wrapper" self="@insert(content)">
 		</div>
 		
 	</div>
