@@ -33,7 +33,7 @@ public class DetalheDisciplina extends Entidade {
 	
 	@NotNull
 	@Column(name="OBRIGATORIA")
-	private boolean obrigatoria;
+	private boolean obrigatoria = true;
 	
 	@Column(name="grupoEletiva")
 	private String grupoEletiva;
