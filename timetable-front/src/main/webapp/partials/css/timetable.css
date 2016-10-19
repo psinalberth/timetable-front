@@ -43,7 +43,7 @@ input[type=radio], .z-radio-content {
 	width: 50%;
 }
 
-input[type=text], textarea.class {
+input[type=text]{
   background: transparent;
   outline: none;
   height:22px;
@@ -64,19 +64,6 @@ input[type=text]:focus, textarea:focus {
   border-bottom: 0;
   box-shadow: -8px 10px 0px -7px #347abe, 8px 10px 0px -7px #347abe;
 }
-
-.z-combobox {
-	
-	margin: 0;
-	padding: 0;
-	transition: all 0.3s ease;
-}
-
-.z-combobox:focus {
-	/* box-shadow: -8px 10px 0px -7px #b9b9b9, 8px 10px 0px -7px #b9b9b9; */
-	border-bottom: 2px dashed orange;
-}
-
 
 /* ------------------ */
 /* Definição de Fontes */
@@ -130,12 +117,17 @@ input[type=text]:focus, textarea:focus {
 	background: transparent;
 	min-height: 630px; 
 	padding: 0 15px;
+	border-left: 1px dashed #e7e7e7;
+}
+
+.sidebar ul li {
+	border-bottom: 1px dashed #e7e7e7;
 }
 
 .sidebar ul li > .z-a {
 	font-family: 'Raleway', sans-serif;
 	font-size: 16px;
-	color: #777;
+	color: #347abe;
 	transition: all 0.2s ease-in-out;
 }
 
@@ -180,6 +172,27 @@ input[type=text]:focus, textarea:focus {
 /* ------------------ */
 /* Classes CSS ZK */
 /* ------------------ */
+
+.z-combobox {
+	
+	margin: 0;
+	padding: 0;
+	transition: all 0.3s ease;
+}
+
+.z-combobox:focus {
+	/* box-shadow: -8px 10px 0px -7px #b9b9b9, 8px 10px 0px -7px #b9b9b9; */
+	border-bottom: 2px dashed orange;
+}
+
+.z-groupbox-content {
+	border: 0;
+}
+
+.z-groupbox > .z-groupbox-header {
+	border: 2px solid #777;
+	border-bottom: 0;
+}
 
 .z-errorbox-close {
 	font-family: 'Raleway', sans-serif;
@@ -286,7 +299,6 @@ input[type=text]:focus, textarea:focus {
 	color: #347abe;
 }
 
-
 /* Listbox */
 
 .z-listbox {
@@ -341,7 +353,6 @@ input[type=text]:focus, textarea:focus {
 		position: inherit;
 		margin: 0 0 0 250px; 
 		padding: 0 30px;
-		border-left: 1px solid #d3d7cf;
 	}
 	
 	.sidebar {

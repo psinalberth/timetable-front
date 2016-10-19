@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -26,13 +28,22 @@ public class Local extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotBlank(message="nome#O nome é obrigatório.")
+	@NotBlank(message="O nome é obrigatório.")
 	@Column(name="NOME", length=80)
 	private String nome;
 	
-	@NotNull
+	@NotNull(message="A capacidade é obrigatória.")
 	@Column(name="CAPACIDADE", columnDefinition="TINYINT(3)")
-	private int capacidade;
+	private Integer capacidade;
+	
+	@NotNull(message="O tipo de local é obrigatório.")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="ID_TIPO_LOCAL")
+	private TipoLocal tipoLocal;
+	
+	@JoinColumn(name="ID_DEPARTAMENTO")
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Departamento departamento;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="local")
 	private Set<Aula> aulas = new HashSet<Aula>();
@@ -53,12 +64,28 @@ public class Local extends Entidade {
 		this.nome = nome;
 	}
 
-	public int getCapacidade() {
+	public Integer getCapacidade() {
 		return capacidade;
 	}
 
-	public void setCapacidade(int capacidade) {
+	public void setCapacidade(Integer capacidade) {
 		this.capacidade = capacidade;
+	}
+	
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+	
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+	
+	public TipoLocal getTipoLocal() {
+		return tipoLocal;
+	}
+	
+	public void setTipoLocal(TipoLocal tipoLocal) {
+		this.tipoLocal = tipoLocal;
 	}
 	
 	public Set<Aula> getAulas() {

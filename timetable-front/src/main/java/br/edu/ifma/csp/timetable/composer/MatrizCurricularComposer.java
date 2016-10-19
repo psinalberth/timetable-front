@@ -42,19 +42,6 @@ public class MatrizCurricularComposer extends Composer<MatrizCurricular> {
 		getBinder().notifyChange(this, "*");
 	}
 	
-	@Override
-	public void edit() {
-		
-		super.edit();
-		
-		setColTurnos(turnos.all());
-		
-		if (entidade != null && entidade.getSemestres() != null) {
-			adicionarColPeriodos(entidade.getSemestres());
-		}
-	}
-	
-	
 	public void adicionarPeriodo() {
 		
 		Periodo periodo = new Periodo();

@@ -18,6 +18,6 @@
 	
 	<div sclass="form-group">
 		<label value="Descrição" sclass="form-label" />
-		<textbox id="descricao" sclass="form-input" style="resize: none" rows="3" value="@bind($composer.entidade.descricao)"/>
+		<textbox id="descricao" sclass="form-input" value="@bind($composer.entidade.descricao)"/>
 	</div>
 </zk>

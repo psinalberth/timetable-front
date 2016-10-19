@@ -2,22 +2,39 @@
 <zk xmlns:n="native">
 	
 	<div class="row">
-		<div class="col-md-1">
-			<div sclass="form-group">
-				<label value="Código" sclass="form-label" />
-				<textbox id="codigo" cols="2" sclass="form-input" value="@bind($composer.entidade.codigo)" maxlength="2"/>
-			</div>
-		</div>
-		<div class="col-md-11">
+		<div class="col-md-10">
 			<div sclass="form-group">
 				<label value="Nome" sclass="form-label" />
 				<textbox id="nome" sclass="form-input" value="@bind($composer.entidade.nome)"/>
 			</div>
 		</div>
+		
+		<div class="col-md-2">
+			<div sclass="form-group">
+				<label value="Capacidade" sclass="form-label" />
+				<textbox id="capacidade" cols="3" sclass="form-input" value="@bind($composer.entidade.capacidade)" maxlength="3"/>
+			</div>
+		</div>
 	</div>
 	
-	<div sclass="form-group">
-		<label value="Descrição" sclass="form-label" />
-		<textbox id="descricao" sclass="form-input" style="resize: none" rows="3" value="@bind($composer.entidade.descricao)"/>
+	<div sclass="row">
+		<div sclass="col-md-2">
+			<div class="form-group">
+				<label value="Tipo de Local" sclass="form-label"/>
+				<combobox class="form-input" model="@load($composer.colTiposLocal)" 
+						  selectedItem="@bind($composer.entidade.tipoLocal)" value="@load($composer.entidade.tipoLocal.descricao)">
+					<template name="model">
+						<comboitem label="@load(each.descricao)" value="@bind(each.id)"/>
+					</template>
+				</combobox>
+			</div>
+		</div>
+		<div sclass="col-md-10">
+			<div class="form-group">
+				<label value="Departamento" sclass="form-label"/>
+				<include src="/partials/zul/lookup/departamentolookup.zul"/>
+			</div>
+		</div>
 	</div>
+	
 </zk>

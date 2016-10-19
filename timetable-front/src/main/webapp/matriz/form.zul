@@ -30,7 +30,7 @@
 						<div class="form-group">
 							<label sclass="form-label" value="Turno"/>
 							<combobox id="turno" sclass="form-input" model="@load($composer.colTurnos)" 
-									  selectedItem="@load($composer.entidade.turno)">
+									  selectedItem="@load($composer.entidade.turno)" value="@load($composer.entidade.turno.nome)">
 								<template name="model">
 									<comboitem label="@load(each.nome)"/>
 								</template>
@@ -66,7 +66,14 @@
 						<listitem>
 							<listcell/>
 							<listcell>
-								<div class="row">
+								
+								
+								<div sclass="row">
+									<div class="col-md-12">
+										<groupbox open="false">
+											<caption label="Período" sclass="form-label"/>
+											
+											<div class="row">
 									<div class="col-md-1">
 										<div sclass="form-group">
 											<label value="Código" sclass="form-label"/>
@@ -80,11 +87,7 @@
 										</div>
 									</div>
 								</div>
-								
-								<div sclass="row">
-									<div class="col-md-12">
-										<groupbox open="false">
-											<caption label="Período" sclass="form-label"/>
+											
 										<listbox checkmark="true" multiple="true" mold="paging" model="@bind(periodoSelecionado.detalhes)"
 												 emptyMessage="Nenhum registro selecionado." autopaging="false"
 												 rows="5" nonselectableTags="*"
