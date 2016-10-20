@@ -1,7 +1,7 @@
 <?page title="Timetable" contentType="text/html;charset=UTF-8"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="../partials/zul/template.zul"?>
 <zk xmlns:n="native">
-	<div self="@define(content)" sclass="container-fluid">
+	<div sclass="container-fluid">
 		<div sclass="row">
 			
 		</div>

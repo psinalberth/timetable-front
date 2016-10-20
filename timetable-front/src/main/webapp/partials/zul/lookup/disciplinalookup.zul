@@ -2,7 +2,7 @@
 	<bandbox id="lookup" sclass="form-input" autodrop="true" readonly="true" mold="rounded" 
 	         value="@load(disciplinaSelecionada.disciplina.descricao)">
 		<bandpopup>
-		 	<vlayout apply="br.edu.ifma.csp.timetable.composer.lookup.DisciplinaLookupComposer" style="padding: 0 15px" onCreate="self.width = lookup.width">
+		 	<vlayout apply="br.edu.ifma.csp.timetable.composer.lookup.DisciplinaLookupComposer" style="padding: 0 15px">
 		 		
 		 		<div class="row">
 		 			<div class="col-md-12">

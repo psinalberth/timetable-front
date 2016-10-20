@@ -5,7 +5,7 @@
 			<listheader label="Departamento"/>
 		</listhead>
 		<template name="model" var="obj">
-			<listitem value="@bind(obj)">
+			<listitem value="@bind(obj)" sclass="list">
 				<listcell label="@load(obj.nome)"/>
 				<listcell label="@load(obj.departamento.nome)"/>
 			</listitem>
