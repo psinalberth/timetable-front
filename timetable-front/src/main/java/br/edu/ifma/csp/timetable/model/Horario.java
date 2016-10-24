@@ -73,4 +73,9 @@ public class Horario extends Entidade {
 	public void setHoraFim(Date horaFim) {
 		this.horaFim = horaFim;
 	}
+	
+	@Override
+	public String toString() {
+		return getDia().getDescricao() + " " + getHoraInicio() + " - " + getHoraFim();
+	}
 }	

@@ -99,4 +99,9 @@ public class MatrizCurricular extends Entidade {
 	public void setPeriodos(List<Periodo> periodos) {
 		this.periodos = periodos;
 	}
+	
+	@Override
+	public String toString() {
+		return getCurso().getNome() + " / " + getAno() + "/" + getTurno().getCodigo();
+	}
 }

@@ -11,14 +11,10 @@
 			<tabpanels>
 				
 				<tabpanel>
-					<div sclass="form-group">
-						<label value="Curso" sclass="form-label"/>
-						<include src="/partials/zul/cursolookup.zul"/>
-					</div>
 					
 					<div sclass="form-group">
 						<label value="Matriz Curricular" sclass="form-label"/>
-						<include src="/partials/zul/matrizlookup.zul"/>
+						<include src="/partials/zul/lookup/matrizlookup.zul"/>
 					</div>
 					
 					<div sclass="row">
@@ -31,72 +27,85 @@
 						
 						<div sclass="col-md-1">
 							<div class="form-group">
-								<label sclass="form-label" value="Código"/>
-								<combobox id="codigo" model="@load($composer.colCodigos)" readonly="true" autodrop="true" cols="2" sclass="form-input">
-									<template name=""></template>
-								</combobox>
-							</div>
-						</div>
-						
-						<div sclass="col-md-1">
-							<div sclass="form-group">
-								<label sclass="form-label" value="Tamanho"/>
-								<intbox id="tamanho" sclass="form-input" maxlength="3"/>
+								<label sclass="form-label" value="Semestre"/>
+								<radiogroup selectedItem="@bind($composer.entidade.semestre)">
+									<radio label="1" value="1"/>
+									<radio label="2" value="2"/>
+								</radiogroup>
+								
 							</div>
 						</div>
 					</div>
 				</tabpanel>
 				
 				<tabpanel>
-					<listbox checkmark="true" multiple="true">
-						<listhead>
-							<listheader hflex="min"/>
-							<listheader label="Disciplina">
-								<hbox style="float: right">
-									<button iconSclass="fa fa-plus" sclass="btn btn-default"/>
-									<button iconSclass="fa fa-minus" sclass="btn btn-default"/>
-								</hbox>
-							</listheader>
-						</listhead>
-						<listitem self="@{each=detalhe}" value="@{detalhe}">
-							<listcell/>
-							<listcell>
-								<div sclass="row">
-									<div sclass="col-md-1">
-										<div sclass="form-group">
-											<label sclass="form-label" value="Semestre"/>
-											<combobox id="semestre" readonly="true" autodrop="true" cols="1" sclass="form-input">
-												<comboitem value="1" label="1"/>
-												<comboitem value="2" label="2"/>
-											</combobox>
+					
+					<div sclass="row form-inline">
+						<div class="col-md-3">
+						<div sclass="form-group">
+							<label value="Mesmo Local"/>
+							<checkbox style="margin: 0; padding: 0"/>
+						</div>	
+						</div>
+					</div>
+					
+					<separator orient="vertical"/>
+					
+					<div class="row">
+					
+						<div class="col-md-12">
+				
+							<listbox checkmark="true" multiple="true">
+								<listhead>
+									<listheader hflex="min"/>
+									<listheader label="Detalhes">
+										<hbox style="float: right">
+											<button iconSclass="fa fa-plus" sclass="btn btn-default"/>
+											<button iconSclass="fa fa-minus" sclass="btn btn-default"/>
+										</hbox>
+									</listheader>
+								</listhead>
+								<listitem self="@{each=detalhe}" value="@{detalhe}">
+									<listcell/>
+									<listcell>
+										<div sclass="row">
+											<div sclass="col-md-2">
+												<div sclass="form-group">
+													<label sclass="form-label" value="Entidade"/>
+													<combobox id="semestre" readonly="true" autodrop="true" cols="1" sclass="form-input">
+														<comboitem value="1" label="1"/>
+														<comboitem value="2" label="2"/>
+													</combobox>
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
-								<div sclass="row">
-									<div class="col-md-6">
-										<listbox>
-											<listhead>
-												<listheader label="Disponíveis"/>
-											</listhead>
-											<listitem>
-												<listcell droppable="true" draggable="true"/>
-											</listitem>
-										</listbox>
-									</div>
-									<div class="col-md-6">
-										<listbox>
-											<listhead>
-												<listheader label="Selecionadas"/>
-											</listhead>
-											<listitem>
-												<listcell droppable="true" draggable="true"/>
-											</listitem>
-										</listbox>
-									</div>
-								</div>
-							</listcell>
-						</listitem>
-					</listbox>
+										<div sclass="row">
+											<div class="col-md-6">
+												<listbox>
+													<listhead>
+														<listheader label="Disponíveis"/>
+													</listhead>
+													<listitem>
+														<listcell droppable="true" draggable="true"/>
+													</listitem>
+												</listbox>
+											</div>
+											<div class="col-md-6">
+												<listbox>
+													<listhead>
+														<listheader label="Selecionadas"/>
+													</listhead>
+													<listitem>
+														<listcell droppable="true" draggable="true"/>
+													</listitem>
+												</listbox>
+											</div>
+										</div>
+									</listcell>
+								</listitem>
+							</listbox>
+						</div>
+					</div>
 				</tabpanel>
 				
 			</tabpanels>

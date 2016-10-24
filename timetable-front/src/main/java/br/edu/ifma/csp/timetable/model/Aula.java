@@ -42,6 +42,11 @@ public class Aula extends Entidade {
 	@JoinColumn(name="ID_HORARIO")
 	private Horario horario;
 	
+	@NotNull(message="Timetable obrigatória.")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="ID_TIMETABLE")
+	private Timetable timetable;
+	
 	public int getId() {
 		return id;
 	}
@@ -80,5 +85,13 @@ public class Aula extends Entidade {
 	
 	public void setHorario(Horario horario) {
 		this.horario = horario;
+	}
+	
+	public Timetable getTimetable() {
+		return timetable;
+	}
+	
+	public void setTimetable(Timetable timetable) {
+		this.timetable = timetable;
 	}
 }

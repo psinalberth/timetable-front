@@ -1,6 +1,6 @@
 package br.edu.ifma.csp.timetable.composer;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.zkoss.bind.annotation.Init;
@@ -32,7 +32,7 @@ public class ProfessorComposer extends Composer<Professor> {
 	
 	public void initDetalhes() {
 		
-		entidade.setPreferenciasDisciplina(new HashSet<PreferenciaDisciplinaProfessor>());
+		entidade.setPreferenciasDisciplina(new ArrayList<PreferenciaDisciplinaProfessor>());
 		
 		PreferenciaDisciplinaProfessor preferencia = new PreferenciaDisciplinaProfessor();
 		preferencia.setProfessor(entidade);
@@ -47,7 +47,7 @@ public class ProfessorComposer extends Composer<Professor> {
 		PreferenciaDisciplinaProfessor preferencia = new PreferenciaDisciplinaProfessor();
 		preferencia.setProfessor(entidade);
 		
-		entidade.getPreferenciasDisciplina().add(preferencia);
+		entidade.getPreferenciasDisciplina().add(0, preferencia);
 		
 		getBinder().notifyChange(entidade, "preferenciasDisciplina");
 	}
@@ -62,7 +62,7 @@ public class ProfessorComposer extends Composer<Professor> {
 		PreferenciaHorarioProfessor preferencia = new PreferenciaHorarioProfessor();
 		preferencia.setProfessor(entidade);
 		
-		entidade.getPreferenciasHorario().add(preferencia);
+		entidade.getPreferenciasHorario().add(0, preferencia);
 		
 		getBinder().notifyChange(entidade, "preferenciasHorario");
 	}

@@ -1,6 +1,8 @@
 package br.edu.ifma.csp.timetable.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -51,11 +53,11 @@ public class Professor extends Entidade {
 	@Valid
 	@Size(min=1, message="Nenhuma preferência adicionada.")
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="professor", cascade=CascadeType.ALL, orphanRemoval=true)
-	private Set<PreferenciaDisciplinaProfessor> preferenciasDisciplina = new HashSet<PreferenciaDisciplinaProfessor>();
+	private List<PreferenciaDisciplinaProfessor> preferenciasDisciplina = new ArrayList<PreferenciaDisciplinaProfessor>();
 	
 	@Valid
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="professor", cascade=CascadeType.ALL, orphanRemoval=true)
-	private Set<PreferenciaHorarioProfessor> preferenciasHorario = new HashSet<PreferenciaHorarioProfessor>();
+	private List<PreferenciaHorarioProfessor> preferenciasHorario = new ArrayList<PreferenciaHorarioProfessor>();
 
 	@Override
 	public int getId() {
@@ -98,19 +100,19 @@ public class Professor extends Entidade {
 		this.aulas = aulas;
 	}
 	
-	public Set<PreferenciaDisciplinaProfessor> getPreferenciasDisciplina() {
+	public List<PreferenciaDisciplinaProfessor> getPreferenciasDisciplina() {
 		return preferenciasDisciplina;
 	}
 	
-	public void setPreferenciasDisciplina(Set<PreferenciaDisciplinaProfessor> preferenciasDisciplina) {
+	public void setPreferenciasDisciplina(List<PreferenciaDisciplinaProfessor> preferenciasDisciplina) {
 		this.preferenciasDisciplina = preferenciasDisciplina;
 	}
 	
-	public Set<PreferenciaHorarioProfessor> getPreferenciasHorario() {
+	public List<PreferenciaHorarioProfessor> getPreferenciasHorario() {
 		return preferenciasHorario;
 	}
 	
-	public void setPreferenciasHorario(Set<PreferenciaHorarioProfessor> preferenciasHorario) {
+	public void setPreferenciasHorario(List<PreferenciaHorarioProfessor> preferenciasHorario) {
 		this.preferenciasHorario = preferenciasHorario;
 	}
 	

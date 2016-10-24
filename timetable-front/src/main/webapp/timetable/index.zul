@@ -1,8 +1,8 @@
-<?page title="" contentType="text/html;charset=UTF-8"?>
+<?page title="Timetable" contentType="text/html;charset=UTF-8"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/zul/template.zul"?>
 <zk xmlns:n="native">
-	<div self="@define(content)" class="container-fluid" apply="br.edu.ifma.csp.timetable.composer.TurmaComposer">
-		
+	<div self="@define(content)" class="container-fluid" apply="br.edu.ifma.csp.timetable.composer.TimetableComposer">
+		<custom-attributes composerName="ctrl"/>
 		<div sclass="row">
 		
 			<div class="form-group">
