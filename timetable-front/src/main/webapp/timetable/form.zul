@@ -7,6 +7,7 @@
 			<tabs>
 				<tab label="Informações Gerais" iconSclass="fa fa-edit"/>
 				<tab label="Disciplinas Ofertadas" iconSclass="fa fa-book"/>
+				<tab label="Aulas" iconSclass="fa fa-book"/>
 			</tabs>
 			<tabpanels>
 				
@@ -106,6 +107,76 @@
 							</listbox>
 						</div>
 					</div>
+				</tabpanel>
+				
+				<tabpanel>
+					<grid>
+						<columns>
+							 <column label="Horário"/>
+							 <column label="Segunda-Feira"/>
+							 <column label="Terça-Feira"/>
+							 <column label="Quarta-Feira"/>
+							 <column label="Quinta-Feira"/>
+							 <column label="Sexta-Feira"/>
+						</columns>
+						<rows>
+							<row>
+								<auxhead>
+									<auxheader label="15:10 - 16:00" colspan="6"/>
+								</auxhead>
+								<label/>
+								<vlayout>
+									<label value="CALCDIFI"/>
+								<label value="Everton Cangussu"/>
+								<label value="Sala 28"/>
+								</vlayout>
+								<label value="AAA"/>
+								<label value="AAA"/>
+								<label value="AAA"/>
+								<label value="AAA"/>
+							</row>
+							<row>
+								<auxhead>
+									<auxheader label="15:10 - 16:00"/>
+								</auxhead>
+							</row>
+							<row>
+								<auxhead>
+									<auxheader label="16:00 - 16:50"/>
+								</auxhead>
+							</row>
+							<row>
+								<auxhead>
+									<auxheader label="17:40 - 18:30"/>
+								</auxhead>
+							</row>
+							<row>
+								<auxhead>
+									<auxheader label="18:30 - 19:20"/>
+								</auxhead>
+							</row>
+							<row>
+								<auxhead>
+									<auxheader label="19:20 - 20:10"/>
+								</auxhead>
+							</row>
+							<row>
+								<auxhead>
+									<auxheader label="20:10 - 21:00"/>
+								</auxhead>
+							</row>
+							<row>
+								<auxhead>
+									<auxheader label="21:00 - 21:50"/>
+								</auxhead>
+							</row>
+							<row>
+								<auxhead>
+									<auxheader label="21:50 - 22:40"/>
+								</auxhead>
+							</row>
+						</rows>
+					</grid>
 				</tabpanel>
 				
 			</tabpanels>

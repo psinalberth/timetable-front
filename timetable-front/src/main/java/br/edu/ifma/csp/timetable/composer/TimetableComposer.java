@@ -18,9 +18,8 @@ public class TimetableComposer extends Composer<Timetable> {
 	public void save() {
 		
 		TimetableHandler handler = new TimetableHandler();
-		handler.setMatrizCurricular(getEntidade().getMatrizCurricular());
-		handler.buildModel();
-		handler.solve();
+		handler.setTimetable(entidade);
+		handler.execute();
 	}
 	
 	public boolean isCriterioProfessor() {
