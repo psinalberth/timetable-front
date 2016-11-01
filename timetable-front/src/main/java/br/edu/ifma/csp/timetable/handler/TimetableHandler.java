@@ -206,6 +206,7 @@ public class TimetableHandler {
 		
 		if (solver.solve()) {
 			prettyOut();
+			timetable.setAulas(recuperaAulas());
 		}
 	}
 	
@@ -451,6 +452,7 @@ public class TimetableHandler {
 				IntVar local5 = timeslot.getLocais().get(4);
 				
 				model.arithm(horario3, "-", horario1, "=", 2).post();
+				model.notMember(horario3, new int [] {0, 9, 18, 27, 36}).post();
 				model.arithm(horario4, "-", horario3, "=", 16).post();
 				
 				model.arithm(local1, "=", local2).post();
@@ -598,6 +600,7 @@ public class TimetableHandler {
 				aula.setLocal(getLocal(timeslot.getLocais().get(i).getValue()));
 				aula.setHorario(getHorario(timeslot.getHorarios().get(i).getValue()));
 				aula.setTimetable(getTimetable());
+				aula.setPeriodo(getPeriodoDisciplina(timeslot.getDisciplina().getValue()));
 				
 				aulas.add(aula);
 			}
@@ -632,6 +635,20 @@ public class TimetableHandler {
 		}
 		
 		return null;
+	}
+	
+	private int getPeriodoDisciplina(int disciplina) {
+		
+		for (int i = 0; i < periodos.length; i++) {
+			
+			for (int j = 0; j < periodos[i].length; j++) {
+				
+				if (periodos[i][j] == disciplina)
+					return (i+1);
+			}
+		}
+		
+		return 0;
 	}
 	
 	private int [] extrairCreditos(List<DetalheDisciplina> detalhes) {

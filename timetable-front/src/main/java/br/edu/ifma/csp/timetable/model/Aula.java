@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -46,6 +47,9 @@ public class Aula extends Entidade {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_TIMETABLE")
 	private Timetable timetable;
+	
+	@Transient
+	private int periodo;
 	
 	public int getId() {
 		return id;
@@ -93,5 +97,13 @@ public class Aula extends Entidade {
 	
 	public void setTimetable(Timetable timetable) {
 		this.timetable = timetable;
+	}
+	
+	public int getPeriodo() {
+		return periodo;
+	}
+	
+	public void setPeriodo(int periodo) {
+		this.periodo = periodo;
 	}
 }

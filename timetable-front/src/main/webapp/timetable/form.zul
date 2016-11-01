@@ -5,7 +5,7 @@
 		<div class="col-lg-12">
 		<tabbox>
 			<tabs>
-				<tab label="Informações Gerais" iconSclass="fa fa-edit"/>
+				<tab label="Informações Gerais" iconSclass="fa fa-edit" selected="@load($composer.editando)"/>
 				<tab label="Disciplinas Ofertadas" iconSclass="fa fa-book"/>
 				<tab label="Aulas" iconSclass="fa fa-book"/>
 			</tabs>
@@ -22,18 +22,17 @@
 						<div sclass="col-md-1">
 							<div sclass="form-group">
 								<label sclass="form-label" value="Ano"/>
-								<intbox id="ano" sclass="form-input" maxlength="4"/>
+								<intbox id="ano" sclass="form-input" maxlength="4" value="@bind($composer.entidade.ano)"/>
 							</div>
 						</div>
 						
 						<div sclass="col-md-1">
 							<div class="form-group">
 								<label sclass="form-label" value="Semestre"/>
-								<radiogroup selectedItem="@bind($composer.entidade.semestre)">
-									<radio label="1" value="1"/>
-									<radio label="2" value="2"/>
-								</radiogroup>
-								
+								<combobox sclass="form-input" selectedItem="@bind($composer.entidade.semestre)" readonly="true" value="@load($composer.entidade.semestre)">
+									<comboitem label="1º" value="1"/>
+									<comboitem label="2º" value="2"/>
+								</combobox>
 							</div>
 						</div>
 					</div>
@@ -41,142 +40,140 @@
 				
 				<tabpanel>
 					
-					<div sclass="row form-inline">
-						<div class="col-md-3">
-						<div sclass="form-group">
-							<label value="Mesmo Local"/>
-							<checkbox style="margin: 0; padding: 0"/>
-						</div>	
-						</div>
-					</div>
-					
-					<separator orient="vertical"/>
-					
 					<div class="row">
 					
 						<div class="col-md-12">
 				
-							<listbox checkmark="true" multiple="true">
+							<listbox checkmark="true" multiple="true" model="@bind($composer.entidade.detalhes)" 
+									 selectedItems="@bind($composer.detalhesSelecionados)">
 								<listhead>
 									<listheader hflex="min"/>
 									<listheader label="Detalhes">
 										<hbox style="float: right">
-											<button iconSclass="fa fa-plus" sclass="btn btn-default"/>
-											<button iconSclass="fa fa-minus" sclass="btn btn-default"/>
+											<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="$composer.adicionarDetalhe()"/>
+											<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="$composer.removerDetalhe()"/>
 										</hbox>
 									</listheader>
 								</listhead>
-								<listitem self="@{each=detalhe}" value="@{detalhe}">
-									<listcell/>
-									<listcell>
-										<div sclass="row">
-											<div sclass="col-md-2">
-												<div sclass="form-group">
-													<label sclass="form-label" value="Entidade"/>
-													<combobox id="semestre" readonly="true" autodrop="true" cols="1" sclass="form-input">
-														<comboitem value="1" label="1"/>
-														<comboitem value="2" label="2"/>
-													</combobox>
+								<template name="model" var="detalheSelecionado">
+									<listitem>
+										<listcell hflex="min"/>
+										<listcell>
+											<div sclass="row">
+												<div sclass="col-md-2">
+													<div sclass="form-group">
+														<label sclass="form-label" value="Entidade"/>
+														<combobox readonly="true" autodrop="true" cols="1" sclass="form-input" 
+																  value="@bind(detalheSelecionado.entidade)" selectedItem="@bind(detalheSelecionado.entidade)"
+																  onSelect="$composer.onChange()">
+															<comboitem value="Disciplina" label="Disciplina"/>
+															<comboitem value="Período" label="Período"/>
+															<comboitem value="Professor" label="Professor"/>
+														</combobox>
+													</div>
+												</div>
+												<div sclass="col-md-10">
+													<div sclass="form-group" visible="@bind(detalheSelecionado.criterioDisciplina)">
+														<label sclass="form-label" value="Disciplina"/>
+														<include src="/partials/zul/lookup/disciplinalookup.zul"/>
+													</div>
+													<div sclass="form-group" visible="@bind(detalheSelecionado.criterioProfessor)">
+														<label sclass="form-label" value="Local"/>
+														<include src="/partials/zul/lookup/disciplinalookup.zul"/>
+													</div>
 												</div>
 											</div>
-										</div>
-										<div sclass="row">
-											<div class="col-md-6">
-												<listbox>
-													<listhead>
-														<listheader label="Disponíveis"/>
-													</listhead>
-													<listitem>
-														<listcell droppable="true" draggable="true"/>
-													</listitem>
-												</listbox>
+											<div sclass="row">
+												<div sclass="col-md-2">
+													<div sclass="form-group">
+														<label sclass="form-label" value="Critério"/>
+														<combobox readonly="true" autodrop="true" cols="1" sclass="form-input">
+															<comboitem value="Lecionada por" label="Lecionada por"/>
+															<comboitem value="Não lecionada por" label="Não lecionada"/>
+														</combobox>
+													</div>
+												</div>
+												<div sclass="col-md-10">
+													<div sclass="form-group">
+														<label sclass="form-label" value="Disciplina"/>
+	<!-- 													<include src="/partials/zul/lookup/cursolookup.zul"/> -->
+													</div>
+												</div>
 											</div>
-											<div class="col-md-6">
-												<listbox>
-													<listhead>
-														<listheader label="Selecionadas"/>
-													</listhead>
-													<listitem>
-														<listcell droppable="true" draggable="true"/>
-													</listitem>
-												</listbox>
-											</div>
-										</div>
-									</listcell>
-								</listitem>
+										</listcell>
+									</listitem>
+								</template>
 							</listbox>
 						</div>
 					</div>
 				</tabpanel>
 				
 				<tabpanel>
-					<grid>
+				
+					<div class="row">
+						<div class="col-md-12">
+							<div class="col-md-2">
+								<div class="form-group">	
+									<label sclass="form-label" value="Período"/>
+									<combobox sclass="form-input" maxlength="2"/>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="form-group">
+									<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="$composer.limpar(1)" tooltiptext="Limpar"/>
+								</div>	
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label sclass="form-label" value="Professor"/>
+									<combobox sclass="form-input" readonly="true" model="@load($composer.colProfessores)" 
+											  value="@load($composer.professor)" selectedItem="@bind($composer.professor)"
+											  onSelect="$composer.lookup()">
+										<template name="model" var="obj">
+											<comboitem label="@load(obj.nome)" value="@bind(obj)"/>
+										</template>
+									</combobox>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="form-group">
+									<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="$composer.limpar(2)" tooltiptext="Limpar"/>
+								</div>	
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label sclass="form-label" value="Local"/>
+									<combobox sclass="form-input" readonly="true" model="@load($composer.colLocais)" 
+											  value="@load($composer.local)" selectedItem="@bind($composer.local)"
+											  onSelect="$composer.lookup()">
+										<template name="model" var="obj">
+											<comboitem label="@load(obj.nome)" value="@bind(obj)"/>
+										</template>
+									</combobox>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="form-group">
+									<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="$composer.limpar(3)" tooltiptext="Limpar"/>
+								</div>	
+							</div>
+						</div>
+					</div>
+					
+					<grid id="grid">
 						<columns>
-							 <column label="Horário"/>
-							 <column label="Segunda-Feira"/>
-							 <column label="Terça-Feira"/>
-							 <column label="Quarta-Feira"/>
-							 <column label="Quinta-Feira"/>
-							 <column label="Sexta-Feira"/>
+							<column label="Horário"/>
+							<column label="Segunda-Feira"/>
+							<column label="Terça-Feira"/>
+							<column label="Quarta-Feira"/>
+							<column label="Quinta-Feira"/>
+							<column label="Sexta-Feira"/>
 						</columns>
 						<rows>
-							<row>
-								<auxhead>
-									<auxheader label="15:10 - 16:00" colspan="6"/>
-								</auxhead>
-								<label/>
-								<vlayout>
-									<label value="CALCDIFI"/>
-								<label value="Everton Cangussu"/>
-								<label value="Sala 28"/>
-								</vlayout>
-								<label value="AAA"/>
-								<label value="AAA"/>
-								<label value="AAA"/>
-								<label value="AAA"/>
-							</row>
-							<row>
-								<auxhead>
-									<auxheader label="15:10 - 16:00"/>
-								</auxhead>
-							</row>
-							<row>
-								<auxhead>
-									<auxheader label="16:00 - 16:50"/>
-								</auxhead>
-							</row>
-							<row>
-								<auxhead>
-									<auxheader label="17:40 - 18:30"/>
-								</auxhead>
-							</row>
-							<row>
-								<auxhead>
-									<auxheader label="18:30 - 19:20"/>
-								</auxhead>
-							</row>
-							<row>
-								<auxhead>
-									<auxheader label="19:20 - 20:10"/>
-								</auxhead>
-							</row>
-							<row>
-								<auxhead>
-									<auxheader label="20:10 - 21:00"/>
-								</auxhead>
-							</row>
-							<row>
-								<auxhead>
-									<auxheader label="21:00 - 21:50"/>
-								</auxhead>
-							</row>
-							<row>
-								<auxhead>
-									<auxheader label="21:50 - 22:40"/>
-								</auxhead>
-							</row>
+							
 						</rows>
 					</grid>
+						
 				</tabpanel>
 				
 			</tabpanels>

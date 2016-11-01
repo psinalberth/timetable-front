@@ -22,6 +22,18 @@ public class DetalheTimetable extends Entidade {
 	@Column(name="ID_DETALHE")
 	private int id;
 	
+	private String entidade;
+
+	private Professor professor;
+	
+	private Disciplina disciplina;
+	
+	private Local local;
+	
+	private Periodo periodo;
+	
+	private Horario horario;
+	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_TIMETABLE")
@@ -37,11 +49,72 @@ public class DetalheTimetable extends Entidade {
 		this.id = id;
 	}
 	
+
+	public String getEntidade() {
+		return entidade;
+	}
+
+	public void setEntidade(String entidade) {
+		this.entidade = entidade;
+	}
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
+	}
+
+	public Local getLocal() {
+		return local;
+	}
+
+	public void setLocal(Local local) {
+		this.local = local;
+	}
+
+	public Periodo getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(Periodo periodo) {
+		this.periodo = periodo;
+	}
+
+	public Horario getHorario() {
+		return horario;
+	}
+
+	public void setHorario(Horario horario) {
+		this.horario = horario;
+	}
+	
 	public Timetable getTimetable() {
 		return timetable;
 	}
 	
 	public void setTimetable(Timetable timetable) {
 		this.timetable = timetable;
+	}
+	
+	public boolean isCriterioDisciplina() {
+		return entidade != null && entidade.equalsIgnoreCase("Disciplina");
+	}
+	
+	public boolean isCriterioProfessor() {
+		return entidade != null && entidade.equalsIgnoreCase("Professor");
+	}
+	
+	public boolean isCriterioPeriodo() {
+		return entidade != null && entidade.equalsIgnoreCase("Período");
 	}
 }

@@ -14,8 +14,8 @@
 				<include src="list.zul"/>
 			</div>
 			
-			<div id="form" visible="@bind($composer.editando)">
-				<include src="form.zul"/>
+			<div visible="@bind($composer.editando)">
+				<include id="form" src="form.zul"/>
 			</div>
 			
 		</div>
