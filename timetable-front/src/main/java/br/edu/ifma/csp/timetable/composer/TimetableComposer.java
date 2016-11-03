@@ -71,6 +71,8 @@ public class TimetableComposer extends Composer<Timetable> {
 	@Override
 	public void save() {
 		
+		getBinder().notifyChange(this, "*");
+		
 		Validations.validate(getBinder(), entidade, repository);
 		
 		try {

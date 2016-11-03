@@ -16,6 +16,7 @@ import br.edu.ifma.csp.timetable.dao.LocalDao;
 import br.edu.ifma.csp.timetable.dao.ProfessorDao;
 import br.edu.ifma.csp.timetable.model.Aula;
 import br.edu.ifma.csp.timetable.model.DetalheDisciplina;
+import br.edu.ifma.csp.timetable.model.DetalheTimetable;
 import br.edu.ifma.csp.timetable.model.Disciplina;
 import br.edu.ifma.csp.timetable.model.Entidade;
 import br.edu.ifma.csp.timetable.model.Horario;
@@ -290,16 +291,44 @@ public class TimetableHandler {
 		
 		for (int i = 0; i < varProfessores.length; i++) {
 			
-			int [] professoresId = extrairIds(professores.allByPreferenciaDisciplina(disciplinas.byId(disciplinasId[i])));
+			List<DetalheTimetable> detalhes = getDetalhesCriterioDisciplina(disciplinasId[i]);
 			
-			for (int j = 0; j < professoresId.length; j++) {
-				tuples.add(disciplinasId[i], professoresId[j]);
+			if (detalhes.size() > 0) {
+				
+				for (DetalheTimetable detalhe : detalhes) {
+					tuples.add(disciplinasId[i], detalhe.getProfessor().getId());
+				}
+				
+			} else {
+				
+				int [] professoresId = extrairIds(professores.allByPreferenciaDisciplina(disciplinas.byId(disciplinasId[i])));
+				
+				for (int j = 0; j < professoresId.length; j++) {
+					tuples.add(disciplinasId[i], professoresId[j]);
+				}
 			}
 		}
 		
 		for (int i = 0; i < varProfessores.length; i++) {			
 			model.table(varDisciplinas[i], varProfessores[i], tuples).post();
 		}
+	}
+	
+	private List<DetalheTimetable> getDetalhesCriterioDisciplina(int disciplinaId) {
+		
+		List<DetalheTimetable> list = new ArrayList<DetalheTimetable>();
+		
+		for (DetalheTimetable detalhe : timetable.getDetalhes()) {
+			
+			if (detalhe.isCriterioDisciplina()) {
+				
+				if (detalhe.getDisciplina().getId() == disciplinaId) {
+					list.add(detalhe);
+				}
+			}
+		}
+		
+		return list;
 	}
 	
 	/**

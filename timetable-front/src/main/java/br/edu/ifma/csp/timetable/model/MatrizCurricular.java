@@ -102,6 +102,6 @@ public class MatrizCurricular extends Entidade {
 	
 	@Override
 	public String toString() {
-		return getCurso().getNome() + " / " + getAno() + "/" + getTurno().getCodigo();
+		return getCurso().getCodigo() + getAno() + getTurno().getCodigo();
 	}
 }

@@ -30,8 +30,8 @@
 							<div class="form-group">
 								<label sclass="form-label" value="Semestre"/>
 								<combobox sclass="form-input" selectedItem="@bind($composer.entidade.semestre)" readonly="true" value="@load($composer.entidade.semestre)">
-									<comboitem label="1º" value="1"/>
-									<comboitem label="2º" value="2"/>
+									<comboitem label="1" value="1"/>
+									<comboitem label="2" value="2"/>
 								</combobox>
 							</div>
 						</div>
@@ -45,6 +45,7 @@
 						<div class="col-md-12">
 				
 							<listbox checkmark="true" multiple="true" model="@bind($composer.entidade.detalhes)" 
+									 mold="paging" autopaging="true" rows="2"
 									 selectedItems="@bind($composer.detalhesSelecionados)">
 								<listhead>
 									<listheader hflex="min"/>
@@ -57,7 +58,7 @@
 								</listhead>
 								<template name="model" var="detalheSelecionado">
 									<listitem>
-										<listcell hflex="min"/>
+										<listcell/>
 										<listcell>
 											<div sclass="row">
 												<div sclass="col-md-2">
@@ -69,25 +70,27 @@
 															<comboitem value="Disciplina" label="Disciplina"/>
 															<comboitem value="Período" label="Período"/>
 															<comboitem value="Professor" label="Professor"/>
+															<comboitem value="Local" label="Local"/>
 														</combobox>
 													</div>
 												</div>
 												<div sclass="col-md-10">
 													<div sclass="form-group" visible="@bind(detalheSelecionado.criterioDisciplina)">
 														<label sclass="form-label" value="Disciplina"/>
-														<include src="/partials/zul/lookup/disciplinalookup.zul"/>
+														<include src="/partials/zul/lookup/disciplinamatrizlookup.zul" value="${$composer.entidade.matrizCurricular}"/>
 													</div>
-													<div sclass="form-group" visible="@bind(detalheSelecionado.criterioProfessor)">
+													<div sclass="form-group" visible="@bind(detalheSelecionado.criterioLocal)">
 														<label sclass="form-label" value="Local"/>
 														<include src="/partials/zul/lookup/disciplinalookup.zul"/>
 													</div>
 												</div>
 											</div>
-											<div sclass="row">
+											<div sclass="row" visible="@bind(detalheSelecionado.criterioDisciplina)">
 												<div sclass="col-md-2">
 													<div sclass="form-group">
 														<label sclass="form-label" value="Critério"/>
-														<combobox readonly="true" autodrop="true" cols="1" sclass="form-input">
+														<combobox readonly="true" autodrop="true" cols="2" sclass="form-input" 
+																  value="@bind(detalheSelecionado.criterio)" selectedItem="@bind(detalheSelecionado.criterio)">
 															<comboitem value="Lecionada por" label="Lecionada por"/>
 															<comboitem value="Não lecionada por" label="Não lecionada"/>
 														</combobox>
@@ -95,8 +98,8 @@
 												</div>
 												<div sclass="col-md-10">
 													<div sclass="form-group">
-														<label sclass="form-label" value="Disciplina"/>
-	<!-- 													<include src="/partials/zul/lookup/cursolookup.zul"/> -->
+														<label sclass="form-label" value="Professor"/>
+														<include value="${detalheSelecionado.disciplina}" src="/partials/zul/lookup/professorpreferencialookup.zul"/>
 													</div>
 												</div>
 											</div>

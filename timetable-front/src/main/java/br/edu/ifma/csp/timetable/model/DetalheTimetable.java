@@ -26,6 +26,8 @@ public class DetalheTimetable extends Entidade {
 
 	private Professor professor;
 	
+	private String criterio;
+	
 	private Disciplina disciplina;
 	
 	private Local local;
@@ -49,7 +51,6 @@ public class DetalheTimetable extends Entidade {
 		this.id = id;
 	}
 	
-
 	public String getEntidade() {
 		return entidade;
 	}
@@ -106,6 +107,14 @@ public class DetalheTimetable extends Entidade {
 		this.timetable = timetable;
 	}
 	
+	public String getCriterio() {
+		return criterio;
+	}
+	
+	public void setCriterio(String criterio) {
+		this.criterio = criterio;
+	}
+	
 	public boolean isCriterioDisciplina() {
 		return entidade != null && entidade.equalsIgnoreCase("Disciplina");
 	}
@@ -116,5 +125,9 @@ public class DetalheTimetable extends Entidade {
 	
 	public boolean isCriterioPeriodo() {
 		return entidade != null && entidade.equalsIgnoreCase("Período");
+	}
+	
+	public boolean isCriterioLocal() {
+		return entidade != null && entidade.equalsIgnoreCase("Local");
 	}
 }
