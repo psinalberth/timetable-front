@@ -5,14 +5,14 @@
 		<div class="col-md-2">
 			<div class="form-group">
 				<label value="Início" sclass="form-label" />
-				<timebox id="horaInicio" value="@bind($composer.entidade.horaInicio)" sclass="form-input" format="short" buttonVisible="false" cols="4"/>
+				<timebox id="horaInicio" value="@bind(vm.entidadeSelecionada.horaInicio)" sclass="form-input" format="short" buttonVisible="false" cols="4"/>
 			</div>
 		</div>
 		
 		<div class="col-md-2">
 			<div class="form-group">
 				<label value="Fim" sclass="form-label" />
-				<timebox id="horaFim" value="@bind($composer.entidade.horaFim)" sclass="form-input" format="short" buttonVisible="false" cols="4"/>
+				<timebox id="horaFim" value="@bind(vm.entidadeSelecionada.horaFim)" sclass="form-input" format="short" buttonVisible="false" cols="4"/>
 			</div>
 		</div>
 	</div>

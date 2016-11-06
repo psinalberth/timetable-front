@@ -5,19 +5,19 @@
 		<div class="col-md-2">
 			<div sclass="form-group">
 				<label value="Código" sclass="form-label" />
-				<textbox id="codigo" cols="10" sclass="form-input" value="@bind($composer.entidade.codigo)" maxlength="10"/>
+				<textbox id="codigo" cols="10" sclass="form-input" value="@bind(vm.entidadeSelecionada.codigo)" maxlength="10"/>
 			</div>
 		</div>
 		<div class="col-md-10">
 			<div sclass="form-group">
 				<label value="Nome" sclass="form-label" />
-				<textbox id="nome" sclass="form-input" value="@bind($composer.entidade.nome)"/>
+				<textbox id="nome" sclass="form-input" value="@bind(vm.entidadeSelecionada.nome)"/>
 			</div>
 		</div>
 	</div>
 	
 	<div sclass="form-group">
 		<label value="Descrição" sclass="form-label" />
-		<textbox id="descricao" sclass="form-input" value="@bind($composer.entidade.descricao)"/>
+		<textbox id="descricao" sclass="form-input" value="@bind(vm.entidadeSelecionada.descricao)"/>
 	</div>
 </zk>

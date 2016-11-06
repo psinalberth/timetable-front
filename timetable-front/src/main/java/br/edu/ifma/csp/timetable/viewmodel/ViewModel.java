@@ -10,6 +10,7 @@ import javax.naming.NamingException;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
 
 import br.edu.ifma.csp.timetable.model.Entidade;
 import br.edu.ifma.csp.timetable.repository.Repository;
@@ -34,6 +35,8 @@ public abstract class ViewModel<T extends Entidade> {
 		novo();
 	}
 	
+	public abstract void init(Component view);
+	
 	@Command
 	@NotifyChange({"entidadeSelecionada", "editando", "consultando"})
 	public void novo() throws InstantiationException, IllegalAccessException {
@@ -48,7 +51,7 @@ public abstract class ViewModel<T extends Entidade> {
 	
 	@Command
 	public void salvar() {
-		
+		repository.save(entidadeSelecionada);
 	}
 	
 	@NotifyChange({"entidadeSelecionada", "editando", "consultando"})

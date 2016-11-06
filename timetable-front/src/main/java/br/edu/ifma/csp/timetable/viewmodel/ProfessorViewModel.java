@@ -6,6 +6,7 @@ import java.util.List;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
 
 import br.edu.ifma.csp.timetable.model.PreferenciaDisciplinaProfessor;
 import br.edu.ifma.csp.timetable.model.PreferenciaHorarioProfessor;
@@ -17,7 +18,7 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 	private List<PreferenciaHorarioProfessor> preferenciasHorarioSelecionadas;
 	
 	@AfterCompose(superclass=true)
-	public void init() {
+	public void init(Component view) {
 		
 	}
 	

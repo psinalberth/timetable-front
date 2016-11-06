@@ -1,8 +1,7 @@
 <?page title="Timetable - Matriz Curricular" contentType="text/html;charset=UTF-8"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/zul/template.zul"?>
 <zk xmlns:n="native">
-	<div self="@define(content)" class="container-fluid" apply="br.edu.ifma.csp.timetable.composer.MatrizCurricularComposer">
-		<custom-attributes composerName="ctrl"/>
+	<div self="@define(content)" class="container-fluid" viewModel="@id('vm') @init('br.edu.ifma.csp.timetable.viewmodel.MatrizCurricularViewModel')">
 		<div sclass="row">
 		
 			<div class="form-group">
@@ -10,11 +9,11 @@
 				<include src="/partials/zul/botoes.zul"/>
 			</div>
 			
-			<div id="list" visible="@bind($composer.consultando)">
+			<div id="list" visible="@bind(vm.consultando)">
 				<include src="list.zul"/>
 			</div>
 			
-			<div id="form" visible="@bind($composer.editando)">
+			<div id="form" visible="@bind(vm.editando)">
 				<include src="form.zul"/>
 			</div>
 			

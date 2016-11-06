@@ -1,8 +1,10 @@
-package br.edu.ifma.csp.timetable.composer;
+package br.edu.ifma.csp.timetable.viewmodel;
 
 import java.util.List;
 
-import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
 
 import br.edu.ifma.csp.timetable.dao.TipoLocalDao;
 import br.edu.ifma.csp.timetable.model.Local;
@@ -10,22 +12,18 @@ import br.edu.ifma.csp.timetable.model.TipoLocal;
 import br.edu.ifma.csp.timetable.repository.TiposLocal;
 import br.edu.ifma.csp.timetable.util.Lookup;
 
-public class LocalComposer extends Composer<Local> {
-
-	private static final long serialVersionUID = 1105142300393623341L;
+public class LocalViewModel extends ViewModel<Local> {
 	
 	private TiposLocal tiposLocal;
 	
 	private List<TipoLocal> colTiposLocal;
 
-	@Init
-	public void init() {
+	@NotifyChange("colTiposLocal")
+	@AfterCompose(superclass=true)
+	public void init(Component view) {
 		
 		tiposLocal = Lookup.dao(TipoLocalDao.class);
-		
 		setColTiposLocal(tiposLocal.all());
-		
-		getBinder().notifyChange(this, "colTiposLocal");
 	}
 	
 	public List<TipoLocal> getColTiposLocal() {

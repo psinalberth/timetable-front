@@ -116,7 +116,7 @@
 												<div sclass="col-md-10">
 													<div sclass="form-group">
 														<label sclass="form-label" value="Professor"/>
-														<include src="/partials/zul/lookup/professorpreferencialookup.zul"/>
+														<include src="/partials/zul/lookup/professorlookup.zul"/>
 													</div>
 												</div>
 											</div>

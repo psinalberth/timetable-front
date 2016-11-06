@@ -3,7 +3,6 @@ package br.edu.ifma.csp.timetable.viewmodel.lookup;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.DefaultGlobalCommand;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 
@@ -52,7 +51,7 @@ public class ProfessorLookupViewModel extends LookupViewModel<Professor> {
 		return disciplina;
 	}
 	
-	@DefaultGlobalCommand
+	@GlobalCommand
 	@NotifyChange("*")
 	public void setDisciplina(@BindingParam("disciplina") Disciplina disciplina) {
 		this.disciplina = disciplina;

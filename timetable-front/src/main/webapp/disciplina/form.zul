@@ -5,7 +5,7 @@
 		<div sclass="col-md-1">
 			<div sclass="form-group">
 				<label value="Código" sclass="form-label" />
-				<intbox id="codigo" sclass="form-input" value="@bind($composer.entidade.codigo)" maxlength="3"/>
+				<intbox id="codigo" sclass="form-input" value="@bind(vm.entidadeSelecionada.codigo)" maxlength="3"/>
 			</div>
 		</div>
 	</div>
@@ -15,14 +15,14 @@
 		<div sclass="col-md-2">
 			<div sclass="form-group">
 				<label value="Sigla" sclass="form-label" />
-				<textbox id="sigla" sclass="form-input" value="@bind($composer.entidade.sigla)" maxlength="10"/>
+				<textbox id="sigla" sclass="form-input" value="@bind(vm.entidadeSelecionada.sigla)" maxlength="10"/>
 			</div>
 		</div>
 		
 		<div sclass="col-md-10">
 			<div sclass="form-group">
 				<label value="Descrição" sclass="form-label" />
-				<textbox id="descricao" sclass="form-input" value="@bind($composer.entidade.descricao)"/>
+				<textbox id="descricao" sclass="form-input" value="@bind(vm.entidadeSelecionada.descricao)"/>
 			</div>
 		</div>
 	

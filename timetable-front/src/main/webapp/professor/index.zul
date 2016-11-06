@@ -2,7 +2,6 @@
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/zul/template.zul"?>
 <zk xmlns:n="native">
 	<div self="@define(content)" class="container-fluid" viewModel="@id('vm') @init('br.edu.ifma.csp.timetable.viewmodel.ProfessorViewModel')">
-		<custom-attributes composerName="ctrl"/>
 		<div sclass="row">
 		
 			<div class="form-group">

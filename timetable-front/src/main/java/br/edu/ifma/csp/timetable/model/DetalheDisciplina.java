@@ -40,7 +40,7 @@ public class DetalheDisciplina extends Entidade {
 	
 	@NotNull
 	@Column(name="DISCIPLINA_LABORATORIO")
-	private boolean disciplinaLaborario = true;
+	private boolean disciplinaLaboratorio = true;
 	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -112,12 +112,12 @@ public class DetalheDisciplina extends Entidade {
 		this.obrigatoria = obrigatoria;
 	}
 	
-	public boolean isDisciplinaLaborario() {
-		return disciplinaLaborario;
+	public boolean isDisciplinaLaboratorio() {
+		return disciplinaLaboratorio;
 	}
 	
-	public void setDisciplinaLaborario(boolean disciplinaLaborario) {
-		this.disciplinaLaborario = disciplinaLaborario;
+	public void setDisciplinaLaboratorio(boolean disciplinaLaboratorio) {
+		this.disciplinaLaboratorio = disciplinaLaboratorio;
 	}
 	
 	@AssertFalse(message="O grupo de eletivas é obrigatório.")

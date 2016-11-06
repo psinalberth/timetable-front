@@ -5,14 +5,14 @@
 		<div class="col-md-10">
 			<div sclass="form-group">
 				<label value="Nome" sclass="form-label" />
-				<textbox id="nome" sclass="form-input" value="@bind($composer.entidade.nome)"/>
+				<textbox id="nome" sclass="form-input" value="@bind(vm.entidadeSelecionada.nome)"/>
 			</div>
 		</div>
 		
 		<div class="col-md-2">
 			<div sclass="form-group">
 				<label value="Capacidade" sclass="form-label" />
-				<textbox id="capacidade" cols="3" sclass="form-input" value="@bind($composer.entidade.capacidade)" maxlength="3"/>
+				<textbox id="capacidade" cols="3" sclass="form-input" value="@bind(vm.entidadeSelecionada.capacidade)" maxlength="3"/>
 			</div>
 		</div>
 	</div>
@@ -21,8 +21,8 @@
 		<div sclass="col-md-2">
 			<div class="form-group">
 				<label value="Tipo de Local" sclass="form-label"/>
-				<combobox class="form-input" model="@load($composer.colTiposLocal)" 
-						  selectedItem="@bind($composer.entidade.tipoLocal)" value="@load($composer.entidade.tipoLocal.descricao)">
+				<combobox class="form-input" model="@load(vm.colTiposLocal)" readonly="true" autodrop="true"
+						  selectedItem="@bind(vm.entidadeSelecionada.tipoLocal)" value="@load(vm.entidadeSelecionada.tipoLocal.descricao)">
 					<template name="model">
 						<comboitem label="@load(each.descricao)" value="@bind(each.id)"/>
 					</template>
@@ -32,7 +32,7 @@
 		<div sclass="col-md-10">
 			<div class="form-group">
 				<label value="Departamento" sclass="form-label"/>
-				<include src="/partials/zul/lookup/departamentolookup.zul"/>
+				<include src="@load('../partials/zul/lookup/departamentolookup.zul')"/>
 			</div>
 		</div>
 	</div>

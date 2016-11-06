@@ -1,5 +1,5 @@
 <zk>
-	<listbox model="@bind($composer.col)" selectedItem="@bind($composer.entidade)" onSelect="$composer.edit()" emptyMessage="Nenhum registro encontrado.">
+	<listbox model="@bind(vm.col)" selectedItem="@bind(vm.entidadeSelecionada)" onSelect="@command('editar')" emptyMessage="Nenhum registro encontrado.">
 		<listhead>
 			<listheader label="Nome"/>
 			<listheader label="Descrição"/>

@@ -3,8 +3,8 @@
 	
 	<tabbox>
 		<tabs>
-			<tab label="Informações Gerais" selected="@load($composer.editando)"/>
-			<tab label="Períodos"/>
+			<tab label="Informações Gerais" iconSclass="fa fa-edit" selected="@load(vm.editando)"/>
+			<tab label="Períodos" iconSclass="fa fa-book"/>
 		</tabs>
 		
 		<tabpanels>
@@ -14,13 +14,13 @@
 					<div class="col-md-1">
 						<div sclass="form-group">
 							<label sclass="form-label" value="Ano"/>
-							<intbox id="ano" sclass="form-input" maxlength="4" cols="4" value="@bind($composer.entidade.ano)"/>
+							<intbox id="ano" sclass="form-input" maxlength="4" cols="4" value="@bind(vm.entidadeSelecionada.ano)"/>
 						</div>
 					</div>
 					<div sclass="col-md-11">
 						<div class="form-group">
 							<label sclass="form-label" value="Curso"/>
-							<include src="/partials/zul/lookup/cursolookup.zul"/>
+							<include src="@load('../partials/zul/lookup/cursolookup.zul')"/>
 						</div>
 					</div>
 				</div>
@@ -29,8 +29,8 @@
 					<div sclass="col-md-3">
 						<div class="form-group">
 							<label sclass="form-label" value="Turno"/>
-							<combobox id="turno" sclass="form-input" model="@load($composer.colTurnos)" 
-									  selectedItem="@load($composer.entidade.turno)" value="@load($composer.entidade.turno.nome)">
+							<combobox id="turno" sclass="form-input" model="@load(vm.colTurnos)" 
+									  selectedItem="@load(vm.entidadeSelecionada.turno)" value="@load(vm.entidadeSelecionada.turno.nome)">
 								<template name="model">
 									<comboitem label="@load(each.nome)"/>
 								</template>
@@ -41,24 +41,24 @@
 					<div class="col-md-1">
 						<div sclass="form-group">
 							<label sclass="form-label" value="Semestres"/>
-							<intbox id="semestres" sclass="form-input" maxlength="2" value="@bind($composer.entidade.semestres)" 
-									onChange="$composer.adicionarColPeriodos(self.value)"/>
+							<intbox id="semestres" sclass="form-input" maxlength="2" value="@bind(vm.entidadeSelecionada.semestres)" 
+									onChange="vm.adicionarColPeriodos(self.value)"/>
 						</div>
 					</div>
 				</div>
 			</tabpanel>
 			
 			<tabpanel>
-				<listbox checkmark="true" multiple="true" mold="paging" model="@bind($composer.entidade.periodos)"
+				<listbox checkmark="true" multiple="true" mold="paging" model="@bind(vm.entidadeSelecionada.periodos)"
 						 emptyMessage="Nenhum registro adicionado." autopaging="false" style="height: 100%"
 						 nonselectableTags="*"
-						 selectedItems="@bind($composer.periodosSelecionados)">
+						 selectedItems="@bind(vm.periodosSelecionados)">
 					<listhead>
 						<listheader hflex="min"/>
 						<listheader label="Períodos">
 							<hbox style="float: right">
-								<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="$composer.adicionarPeriodo()"/>
-								<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="$composer.removerPeriodo()"/>
+								<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="@command('adicionarPeriodo')"/>
+								<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="@command('removerPeriodo')"/>
 							</hbox>
 						</listheader>
 					</listhead>
@@ -66,7 +66,6 @@
 						<listitem>
 							<listcell/>
 							<listcell>
-								
 								
 								<div sclass="row">
 									<div class="col-md-12">
@@ -77,7 +76,7 @@
 									<div class="col-md-1">
 										<div sclass="form-group">
 											<label value="Código" sclass="form-label"/>
-											<!-- <combobox sclass="form-input" model="@load($composer.colPeriodos)"
+											<!-- <combobox sclass="form-input" model="@load(vm.colPeriodos)"
 													  selectedItem="@bind(periodoSelecionado.codigo)">
 												<template name="model">
 													<comboitem label="@load(each)" value="@bind(each)"/>
@@ -91,17 +90,17 @@
 										<listbox checkmark="true" multiple="true" mold="paging" model="@bind(periodoSelecionado.detalhes)"
 												 emptyMessage="Nenhum registro selecionado." autopaging="false"
 												 rows="5" nonselectableTags="*"
-												 selectedItems="@bind($composer.disciplinasSelecionadas)">
+												 selectedItems="@bind(vm.disciplinasSelecionadas)">
 											<listhead>
 												<listheader hflex="min"/>
 												<listheader label="Disciplinas">
 													<hbox style="float: right">
-														<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="$composer.adicionarDisciplina(periodoSelecionado)"/>
-														<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="$composer.removerDisciplina(periodoSelecionado)"/>
+														<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="@command('adicionaDisciplina', periodo=periodoSelecionado)"/>
+														<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="@command('removerDisciplina', periodo=periodoSelecionado)"/>
 													</hbox>
 												</listheader>
 											</listhead>
-											<template name="model" var="disciplinaSelecionada">
+											<template name="model" var="detalheSelecionado">
 												<listitem>
 													<listcell/>
 														<listcell>
@@ -117,36 +116,36 @@
 																<div sclass="col-md-1">
 																	<div sclass="form-group">
 																		<label value="Créditos" sclass="form-label"/>
-																		<intbox sclass="form-input" maxlength="3" value="@bind(disciplinaSelecionada.creditos)"/>
+																		<intbox sclass="form-input" maxlength="3" value="@bind(detalheSelecionado.creditos)"/>
 																	</div>
 																</div>
 																
 																<div sclass="col-md-1">
 																	<div sclass="form-group">
 																		<label value="C. H." sclass="form-label"/>
-																		<intbox sclass="form-input" maxlength="3" value="@bind(disciplinaSelecionada.cargaHoraria)"/>
+																		<intbox sclass="form-input" maxlength="3" value="@bind(detalheSelecionado.cargaHoraria)"/>
 																	</div>
 																</div>
 																
 																<div sclass="col-md-1">
 																	<div sclass="form-group">
 																		<label value="LAB" sclass="form-label" tooltiptext="Necessita Laboratório?"/>
-																		<checkbox style="margin: 0; padding: 0" checked="@bind(disciplinaSelecionada.disciplinaLaboratorio)" />
+																		<checkbox style="margin: 0; padding: 0" checked="@bind(detalheSelecionado.disciplinaLaboratorio)" />
 																	</div>
 																</div>
 																
 																<div sclass="col-md-1">
 																	<div sclass="form-group">
 																		<label value="OBR" sclass="form-label"/>
-																		<checkbox style="margin: 0; padding: 0" checked="@bind(disciplinaSelecionada.obrigatoria)" />
+																		<checkbox style="margin: 0; padding: 0" checked="@bind(detalheSelecionado.obrigatoria)" />
 																	</div>
 																</div>
 																
-																<div sclass="col-md-1" visible="@load(!disciplinaSelecionada.obrigatoria)">
+																<div sclass="col-md-1" visible="@load(!detalheSelecionado.obrigatoria)">
 																	<div sclass="form-group">
 																		<label value="Grupo" sclass="form-label"/>
-																		<combobox model="@load($composer.colGrupoEletivas)" readonly="true" autodrop="true" 
-																		          selectedItem="@bind(disciplinaSelecionada.grupoEletiva)">
+																		<combobox model="@load(vm.colGrupoEletivas)" readonly="true" autodrop="true" 
+																		          selectedItem="@bind(detalheSelecionado.grupoEletiva)">
 																			<template name="model">
 																				<comboitem label="@load(each)" value="@bind(each)"/>
 																			</template>

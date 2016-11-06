@@ -1,8 +1,8 @@
 <zk xmlns:n="native">
 	<bandbox id="lookup" sclass="form-input" autodrop="true" readonly="true" mold="rounded" 
-	         value="@load($composer.entidade.curso.nome)">
+	         value="@load(vm.entidadeSelecionada.curso.nome)">
 		<bandpopup>
-		 	<vlayout apply="br.edu.ifma.csp.timetable.composer.lookup.CursoLookupComposer" style="padding: 0 15px">
+		 	<vlayout viewModel="@id('childVM') @init('br.edu.ifma.csp.timetable.viewmodel.lookup.CursoLookupViewModel')" style="padding: 0 15px">
 		 		
 		 		<div class="row">
 		 			<div class="col-md-12">
@@ -14,19 +14,19 @@
 		 			<div class="col-md-2">
 			 			<div sclass="form-group">
 			 				<label value="Código" sclass="form-label"/>
-			 				<textbox sclass="form-input" value="@bind($composer.codigo)" maxlength="8" cols="8" onOK="$composer.search()"/>
+			 				<textbox sclass="form-input" value="@bind(childVM.codigo)" maxlength="8" cols="8" onOK="@command('pesquisar')"/>
 			 			</div>
 		 			</div>
 		 			<div class="col-md-8">
 			 			<div sclass="form-group">
 			 				<label value="Descrição" sclass="form-label"/>
-			 				<textbox sclass="form-input" value="@bind($composer.nome)" onOK="$composer.search()"/>
+			 				<textbox sclass="form-input" value="@bind(childVM.nome)" onOK="@command('pesquisar')"/>
 			 			</div>
 		 			</div>
 		 			<div class="col-md-2">
 			 			<div sclass="form-group">
-			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="fa fa-search" onClick="$composer.search()"/>
-			 				<button sclass="btn btn-default" label="Limpar" iconSclass="fa fa-eraser" onClick="$composer.clear()"/>
+			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="fa fa-search" onClick="@command('pesquisar')"/>
+			 				<button sclass="btn btn-default" label="Limpar" iconSclass="fa fa-eraser" onClick="@command('limpar')"/>
 			 			</div>
 		 			</div>
 		 		</div>
@@ -35,7 +35,7 @@
 				 		<listbox emptyMessage="Nenhum registro encontrado."
 				 				 onSelect="lookup.value = self.selectedItem.label; lookup.close();"
 				 				 mold="paging" autopaging="true" rows="5"
-				 				 model="@load($composer.col)" selectedItem="@bind(ctrl.entidade.curso)">
+				 				 model="@load(childVM.col)" selectedItem="@bind(vm.entidadeSelecionada.curso)">
 				 			<listhead>
 								<listheader label="Código"/>
 								<listheader label="Nome"/>

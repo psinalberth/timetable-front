@@ -1,6 +1,6 @@
 <?page contentType="text/html;charset=UTF-8"?>
 <zk>
-	<listbox model="@bind($composer.col)" selectedItem="@bind($composer.entidade)" onSelect="$composer.edit()" 
+	<listbox model="@bind(vm.col)" selectedItem="@bind(vm.entidadeSelecionada)" onSelect="@command('editar')" 
 	         emptyMessage="Nenhum registro encontrado." mold="paging" autopaging="true" rows="10">
 		<listhead>
 			<listheader label="Dia"/>
