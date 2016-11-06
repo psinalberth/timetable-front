@@ -3,7 +3,7 @@
 	         value="@load(detalheSelecionado.professor.nome)">
 		<bandpopup>
 			
-		 	<vlayout apply="br.edu.ifma.csp.timetable.composer.lookup.ProfessorPreferenciaLookupComposer" style="padding: 0 15px">
+		 	<vlayout viewModel="@id('childVM') @init('br.edu.ifma.csp.timetable.viewmodel.lookup.ProfessorLookupViewModel', disciplina=detalheSelecionado.disciplina)" style="padding: 0 15px">
 		 		
 		 		<div class="row">
 		 			<div class="col-md-12">
@@ -11,22 +11,22 @@
 		 			</div>
 		 		</div>
 		 		<div sclass="row">
-		 			<div class="col-md-5">
+		 			<div class="@bind(childVM.disciplina eq null ? 'col-md-10' : 'col-md-5')">
 			 			<div sclass="form-group">
 			 				<label value="Nome" sclass="form-label"/>
-			 				<textbox sclass="form-input" value="@bind($composer.nome)" onOK="$composer.search()"/>
+			 				<textbox sclass="form-input" value="@bind(childVM.nome)" onOK="@command('pesquisar')"/>
 			 			</div>
 		 			</div>
-		 			<div class="col-md-5">
+		 			<div class="col-md-5" visible="@bind(childVM.disciplina ne null)">
 			 			<div sclass="form-group">
 			 				<label value="Disciplina" sclass="form-label"/>
-			 				<textbox id="filtroDisciplina" sclass="form-input" value="${requestScope.value}" disabled="true"/>
+			 				<textbox id="filtroDisciplina" sclass="form-input" value="@bind(childVM.disciplina.descricao)" disabled="true"/>
 			 			</div>
 		 			</div>
 		 			<div class="col-md-2">
 			 			<div sclass="form-group">
-			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="fa fa-search" onClick="$composer.search()"/>
-			 				<button sclass="btn btn-default" label="Limpar" iconSclass="fa fa-eraser" onClick="$composer.clear()"/>
+			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="fa fa-search" onClick="@command('pesquisar')"/>
+			 				<button sclass="btn btn-default" label="Limpar" iconSclass="fa fa-eraser" onClick="@command('limpar')"/>
 			 			</div>
 		 			</div>
 		 		</div>
@@ -36,8 +36,7 @@
 				 		<listbox emptyMessage="Nenhum registro encontrado."
 				 				 onSelect="lookup.value = self.selectedItem.label; lookup.close();"
 				 				 mold="paging" autopaging="true" rows="5"
-				 				 model="@load($composer.col)" selectedItem="@bind(detalheSelecionado.professor)"
-				 				 onCreate="self.width = lookup.width">
+				 				 model="@load(childVM.col)" selectedItem="@bind(detalheSelecionado.professor)">
 				 			<listhead>
 								<listheader label="Nome"/>
 								<listheader label="Departamento"/>

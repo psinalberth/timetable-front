@@ -1,8 +1,8 @@
 <zk xmlns:n="native">
 	<bandbox id="lookup" sclass="form-input" autodrop="true" readonly="true" mold="rounded" 
-	         value="@load($composer.entidade.matrizCurricular)">
+	         value="@bind(vm.entidadeSelecionada.matrizCurricular)">
 		<bandpopup>
-		 	<vlayout apply="br.edu.ifma.csp.timetable.composer.lookup.MatrizCurricularLookupComposer" style="padding: 0 15px">
+		 	<vlayout viewModel="@id('childVM') @init('br.edu.ifma.csp.timetable.viewmodel.lookup.MatrizCurricularLookupViewModel')" style="padding: 0 15px">
 		 		
 		 		<div class="row">
 		 			<div class="col-md-12">
@@ -14,7 +14,7 @@
 		 			<div class="col-md-1">
 			 			<div sclass="form-group">
 			 				<label value="Código" sclass="form-label"/>
-			 				<intbox sclass="form-input" value="@bind($composer.ano)" maxlength="4" cols="4" onOK="$composer.search()"/>
+			 				<intbox sclass="form-input" value="@bind(childVM.ano)" maxlength="4" cols="4" onOK="childVM.search()"/>
 			 			</div>
 		 			</div>
 		 			<div class="col-md-8">
@@ -25,25 +25,24 @@
 		 			</div>
 		 			<div class="col-md-2">
 			 			<div sclass="form-group">
-			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="fa fa-search" onClick="$composer.search()"/>
-			 				<button sclass="btn btn-default" label="Limpar" iconSclass="fa fa-eraser" onClick="$composer.clear()"/>
+			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="fa fa-search" onClick="childVM.search()"/>
+			 				<button sclass="btn btn-default" label="Limpar" iconSclass="fa fa-eraser" onClick="childVM.clear()"/>
 			 			</div>
 		 			</div>
 		 		</div>
 		 		<div sclass="row">
 		 			<div sclass="col-md-12">
 				 		<listbox emptyMessage="Nenhum registro encontrado."
-				 				 onSelect="lookup.value = self.selectedItem.label; lookup.close();"
+				 				 onSelect="lookup.value = self.selectedItem.label; lookup.close(); vm.onChange()"
 				 				 mold="paging" autopaging="true" rows="5"
-				 				 model="@load($composer.col)" selectedItem="@bind(ctrl.entidade.matrizCurricular)"
-				 				 onCreate="self.width = lookup.width">
+				 				 model="@load(childVM.col)" selectedItem="@bind(vm.entidadeSelecionada.matrizCurricular)">
 				 			<listhead>
 								<listheader label="Ano"/>
 								<listheader label="Curso"/>
 								<listheader label="Turno"/>
 							</listhead>
 							<template name="model" var="obj">
-								<listitem value="@bind(obj)" sclass="list">
+								<listitem value="@bind(obj)" sclass="list" onClick="@global-command('setMatrizCurricular', matrizCurricular=vm.entidadeSelecionada.matrizCurricular)">
 									<listcell label="@load(obj.ano)"/>
 									<listcell label="@load(obj.curso.nome)"/>
 									<listcell label="@load(obj.turno.nome)"/>

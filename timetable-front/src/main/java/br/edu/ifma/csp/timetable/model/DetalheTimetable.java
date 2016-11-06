@@ -36,6 +36,8 @@ public class DetalheTimetable extends Entidade {
 	
 	private Horario horario;
 	
+	private String horarioInicio;
+	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_TIMETABLE")
@@ -73,6 +75,7 @@ public class DetalheTimetable extends Entidade {
 
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
+		setProfessor(null);
 	}
 
 	public Local getLocal() {
@@ -113,6 +116,14 @@ public class DetalheTimetable extends Entidade {
 	
 	public void setCriterio(String criterio) {
 		this.criterio = criterio;
+	}
+	
+	public String getHorarioInicio() {
+		return horarioInicio;
+	}
+	
+	public void setHorarioInicio(String horarioInicio) {
+		this.horarioInicio = horarioInicio;
 	}
 	
 	public boolean isCriterioDisciplina() {

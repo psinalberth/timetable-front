@@ -2,6 +2,8 @@ package br.edu.ifma.csp.timetable.handler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.chocosolver.solver.Model;
@@ -182,6 +184,8 @@ public class TimetableHandler {
 		manterHorariosAlternadosConstraint();
 		
 		manterHorariosConsecutivosConstraint();
+		
+		manterHorariosPeriodoEntreConstraint();
 	}
 
 	
@@ -387,6 +391,42 @@ public class TimetableHandler {
 			model.allDifferent(varHorariosPeriodo[i], "NEQS").post();
 			index += periodos[i].length;
 		}		
+	}
+	
+	private void manterHorariosPeriodoEntreConstraint() {
+		
+		for (DetalheTimetable detalhe : timetable.getDetalhes()) {
+			
+			Tuples tuples = new Tuples(true);
+			
+			if (detalhe.isCriterioPeriodo()) {
+				
+				Periodo periodo = detalhe.getPeriodo();
+				String horario = detalhe.getHorarioInicio();
+				
+				int horarios [] = recuperaHorarios(horario);
+				
+				List<Timeslot> list = getTimeslotsPeriodo(periodo.getCodigo());
+				
+				for (int i = 0; i < list.size(); i++) {
+					
+					Timeslot timeslot = list.get(i);
+					
+					for (int j = 0; j < horarios.length; j++) {						
+						tuples.add(timeslot.getDisciplina().getValue(), horarios[j]);
+					}
+				}
+				
+				for (int i = 0; i < list.size(); i++) {
+					
+					Timeslot timeslot = list.get(i);
+					
+					for (int j = 0; j < timeslot.getHorarios().size(); j++) {						
+						model.table(timeslot.getDisciplina(), timeslot.getHorarios().get(j), tuples).post();
+					}
+				}
+			}
+		}
 	}
 	
 	/**
@@ -655,6 +695,26 @@ public class TimetableHandler {
 		return listaDetalhes;
 	}
 	
+	private int [] getDisciplinasPorPeriodo(int periodo) {
+		return periodos[periodo-1];
+	}
+	
+	private List<Timeslot> getTimeslotsPeriodo(int periodo) {
+		
+		int disciplinasPeriodo[] = getDisciplinasPorPeriodo(periodo);
+		
+		List<Timeslot> list = new ArrayList<Timeslot>(disciplinasPeriodo.length);
+		
+		for (int i = 0; i < disciplinasPeriodo.length; i++) {
+			
+			Timeslot timeslot = getTimeslotDisciplina(disciplinasPeriodo[i]);
+			
+			list.add(timeslot);
+		}
+		
+		return list;
+	}
+	
 	private Timeslot getTimeslotDisciplina(int disciplina) {
 		
 		for (Timeslot timeslot : timeslots) {
@@ -689,6 +749,36 @@ public class TimetableHandler {
 		}
 		
 		return Arrays.stream(lista.toArray(new Integer[lista.size()])).mapToInt(Integer::intValue).toArray();
+	}
+	
+	private int [] recuperaHorarios(String horario) {
+		
+		List<Integer> list = new ArrayList<Integer>();
+		
+		Calendar cal = Calendar.getInstance();
+		
+		cal.set(Calendar.YEAR, 1970);
+		cal.set(Calendar.MONTH, Calendar.JANUARY);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		
+		for (int i = 0; i < listHorarios.size(); i++) {
+			
+			Horario h = listHorarios.get(i);
+			
+			String [] tokens = horario.split(":");
+			
+			cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(tokens[0]));
+			cal.set(Calendar.MINUTE, Integer.valueOf(tokens[1]));
+			cal.set(Calendar.SECOND, Integer.valueOf(tokens[2]));
+			
+			Date date = cal.getTime();
+			
+			if (!h.getHoraInicio().before(date)) {
+				list.add(i);
+			}
+		}
+		
+		return Arrays.stream(list.toArray(new Integer[list.size()])).mapToInt(Integer::intValue).toArray();
 	}
 	
 	private int [] extrairIds(List<? extends Entidade> list) {

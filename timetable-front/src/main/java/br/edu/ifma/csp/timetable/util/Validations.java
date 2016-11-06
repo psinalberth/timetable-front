@@ -24,7 +24,7 @@ public class Validations {
 		Validator validator = Validation.buildDefaultValidatorFactory().usingContext().constraintValidatorFactory(new TimetableValidatorFactory(repository, entidade)).getValidator();
 		
 		Set<ConstraintViolation<Entidade>> violations = validator.validate(entidade);
-		List<WrongValueException> listaExceções = new ArrayList<>();
+		List<WrongValueException> excecoes = new ArrayList<>();
 		
 		StringBuilder sb = new StringBuilder();
 		
@@ -39,10 +39,10 @@ public class Validations {
 		}
 		
 		if (sb.length() > 0)
-			listaExceções.add(new WrongValueException(binder.getView(), sb.toString()));
+			excecoes.add(new WrongValueException(sb.toString()));
 		
-		if (listaExceções.size() != 0) {
-			throw new WrongValuesException(listaExceções.toArray(new WrongValueException[0]));
+		if (excecoes.size() != 0) {
+			throw new WrongValuesException(excecoes.toArray(new WrongValueException[0]));
 		}
 	}
 }
