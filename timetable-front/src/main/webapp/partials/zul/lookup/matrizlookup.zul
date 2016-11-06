@@ -33,7 +33,7 @@
 		 		<div sclass="row">
 		 			<div sclass="col-md-12">
 				 		<listbox emptyMessage="Nenhum registro encontrado."
-				 				 onSelect="lookup.value = self.selectedItem.label; lookup.close(); vm.onChange()"
+				 				 onSelect="lookup.value = self.selectedItem.label; lookup.close();"
 				 				 mold="paging" autopaging="true" rows="5"
 				 				 model="@load(childVM.col)" selectedItem="@bind(vm.entidadeSelecionada.matrizCurricular)">
 				 			<listhead>

@@ -1,49 +1,55 @@
 <zk xmlns:n="native">
 	<bandbox id="lookup" sclass="form-input" autodrop="true" readonly="true" mold="rounded" 
-	         value="@load(disciplinaSelecionada.disciplina.descricao)">
+	         value="@load(detalheSelecionado.disciplina.descricao)">
 		<bandpopup>
-		 	<vlayout apply="br.edu.ifma.csp.timetable.composer.lookup.DisciplinaLookupComposer" style="padding: 0 15px">
+			
+		 	<vlayout viewModel='@id("childVM") @init("br.edu.ifma.csp.timetable.viewmodel.lookup.DisciplinaLookupViewModel", matrizCurricular = vm.entidadeSelecionada.getClass().getSimpleName().equals("Timetable") ? vm.entidadeSelecionada.matrizCurricular : null)' style="padding: 0 15px">
 		 		
 		 		<div class="row">
 		 			<div class="col-md-12">
 		 				<n:h5 class="page-title">Disciplina</n:h5>
 		 			</div>
 		 		</div>
-		 		
 		 		<div sclass="row">
-		 			<div class="col-md-2">
+		 			<div class="col-md-1">
 			 			<div sclass="form-group">
 			 				<label value="Código" sclass="form-label"/>
-			 				<intbox sclass="form-input" value="@bind($composer.codigo)" maxlength="8" cols="8" onOK="$composer.search()"/>
+			 				<intbox sclass="form-input" value="@bind(childVM.codigo)" maxlength="8" cols="8" onOK="childVM.pesquisar()"/>
 			 			</div>
 		 			</div>
-		 			<div class="col-md-8">
+		 			<div class="@bind(childVM.matrizCurricular eq null ? 'col-md-9' : 'col-md-4')">
 			 			<div sclass="form-group">
 			 				<label value="Descrição" sclass="form-label"/>
-			 				<textbox sclass="form-input" value="@bind($composer.descricao)" onOK="$composer.search()"/>
+			 				<textbox sclass="form-input" value="@bind(childVM.descricao)" onOK="childVM.pesquisar()"/>
+			 			</div>
+		 			</div>
+		 			<div class="col-md-5" visible="@bind(childVM.matrizCurricular ne null)">
+			 			<div sclass="form-group">
+			 				<label value="Matriz Curricular" sclass="form-label"/>
+			 				<textbox sclass="form-input" value="@bind(childVM.matrizCurricular)" disabled="true"/>
 			 			</div>
 		 			</div>
 		 			<div class="col-md-2">
 			 			<div sclass="form-group">
-			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="fa fa-search" onClick="$composer.search()"/>
-			 				<button sclass="btn btn-default" label="Limpar" iconSclass="fa fa-eraser" onClick="$composer.clear()"/>
+			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="fa fa-search" onClick="childVM.pesquisar()"/>
+			 				<button sclass="btn btn-default" label="Limpar" iconSclass="fa fa-eraser" onClick="childVM.limpar()"/>
 			 			</div>
 		 			</div>
 		 		</div>
+		 		
 		 		<div sclass="row">
 		 			<div sclass="col-md-12">
 				 		<listbox emptyMessage="Nenhum registro encontrado."
-				 				 onSelect="lookup.value = self.selectedItem.label; lookup.close();"
+				 				 onSelect="lookup.value = self.selectedItem.label; lookup.close()"
 				 				 mold="paging" autopaging="true" rows="5"
-				 				 model="@load($composer.col)" selectedItem="@bind(disciplinaSelecionada.disciplina)"
-				 				 onCreate="self.width = lookup.width">
+				 				 model="@load(childVM.col)" selectedItem="@bind(detalheSelecionado.disciplina)">
 				 			<listhead>
 								<listheader label="Código"/>
 								<listheader label="Sigla"/>
 								<listheader label="Descrição"/>
 							</listhead>
 							<template name="model" var="obj">
-								<listitem value="@bind(obj)" sclass="list">
+								<listitem value="@bind(obj)" sclass="list" onClick="@global-command('setDisciplina', disciplina=obj)">
 									<listcell label="@load(obj.codigo)"/>
 									<listcell label="@load(obj.sigla)"/>
 									<listcell label="@load(obj.descricao)"/>

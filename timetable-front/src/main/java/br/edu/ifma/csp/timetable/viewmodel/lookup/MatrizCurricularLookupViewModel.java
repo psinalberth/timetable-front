@@ -1,6 +1,7 @@
 package br.edu.ifma.csp.timetable.viewmodel.lookup;
 
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.Command;
 
 import br.edu.ifma.csp.timetable.model.Curso;
 import br.edu.ifma.csp.timetable.model.MatrizCurricular;
@@ -11,7 +12,7 @@ public class MatrizCurricularLookupViewModel extends LookupViewModel<MatrizCurri
 	private Curso curso;
 	
 	@AfterCompose(superclass=true)
-	public void initMatrizCurricularLookup() {
+	public void init() {
 		
 	}
 	
@@ -29,5 +30,15 @@ public class MatrizCurricularLookupViewModel extends LookupViewModel<MatrizCurri
 	
 	public void setCurso(Curso curso) {
 		this.curso = curso;
+	}
+
+	@Command
+	public void pesquisar() {
+		
+	}
+
+	@Command
+	public void limpar() {
+		
 	}
 }

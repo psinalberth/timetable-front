@@ -2,6 +2,7 @@ package br.edu.ifma.csp.timetable.viewmodel.lookup;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 
@@ -36,10 +37,12 @@ public class DisciplinaLookupViewModel extends LookupViewModel<Disciplina> {
 		}
 	}
 	
+	@Command
 	public void pesquisar() {
 		build();
 	}
 	
+	@Command
 	public void limpar() {
 	
 	}
@@ -49,7 +52,7 @@ public class DisciplinaLookupViewModel extends LookupViewModel<Disciplina> {
 	}
 	
 	@GlobalCommand
-	@NotifyChange("*")
+	@NotifyChange("matrizCurricular")
 	public void setMatrizCurricular(@BindingParam("matrizCurricular") MatrizCurricular matrizCurricular) {
 		this.matrizCurricular = matrizCurricular;
 	}

@@ -1,6 +1,6 @@
 <zk>
-	<listbox model="@bind($composer.col)" mold="paging" autopaging="true" rows="10"
-			 selectedItem="@bind($composer.entidade)" onSelect="$composer.edit()" emptyMessage="Nenhum registro encontrado.">
+	<listbox model="@bind(vm.col)" mold="paging" autopaging="true" rows="10"
+			 selectedItem="@bind(vm.entidadeSelecionada)" onSelect="@command('editar')" emptyMessage="Nenhum registro encontrado.">
 		<listhead>
 			<listheader label="Nome"/>
 			<listheader label="Departamento"/>

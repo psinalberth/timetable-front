@@ -59,15 +59,16 @@ input[type=text]{
   transition: box-shadow 0.3s; */
   /* left: -100%; */
 }
+
 input[type=text]:focus, textarea:focus {
   outline: none;
   border-bottom: 0;
   box-shadow: -8px 10px 0px -7px #347abe, 8px 10px 0px -7px #347abe;
 }
 
-/* ------------------ */
+/* ------------------- */
 /* Definição de Fontes */
-/* ------------------ */
+/* ------------------- */
 
 @font-face {
 	font-family: 'FontAwesome';
@@ -170,8 +171,25 @@ input[type=text]:focus, textarea:focus {
 }
 
 /* ------------------ */
-/* Classes CSS ZK */
+/* Classes CSS ZK     */
 /* ------------------ */
+
+.z-grid {
+	border: 0;
+}
+
+.z-grid-header {
+	background: transparent;
+}
+
+.z-grid-header-border {
+	border-bottom: 2px solid #347abe;
+}
+
+.z-column {
+	background: transparent;
+	border: 0;
+}
 
 .z-combobox {
 	

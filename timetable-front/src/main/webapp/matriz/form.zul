@@ -107,10 +107,10 @@
 														<listcell>
 															<div sclass="row">
 																
-																<div sclass="col-md-8">
+																<div sclass="col-md-7">
 																	<div sclass="form-group">
 																		<label value="Disciplina" sclass="form-label"/>
-																		<include src="/partials/zul/lookup/disciplinalookup.zul"/>
+																		<include src="@load('../partials/zul/lookup/disciplinalookup.zul')"/>
 																	</div>
 																</div>
 																
@@ -125,6 +125,13 @@
 																	<div sclass="form-group">
 																		<label value="C. H." sclass="form-label"/>
 																		<intbox sclass="form-input" maxlength="3" value="@bind(disciplinaSelecionada.cargaHoraria)"/>
+																	</div>
+																</div>
+																
+																<div sclass="col-md-1">
+																	<div sclass="form-group">
+																		<label value="LAB" sclass="form-label" tooltiptext="Necessita Laboratório?"/>
+																		<checkbox style="margin: 0; padding: 0" checked="@bind(disciplinaSelecionada.disciplinaLaboratorio)" />
 																	</div>
 																</div>
 																

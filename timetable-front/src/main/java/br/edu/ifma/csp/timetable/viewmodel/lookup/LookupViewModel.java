@@ -39,13 +39,9 @@ public abstract class LookupViewModel<T extends Entidade> {
 	    return (Class<T>) tipoGenerico.getActualTypeArguments()[0];
     }
 	
-	public void pesquisar() {
-		
-	}
+	public abstract void pesquisar();
 	
-	public void limpar() {
-		
-	}
+	public abstract void limpar();
 	
 	public T getEntidadeSelecionada() {
 		return entidadeSelecionada;

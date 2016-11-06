@@ -2,7 +2,7 @@
 <zk xmlns:n="native">
 	<tabbox>
 		<tabs>
-			<tab label="Dados Pessoais" iconSclass="fa fa-user" selected="@load($composer.editando)"/>
+			<tab label="Dados Pessoais" iconSclass="fa fa-edit" selected="@load(vm.editando)"/>
 			<tab label="Preferências" iconSclass="fa fa-star-o"/>
 			<tab label="Disponibilidade" iconSclass="fa fa-calendar-o"/>
 		</tabs>
@@ -11,14 +11,14 @@
 			<tabpanel>
 				<div sclass="form-group">
 					<label value="Nome" sclass="form-label" />
-					<textbox id="nome" sclass="form-input" value="@bind($composer.entidade.nome)"/>
+					<textbox id="nome" sclass="form-input" value="@bind(vm.entidadeSelecionada.nome)"/>
 				</div>
 				
 				<div sclass="row">
 					<div class="col-md-8">
 						<div sclass="form-group">
 							<label value="Endereço" sclass="form-label"/>
-							<textbox sclass="form-input" id="endereco" value="@bind($composer.entidade.endereco)"/>
+							<textbox sclass="form-input" id="endereco" value="@bind(vm.entidadeSelecionada.endereco)"/>
 						</div>
 					</div>
 					
@@ -42,25 +42,25 @@
 			</tabpanel>
 			
 			<tabpanel>
-				<listbox checkmark="true" multiple="true" mold="paging" model="@bind($composer.entidade.preferenciasDisciplina)"
+				<listbox checkmark="true" multiple="true" mold="paging" model="@bind(vm.entidadeSelecionada.preferenciasDisciplina)"
 						 emptyMessage="Nenhum registro adicionado." rows="4" autopaging="true" 
-						 selectedItems="@bind($composer.preferenciasDisciplinaSelecionadas)">
+						 selectedItems="@bind(vm.preferenciasDisciplinaSelecionadas)">
 					<listhead>
 						<listheader hflex="min"/>
 						<listheader label="Disciplinas">
 							<hbox style="float: right">
-								<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="$composer.adicionarPreferenciaDisciplina()"/>
-									<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="$composer.removerPreferenciaDisciplina()"/>
+								<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="@command('adicionarPreferenciaDisciplina')"/>
+									<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="@command('removerPreferenciaDisciplina')"/>
 							</hbox>
 						</listheader>
 					</listhead>
-					<template name="model" var="disciplinaSelecionada">
+					<template name="model" var="detalheSelecionado">
 						<listitem>
 							<listcell/>
 							<listcell>
 								<div sclass="form-group">
 									<label value="Disciplina" sclass="form-label"/>
-									<include src="/partials/zul/lookup/disciplinalookup.zul"/>							
+									<include src="@load('../partials/zul/lookup/disciplinalookup.zul')"/>							
 								</div>
 							</listcell>
 						</listitem>
@@ -69,15 +69,15 @@
 			</tabpanel>
 			
 			<tabpanel>
-				<listbox checkmark="true" multiple="true" model="@bind($composer.entidade.preferenciasHorario)" 
+				<listbox checkmark="true" multiple="true" model="@bind(vm.entidadeSelecionada.preferenciasHorario)" 
 						 emptyMessage="Nenhum registro encontrado." rows="4" autopaging="true"
-						 selectedItems="@bind($composer.preferenciasHorarioSelecionadas)">
+						 selectedItems="@bind(vm.preferenciasHorarioSelecionadas)">
 					<listhead>
 						<listheader hflex="min"/>
 						<listheader label="Horários">
 							<hbox style="float: right">
-								<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="$composer.adicionarPreferenciaHorario()"/>
-								<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="$composer.removerPreferenciaHorario()"/>
+								<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="@command('adicionarPreferenciaHorario')"/>
+								<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="@command('removerPreferenciaHorario')"/>
 							</hbox>
 						</listheader>
 					</listhead>
@@ -87,7 +87,7 @@
 							<listcell>
 								<div sclass="form-group">
 									<label value="Horário" sclass="form-label"/>
-									<include src="/partials/zul/lookup/horariolookup.zul" />
+<!-- 									<include src="/partials/zul/lookup/horariolookup.zul" /> -->
 								</div>
 							</listcell>
 						</listitem>
