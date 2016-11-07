@@ -20,10 +20,6 @@ public abstract class ViewModel<T extends Entidade> {
 	protected Repository<T> repository;
 	protected T entidadeSelecionada;
 	
-	private Boolean editando = false;
-	private Boolean removivel = false;
-	private Boolean consultando = false;
-	
 	private List<T> col;
 	
 	@AfterCompose
@@ -38,18 +34,16 @@ public abstract class ViewModel<T extends Entidade> {
 	public abstract void init(Component view);
 	
 	@Command
-	@NotifyChange({"entidadeSelecionada", "editando", "consultando"})
+	@NotifyChange("*")
 	public void novo() throws InstantiationException, IllegalAccessException {
 		
 		entidadeSelecionada = retornaTipo().newInstance();
 		entidadeSelecionada.setUsuarioUltAlteracao("user");
 		entidadeSelecionada.setDataUltAlteracao(new Date());
-		
-		setEditando(true);
-		setConsultando(false);
 	}
 	
 	@Command
+	@NotifyChange({"entidadeSelecionada", "removivel"})
 	public void salvar() {
 		repository.save(entidadeSelecionada);
 	}
@@ -57,18 +51,19 @@ public abstract class ViewModel<T extends Entidade> {
 	@NotifyChange({"entidadeSelecionada", "editando", "consultando"})
 	@Command
 	public void pesquisar() {
-		
-		setEditando(false);
 		setEntidadeSelecionada(null);
-		setConsultando(true);
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void editar() {
 		
-		setEditando(true);
-		setConsultando(false);
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void excluir() {
+		
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -85,28 +80,16 @@ public abstract class ViewModel<T extends Entidade> {
 	    return (Class<T>) tipoGenerico.getActualTypeArguments()[0];
     }
 	
-	public Boolean getEditando() {
-		return editando;
+	public boolean isEditando() {
+		return entidadeSelecionada != null;
 	}
 	
-	public void setEditando(Boolean editando) {
-		this.editando = editando;
+	public boolean isConsultando() {
+		return !isEditando();
 	}
 	
-	public Boolean getConsultando() {
-		return consultando;
-	}
-	
-	public void setConsultando(Boolean consultando) {
-		this.consultando = consultando;
-	}
-	
-	public Boolean getRemovivel() {
-		return removivel;
-	}
-	
-	public void setRemovivel(Boolean removivel) {
-		this.removivel = removivel;
+	public boolean isRemovivel() {
+		return !(isEditando() && entidadeSelecionada.getId() != 0);
 	}
 	
 	public List<T> getCol() {
