@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -23,7 +24,7 @@ import org.zkoss.zul.Column;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Row;
-import org.zkoss.zul.Vlayout;
+import org.zkoss.zul.Vbox;
 
 import br.edu.ifma.csp.timetable.dao.HorarioDao;
 import br.edu.ifma.csp.timetable.dao.LocalDao;
@@ -87,12 +88,16 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	}
 	
 	@Command
-	@NotifyChange("entidadeSelecionada")
+	@NotifyChange("*")
 	public void salvar() {
 	
 		Validations.validate(null, entidadeSelecionada, repository);
 		
 		try {
+			
+			setProfessor(null);
+			setPeriodo(null);
+			setLocal(null);
 			
 			TimetableHandler handler = new TimetableHandler();
 			handler.setTimetable(entidadeSelecionada);
@@ -121,20 +126,30 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			Label label = new Label(horario.toString());
 			//label.setSclass("z-column");
 			
-			Vlayout layoutSegunda = new Vlayout();
+			Vbox layoutSegunda = new Vbox();
 			layoutSegunda.setSpacing("20px");
+			//layoutSegunda.setAlign("center");
+			//layoutSegunda.setPack("center");
 			
-			Vlayout layoutTerca = new Vlayout();
+			Vbox layoutTerca = new Vbox();
 			layoutTerca.setSpacing("20px");
+//			layoutTerca.setAlign("center");
+//			layoutTerca.setPack("center");
 			
-			Vlayout layoutQuarta = new Vlayout();
+			Vbox layoutQuarta = new Vbox();
 			layoutQuarta.setSpacing("20px");
+//			layoutQuarta.setAlign("center");
+//			layoutQuarta.setPack("center");
 			
-			Vlayout layoutQuinta = new Vlayout();
+			Vbox layoutQuinta = new Vbox();
 			layoutQuinta.setSpacing("20px");
+//			layoutQuinta.setAlign("center");
+//			layoutQuinta.setPack("center");
 			
-			Vlayout layoutSexta = new Vlayout();
+			Vbox layoutSexta = new Vbox();
 			layoutSexta.setSpacing("20px");
+//			layoutSexta.setAlign("center");
+//			layoutSexta.setPack("center");
 			
 			row.getChildren().addAll(Arrays.asList(new Component[]{label, layoutSegunda, layoutTerca, layoutQuarta, layoutQuinta, layoutSexta}));
 			grid.getRows().getChildren().add(row);
@@ -142,16 +157,26 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 		
 		for (Aula aula : entidadeSelecionada.getAulas()) {
 				
-			Vlayout vlayout = new Vlayout();
+			Vbox vlayout = new Vbox();
 			
-			Label labelPeriodo = new Label(String.valueOf(aula.getPeriodo()));
+			//vlayout.setPack("center");
+			//vlayout.setAlign("center");
+			
+			Label labelPeriodo = new Label(String.valueOf(entidadeSelecionada.getMatrizCurricular().getCurso().getCodigo() + "." + aula.getPeriodo()));
+			labelPeriodo.setSclass("grid-label");
 			
 			Label labelDisciplina = new Label(aula.getDisciplina().getSigla());
 			labelDisciplina.setTooltiptext(aula.getDisciplina().getDescricao());
 			
+			Label labelProfessor = new Label(aula.getProfessor().getNome());
+			labelProfessor.setSclass("grid-label");
+			
+			Label labelLocal = new Label(aula.getLocal().getNome());
+			labelLocal.setSclass("grid-label");
+			
 			vlayout.appendChild(labelDisciplina);
-			vlayout.appendChild(new Label(aula.getProfessor().getNome()));
-			vlayout.appendChild(new Label(aula.getLocal().getNome()));
+			vlayout.appendChild(labelProfessor);
+			vlayout.appendChild(labelLocal);
 			vlayout.appendChild(labelPeriodo);
 			
 			int rowIndex = getRowIndex(aula.getHorario().getHoraInicio().toString());
@@ -166,10 +191,16 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 		}
 	}
 	
-	@NotifyChange({"professor", "local"})
-	public void limpar(int opc) {
+	@Command
+	@NotifyChange({"professor", "periodo", "local"})
+	public void limpar(@BindingParam("opc") int opc) {
 		
 		switch (opc) {
+		
+			case 1:
+				setPeriodo(null);
+				break;
+			
 			case 2:
 				setProfessor(null);
 				break;
@@ -217,8 +248,6 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	
 	public void lookup() {
 		
-		System.out.println(getProfessor());
-		
 		buildRows();
 		
 		for (Component c : grid.getRows().getChildren()) {
@@ -227,11 +256,11 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			
 				for (Component x : c.getChildren()) {
 					
-					if (x instanceof Vlayout && c.getChildren().size() > 0) {
+					if (x instanceof Vbox && c.getChildren().size() > 0) {
 						
 						for (Component v : x.getChildren()) {
 							
-							if (v instanceof Vlayout && v.getChildren().size() > 0) {
+							if (v instanceof Vbox && v.getChildren().size() > 0) {
 								
 								Component local = v.getChildren().get(2);
 								Component comp = v.getChildren().get(1);
@@ -239,7 +268,7 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 								
 								if (getPeriodo() != null) {
 									
-									if (!((Label)periodo).getValue().equals(String.valueOf(getPeriodo().getCodigo()))) {
+									if (!((Label)periodo).getValue().contains(String.valueOf(getPeriodo().getCodigo()))) {
 										v.setVisible(false);
 									}
 								}
@@ -292,6 +321,10 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	@NotifyChange("entidadeSelecionada")
 	public void removerDetalhe() {
 		entidadeSelecionada.getDetalhes().removeAll(detalhesSelecionados);
+	}
+	
+	public boolean isSolucaoEncontrada() {
+		return entidadeSelecionada != null && entidadeSelecionada.getAulas().size() > 0;
 	}
 	
 	public List<DetalheTimetable> getDetalhesSelecionados() {

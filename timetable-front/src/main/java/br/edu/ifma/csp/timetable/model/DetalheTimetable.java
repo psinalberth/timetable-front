@@ -59,6 +59,10 @@ public class DetalheTimetable extends Entidade {
 
 	public void setEntidade(String entidade) {
 		this.entidade = entidade;
+		setCriterio(null);
+		setPeriodo(null);
+		setDisciplina(null);
+		setLocal(null);
 	}
 
 	public Professor getProfessor() {
@@ -136,6 +140,14 @@ public class DetalheTimetable extends Entidade {
 	
 	public boolean isCriterioPeriodo() {
 		return entidade != null && entidade.equalsIgnoreCase("Período");
+	}
+	
+	public boolean isCriterioPeriodoHorario() {
+		return !isCriterioPeriodoEletiva();
+	}
+	
+	public boolean isCriterioPeriodoEletiva() {
+		return isCriterioPeriodo() && criterio != null && criterio.equalsIgnoreCase("Eletiva");
 	}
 	
 	public boolean isCriterioLocal() {

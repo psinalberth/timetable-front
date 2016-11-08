@@ -12,4 +12,6 @@ public interface Disciplinas extends Repository<Disciplina> {
 	
 	public List<Disciplina> allByPreferenciaProfessor(Professor professor);
 
+	List<Disciplina> allObrigatoriasByMatrizCurricular(MatrizCurricular matriz);
+
 }

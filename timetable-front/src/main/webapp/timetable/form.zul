@@ -6,8 +6,8 @@
 		<tabbox>
 			<tabs>
 				<tab label="Informações Gerais" iconSclass="fa fa-edit" selected="@load(vm.editando)"/>
-				<tab label="Disciplinas Ofertadas" iconSclass="fa fa-book"/>
-				<tab label="Aulas" iconSclass="fa fa-book"/>
+				<tab label="Configurações" iconSclass="fa fa-gear"/>
+				<tab label="Aulas" iconSclass="fa fa-book" visible="@load(vm.solucaoEncontrada)" selected="@load(vm.solucaoEncontrada)"/>
 			</tabs>
 			<tabpanels>
 				
@@ -78,17 +78,12 @@
 												
 												<div sclass="col-md-10">
 													
-													<div sclass="form-group" visible="@bind(detalheSelecionado.criterioDisciplina)">
+													<div sclass="form-group" visible="@load(detalheSelecionado.criterioDisciplina)">
 														<label sclass="form-label" value="Disciplina"/>
-														<include src="/partials/zul/lookup/disciplinamatrizlookup.zul"/>
+														<include src="/partials/zul/lookup/disciplinalookup.zul"/>
 													</div>
 													
-													<div sclass="form-group" visible="@bind(detalheSelecionado.criterioLocal)">
-														<label sclass="form-label" value="Local"/>
-<!-- 														<include src="/partials/zul/lookup/disciplinalookup.zul"/> -->
-													</div>
-													
-													<div sclass="form-group" visible="@bind(detalheSelecionado.criterioPeriodo)">
+													<div sclass="form-group" visible="@load(detalheSelecionado.criterioPeriodo)">
 														<label sclass="form-label" value="Período"/>
 														<combobox readonly="true" autodrop="true" sclass="form-input" model="@load(vm.entidadeSelecionada.matrizCurricular.periodos)"
 																  selectedItem="@bind(detalheSelecionado.periodo)" value="@bind(detalheSelecionado.periodo.codigo)"
@@ -102,7 +97,7 @@
 												</div>
 											</div>
 											
-											<div sclass="row" visible="@bind(detalheSelecionado.criterioDisciplina)">
+											<div sclass="row" visible="@load(detalheSelecionado.criterioDisciplina)">
 												<div sclass="col-md-2">
 													<div sclass="form-group">
 														<label sclass="form-label" value="Critério"/>
@@ -121,20 +116,23 @@
 												</div>
 											</div>
 											
-											<div sclass="row" visible="@bind(detalheSelecionado.criterioPeriodo)">
+											<div sclass="row" visible="@load(detalheSelecionado.criterioPeriodo)">
 												<div sclass="col-md-4">
 													<div sclass="form-group">
 														<label sclass="form-label" value="Critério"/>
-														<combobox readonly="true" autodrop="true" cols="2" sclass="form-input" 
+														<combobox readonly="true" autodrop="true" cols="2" sclass="form-input"
+																  onSelect="@command('onChange')" 
 																  value="@bind(detalheSelecionado.criterio)" selectedItem="@bind(detalheSelecionado.criterio)">
 															<comboitem value="Horários após" label="Horários após"/>
-															<comboitem value="Horários antes" label="Horários antes"/>
-															<comboitem value="Horários entre" label="Horários entre"/>
+															<comboitem value="Horários até" label="Horários antes"/>
+															<comboitem value="Eletiva" label="Eletiva"/>
 														</combobox>
 													</div>
 												</div>
+												
 												<div sclass="col-md-8">
-													<div sclass="form-group">
+													
+													<div sclass="form-group" visible="@load(detalheSelecionado.criterioPeriodoHorario)">
 														<label sclass="form-label" value="Horário"/>
 														<combobox readonly="true" autodrop="true" sclass="form-input" model="@load(vm.colHorariosInicio)"
 																  selectedItem="@bind(detalheSelecionado.horarioInicio)" value="@bind(detalheSelecionado.horarioInicio)"
@@ -144,6 +142,12 @@
 															</template>
 														</combobox>
 													</div>
+													
+													<div sclass="form-group" visible="@load(detalheSelecionado.criterioPeriodoEletiva)">
+														<label sclass="form-label" value="Disciplina"/>
+														<include src="/partials/zul/lookup/disciplinalookup.zul"/>
+													</div>
+													
 												</div>
 											</div>
 											
@@ -173,7 +177,7 @@
 							</div>
 							<div class="col-md-1">
 								<div class="form-group">
-									<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="vm.limpar(1)" tooltiptext="Limpar"/>
+									<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="@command('limpar', opc=1)" tooltiptext="Limpar"/>
 								</div>	
 							</div>
 							<div class="col-md-4">
@@ -190,7 +194,7 @@
 							</div>
 							<div class="col-md-1">
 								<div class="form-group">
-									<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="vm.limpar(2)" tooltiptext="Limpar"/>
+									<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="@command('limpar', opc=2)" tooltiptext="Limpar"/>
 								</div>	
 							</div>
 							<div class="col-md-3">
@@ -207,7 +211,7 @@
 							</div>
 							<div class="col-md-1">
 								<div class="form-group">
-									<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="vm.limpar(3)" tooltiptext="Limpar"/>
+									<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="@command('limpar', opc=3)" tooltiptext="Limpar"/>
 								</div>	
 							</div>
 						</div>
@@ -215,12 +219,12 @@
 					
 					<grid id="grid">
 						<columns>
-							<column label="Horário"/>
-							<column label="Segunda-Feira"/>
-							<column label="Terça-Feira"/>
-							<column label="Quarta-Feira"/>
-							<column label="Quinta-Feira"/>
-							<column label="Sexta-Feira"/>
+							<column label="Horário" align="center"/>
+							<column label="Segunda-Feira" align="center"/>
+							<column label="Terça-Feira" align="center"/>
+							<column label="Quarta-Feira" align="center"/>
+							<column label="Quinta-Feira" align="center"/>
+							<column label="Sexta-Feira" align="center"/>
 						</columns>
 						<rows>
 							
