@@ -104,7 +104,7 @@ input[type=text]:focus, textarea:focus {
 }
 
 .form-input, input[type=checkbox], .z-lookupbox {
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Cabin', sans-serif;
 	color: #444;
 	font-size: 15px;
 	height: 30px;
@@ -117,6 +117,7 @@ input[type=text]:focus, textarea:focus {
 .grid-label {
 	font-size: 12px;
 	color: #777;
+	font-family: 'Cabin', sans-serif;
 }
 
 .zk-container {
@@ -266,7 +267,7 @@ input[type=text]:focus, textarea:focus {
 /* Input (Timebox, Combobox, Bandbox) */
 
 .z-timebox-input, .z-combobox-input,.z-bandbox-input, .z-lookupbox-input {
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Cabin', sans-serif;
 	color: #444;
 	font-size: 15px;
 	height: 22px;
@@ -344,7 +345,7 @@ input[type=text]:focus, textarea:focus {
 }
 
 .z-listcell-content {
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Cabin', sans-serif;
 	color: #444;
 	font-size: 15px;
 	height: 22px;
