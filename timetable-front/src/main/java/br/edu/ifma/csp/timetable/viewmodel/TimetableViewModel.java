@@ -314,7 +314,7 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 		DetalheTimetable detalheTimetable = new DetalheTimetable();
 		
 		detalheTimetable.setTimetable(entidadeSelecionada);
-		entidadeSelecionada.getDetalhes().add(detalheTimetable);
+		entidadeSelecionada.getDetalhes().add(0, detalheTimetable);
 	}
 	
 	@Command

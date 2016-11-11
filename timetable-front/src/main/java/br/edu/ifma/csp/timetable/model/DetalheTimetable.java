@@ -143,7 +143,7 @@ public class DetalheTimetable extends Entidade {
 	}
 	
 	public boolean isCriterioPeriodoHorario() {
-		return !isCriterioPeriodoEletiva();
+		return isCriterioPeriodo() && criterio != null && criterio.contains("Horários");
 	}
 	
 	public boolean isCriterioPeriodoEletiva() {

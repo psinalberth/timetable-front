@@ -45,10 +45,10 @@
 						<div class="col-md-12">
 				
 							<listbox checkmark="true" multiple="true" model="@bind(vm.entidadeSelecionada.detalhes)" 
-									 mold="paging" autopaging="true" rows="2"
+									 nonselectableTags="*"
 									 selectedItems="@bind(vm.detalhesSelecionados)">
 								<listhead>
-									<listheader hflex="min"/>
+									<listheader width="30px"/>
 									<listheader label="Detalhes">
 										<hbox style="float: right">
 											<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="@command('adicionarDetalhe')  @global-command('setMatrizCurricular', matrizCurricular=vm.entidadeSelecionada.matrizCurricular)"/>
@@ -86,10 +86,11 @@
 													<div sclass="form-group" visible="@load(detalheSelecionado.criterioPeriodo)">
 														<label sclass="form-label" value="Período"/>
 														<combobox readonly="true" autodrop="true" sclass="form-input" model="@load(vm.entidadeSelecionada.matrizCurricular.periodos)"
-																  selectedItem="@bind(detalheSelecionado.periodo)" value="@bind(detalheSelecionado.periodo.codigo)"
+																  selectedItem="@bind(detalheSelecionado.periodo)" 
+																  value="@load(detalheSelecionado.periodo ne null ? c:cat3(vm.entidadeSelecionada.matrizCurricular,'.',detalheSelecionado.periodo.codigo) : '')"
 																  onSelect="@command('onChange')">
 															<template name="model" var="obj">
-																<comboitem label="@load(obj.codigo)" value="@load(obj.id)"/>
+																<comboitem label="@load(c:cat3(vm.entidadeSelecionada.matrizCurricular,'.',String.valueOf(obj.codigo)))" value="@load(obj.id)"/>
 															</template>
 														</combobox>
 													</div>

@@ -123,13 +123,8 @@ public class TimetableHandler {
 				
 				if (detalheEletiva != null) {
 					
-					int index = lastIndexOfPeriodo(listDetalhes, detalheTimetable.getPeriodo());
-					
-					if (index >= 0) {
-					
-						listDetalhes.add(index + 1, detalheEletiva);
-						listDisciplina.add(index + 1, detalheEletiva.getDisciplina());
-					}
+					detalheEletiva.getPeriodo().setCodigo(detalheTimetable.getPeriodo().getCodigo());
+					lastIndexOfPeriodo(listDetalhes, detalheTimetable.getPeriodo(), detalheEletiva);
 				}
 			}
 		}
@@ -167,20 +162,7 @@ public class TimetableHandler {
 			
 			Periodo periodo = timetable.getMatrizCurricular().getPeriodos().get(i);
 			
-			List<DetalheDisciplina> detalhes = allObrigatoriasByPeriodo(periodo);
-			
-			for (DetalheTimetable detalheTimetable : timetable.getDetalhes()) {
-				
-				if (detalheTimetable.isCriterioPeriodoEletiva() && detalheTimetable.getPeriodo().getId() == periodo.getId()) {
-					
-					DetalheDisciplina detalheEletiva = 
-					detalhesDisciplina.byMatrizCurricularDisciplina(timetable.getMatrizCurricular(), detalheTimetable.getDisciplina());
-					
-					if (detalheEletiva != null) {
-						detalhes.add(detalheEletiva);
-					}
-				}
-			}
+			List<DetalheDisciplina> detalhes = allByPeriodo(listDetalhes, periodo);
 			
 			periodos[i] = new int[detalhes.size()];
 			
@@ -202,10 +184,10 @@ public class TimetableHandler {
 			
 			for (int j = 0; j < aulas[i]; j++) {
 				
-				IntVar horario = model.intVar(varDisciplinas[i].getName() + "_" + "H" + (j+1), 0, horariosId.length);
+				IntVar horario = model.intVar(varDisciplinas[i].getName() + "_" + "H" + (j+1), 0, horariosId.length - 1);
 				timeslot.addHorario(horario);
 				
-				IntVar local = model.intVar(varDisciplinas[i].getName() + "_" + "L" + (j+1), 0, locaisId.length);
+				IntVar local = model.intVar(varDisciplinas[i].getName() + "_" + "L" + (j+1), 0, locaisId.length - 1);
 				timeslot.addLocal(local);
 				
 				varHorariosDisciplina[i][j] = horario;
@@ -238,7 +220,8 @@ public class TimetableHandler {
 	private final void configureSearch() {
 		
 		solver.makeCompleteStrategy(true);
-		solver.setSearch(Search.minDomLBSearch(varDisciplinas));
+		solver.setSearch(Search.activityBasedSearch(varProfessores));
+		//solver.setSearch(Search.defaultSearch(model));
 	}
 	
 	
@@ -636,6 +619,17 @@ public class TimetableHandler {
 				
 				model.notMember(horario3, new int [] {0, 9, 18, 27, 36}).post();
 				model.notMember(horario1, new int [] {8, 17, 24, 32, 40}).post();
+				
+			} else if (aula == 2) {
+				
+				IntVar horario1 = timeslot.getHorarios().get(0);
+				IntVar horario2 = timeslot.getHorarios().get(1);
+				
+				IntVar local1 = timeslot.getLocais().get(0);
+				IntVar local2 = timeslot.getLocais().get(1);
+				
+				model.arithm(horario2, "-", horario1, "=", 1).post();
+				model.arithm(local1, "=", local2).post();
 			}
 		}
 	}
@@ -778,13 +772,13 @@ public class TimetableHandler {
 		
 	}
 	
-	private List<DetalheDisciplina> allObrigatoriasByPeriodo(Periodo periodo) {
+	private List<DetalheDisciplina> allByPeriodo(List<DetalheDisciplina> detalhes, Periodo periodo) {
 		
 		List<DetalheDisciplina> list = new ArrayList<DetalheDisciplina>();
 		
-		for (DetalheDisciplina detalhe : periodo.getDetalhes()) {
+		for (DetalheDisciplina detalhe : detalhes) {
 			
-			if (detalhe.isObrigatoria()) {
+			if (detalhe.getPeriodo().getCodigo() == periodo.getCodigo()) {
 				list.add(detalhe);
 			}
 		}
@@ -894,7 +888,7 @@ public class TimetableHandler {
 		return null;
 	}
 	
-	private int lastIndexOfPeriodo(List<DetalheDisciplina> detalhes, Periodo periodo) {
+	private void lastIndexOfPeriodo(List<DetalheDisciplina> detalhes, Periodo periodo, DetalheDisciplina detalhe) {
 		
 		int cont = -1;
 		
@@ -902,18 +896,24 @@ public class TimetableHandler {
 			
 			cont += 1;
 			
-			if (detalhes.get(i).getPeriodo().getId() == periodo.getId()) {
+			if (detalhes.get(i).getPeriodo() != null && detalhes.get(i).getPeriodo().getCodigo() == periodo.getCodigo()) {
+				
+				if ((cont + 1) >= detalhes.size()) {
+					detalhes.add(i+1, detalhe);
+					listDisciplina.add(i+1, detalhe.getDisciplina());
+					break;
+				}
 				
 				if (detalhes.get(i+1) != null) {
 					
-					if (detalhes.get(i+1).getPeriodo().getId() != periodo.getId()) {
-						return cont;
+					if (detalhes.get(i+1).getPeriodo().getCodigo() != periodo.getCodigo()) {
+						detalhes.add(i+1, detalhe);
+						listDisciplina.add(i+1, detalhe.getDisciplina());
+						break;
 					}
 				}
 			}
 		}
-		
-		return cont;
 	}
 	
 	private int getPeriodoDisciplina(int disciplina) {
