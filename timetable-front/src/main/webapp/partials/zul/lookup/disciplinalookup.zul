@@ -2,9 +2,11 @@
 	<bandbox id="lookup" sclass="form-input" autodrop="true" readonly="true" mold="rounded" 
 	         value="@load(detalheSelecionado.disciplina.descricao)">
 		<bandpopup>
-			
-		 	<vlayout viewModel='@id("childVM") @init("br.edu.ifma.csp.timetable.viewmodel.lookup.DisciplinaLookupViewModel", matrizCurricular = vm.entidadeSelecionada.getClass().getSimpleName().equals("Timetable") ? vm.entidadeSelecionada.matrizCurricular : null)' style="padding: 0 15px">
-		 		
+		
+		 	<vlayout 
+		 		viewModel='@id("childVM") @init("br.edu.ifma.csp.timetable.viewmodel.lookup.DisciplinaLookupViewModel", 
+		 				   matrizCurricular = vm.entidadeSelecionada.getClass().getSimpleName().equals("Timetable") ? vm.entidadeSelecionada.matrizCurricular : null, 
+		 				   eletiva = vm.entidadeSelecionada.getClass().getSimpleName().equals("Timetable") ? detalheSelecionado.criterioPeriodoEletiva : false)' style="padding: 0 15px">
 		 		<div class="row">
 		 			<div class="col-md-12">
 		 				<n:h5 class="page-title">Disciplina</n:h5>
@@ -14,13 +16,13 @@
 		 			<div class="col-md-1">
 			 			<div sclass="form-group">
 			 				<label value="Código" sclass="form-label"/>
-			 				<intbox sclass="form-input" value="@bind(childVM.codigo)" maxlength="8" cols="8" onOK="childVM.pesquisar()"/>
+			 				<intbox sclass="form-input" value="@bind(childVM.codigo)" maxlength="8" cols="8" onOK="@command('pesquisar')"/>
 			 			</div>
 		 			</div>
 		 			<div class="@bind(childVM.matrizCurricular eq null ? 'col-md-9' : 'col-md-4')">
 			 			<div sclass="form-group">
 			 				<label value="Descrição" sclass="form-label"/>
-			 				<textbox sclass="form-input" value="@bind(childVM.descricao)" onOK="childVM.pesquisar()"/>
+			 				<textbox sclass="form-input" value="@bind(childVM.descricao)" onOK="@command('pesquisar')"/>
 			 			</div>
 		 			</div>
 		 			<div class="col-md-5" visible="@bind(childVM.matrizCurricular ne null)">
@@ -31,8 +33,8 @@
 		 			</div>
 		 			<div class="col-md-2">
 			 			<div sclass="form-group">
-			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="fa fa-search" onClick="childVM.pesquisar()"/>
-			 				<button sclass="btn btn-default" label="Limpar" iconSclass="fa fa-eraser" onClick="childVM.limpar()"/>
+			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="fa fa-search" onClick="@command('pesquisar')"/>
+			 				<button sclass="btn btn-default" label="Limpar" iconSclass="fa fa-eraser" onClick="@command('limpar')"/>
 			 			</div>
 		 			</div>
 		 		</div>
@@ -44,15 +46,15 @@
 				 				 mold="paging" autopaging="true" rows="5"
 				 				 model="@load(childVM.col)" selectedItem="@bind(detalheSelecionado.disciplina)">
 				 			<listhead>
-								<listheader label="Código"/>
-								<listheader label="Sigla"/>
-								<listheader label="Descrição"/>
+								<listheader sclass="col-md-2" label="Código"/>
+								<listheader sclass="col-md-4" label="Sigla"/>
+								<listheader sclass="col-md-6" label="Descrição"/>
 							</listhead>
 							<template name="model" var="obj">
 								<listitem value="@bind(obj)" sclass="list" onClick="@global-command('setDisciplina', disciplina=obj)">
-									<listcell label="@load(obj.codigo)"/>
-									<listcell label="@load(obj.sigla)"/>
-									<listcell label="@load(obj.descricao)"/>
+									<listcell sclass="col-md-2" label="@load(obj.codigo)"/>
+									<listcell sclass="col-md-4" label="@load(obj.sigla)"/>
+									<listcell sclass="col-md-6" label="@load(obj.descricao)"/>
 								</listitem>
 							</template>
 						</listbox>

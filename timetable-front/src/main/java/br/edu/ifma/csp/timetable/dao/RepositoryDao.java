@@ -11,6 +11,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.zkoss.util.Pair;
+
 import br.edu.ifma.csp.timetable.model.Entidade;
 
 public abstract class RepositoryDao<T extends Entidade> {
@@ -106,8 +108,32 @@ public abstract class RepositoryDao<T extends Entidade> {
 		return manager.createQuery(criteria).getResultList();
 	}
 	
-	public List<T> allBy(Map<String, Object> params) {
-		return null;
+	public List<T> allBy(Map<Pair<String, String>, Object> params) {
+		
+		Class<T> clazz = retornaTipo();
+		
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<T> criteria = builder.createQuery(clazz);
+		Root<T> root = criteria.from(clazz);
+		
+		if (params != null) {
+			
+			for (Map.Entry<Pair<String, String>, Object> param : params.entrySet()) {
+				Pair<String, String> key = param.getKey();
+				
+				if (key.getY().equals("=")) {
+					criteria.where(builder.equal(root.get(key.getX()), param.getValue()));
+					
+				} else if (key.getY().equals("<>")) {
+					criteria.where(builder.notEqual(root.get(key.getX()), param.getValue()));
+					
+				} else if (key.getY().equals("like")) {
+					criteria.where(builder.like(root.get(key.getX()), "%" + param.getValue() + "%"));
+				}
+			}
+		}
+		
+		return manager.createQuery(criteria).getResultList();
 	}
 
 	public void delete(T type) {

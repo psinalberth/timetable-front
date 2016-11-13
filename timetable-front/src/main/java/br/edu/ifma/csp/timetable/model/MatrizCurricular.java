@@ -29,26 +29,26 @@ public class MatrizCurricular extends Entidade {
 	@Column(name="ID_MATRIZ")
 	private int id;
 	
-	@NotNull(message="O ano é obrigatório.")
+	@NotNull(message="O <b>ano</b> é obrigatório.")
 	@Column(name="ANO", columnDefinition="SMALLINT(4)")
 	private Integer ano;
 	
-	@NotNull(message="A quantidade de semestres é obrigatória.")
+	@NotNull(message="A quantidade de <b>semestres</b> é obrigatória.")
 	@Column(name="SEMESTRES", columnDefinition="TINYINT(2)")
 	private Integer semestres;
 	
-	@NotNull(message="O curso é obrigatório.")
+	@NotNull(message="O <b>curso</b> é obrigatório.")
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_CURSO")
 	private Curso curso;
 	
-	@NotNull(message="O turno é obrigatório.")
+	@NotNull(message="O <b>turno</b> é obrigatório.")
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_TURNO")
 	private Turno turno;
 	
 	@Valid
-	@Size(min=1, message="Nenhum período adicionado.")
+	@Size(min=1, message="Nenhum <b>período</b> adicionado.")
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="matrizCurricular", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Periodo> periodos = new ArrayList<Periodo>();
 	

@@ -3,6 +3,8 @@ package br.edu.ifma.csp.timetable.repository;
 import java.util.List;
 import java.util.Map;
 
+import org.zkoss.util.Pair;
+
 import br.edu.ifma.csp.timetable.model.Entidade;
 
 /**
@@ -58,7 +60,7 @@ public interface Repository<T extends Entidade> {
 	public List<T> allBy(String coluna, Object valor, boolean like);
 	
 	
-	public List<T> allBy(Map<String, Object> params);
+	public List<T> allBy(Map<Pair<String, String>, Object> params);
 	
 	public List<T> allByCodigoOrDescricao(String codigo, String descricao);
 	

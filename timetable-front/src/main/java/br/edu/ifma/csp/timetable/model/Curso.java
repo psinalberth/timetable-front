@@ -31,21 +31,21 @@ public class Curso extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotBlank(message="codigo#O código é obrigatório.")
+	@NotBlank(message="codigo#O <b>código</b> é obrigatório.")
 	@Column(name="CODIGO", unique=true, length=2)
-	@Unique(message="codigo#O código selecionado já está em uso.")
-	@Pattern(regexp="^[\\p{Alpha}]{2}$", message="O código deve ser alfabético de dois dígitos.")
+	@Unique(message="codigo#O <b>código</b> selecionado já está em uso.")
+	@Pattern(regexp="^[\\p{Alpha}]{2}$", message="O <b>código</b> deve ser alfabético de dois dígitos.")
 	private String codigo;
 	
-	@NotBlank(message="nome#O nome é obrigatório.")
+	@NotBlank(message="nome#O <b>nome</b> é obrigatório.")
 	@Column(name="NOME", length=80)
 	private String nome;
 	
-	@NotBlank(message="descricao#A descrição é obrigatória.")
+	@NotBlank(message="descricao#A <b>descrição</b> é obrigatória.")
 	@Column(name="DESCRICAO", length=100)
 	private String descricao;
 	
-	@NotNull(message="O departamento é obrigatório.")
+	@NotNull(message="O <b>departamento</b> é obrigatório.")
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_DEPARTAMENTO")
 	private Departamento departamento;

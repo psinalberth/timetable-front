@@ -28,15 +28,15 @@ public class Local extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotBlank(message="O nome é obrigatório.")
+	@NotBlank(message="O <b>nome</b> é obrigatório.")
 	@Column(name="NOME", length=80)
 	private String nome;
 	
-	@NotNull(message="A capacidade é obrigatória.")
+	@NotNull(message="A <b>capacidade</b> é obrigatória.")
 	@Column(name="CAPACIDADE", columnDefinition="TINYINT(3)")
 	private Integer capacidade;
 	
-	@NotNull(message="O tipo de local é obrigatório.")
+	@NotNull(message="O <b>tipo de local</b> é obrigatório.")
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_TIPO_LOCAL")
 	private TipoLocal tipoLocal;

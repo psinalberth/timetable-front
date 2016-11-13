@@ -34,15 +34,15 @@ public class Professor extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotBlank(message="nome#O nome é obrigatório.")
+	@NotBlank(message="nome#O <b>nome</b> é obrigatório.")
 	@Column(name="NOME", length=100)
 	private String nome;
 	
-	@NotBlank(message="endereco#O endereço é obrigatório.")
+	@NotBlank(message="endereco#O <b>endereço</b> é obrigatório.")
 	@Column(name="ENDERECO", length=140)
 	private String endereco;
 	
-	@NotNull(message="O departamento é obrigatório.")
+	@NotNull(message="O <b>departamento</b> é obrigatório.")
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_DEPARTAMENTO")
 	private Departamento departamento;
@@ -51,7 +51,7 @@ public class Professor extends Entidade {
 	private Set<Aula> aulas = new HashSet<Aula>();
 	
 	@Valid
-	@Size(min=1, message="Nenhuma preferência adicionada.")
+	@Size(min=1, message="Nenhuma <b>preferência</b> adicionada.")
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="professor", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<PreferenciaDisciplinaProfessor> preferenciasDisciplina = new ArrayList<PreferenciaDisciplinaProfessor>();
 	

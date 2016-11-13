@@ -3,11 +3,8 @@ package br.edu.ifma.csp.timetable.viewmodel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -19,12 +16,11 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValuesException;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Column;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Row;
-import org.zkoss.zul.Vbox;
+import org.zkoss.zul.Vlayout;
 
 import br.edu.ifma.csp.timetable.dao.HorarioDao;
 import br.edu.ifma.csp.timetable.dao.LocalDao;
@@ -90,10 +86,10 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	@Command
 	@NotifyChange("*")
 	public void salvar() {
-	
-		Validations.validate(null, entidadeSelecionada, repository);
 		
 		try {
+			
+			Validations.validate(entidadeSelecionada, repository);
 			
 			setProfessor(null);
 			setPeriodo(null);
@@ -106,10 +102,7 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			buildRows();
 			
 		} catch (WrongValuesException ex) {
-			
-			Clients.showNotification("AA");
-			
-			ex.printStackTrace();
+			Validations.showValidationErrors();
 		}
 	}
 	
@@ -124,32 +117,21 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			Row row = new Row();
 			
 			Label label = new Label(horario.toString());
-			//label.setSclass("z-column");
 			
-			Vbox layoutSegunda = new Vbox();
+			Vlayout layoutSegunda = new Vlayout();
 			layoutSegunda.setSpacing("20px");
-			//layoutSegunda.setAlign("center");
-			//layoutSegunda.setPack("center");
 			
-			Vbox layoutTerca = new Vbox();
+			Vlayout layoutTerca = new Vlayout();
 			layoutTerca.setSpacing("20px");
-//			layoutTerca.setAlign("center");
-//			layoutTerca.setPack("center");
-			
-			Vbox layoutQuarta = new Vbox();
+
+			Vlayout layoutQuarta = new Vlayout();
 			layoutQuarta.setSpacing("20px");
-//			layoutQuarta.setAlign("center");
-//			layoutQuarta.setPack("center");
 			
-			Vbox layoutQuinta = new Vbox();
+			Vlayout layoutQuinta = new Vlayout();
 			layoutQuinta.setSpacing("20px");
-//			layoutQuinta.setAlign("center");
-//			layoutQuinta.setPack("center");
 			
-			Vbox layoutSexta = new Vbox();
+			Vlayout layoutSexta = new Vlayout();
 			layoutSexta.setSpacing("20px");
-//			layoutSexta.setAlign("center");
-//			layoutSexta.setPack("center");
 			
 			row.getChildren().addAll(Arrays.asList(new Component[]{label, layoutSegunda, layoutTerca, layoutQuarta, layoutQuinta, layoutSexta}));
 			grid.getRows().getChildren().add(row);
@@ -157,10 +139,7 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 		
 		for (Aula aula : entidadeSelecionada.getAulas()) {
 				
-			Vbox vlayout = new Vbox();
-			
-			//vlayout.setPack("center");
-			//vlayout.setAlign("center");
+			Vlayout vlayout = new Vlayout();	
 			
 			Label labelPeriodo = new Label(String.valueOf(entidadeSelecionada.getMatrizCurricular().getCurso().getCodigo() + "." + aula.getPeriodo()));
 			labelPeriodo.setSclass("grid-label");
@@ -256,11 +235,11 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			
 				for (Component x : c.getChildren()) {
 					
-					if (x instanceof Vbox && c.getChildren().size() > 0) {
+					if (x instanceof Vlayout && c.getChildren().size() > 0) {
 						
 						for (Component v : x.getChildren()) {
 							
-							if (v instanceof Vbox && v.getChildren().size() > 0) {
+							if (v instanceof Vlayout && v.getChildren().size() > 0) {
 								
 								Component local = v.getChildren().get(2);
 								Component comp = v.getChildren().get(1);
@@ -301,10 +280,6 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	@NotifyChange("entidadeSelecionada")
 	public void onChange() {
 		
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("matrizCurricular", entidadeSelecionada.getMatrizCurricular());
-		
-		BindUtils.postGlobalCommand(null, null, "setMatrizCurricular", params);
 	}
 	
 	@Command

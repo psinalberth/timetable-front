@@ -30,17 +30,17 @@ public class Disciplina extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@Unique(message="A sigla selecionada já está em uso.")
-	@NotBlank(message="A sigla é obrigatória.")
+	@Unique(message="A <b>sigla</b> selecionada já está em uso.")
+	@NotBlank(message="A <b>sigla</b> é obrigatória.")
 	@Column(name="SIGLA", length=10)
 	private String sigla;
 	
-	@Unique(message="O código selecionado já está em uso.")
-	@NotNull(message="O código é obrigatório.")
+	@Unique(message="O <b>código</b> selecionado já está em uso.")
+	@NotNull(message="O <b>código</b> é obrigatório.")
 	@Column(name="CODIGO", columnDefinition="SMALLINT(3)")
 	private Integer codigo;
 	
-	@NotBlank(message="descricao#A descrição é obrigatória.")
+	@NotBlank(message="descricao#A <b>descrição</b> é obrigatória.")
 	@Column(name="DESCRICAO", length=100)
 	private String descricao;
 	

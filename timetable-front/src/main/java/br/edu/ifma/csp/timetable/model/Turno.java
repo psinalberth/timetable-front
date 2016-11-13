@@ -27,16 +27,16 @@ public class Turno extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@Unique(message="O código selecionado já está em uso.")
-	@NotBlank(message="codigo#O código é obrigatório.")
+	@Unique(message="O <b>código</b> selecionado já está em uso.")
+	@NotBlank(message="codigo#O <b>código</b> é obrigatório.")
 	@Column(name="CODIGO", unique=true, length=10)
 	private String codigo;
 	
-	@NotBlank(message="nome#O nome é obrigatório.")
+	@NotBlank(message="nome#O <b>nome</b> é obrigatório.")
 	@Column(name="NOME", length=40)
 	private String nome;
 	
-	@NotBlank(message="descricao#A descrição é obrigatória.")
+	@NotBlank(message="descricao#A <b>descrição</b> é obrigatória.")
 	@Column(name="DESCRICAO", length=80)
 	private String descricao;
 	

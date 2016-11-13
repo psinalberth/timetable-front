@@ -118,7 +118,7 @@
 											</div>
 											
 											<div sclass="row" visible="@load(detalheSelecionado.criterioPeriodo)">
-												<div sclass="col-md-4">
+												<div sclass="col-md-2">
 													<div sclass="form-group">
 														<label sclass="form-label" value="Critério"/>
 														<combobox readonly="true" autodrop="true" cols="2" sclass="form-input"
@@ -131,7 +131,7 @@
 													</div>
 												</div>
 												
-												<div sclass="col-md-8">
+												<div sclass="col-md-10">
 													
 													<div sclass="form-group" visible="@load(detalheSelecionado.criterioPeriodoHorario)">
 														<label sclass="form-label" value="Horário"/>

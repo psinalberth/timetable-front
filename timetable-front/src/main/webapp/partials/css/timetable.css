@@ -234,11 +234,46 @@ input[type=text]:focus, textarea:focus {
 	color: #523434;
 }
 
-.z-errorbox-content {
-	font-family: 'Raleway', sans-serif;
+.z-notification {
+	width: 300px;
+}
+
+.z-notification-error .z-notification-content {
+	background: hsla(358, 98%, 79%, 0.88);
 	color: #523434;
-	font-size: 14px;
-	background: #ffc4c4;
+}
+
+.z-notification-info .z-notification-content {
+	background: rgba(94, 191, 88, 0.88);
+	//background: white;
+	color: white;
+	font-size: 20px;
+}
+
+.z-notification-icon.z-icon-times-circle:before {
+	content: '\f12a';
+	color: #523434;
+	font-size: 30px;
+	margin-top: -30px;
+}
+
+.z-notification-icon.z-icon-info-circle:before {
+	content: '\f00c';
+	font-size: 30px;
+	margin-top: -30px;
+	right: -20px;
+	color: white;
+}
+
+.z-notification-icon.z-icon-exclamation-circle:before {
+	
+}
+
+.z-errorbox-content, .z-notification-content {
+	font-family: 'Raleway', sans-serif;
+	font-size: 16px;
+	border-radius: 0;
+	width: 300px;
 }
 
 .z-icon-exclamation-triangle:before {

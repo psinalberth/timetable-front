@@ -20,10 +20,12 @@ public class DisciplinaLookupViewModel extends LookupViewModel<Disciplina> {
 	private Integer codigo;
 	private String sigla;
 	private String descricao;
+	private boolean eletiva;
 	
 	@AfterCompose(superclass=true)
-	public void init(@BindingParam("matrizCurricular") MatrizCurricular matrizCurricular) {
+	public void init(@BindingParam("matrizCurricular") MatrizCurricular matrizCurricular, @BindingParam("eletiva") boolean eletiva) {
 		this.matrizCurricular = matrizCurricular;
+		this.eletiva = eletiva;
 		build();
 	}
 	
@@ -33,7 +35,13 @@ public class DisciplinaLookupViewModel extends LookupViewModel<Disciplina> {
 		if (matrizCurricular != null) {
 			
 			disciplinas = Lookup.dao(DisciplinaDao.class);
-			setCol(disciplinas.allByMatrizCurricular(matrizCurricular));
+			
+			if (isEletiva()) {
+				setCol(disciplinas.allEletivasByMatrizCurricular(matrizCurricular));
+				
+			} else {
+				setCol(disciplinas.allByMatrizCurricular(matrizCurricular));
+			}
 		}
 	}
 	
@@ -79,5 +87,13 @@ public class DisciplinaLookupViewModel extends LookupViewModel<Disciplina> {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public void setEletiva(boolean eletiva) {
+		this.eletiva = eletiva;
+	}
+	
+	public boolean isEletiva() {
+		return eletiva;
 	}
 }

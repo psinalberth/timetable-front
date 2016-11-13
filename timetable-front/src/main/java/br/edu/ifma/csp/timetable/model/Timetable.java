@@ -28,16 +28,16 @@ public class Timetable extends Entidade {
 	@Column(name="ID_TIMETABLE")
 	private int id;
 	
-	@NotNull(message="A matriz curricular é obrigatória.")
+	@NotNull(message="A <b>matriz curricular</b> é obrigatória.")
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_MATRIZ")
 	private MatrizCurricular matrizCurricular;
 	
-	@NotNull(message="O ano é obrigatório.")
+	@NotNull(message="O <b>ano</b> é obrigatório.")
 	@Column(name="ANO", columnDefinition="SMALLINT(4)")
 	private Integer ano;
 	
-	@NotNull(message="O semestre é obrigatório.")
+	@NotNull(message="O <b>semestre</b> é obrigatório.")
 	@Column(name="SEMESTRE", columnDefinition="TINYINT(1)")
 	private Integer semestre;
 	

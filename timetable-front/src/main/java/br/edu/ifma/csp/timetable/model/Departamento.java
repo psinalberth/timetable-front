@@ -28,17 +28,17 @@ public class Departamento extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotBlank(message="codigo#O código é obrigatório.")
+	@NotBlank(message="codigo#O <b>código</b> é obrigatório.")
 	@Column(name="CODIGO", unique=true, length=5)
 	@Unique(message="codigo#O código selecionado já está em uso.")
 	@Pattern(regexp="^[\\p{Alpha}]{3,5}$", message="O código deve ser alfabético de três a cinco dígitos.")
 	private String codigo;
 	
-	@NotBlank(message="nome#O nome é obrigatório.")
+	@NotBlank(message="nome#O <b>nome</b> é obrigatório.")
 	@Column(name="NOME", length=80)
 	private String nome;
 	
-	@NotBlank(message="descricao#A descrição é obrigatória.")
+	@NotBlank(message="descricao#A <b>descrição</b> é obrigatória.")
 	@Column(name="DESCRICAO", length=100)
 	private String descricao;
 	

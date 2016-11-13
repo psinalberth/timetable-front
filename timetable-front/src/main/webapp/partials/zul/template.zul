@@ -36,7 +36,6 @@
 						<n:li sclass="li-menu"><a href="/curso/">Cursos</a></n:li>
 						<n:li sclass="li-menu"><a href="/matriz/">Matrizes Curriculares</a></n:li>
 						<n:li sclass="li-menu"><a href="/timetable/">Timetable</a></n:li>
-						<n:li sclass="li-menu"><a href="/turma/">Turmas</a></n:li>
 						<n:li sclass="li-menu"><a href="/turno/">Turnos</a></n:li>
 						<n:li sclass="li-menu"><a href="/horario/">Horários</a></n:li>
 						<n:li sclass="li-menu"><a href="/local/">Locais</a></n:li>
