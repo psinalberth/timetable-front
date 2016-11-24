@@ -1,8 +1,8 @@
 <zk xmlns:n="native">
 	<bandbox id="lookup" sclass="form-input" autodrop="true" readonly="true" mold="rounded" 
-	         value="@load(horarioSelecionado.horario.dia.descricao)">
+	         value="@load(horarioSelecionado.horario)">
 		<bandpopup>
-		 	<vlayout apply="br.edu.ifma.csp.timetable.composer.lookup.HorarioLookupComposer" style="padding: 0 15px">
+		 	<vlayout viewModel="@id('childVM') @init('br.edu.ifma.csp.timetable.viewmodel.lookup.HorarioLookupViewModel')" style="padding: 0 15px">
 		 		
 		 		<div class="row">
 		 			<div class="col-md-12">
@@ -31,8 +31,8 @@
 		 			</div>
 		 			<div class="col-md-2">
 			 			<div sclass="form-group">
-			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="fa fa-search" onClick="$composer.search()"/>
-			 				<button sclass="btn btn-default" label="Limpar" iconSclass="fa fa-eraser" onClick="$composer.clear()"/>
+			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="fa fa-search" onClick="@command('pesquisar')"/>
+			 				<button sclass="btn btn-default" label="Limpar" iconSclass="fa fa-eraser" onClick="@command('limpar')"/>
 			 			</div>
 		 			</div>
 		 		</div>
@@ -41,7 +41,7 @@
 				 		<listbox emptyMessage="Nenhum registro encontrado."
 				 				 onSelect="lookup.value = self.selectedItem.label; lookup.close();"
 				 				 mold="paging" autopaging="true" rows="5"
-				 				 model="@load($composer.col)" selectedItem="@bind(horarioSelecionado.horario)">
+				 				 model="@load(childVM.col)" selectedItem="@bind(horarioSelecionado.horario)">
 				 			<listhead>
 								<listheader label="Dia"/>
 								<listheader label="Início"/>

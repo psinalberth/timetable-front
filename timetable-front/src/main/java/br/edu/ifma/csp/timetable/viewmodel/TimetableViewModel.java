@@ -99,6 +99,8 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			handler.setTimetable(entidadeSelecionada);
 			handler.execute();
 			
+			repository.save(entidadeSelecionada);
+			
 			buildRows();
 			
 		} catch (WrongValuesException ex) {

@@ -4,7 +4,7 @@
 		<tabs>
 			<tab label="Dados Pessoais" iconSclass="fa fa-edit" selected="@load(vm.editando)"/>
 			<tab label="Preferências" iconSclass="fa fa-star-o"/>
-			<tab label="Disponibilidade" iconSclass="fa fa-calendar-o"/>
+			<tab label="Indisponibilidade" iconSclass="fa fa-calendar-o"/>
 		</tabs>
 		<tabpanels>
 			
@@ -69,30 +69,20 @@
 			</tabpanel>
 			
 			<tabpanel>
-				<listbox checkmark="true" multiple="true" model="@bind(vm.entidadeSelecionada.preferenciasHorario)" 
-						 emptyMessage="Nenhum registro encontrado." rows="4" autopaging="true"
-						 selectedItems="@bind(vm.preferenciasHorarioSelecionadas)">
-					<listhead>
-						<listheader hflex="min"/>
-						<listheader label="Horários">
-							<hbox style="float: right">
-								<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="@command('adicionarPreferenciaHorario')"/>
-								<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="@command('removerPreferenciaHorario')"/>
-							</hbox>
-						</listheader>
-					</listhead>
-					<template name="model" var="horarioSelecionado">
-						<listitem>
-							<listcell/>
-							<listcell>
-								<div sclass="form-group">
-									<label value="Horário" sclass="form-label"/>
-<!-- 									<include src="/partials/zul/lookup/horariolookup.zul" /> -->
-								</div>
-							</listcell>
-						</listitem>
-					</template>
-				</listbox>
+				<grid id="grid">
+					<columns>
+						<column label="Horário" align="center"/>
+						<column label="Segunda-Feira"/>
+						<column label="Terça-Feira"/>
+						<column label="Quarta-Feira"/>
+						<column label="Quinta-Feira"/>
+						<column label="Sexta-Feira"/>
+					</columns>
+					<rows>
+						
+					</rows>
+				</grid>
+
 			</tabpanel>
 		</tabpanels>
 	</tabbox>

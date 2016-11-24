@@ -42,8 +42,7 @@ public class Timetable extends Entidade {
 	private Integer semestre;
 	
 	@Valid
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="timetable", cascade=CascadeType.ALL ,orphanRemoval=true)
-	private List<Aula> aulas = new ArrayList<Aula>();
+	private transient List<Aula> aulas = new ArrayList<Aula>();
 	
 	@Valid
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="timetable", cascade=CascadeType.ALL ,orphanRemoval=true)

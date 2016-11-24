@@ -6,7 +6,7 @@
 		<tabbox>
 			<tabs>
 				<tab label="Informações Gerais" iconSclass="fa fa-edit" selected="@load(vm.editando)"/>
-				<tab label="Configurações" iconSclass="fa fa-gear"/>
+				<tab label="Detalhes" iconSclass="fa fa-gear"/>
 				<tab label="Aulas" iconSclass="fa fa-book" visible="@load(vm.solucaoEncontrada)" selected="@load(vm.solucaoEncontrada)"/>
 			</tabs>
 			<tabpanels>
@@ -45,7 +45,7 @@
 						<div class="col-md-12">
 				
 							<listbox checkmark="true" multiple="true" model="@bind(vm.entidadeSelecionada.detalhes)" 
-									 nonselectableTags="*"
+									 nonselectableTags="*" mold="paging" autopaging="true" rows="2"
 									 selectedItems="@bind(vm.detalhesSelecionados)">
 								<listhead>
 									<listheader width="30px"/>
@@ -163,69 +163,73 @@
 				<tabpanel>
 				
 					<div class="row">
-						<div class="col-md-12">
-							<div class="col-md-2">
-								<div class="form-group">	
-									<label sclass="form-label" value="Período"/>
-									<combobox readonly="true" autodrop="true" sclass="form-input" model="@load(vm.entidadeSelecionada.matrizCurricular.periodos)"
-											  selectedItem="@bind(vm.periodo)" value="@load(vm.periodo.codigo)"
-											  onSelect="vm.lookup()">
-										<template name="model" var="obj">
-											<comboitem label="@load(obj.codigo)" value="@load(obj.id)"/>
-										</template>
-									</combobox>
+					
+						<groupbox>
+							<caption label="Filtro" sclass="form-label"/>
+							<div class="col-md-12">
+								<div class="col-md-2">
+									<div class="form-group">	
+										<label sclass="form-label" value="Período"/>
+										<combobox readonly="true" autodrop="true" sclass="form-input" model="@load(vm.entidadeSelecionada.matrizCurricular.periodos)"
+												  selectedItem="@bind(vm.periodo)" value="@load(vm.periodo.codigo)"
+												  onSelect="vm.lookup()">
+											<template name="model" var="obj">
+												<comboitem label="@load(obj.codigo)" value="@load(obj.id)"/>
+											</template>
+										</combobox>
+									</div>
+								</div>
+								<div class="col-md-1">
+									<div class="form-group">
+										<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="@command('limpar', opc=1)" tooltiptext="Limpar"/>
+									</div>	
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label sclass="form-label" value="Professor"/>
+										<combobox sclass="form-input" readonly="true" model="@load(vm.colProfessores)" 
+												  value="@load(vm.professor)" selectedItem="@bind(vm.professor)"
+												  onSelect="vm.lookup()">
+											<template name="model" var="obj">
+												<comboitem label="@load(obj.nome)" value="@bind(obj)"/>
+											</template>
+										</combobox>
+									</div>
+								</div>
+								<div class="col-md-1">
+									<div class="form-group">
+										<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="@command('limpar', opc=2)" tooltiptext="Limpar"/>
+									</div>	
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label sclass="form-label" value="Local"/>
+										<combobox sclass="form-input" readonly="true" model="@load(vm.colLocais)" 
+												  value="@load(vm.local)" selectedItem="@bind(vm.local)"
+												  onSelect="vm.lookup()">
+											<template name="model" var="obj">
+												<comboitem label="@load(obj.nome)" value="@bind(obj)"/>
+											</template>
+										</combobox>
+									</div>
+								</div>
+								<div class="col-md-1">
+									<div class="form-group">
+										<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="@command('limpar', opc=3)" tooltiptext="Limpar"/>
+									</div>	
 								</div>
 							</div>
-							<div class="col-md-1">
-								<div class="form-group">
-									<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="@command('limpar', opc=1)" tooltiptext="Limpar"/>
-								</div>	
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label sclass="form-label" value="Professor"/>
-									<combobox sclass="form-input" readonly="true" model="@load(vm.colProfessores)" 
-											  value="@load(vm.professor)" selectedItem="@bind(vm.professor)"
-											  onSelect="vm.lookup()">
-										<template name="model" var="obj">
-											<comboitem label="@load(obj.nome)" value="@bind(obj)"/>
-										</template>
-									</combobox>
-								</div>
-							</div>
-							<div class="col-md-1">
-								<div class="form-group">
-									<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="@command('limpar', opc=2)" tooltiptext="Limpar"/>
-								</div>	
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label sclass="form-label" value="Local"/>
-									<combobox sclass="form-input" readonly="true" model="@load(vm.colLocais)" 
-											  value="@load(vm.local)" selectedItem="@bind(vm.local)"
-											  onSelect="vm.lookup()">
-										<template name="model" var="obj">
-											<comboitem label="@load(obj.nome)" value="@bind(obj)"/>
-										</template>
-									</combobox>
-								</div>
-							</div>
-							<div class="col-md-1">
-								<div class="form-group">
-									<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="@command('limpar', opc=3)" tooltiptext="Limpar"/>
-								</div>	
-							</div>
-						</div>
+						</groupbox>
 					</div>
 					
 					<grid id="grid">
 						<columns>
 							<column label="Horário" align="center"/>
-							<column label="Segunda-Feira" align="center"/>
-							<column label="Terça-Feira" align="center"/>
-							<column label="Quarta-Feira" align="center"/>
-							<column label="Quinta-Feira" align="center"/>
-							<column label="Sexta-Feira" align="center"/>
+							<column label="Segunda-Feira"/>
+							<column label="Terça-Feira"/>
+							<column label="Quarta-Feira"/>
+							<column label="Quinta-Feira"/>
+							<column label="Sexta-Feira"/>
 						</columns>
 						<rows>
 							

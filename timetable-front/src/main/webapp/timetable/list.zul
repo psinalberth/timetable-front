@@ -1,13 +1,13 @@
 <zk>
-	<listbox model="@bind(vm.col)" selectedItem="@bind(vm.entidadeSelecionada)" onSelect="vm.editar()" emptyMessage="Nenhum registro encontrado.">
+	<listbox model="@bind(vm.col)" selectedItem="@bind(vm.entidadeSelecionada)" onSelect="@command('editar')" emptyMessage="Nenhum registro encontrado.">
 		<listhead>
 			<listheader label="Nome"/>
 			<listheader label="Descrição"/>
 		</listhead>
 		<template name="model" var="obj">
-			<listitem value="@bind(obj)">
-				<listcell label="@load(obj.nome)"/>
-				<listcell label="@load(obj.descricao)"/>
+			<listitem value="@bind(obj)" sclass="list">
+				<listcell label="@load(obj.matrizCurricular)"/>
+				<listcell label="@load(obj.ano)"/>
 			</listitem>
 		</template>
 	</listbox>

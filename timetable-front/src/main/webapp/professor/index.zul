@@ -13,8 +13,8 @@
 				<include src="list.zul"/>
 			</div>
 			
-			<div id="form" visible="@bind(vm.editando)">
-				<include src="form.zul"/>
+			<div visible="@bind(vm.editando)">
+				<include id="form" src="form.zul"/>
 			</div>	
 		</div>
 	</div>

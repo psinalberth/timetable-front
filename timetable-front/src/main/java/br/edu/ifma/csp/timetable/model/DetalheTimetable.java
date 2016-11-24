@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name="DETALHE_TIMETABLE")
 public class DetalheTimetable extends Entidade {
@@ -22,20 +24,35 @@ public class DetalheTimetable extends Entidade {
 	@Column(name="ID_DETALHE")
 	private int id;
 	
+	@NotBlank(message="A entidade é obrigatória.")
+	@Column(name="ENTIDADE")
 	private String entidade;
-
+	
+	@ManyToOne
+	@JoinColumn(name="ID_PROFESSOR")
 	private Professor professor;
 	
+	@NotBlank(message="O critério é obrigatório.")
+	@Column(name="CRITERIO")
 	private String criterio;
 	
+	@ManyToOne
+	@JoinColumn(name="ID_DISCIPLINA")
 	private Disciplina disciplina;
 	
+	@ManyToOne
+	@JoinColumn(name="ID_LOCAL")
 	private Local local;
 	
+	@ManyToOne
+	@JoinColumn(name="ID_PERIODO")
 	private Periodo periodo;
 	
+	@ManyToOne
+	@JoinColumn(name="ID_HORARIO")
 	private Horario horario;
 	
+	@Column(name="HORARIO_INICIO")
 	private String horarioInicio;
 	
 	@NotNull

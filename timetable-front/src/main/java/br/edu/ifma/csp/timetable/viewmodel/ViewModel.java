@@ -158,18 +158,6 @@ public abstract class ViewModel<T extends Entidade> {
 		this.consultando = consultando;
 	}
 	
-	/*public boolean isEditando() {
-		return entidadeSelecionada != null;
-	}
-	
-	public boolean isConsultando() {
-		return !isEditando();
-	}
-	
-	public boolean isRemovivel() {
-		return !(isEditando() && entidadeSelecionada.getId() != 0);
-	}*/
-	
 	public List<T> getCol() {
 		return col;
 	}
