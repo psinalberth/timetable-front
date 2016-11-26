@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
@@ -29,6 +31,7 @@ import br.edu.ifma.csp.timetable.model.Horario;
 import br.edu.ifma.csp.timetable.model.Local;
 import br.edu.ifma.csp.timetable.model.MatrizCurricular;
 import br.edu.ifma.csp.timetable.model.Periodo;
+import br.edu.ifma.csp.timetable.model.PreferenciaHorarioProfessor;
 import br.edu.ifma.csp.timetable.model.Professor;
 import br.edu.ifma.csp.timetable.model.Timeslot;
 import br.edu.ifma.csp.timetable.model.Timetable;
@@ -214,6 +217,8 @@ public class TimetableHandler {
 		manterHorariosPeriodoEntreConstraint();
 		
 		manterDisciplinasComAulaLaboratorioConstraint();
+		
+		manterHorariosIndisponiveisProfessor();
 	}
 
 	
@@ -364,7 +369,81 @@ public class TimetableHandler {
 		}
 		
 		for (int i = 0; i < varProfessores.length; i++) {			
-			model.table(varDisciplinas[i], varProfessores[i], tuples).post();
+			//model.table(varDisciplinas[i], varProfessores[i], tuples).post();
+		}
+	}
+	
+	private void manterHorariosIndisponiveisProfessor() {
+		
+		for (int i = 0; i < timeslots.size(); i ++) {
+			
+			Tuples tuples = new Tuples(true);
+			
+			Timeslot timeslot = timeslots.get(i);
+			
+			List<DetalheTimetable> detalhes = getDetalhesCriterioDisciplina(timeslot.getDisciplina().getValue());
+			List<Professor> professoresDisciplina = professores.allByPreferenciaDisciplina(disciplinas.byId(timeslot.getDisciplina().getValue()));
+			
+			if (detalhes.size() > 0) {
+				
+				for (DetalheTimetable detalhe : detalhes) {
+					
+					if ("Lecionada por".equals(detalhe.getCriterio())) {
+						//tuples.add(disciplinasId[i], detalhe.getProfessor().getId());
+						
+						professoresDisciplina.removeIf(new Predicate<Professor>() {
+
+							@Override
+							public boolean test(Professor professor) {
+								return professor.getId() != detalhe.getProfessor().getId();
+							}
+						});
+						
+					} else if ("Não lecionada por".equals(detalhe.getCriterio())) {
+						
+						professoresDisciplina.removeIf(new Predicate<Professor>() {
+
+							@Override
+							public boolean test(Professor professor) {
+								return professor.getId() == detalhe.getProfessor().getId();
+							}
+						});
+					}
+				}
+			}
+			
+			for (Professor professor : professoresDisciplina) {
+				
+				if (professor.getPreferenciasHorario().size() > 0) {
+					
+					int [] horariosDisponiveis = getHorariosDisponiveisProfessor(professor);
+					int [] horariosIndisponiveis = getHorariosIndisponiveisProfessor(professor);
+					
+				//	for (int k = 0; k < timeslot.getHorarios().size(); k++) {
+						
+						for (int j = 0; j < horariosDisponiveis.length; j++) {
+							tuples.add(timeslot.getDisciplina().getValue(), professor.getId(), horariosDisponiveis[j]);
+						}
+						
+						for (int j = 0; j < horariosIndisponiveis.length; j++) {
+							//tuples.add(timeslot.getDisciplina().getValue(), professor.getId(), horariosIndisponiveis[j]);
+						}
+				//	}
+
+				} else {
+					
+					for (int j = 0; j < horariosId.length; j++) {
+						tuples.add(timeslot.getDisciplina().getValue(), professor.getId(), j);
+					}
+				}
+			}
+			
+			for (int j = 0; j < timeslot.getHorarios().size(); j++) {
+				
+				IntVar horario = timeslot.getHorarios().get(j);
+				
+				model.table(new IntVar[] {timeslot.getDisciplina(), timeslot.getProfessor(), horario}, tuples).post();
+			}
 		}
 	}
 	
@@ -395,25 +474,55 @@ public class TimetableHandler {
 
 	private void manterProfessoresComHorarioUnicoConstraint() {
 		
-		varHorariosProfessor = new IntVar[professoresId.length][];
+		varHorariosProfessor = new IntVar[professoresId.length][];	
 		
 		for (int i = 0; i < professoresId.length; i++) {
 			
+			Tuples tuples = new Tuples(true);
+			
 			List<IntVar> horarios = new ArrayList<IntVar>();
 			
-			int [] disciplinasProfessorId = extrairIds(disciplinas.allByPreferenciaProfessor(professores.byId(professoresId[i])));
+			Professor professor = professores.byId(professoresId[i]);
+			
+			int [] disciplinasProfessorId = extrairIds(disciplinas.allByPreferenciaProfessor(professor));
 			
 			for (int j = 0; j < disciplinasProfessorId.length; j++) {
 				
 				if (getTimeslotDisciplina(disciplinasProfessorId[j]) != null) {
-				
 					horarios.addAll(getTimeslotDisciplina(disciplinasProfessorId[j]).getHorarios());
 				}
 			}
 			
+			if (professor.getPreferenciasHorario().size() > 0) {
+			
+				int [] horariosDisponiveis = getHorariosDisponiveisProfessor(professor);
+				int [] horariosIndisponiveis = getHorariosIndisponiveisProfessor(professor);
+				
+				for (int j = 0; j < horariosDisponiveis.length; j++) {
+					tuples.add(professoresId[i], horariosDisponiveis[j]);
+				}
+				
+				for (int j = 0; j < horariosIndisponiveis.length; j++) {
+					tuples.add(professoresId[i], horariosIndisponiveis[j]);
+				}
+				
+			} else {
+				
+				for (int j = 0; j < horariosId.length; j++) {
+					tuples.add(professoresId[i], j);
+				}
+			}
+			
 			varHorariosProfessor[i] = horarios.toArray(new IntVar[horarios.size()]);
+			
 			model.allDifferent(varHorariosProfessor[i], "NEQS").post();
+			
+			for (int j = 0; j < varHorariosProfessor[i].length; j++) {
+				model.table(varProfessores[i], varHorariosProfessor[i][j], tuples);
+			}
 		}
+		
+		System.out.println();
 	}
 	
 	/**
@@ -824,6 +933,36 @@ public class TimetableHandler {
 		}
 		
 		return listaDetalhes;
+	}
+	
+	private int [] getHorariosIndisponiveisProfessor(Professor professor) {
+		
+		List<Integer> lista = new ArrayList<Integer>();
+		
+		for (int i = 0; i < listHorarios.size(); i++) {
+			
+			for (PreferenciaHorarioProfessor pref : professor.getPreferenciasHorario()) {
+				
+				if (pref.getHorario().getId() == listHorarios.get(i).getId()) {
+					lista.add(i);
+				}
+			}
+		}
+		
+		return Arrays.stream(lista.toArray(new Integer[lista.size()])).mapToInt(Integer::intValue).toArray();
+	}
+	
+	private int [] getHorariosDisponiveisProfessor(Professor professor) {
+		
+		List<Integer> lista = new ArrayList<Integer>(Arrays.asList(IntStream.rangeClosed(0, horariosId.length - 1).boxed().toArray(Integer[]::new)));
+		
+		int [] listaIndisponiveis = getHorariosIndisponiveisProfessor(professor);
+		
+		List<Integer> temp = new ArrayList<>(IntStream.of(listaIndisponiveis).boxed().collect(Collectors.toList()));
+		
+		lista.removeAll(temp);
+		
+		return Arrays.stream(lista.toArray(new Integer[lista.size()])).mapToInt(Integer::intValue).toArray();
 	}
 	
 	private int [] getDisciplinasPorPeriodo(int periodo) {
