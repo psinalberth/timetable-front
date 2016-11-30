@@ -10,7 +10,6 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
-import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValuesException;
@@ -57,8 +56,8 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	
 	private List<DetalheTimetable> detalhesSelecionados;
 	
-	@Init
 	@AfterCompose(superclass=true)
+	@NotifyChange({"colProfessores", "colLocais"})
 	public void init(@ContextParam(ContextType.VIEW) Component view) {
 		
 		horarios = Lookup.dao(HorarioDao.class);
@@ -84,7 +83,7 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	}
 	
 	@Command
-	@NotifyChange("*")
+	@NotifyChange({"entidadeSelecionada", "consultando", "removivel", "editando", "col", "professor", "periodo", "local", "solucaoEncontrada"})
 	public void salvar() {
 		
 		try {
@@ -95,11 +94,11 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			setPeriodo(null);
 			setLocal(null);
 			
+			repository.save(entidadeSelecionada);
+			
 			TimetableHandler handler = new TimetableHandler();
 			handler.setTimetable(entidadeSelecionada);
 			handler.execute();
-			
-			repository.save(entidadeSelecionada);
 			
 			buildRows();
 			

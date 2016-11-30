@@ -2,7 +2,11 @@
 
 @font-face {
 	font-family: 'Raleway';
-	src: url('../fonts/raleway/Raleway-Bold.ttf'),
+	src: url('../fonts/raleway/Raleway-Black.ttf'),
+	url('../fonts/raleway/Raleway-BlackItalic.ttf'),
+	url('../fonts/raleway/Raleway-BoldItalic.ttf'),
+	url('../fonts/raleway/Raleway-ExtraBold.ttf'),
+	url('../fonts/raleway/Raleway-Bold.ttf'),
 	url('../fonts/raleway/Raleway-Regular.ttf'),
 	url('../fonts/raleway/Raleway-Heavy.ttf'),
 	url('../fonts/raleway/Raleway-Light.ttf'),
@@ -64,6 +68,15 @@ input[type=text]:focus, textarea:focus {
   outline: none;
   border-bottom: 0;
   box-shadow: -8px 10px 0px -7px #347abe, 8px 10px 0px -7px #347abe;
+}
+
+input[type=checkbox]:checked{
+    content: "\2605";
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+    font-size: 15px;
+    color: #347abe;
+    text-align: center;
+    line-height: 15px;
 }
 
 /* ------------------- */

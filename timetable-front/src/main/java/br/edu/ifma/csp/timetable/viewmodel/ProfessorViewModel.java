@@ -75,6 +75,8 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 		
 		super.editar();
 		
+		initHorarios();
+		
 		for (PreferenciaHorarioProfessor preferencia : entidadeSelecionada.getPreferenciasHorario()) {
 			
 			int rowIndex = getRowIndex(preferencia.getHorario().getHoraInicio().toString());

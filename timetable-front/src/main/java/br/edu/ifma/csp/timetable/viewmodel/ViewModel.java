@@ -28,10 +28,6 @@ public abstract class ViewModel<T extends Entidade> {
 	protected Repository<T> repository;
 	protected T entidadeSelecionada;
 	
-	private Boolean editando;
-	private Boolean consultando;
-	private Boolean removivel;
-	
 	private List<T> col;
 	
 	@AfterCompose
@@ -52,10 +48,6 @@ public abstract class ViewModel<T extends Entidade> {
 		entidadeSelecionada = retornaTipo().newInstance();
 		entidadeSelecionada.setUsuarioUltAlteracao("user");
 		entidadeSelecionada.setDataUltAlteracao(new Date());
-		
-		setEditando(true);
-		setConsultando(false);
-		setRemovivel(true);
 	}
 	
 	@Command
@@ -84,19 +76,12 @@ public abstract class ViewModel<T extends Entidade> {
 	
 		setEntidadeSelecionada(null);
 		setCol(repository.all());
-		
-		setConsultando(true);
-		setEditando(false);
-		setRemovivel(true);
 	}
 	
 	@Command
 	@NotifyChange({"entidadeSelecionada", "consultando", "removivel", "editando"})
 	public void editar() {
 		
-		setEditando(true);
-		setConsultando(false);
-		setRemovivel(false);
 	}
 	
 	@Command
@@ -134,29 +119,20 @@ public abstract class ViewModel<T extends Entidade> {
 	    return (Class<T>) tipoGenerico.getActualTypeArguments()[0];
     }
 	
-	public Boolean getRemovivel() {
-		return removivel;
+	public boolean isRemovivel() {
+		return entidadeSelecionada != null && entidadeSelecionada.getId() != 0;
 	}
 	
-	public void setRemovivel(Boolean removivel) {
-		this.removivel = removivel;
+	
+	public boolean isEditando() {
+		return entidadeSelecionada != null;
 	}
 	
-	public Boolean getEditando() {
-		return editando;
+	
+	public boolean isConsultando() {
+		return !isEditando();
 	}
 	
-	public void setEditando(Boolean editando) {
-		this.editando = editando;
-	}
-	
-	public Boolean getConsultando() {
-		return consultando;
-	}
-	
-	public void setConsultando(Boolean consultando) {
-		this.consultando = consultando;
-	}
 	
 	public List<T> getCol() {
 		return col;
