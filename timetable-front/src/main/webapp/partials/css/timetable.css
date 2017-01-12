@@ -47,7 +47,7 @@ input[type=radio], .z-radio-content {
 	width: 50%;
 }
 
-input[type=text]{
+input[type=text],input[type=text][readonly]{
   background: transparent;
   outline: none;
   height:22px;
@@ -430,7 +430,7 @@ input[type=checkbox]:checked{
 }
 
 .z-listbox-paging-bottom {
-	border: 0;
+
 }
 
 @media(max-width:500px) {

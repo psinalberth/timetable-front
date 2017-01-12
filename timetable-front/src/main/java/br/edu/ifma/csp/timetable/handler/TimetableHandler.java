@@ -903,20 +903,6 @@ public class TimetableHandler {
 		return listaDetalhes;
 	}
 	
-	private int getTimeslotsProfessor(int professor) {
-		
-		int result = 0;
-		
-		for (Timeslot timeslot : timeslots) {
-			
-			if (timeslot.getProfessor().getValue() == professor) {
-				result += timeslot.getHorarios().size();
-			}
-		}
-		
-		return result;
-	}
-	
 	private int [] getHorariosIndisponiveisProfessor(Professor professor) {
 		
 		List<Integer> lista = new ArrayList<Integer>();
