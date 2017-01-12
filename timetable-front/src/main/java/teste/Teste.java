@@ -1,4 +1,5 @@
-package br.edu.ifma.csp.timetable.handler;
+package teste;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +13,7 @@ import java.util.stream.IntStream;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.constraints.extension.Tuples;
+import org.chocosolver.solver.search.strategy.Search;
 import org.chocosolver.solver.variables.IntVar;
 
 import br.edu.ifma.csp.timetable.dao.DetalheDisciplinaDao;
@@ -20,7 +22,7 @@ import br.edu.ifma.csp.timetable.dao.HorarioDao;
 import br.edu.ifma.csp.timetable.dao.LocalDao;
 import br.edu.ifma.csp.timetable.dao.ProfessorDao;
 import br.edu.ifma.csp.timetable.dao.TipoLocalDao;
-import br.edu.ifma.csp.timetable.model.Aula;
+import br.edu.ifma.csp.timetable.handler.TimetableHandler;
 import br.edu.ifma.csp.timetable.model.Departamento;
 import br.edu.ifma.csp.timetable.model.DetalheDisciplina;
 import br.edu.ifma.csp.timetable.model.DetalheTimetable;
@@ -42,7 +44,6 @@ import br.edu.ifma.csp.timetable.repository.Locais;
 import br.edu.ifma.csp.timetable.repository.Professores;
 import br.edu.ifma.csp.timetable.repository.TiposLocal;
 import br.edu.ifma.csp.timetable.util.Lookup;
-import teste.Grade;
 
 /**
  * Modelo de Timetable utilizado na resolução do Problema de Alocação de Horários do IFMA. <br>
@@ -65,9 +66,7 @@ import teste.Grade;
  * @author inalberth
  * @since 2016
  */
-public class TimetableHandler {
-	
-	private Timetable timetable;
+public class Teste {
 	
 	private Disciplinas disciplinas;
 	private Professores professores;
@@ -91,11 +90,17 @@ public class TimetableHandler {
 	
 	List<Timeslot> timeslots;
 	
+	private MatrizCurricular matrizCurricular;
+	
+	private Timetable timetable;
+	
 	int [] disciplinasId;
 	int [] professoresId;
 	int [] horariosId;
 	int [] locaisId;
 	int [] aulas;
+	
+	private int numeroPeriodos;
 	
 	int [][] periodos;
 	
@@ -112,8 +117,8 @@ public class TimetableHandler {
 		detalhesDisciplina = Lookup.dao(DetalheDisciplinaDao.class);
 		
 		listProfessores = professores.all();
-		listDisciplina = disciplinas.allObrigatoriasByMatrizCurricular(timetable.getMatrizCurricular());
-		listDetalhes = allByMatrizCurricular(timetable.getMatrizCurricular());
+		listDisciplina = allObrigatoriasAtePeriodo(getMatrizCurricular(), getNumeroPeriodos());
+		listDetalhes = allByMatrizCurricular(getMatrizCurricular());
 		listHorarios = horarios.all();
 		listLocais = locais.all();
 		
@@ -159,11 +164,11 @@ public class TimetableHandler {
 		varHorariosDisciplina = new IntVar[varDisciplinas.length][];
 		varHorariosLocal = new IntVar[varDisciplinas.length][];
 		
-		periodos = new int[timetable.getMatrizCurricular().getPeriodos().size()][];
+		periodos = new int[numeroPeriodos][];
 		
-		for (int i = 0; i < timetable.getMatrizCurricular().getPeriodos().size(); i++) {
+		for (int i = 0; i < numeroPeriodos; i++) {
 			
-			Periodo periodo = timetable.getMatrizCurricular().getPeriodos().get(i);
+			Periodo periodo = getMatrizCurricular().getPeriodos().get(i);
 			
 			List<DetalheDisciplina> detalhes = allByPeriodo(listDetalhes, periodo);
 			
@@ -200,8 +205,6 @@ public class TimetableHandler {
 			timeslots.add(timeslot);
 		}
 		
-		manterProfessorQuePossuiPreferenciaConstraint();
-		
 		manterProfessoresComHorarioUnicoConstraint();
 		
 		manterLocaisComHorarioUnicoConstraint();
@@ -222,32 +225,31 @@ public class TimetableHandler {
 		
 		manterCargaHorariaProfessorConstraint();
 	}
+
 	
 	private final void configureSearch() {
-		//solver.makeCompleteStrategy(true);
-		//solver.setSearch(Search.intVarSearch(new VariableSelectorWithTies<>(new FirstFail(getModel()), new Smallest()), new IntDomainMin()));
+		
+		solver.makeCompleteStrategy(true);
+		//solver.setSearch(Search.activityBasedSearch(varProfessores));
+		//solver.setSearch(Search.defaultSearch(model));
 	}
+	
 	
 	public void execute() {
 		
 		createSolver();
 		buildModel();
 		configureSearch();
-		setTimeout();
-		solve();
-	}
-	
-	private void setTimeout() {
-		solver.limitTime(180000);
+		//solve();
 	}
 
+	
 	private final void solve() {
 		
 		solver.showStatistics();
 		
 		if (solver.solve()) {
 			prettyOut();
-			timetable.setAulas(recuperaAulas());
 		}
 	}
 	
@@ -299,66 +301,89 @@ public class TimetableHandler {
 		return null;
 	}
 	
-	public void prettyOut() {
-		printOut();
-	}
-	
-	/**
-	 * <b>Restrição Forte:</b> <br>
-	 *  
-	 * Um professor só poderá ser selecionado para ministrar apenas as disciplinas para as quais tenha preferência. 
-	 * Dado um um professor <i>P<sub>i<sub></i> e um conjunto <i>D<sub>j<sub></i> disciplinas disponíveis, 
-	 * é utilizada a restrição {@link Model #table(IntVar, IntVar, Tuples)}, a qual é responsável por selecionar
-	 * para uma variável um valor dentre os disponíveis na coleção.
-	 */
-	
-	private void manterProfessorQuePossuiPreferenciaConstraint() {
+	private void lastIndexOfPeriodo(List<DetalheDisciplina> detalhes, Periodo periodo, DetalheDisciplina detalhe) {
 		
-		Tuples tuples = new Tuples(true);
+		int cont = -1;
 		
-		for (int i = 0; i < varProfessores.length; i++) {
+		for (int i = 0; i < detalhes.size(); i++) {
 			
-			List<DetalheTimetable> detalhes = getDetalhesCriterioDisciplina(disciplinasId[i]);
+			cont += 1;
 			
-			List<Professor> professoresDisciplina = professores.allByPreferenciaDisciplina(disciplinas.byId(disciplinasId[i]));
-			
-			if (detalhes.size() > 0) {
+			if (detalhes.get(i).getPeriodo() != null && detalhes.get(i).getPeriodo().getCodigo() == periodo.getCodigo()) {
 				
-				for (DetalheTimetable detalhe : detalhes) {
-					
-					if ("Lecionada por".equals(detalhe.getCriterio())) {
-						tuples.add(disciplinasId[i], detalhe.getProfessor().getId());
-						
-					} else {
-						
-						professoresDisciplina.removeIf(new Predicate<Professor>() {
-
-							@Override
-							public boolean test(Professor professor) {
-								return professor.getId() == detalhe.getProfessor().getId();
-							}
-						});
-						
-						int [] professoresId = extrairIds(professoresDisciplina);
-						
-						for (int j = 0; j < professoresId.length; j++) {
-							tuples.add(disciplinasId[i], professoresId[j]);
-						}
-					}
+				if ((cont + 1) >= detalhes.size()) {
+					detalhes.add(i+1, detalhe);
+					listDisciplina.add(i+1, detalhe.getDisciplina());
+					break;
 				}
 				
-			} else {
-				
-				int [] professoresId = extrairIds(professoresDisciplina);
-				
-				for (int j = 0; j < professoresId.length; j++) {
-					tuples.add(disciplinasId[i], professoresId[j]);
+				if (detalhes.get(i+1) != null) {
+					
+					if (detalhes.get(i+1).getPeriodo().getCodigo() != periodo.getCodigo()) {
+						detalhes.add(i+1, detalhe);
+						listDisciplina.add(i+1, detalhe.getDisciplina());
+						break;
+					}
 				}
 			}
 		}
+	}
+	
+	public void prettyOut() {
 		
-		for (int i = 0; i < varProfessores.length; i++) {			
-			//model.table(varDisciplinas[i], varProfessores[i], tuples).post();
+		printOut();
+		
+		/*for (Timeslot timeslot : timeslots) {
+			
+			System.out.print(timeslot.getDisciplina().getName() + " = " + getDisciplina(timeslot.getDisciplina().getValue()) + ", ");
+			System.out.println(timeslot.getProfessor().getName() + " = " + getProfessor(timeslot.getProfessor().getValue()));
+			
+			for (int i = 0; i < timeslot.getLocais().size(); i++) {
+				
+				IntVar local = timeslot.getLocais().get(i);
+				IntVar horario = timeslot.getHorarios().get(i);
+				
+				System.out.println(local.getName() + " = " + getLocal(local.getValue()) + ", " + horario.getName() + " = " + getHorario(horario.getValue()));
+			}
+		}*/
+	}
+	
+	private void manterHorariosPeriodoEntreConstraint() {
+		
+		for (DetalheTimetable detalhe : timetable.getDetalhes()) {
+			
+			Tuples tuples = new Tuples(true);
+			
+			if (detalhe.isCriterioPeriodoHorario()) {
+				
+				Periodo periodo = detalhe.getPeriodo();
+				String horario = detalhe.getHorarioInicio();
+				
+				if (periodo.getCodigo() <= getNumeroPeriodos()) {
+				
+					int horarios [] = recuperaHorarios(detalhe.getCriterio(), horario);
+					
+					List<Timeslot> list = getTimeslotsPeriodo(periodo.getCodigo());
+					
+					for (int i = 0; i < list.size(); i++) {
+						
+						Timeslot timeslot = list.get(i);
+						
+						for (int j = 0; j < horarios.length; j++) {						
+							tuples.add(timeslot.getDisciplina().getValue(), horarios[j]);
+						}
+					}
+					
+					for (int i = 0; i < list.size(); i++) {
+						
+						Timeslot timeslot = list.get(i);
+						
+						for (int j = 0; j < timeslot.getHorarios().size(); j++) {						
+							model.table(timeslot.getDisciplina(), timeslot.getHorarios().get(j), tuples).post();
+						}
+					}
+				}
+			}
 		}
 	}
 	
@@ -436,23 +461,6 @@ public class TimetableHandler {
 		}
 	}
 	
-	private List<DetalheTimetable> getDetalhesCriterioDisciplina(int disciplinaId) {
-		
-		List<DetalheTimetable> list = new ArrayList<DetalheTimetable>();
-		
-		for (DetalheTimetable detalhe : timetable.getDetalhes()) {
-			
-			if (detalhe.isCriterioDisciplina()) {
-				
-				if (detalhe.getDisciplina().getId() == disciplinaId) {
-					list.add(detalhe);
-				}
-			}
-		}
-		
-		return list;
-	}
-	
 	/**
 	 * <b>Restrição Forte:</b> <br>
 	 *  
@@ -463,27 +471,32 @@ public class TimetableHandler {
 
 	private void manterProfessoresComHorarioUnicoConstraint() {
 		
-		varHorariosProfessor = new IntVar[professoresId.length][];	
+		varHorariosProfessor = new IntVar[disciplinasId.length][];
 		
-		for (int i = 0; i < professoresId.length; i++) {
+		for (int i = 0; i < disciplinasId.length; i++) {
 			
-			List<IntVar> horarios = new ArrayList<IntVar>();
+			List<Professor> list = professores.allByPreferenciaDisciplina(getDisciplina(disciplinasId[i]));
 			
-			Professor professor = professores.byId(professoresId[i]);
-			
-			int [] disciplinasProfessorId = extrairIds(disciplinas.allByPreferenciaProfessor(professor));
-			
-			for (int j = 0; j < disciplinasProfessorId.length; j++) {
+			for (Professor professor : list) {
 				
-				if (getTimeslotDisciplina(disciplinasProfessorId[j]) != null) {
-					horarios.addAll(getTimeslotDisciplina(disciplinasProfessorId[j]).getHorarios());
+				List<IntVar> horarios = new ArrayList<IntVar>();
+				
+				int [] disciplinasProfessorId = extrairIds(disciplinas.allByPreferenciaProfessor(professor));
+				
+				for (int j = 0; j < disciplinasProfessorId.length; j++) {
+					
+					if (getTimeslotDisciplina(disciplinasProfessorId[j]) != null) {
+						horarios.addAll(getTimeslotDisciplina(disciplinasProfessorId[j]).getHorarios());
+					}
 				}
+				
+				varHorariosProfessor[i] = horarios.toArray(new IntVar[horarios.size()]);
+				
+				model.allDifferent(varHorariosProfessor[i], "NEQS").post();
 			}
-			
-			varHorariosProfessor[i] = horarios.toArray(new IntVar[horarios.size()]);
-			
-			model.allDifferent(varHorariosProfessor[i], "NEQS").post();
 		}
+		
+		System.out.println();
 	}
 	
 	/**
@@ -511,42 +524,6 @@ public class TimetableHandler {
 			model.allDifferent(varHorariosPeriodo[i], "NEQS").post();
 			index += periodos[i].length;
 		}		
-	}
-	
-	private void manterHorariosPeriodoEntreConstraint() {
-		
-		for (DetalheTimetable detalhe : timetable.getDetalhes()) {
-			
-			Tuples tuples = new Tuples(true);
-			
-			if (detalhe.isCriterioPeriodoHorario()) {
-				
-				Periodo periodo = detalhe.getPeriodo();
-				String horario = detalhe.getHorarioInicio();
-				
-				int horarios [] = recuperaHorarios(detalhe.getCriterio(), horario);
-				
-				List<Timeslot> list = getTimeslotsPeriodo(periodo.getCodigo());
-				
-				for (int i = 0; i < list.size(); i++) {
-					
-					Timeslot timeslot = list.get(i);
-					
-					for (int j = 0; j < horarios.length; j++) {						
-						tuples.add(timeslot.getDisciplina().getValue(), horarios[j]);
-					}
-				}
-				
-				for (int i = 0; i < list.size(); i++) {
-					
-					Timeslot timeslot = list.get(i);
-					
-					for (int j = 0; j < timeslot.getHorarios().size(); j++) {						
-						model.table(timeslot.getDisciplina(), timeslot.getHorarios().get(j), tuples).post();
-					}
-				}
-			}
-		}
 	}
 	
 	/**
@@ -783,7 +760,7 @@ public class TimetableHandler {
 		
 		TipoLocal salaAula = tiposLocal.byId(2);
 		
-		int [] laboratoriosId = allByDepartamento(timetable.getMatrizCurricular().getCurso().getDepartamento());
+		int [] laboratoriosId = allByDepartamento(getMatrizCurricular().getCurso().getDepartamento());
 		int [] salasId = allByTipoLocal(salaAula);
 		
 		for (DetalheDisciplina detalhe : listDetalhes) {
@@ -818,6 +795,32 @@ public class TimetableHandler {
 	
 	private void manterCargaHorariaProfessorConstraint() {
 		
+		int array [] = new int [timeslots.size()];
+		
+		for (int i = 0; i < timeslots.size(); i++) {
+			array[i] = 0;
+		}
+		
+		for (int i = 0; i < timeslots.size(); i++) {
+			
+		}
+	}
+	
+	private List<DetalheTimetable> getDetalhesCriterioDisciplina(int disciplinaId) {
+		
+		List<DetalheTimetable> list = new ArrayList<DetalheTimetable>();
+		
+		for (DetalheTimetable detalhe : timetable.getDetalhes()) {
+			
+			if (detalhe.isCriterioDisciplina()) {
+				
+				if (detalhe.getDisciplina().getId() == disciplinaId) {
+					list.add(detalhe);
+				}
+			}
+		}
+		
+		return list;
 	}
 	
 	private int [] allByTipoLocal(TipoLocal tipoLocal) {
@@ -863,29 +866,6 @@ public class TimetableHandler {
 		return list;
 	}
 	
-	public List<Aula> recuperaAulas() {
-		
-		List<Aula> aulas = new ArrayList<Aula>();
-		
-		for (Timeslot timeslot : timeslots) {
-			
-			for (int i = 0; i < timeslot.getHorarios().size(); i++) {
-				
-				Aula aula = new Aula();
-				aula.setDisciplina(getDisciplina(timeslot.getDisciplina().getValue()));
-				aula.setProfessor(getProfessor(timeslot.getProfessor().getValue()));
-				aula.setLocal(getLocal(timeslot.getLocais().get(i).getValue()));
-				aula.setHorario(getHorario(timeslot.getHorarios().get(i).getValue()));
-				aula.setTimetable(getTimetable());
-				aula.setPeriodo(getPeriodoDisciplina(timeslot.getDisciplina().getValue()));
-				
-				aulas.add(aula);
-			}
-		}
-		
-		return aulas;
-	}
-	
 	private List<DetalheDisciplina> allByMatrizCurricular(MatrizCurricular matriz) {
 		
 		List<DetalheDisciplina> listaDetalhes = new ArrayList<DetalheDisciplina>();
@@ -903,18 +883,26 @@ public class TimetableHandler {
 		return listaDetalhes;
 	}
 	
-	private int getTimeslotsProfessor(int professor) {
+	private List<Disciplina> allObrigatoriasAtePeriodo(MatrizCurricular matriz, int periodo) {
 		
-		int result = 0;
+		List<Disciplina> listDisciplinas = new ArrayList<Disciplina>();
 		
-		for (Timeslot timeslot : timeslots) {
+		for (int i = 0; i < periodo; i++) {
 			
-			if (timeslot.getProfessor().getValue() == professor) {
-				result += timeslot.getHorarios().size();
+			for (Periodo p : matriz.getPeriodos()) {
+				
+				if (p.getCodigo() == (i+1)) {
+					
+					for (DetalheDisciplina detalheDisciplina : p.getDetalhes()) {
+						
+						if (detalheDisciplina.isObrigatoria())
+							listDisciplinas.add(detalheDisciplina.getDisciplina());
+					}
+				}
 			}
 		}
 		
-		return result;
+		return listDisciplinas;
 	}
 	
 	private int [] getHorariosIndisponiveisProfessor(Professor professor) {
@@ -951,7 +939,7 @@ public class TimetableHandler {
 		return periodos[periodo-1];
 	}
 	
-	private List<Timeslot> getTimeslotsPeriodo(int periodo) {
+	public List<Timeslot> getTimeslotsPeriodo(int periodo) {
 		
 		int disciplinasPeriodo[] = getDisciplinasPorPeriodo(periodo);
 		
@@ -978,63 +966,102 @@ public class TimetableHandler {
 		return null;
 	}
 	
-	@SuppressWarnings("unused")
-	private List<DetalheDisciplina> recuperaEletivas(Periodo periodo) {
+	public int getPeriodoDisciplina(int disciplina) {
 		
-		List<DetalheDisciplina> detalhes = new ArrayList<DetalheDisciplina>();
-		
-		for (DetalheTimetable detalhe : timetable.getDetalhes()) {
+		for (int i = 0; i < periodos.length; i++) {
 			
-			if (detalhe.isCriterioPeriodoEletiva() && detalhe.getPeriodo().getId() == periodo.getId()) {
+			for (int j = 0; j < periodos[i].length; j++) {
 				
-				DetalheDisciplina detalheDisciplina = recuperaDetalheMatrizCurricular(periodo, detalhe.getDisciplina());
+				if (periodos[i][j] == disciplina)
+					return (i+1);
+			}
+		}
+		
+		return 0;
+	}
+	
+	private int [] extrairCreditos(List<DetalheDisciplina> detalhes) {
+		
+		List<Integer> lista = new ArrayList<Integer>();
+		
+		for (DetalheDisciplina detalhe : detalhes) {
+			lista.add(detalhe.getCreditos());
+		}
+		
+		return Arrays.stream(lista.toArray(new Integer[lista.size()])).mapToInt(Integer::intValue).toArray();
+	}
+	
+	public int [] recuperaHorarios(String criterio, String horario) {
+		
+		List<Integer> list = new ArrayList<Integer>();
+		
+		Calendar cal = Calendar.getInstance();
+		
+		cal.set(Calendar.YEAR, 1970);
+		cal.set(Calendar.MONTH, Calendar.JANUARY);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		
+		for (int i = 0; i < listHorarios.size(); i++) {
+			
+			Horario h = listHorarios.get(i);
+			
+			String [] tokens = horario.split(":");
+			
+			cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(tokens[0]));
+			cal.set(Calendar.MINUTE, Integer.valueOf(tokens[1]));
+			cal.set(Calendar.SECOND, Integer.valueOf(tokens[2]));
+			
+			Date date = cal.getTime();
+			
+			Calendar cal2 = Calendar.getInstance();
+			cal2.setTime(h.getHoraInicio());
+			
+			Date date2 = cal2.getTime();
+			
+			if ("Horários antes".equals(criterio)) {
 				
-				if (detalheDisciplina != null) {				
-					detalhes.add(detalheDisciplina);
+				if (date2.before(date)) {
+					list.add(i);
+				}
+				
+			} else if ("Horários após".equals(criterio)) {
+				
+				if (date2.after(date)) {
+					list.add(i);
 				}
 			}
 		}
 		
-		return detalhes;
+		return Arrays.stream(list.toArray(new Integer[list.size()])).mapToInt(Integer::intValue).toArray();
 	}
 	
-	private DetalheDisciplina recuperaDetalheMatrizCurricular(Periodo periodo, Disciplina disciplina) {
+	private int [] extrairIds(List<? extends Entidade> list) {
 		
-		for (DetalheDisciplina detalhe : periodo.getDetalhes()) {
-			
-			if (detalhe.getDisciplina().getId() == disciplina.getId())
-				return detalhe;
+		List<Integer> listaIds = new ArrayList<Integer>();
+		
+		for (Entidade obj : list) {
+			listaIds.add(obj.getId());
 		}
 		
-		return null;
+		return Arrays.stream(listaIds.toArray(new Integer[listaIds.size()])).mapToInt(Integer::intValue).toArray();
 	}
 	
-	private void lastIndexOfPeriodo(List<DetalheDisciplina> detalhes, Periodo periodo, DetalheDisciplina detalhe) {
-		
-		int cont = -1;
-		
-		for (int i = 0; i < detalhes.size(); i++) {
-			
-			cont += 1;
-			
-			if (detalhes.get(i).getPeriodo() != null && detalhes.get(i).getPeriodo().getCodigo() == periodo.getCodigo()) {
-				
-				if ((cont + 1) >= detalhes.size()) {
-					detalhes.add(i+1, detalhe);
-					listDisciplina.add(i+1, detalhe.getDisciplina());
-					break;
-				}
-				
-				if (detalhes.get(i+1) != null) {
-					
-					if (detalhes.get(i+1).getPeriodo().getCodigo() != periodo.getCodigo()) {
-						detalhes.add(i+1, detalhe);
-						listDisciplina.add(i+1, detalhe.getDisciplina());
-						break;
-					}
-				}
-			}
-		}
+	public Model getModel() {
+		return model;
+	}
+	
+	public Solver getSolver() {
+		return solver;
+	}
+
+
+	public MatrizCurricular getMatrizCurricular() {
+		return matrizCurricular;
+	}
+
+
+	public void setMatrizCurricular(MatrizCurricular matrizCurricular) {
+		this.matrizCurricular = matrizCurricular;
 	}
 	
 	private void printOut() {
@@ -1130,7 +1157,7 @@ public class TimetableHandler {
 	}
 
 	private int [] getTokens(IntVar horario) {
-		
+	
 		int [] tokens = new int[2];
 		
 		String [] dias = {"Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira"};
@@ -1153,100 +1180,24 @@ public class TimetableHandler {
 		
 		return tokens;
 	}
-	
-	private int getPeriodoDisciplina(int disciplina) {
-		
-		for (int i = 0; i < periodos.length; i++) {
-			
-			for (int j = 0; j < periodos[i].length; j++) {
-				
-				if (periodos[i][j] == disciplina)
-					return (i+1);
-			}
-		}
-		
-		return 0;
-	}
-	
-	private int [] extrairCreditos(List<DetalheDisciplina> detalhes) {
-		
-		List<Integer> lista = new ArrayList<Integer>();
-		
-		for (DetalheDisciplina detalhe : detalhes) {
-			lista.add(detalhe.getCreditos());
-		}
-		
-		return Arrays.stream(lista.toArray(new Integer[lista.size()])).mapToInt(Integer::intValue).toArray();
-	}
-	
-	private int [] recuperaHorarios(String criterio, String horario) {
-		
-		List<Integer> list = new ArrayList<Integer>();
-		
-		Calendar cal = Calendar.getInstance();
-		
-		cal.set(Calendar.YEAR, 1970);
-		cal.set(Calendar.MONTH, Calendar.JANUARY);
-		cal.set(Calendar.DAY_OF_MONTH, 1);
-		
-		for (int i = 0; i < listHorarios.size(); i++) {
-			
-			Horario h = listHorarios.get(i);
-			
-			String [] tokens = horario.split(":");
-			
-			cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(tokens[0]));
-			cal.set(Calendar.MINUTE, Integer.valueOf(tokens[1]));
-			cal.set(Calendar.SECOND, Integer.valueOf(tokens[2]));
-			
-			Date date = cal.getTime();
-			
-			Calendar cal2 = Calendar.getInstance();
-			cal2.setTime(h.getHoraInicio());
-			
-			Date date2 = cal2.getTime();
-			
-			if ("Horários antes".equals(criterio)) {
-				
-				if (date2.before(date)) {
-					list.add(i);
-				}
-				
-			} else if ("Horários após".equals(criterio)) {
-				
-				if (date2.after(date)) {
-					list.add(i);
-				}
-			}
-		}
-		
-		return Arrays.stream(list.toArray(new Integer[list.size()])).mapToInt(Integer::intValue).toArray();
-	}
-	
-	private int [] extrairIds(List<? extends Entidade> list) {
-		
-		List<Integer> listaIds = new ArrayList<Integer>();
-		
-		for (Entidade obj : list) {
-			listaIds.add(obj.getId());
-		}
-		
-		return Arrays.stream(listaIds.toArray(new Integer[listaIds.size()])).mapToInt(Integer::intValue).toArray();
-	}
-	
-	public Model getModel() {
-		return model;
-	}
-	
-	public Solver getSolver() {
-		return solver;
+
+
+	public int getNumeroPeriodos() {
+		return numeroPeriodos;
 	}
 
-	public void setTimetable(Timetable timetable) {	
-		this.timetable = timetable;
+
+	public void setNumeroPeriodos(int numeroPeriodos) {
+		this.numeroPeriodos = numeroPeriodos;
 	}
-	
+
+
 	public Timetable getTimetable() {
 		return timetable;
+	}
+
+
+	public void setTimetable(Timetable timetable) {
+		this.timetable = timetable;
 	}
 }

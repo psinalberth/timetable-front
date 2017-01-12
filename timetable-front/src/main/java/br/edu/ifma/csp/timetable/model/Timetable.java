@@ -17,6 +17,9 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 @Entity
 @Table(name="TIMETABLE")
 public class Timetable extends Entidade {
@@ -45,6 +48,7 @@ public class Timetable extends Entidade {
 	private transient List<Aula> aulas = new ArrayList<Aula>();
 	
 	@Valid
+	@NotFound(action=NotFoundAction.IGNORE)
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="timetable", cascade=CascadeType.ALL ,orphanRemoval=true)
 	private List<DetalheTimetable> detalhes = new ArrayList<DetalheTimetable>();
 

@@ -120,7 +120,7 @@ public abstract class ViewModel<T extends Entidade> {
     }
 	
 	public boolean isRemovivel() {
-		return entidadeSelecionada != null && entidadeSelecionada.getId() != 0;
+		return entidadeSelecionada == null || entidadeSelecionada.getId() == 0;
 	}
 	
 	

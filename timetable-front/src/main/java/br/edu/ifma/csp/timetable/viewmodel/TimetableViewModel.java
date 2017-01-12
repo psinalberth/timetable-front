@@ -1,5 +1,8 @@
 package br.edu.ifma.csp.timetable.viewmodel;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -23,6 +26,7 @@ import org.zkoss.zul.Vlayout;
 
 import br.edu.ifma.csp.timetable.dao.HorarioDao;
 import br.edu.ifma.csp.timetable.dao.LocalDao;
+import br.edu.ifma.csp.timetable.dao.MatrizCurricularDao;
 import br.edu.ifma.csp.timetable.dao.ProfessorDao;
 import br.edu.ifma.csp.timetable.handler.TimetableHandler;
 import br.edu.ifma.csp.timetable.model.Aula;
@@ -33,9 +37,11 @@ import br.edu.ifma.csp.timetable.model.Professor;
 import br.edu.ifma.csp.timetable.model.Timetable;
 import br.edu.ifma.csp.timetable.repository.Horarios;
 import br.edu.ifma.csp.timetable.repository.Locais;
+import br.edu.ifma.csp.timetable.repository.MatrizesCurriculares;
 import br.edu.ifma.csp.timetable.repository.Professores;
 import br.edu.ifma.csp.timetable.util.Lookup;
 import br.edu.ifma.csp.timetable.util.Validations;
+import teste.Teste;
 
 public class TimetableViewModel extends ViewModel<Timetable> {
 	
@@ -96,15 +102,76 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			
 			repository.save(entidadeSelecionada);
 			
+			entidadeSelecionada = repository.byId(entidadeSelecionada.getId());
+			
 			TimetableHandler handler = new TimetableHandler();
 			handler.setTimetable(entidadeSelecionada);
 			handler.execute();
 			
+			if (!handler.getSolver().solve()) {
+				
+				grid.getRows().getChildren().clear();
+			}
+			
 			buildRows();
+			
+			
 			
 		} catch (WrongValuesException ex) {
 			Validations.showValidationErrors();
 		}
+		
+		/*String rootDir = "/home/inalberth/csp_casos_teste/completo";
+
+		MatrizesCurriculares matrizesCurriculares = Lookup.dao(MatrizCurricularDao.class);
+		
+		File root = new File(rootDir);
+		File dir = null;
+		
+		if (root.mkdir()) {
+			
+		}
+		
+		int tamanho = root.listFiles().length + 1;
+		
+		dir = new File(rootDir + File.separatorChar + "cenario$" + tamanho);
+		
+		if (dir.mkdir()) {
+		
+			for (int i = 0; i < 50; i++) {
+				
+				Teste teste = new Teste();
+				teste.setNumeroPeriodos(6);
+				teste.setMatrizCurricular(matrizesCurriculares.byId(84));
+				teste.setTimetable(repository.byId(951));
+				
+				teste.execute();
+				
+				teste.getSolver().showStatistics();
+				
+				if (teste.getSolver().solve()) {
+					
+					teste.prettyOut();
+					
+					try {
+						
+						File file = new File(dir.getAbsolutePath() + File.separatorChar + "data.dat");
+						
+						if (!file.exists()) {
+							file.createNewFile();
+						}
+						
+						FileWriter fw = new FileWriter(file, true);
+						
+						fw.write((i+1) + " " + teste.getSolver().getTimeCount() + "\n");
+						fw.close();
+						
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}*/
 	}
 	
 	private void buildRows() {

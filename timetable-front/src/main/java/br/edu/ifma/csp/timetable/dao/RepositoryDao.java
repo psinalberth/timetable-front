@@ -21,7 +21,13 @@ public abstract class RepositoryDao<T extends Entidade> {
 	protected EntityManager manager;
 	
 	public void save(T type) {
-		this.manager.merge(type);
+		
+		if (type.getId() == 0) {
+			this.manager.persist(type);
+			
+		} else {
+			this.manager.merge(type);
+		}
 	}
 	
 	public T by(String coluna, Object valor) {

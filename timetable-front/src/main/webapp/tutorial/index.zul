@@ -1,30 +1,150 @@
 <?page title="Timetable - Tutorial" contentType="text/html;charset=UTF-8"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/zul/template.zul"?>
 <zk xmlns:n="native">
-	<div self="@define(content)" class="container-fluid">
-		<div sclass="row">
+
+	<style>
+	
+		h4 {
+			color: #347abe;
+			font-weight: bold;
+			padding-bottom: 10px;
+		}
 		
+		h5, h6 {
+			color: #777;
+			padding-bottom: 7px;
+			font-weight: bold;
+		}
+		
+		p {
+			text-align: justify;
+			color: #444;
+		}
+		
+		.image {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
+		.caption {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			color: #444;
+			font-size: 11px;
+		}
+	
+	</style>
+
+	<div self="@define(content)" class="container-fluid">
+	
+		<div sclass="row">
 			<div class="form-group">
 				<n:h4 class="page-title">Tutorial</n:h4>
-				
-			</div>
-			
+			</div>	
 		</div>
 		
 		<div sclass="row">
-			<span>Sobre</span>
+			<n:h4>Sobre</n:h4>
 			<div class="content">
-				<n:p style="text-align: justify; font-size: 16px">
+				<n:p>
 					Esta aplicação tem por finalidade produzir grades de horário semestrais para instituições de
-					nível superior, utilizando uma abordagem conhecida por Problema de Alocação de Horários baseada 
-					em Currículo, realizada a partir da matriz curricular do curso selecionado para a produção de 
-					ofertas de aula.
+					nível superior utilizando uma abordagem conhecida por <n:b>Problema de Alocação de Horários baseada em Currículo</n:b>, 
+					realizada a partir da matriz curricular de um curso selecionado.
 					
 					O projeto é composto por diversos casos de uso responsáveis por gerenciar os elementos necessários 
 					para a produção de horários.
-					
-					Existem duas categorias de
 				</n:p> 
+			</div>
+		</div>
+		
+		<div sclass="row">
+			<n:h4>Entendendo a aplicação</n:h4>
+			<n:h5>Estrutura</n:h5>
+			<div class="content">
+				<n:p>
+					Para o funcionamento adequado da aplicação devem estar cadastrados horários, locais, departamentos, cursos, professores,  
+					disciplinas e matrizes curriculares dos cursos os quais se deseja produzir a grade de horários.
+					A imagem abaixo ilustra as dependências dos recursos da aplicação e requisitos necessários para cada etapa:
+					
+					<n:br/><n:br/>
+					
+					<vlayout>
+						<image sclass="image" src="/partials/img/pert.png" width="75%"/>
+						<label sclass="caption" value="Figura 1 - Diagrama de Rede com as dependências entre recursos da aplicação"/>
+					</vlayout>
+				</n:p> 
+			</div>
+		</div>
+		
+		<div sclass="row">
+			<n:h5>Funcionamento</n:h5>
+			<div class="content">
+				<n:p>
+					Como ilustrado na Figura 1, existe uma ordem lógica para criação de recursos até a produção de ofertas de aula, que
+					é o produto final desta aplicação. A seguir serão descritas as principais características que compõem cada caso de 
+					uso:
+				</n:p>
+				
+				<n:h6>Professor</n:h6>
+				<div class="content">
+					<n:p>
+						Cada docente está vinculado a um departamento, de modo que para criar um novo registro de docente é necessário 
+						que haja o departamento correspondente. Outro fator essencial para o cadastro de docente diz respeito às disciplinas 
+						que o (a) mesmo (a) pode ofertar. Nesta aplicação, é obrigatório que cada docente possua no mínimo uma disciplina a 
+						qual possui afinidade/disponibilidade para lecionar, de modo que durante o processo de produção de oferta de aula 
+						seja possível recuperar todos os professores que podem lecionar determinada disciplina e então atribuí-la a um docente, 
+						de acordo com a estratégia de busca ou critério de seleção pré-definido pelo administrador. 
+						<n:br/><n:br/>
+						
+						O segundo fator importante para um professor é sua disponibilidade, isto é, os dias em que pode ou não lecionar aulas, 
+						seja por motivos pessoais/profissionais ou sua carga horária semanal total. Ao contrário da preferência por disciplinas, 
+						aqui é permitido que não hajam preferências de horário, o que neste caso representa que o referido docente não possui 
+						qualquer restrição de horário que o impossibilite de lecionar aulas em qualquer horário disponibilizado pelo curso.
+					</n:p>
+				</div>
+				
+				<n:h6>Disciplina</n:h6>
+				<div class="content">
+					<n:p>
+						Outra variável essencial para a aplicação. Para melhor representação e evitar redundâncias na modelagem, disciplina é 
+						uma entidade genérica, contendo seu código e sigla únicos, além de uma descrição. Isto permite que o mesmo registro de 
+						disciplina seja utilizado em diferentes cursos. Os detalhes de cada disciplina serão cadastrados nas matrizes curriculares 
+						de cada curso ofertado, como será descrito na próxima seção.
+					</n:p>
+				</div>
+				
+				<n:h6>Matriz Curricular</n:h6>
+				<div class="content">
+					<n:p>
+						A matriz curricular de cada curso define a quantidade de períodos (semestres), disciplinas em cada período, além de detalhes 
+						de cada disciplina, como a quantidade de créditos, carga horária, se é uma disciplina obrigatória ou ainda necessita de recursos 
+						como laboratório, por exemplo.
+					</n:p>
+				</div>
+				
+				<n:h6>Timetable</n:h6>
+				<div class="content">
+					<n:p>
+						Nesta página são produzidas as ofertas de aula, após todos os requisitos ilustrados na Figura 1 serem atendidos. Permite-se ao 
+						administrador que busque uma solução geral para o problema, baseada nas regras de modelagem ou ainda que sejam pré-definidos 
+						requisitos a serem atendidos durante o processo de resolução. São eles:
+						
+						<n:ul>
+							<n:li>
+								Disciplina: pode ser pré-definido um docente para lecionar ou não determinada disciplina. Ex.: docente em licença
+								não pode lecionar, portanto não faz parte da solução.
+							</n:li>
+							<n:br/>
+							<n:li>
+								Período: podem ser definidos os horários em que as aulas iniciam, são finalizadas ou incluir disciplinas eletivas para 
+								o período selecionado.
+							</n:li>
+						</n:ul>
+						
+					</n:p>
+				</div>
 			</div>
 		</div>
 			
