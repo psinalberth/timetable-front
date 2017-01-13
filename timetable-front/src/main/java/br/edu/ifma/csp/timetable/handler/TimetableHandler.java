@@ -483,6 +483,8 @@ public class TimetableHandler {
 			varHorariosProfessor[i] = horarios.toArray(new IntVar[horarios.size()]);
 			
 			model.allDifferent(varHorariosProfessor[i], "NEQS").post();
+			
+			model.count(professoresId[i], varProfessores, model.intVar(0, 3)).post();
 		}
 	}
 	
