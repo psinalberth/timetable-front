@@ -138,7 +138,6 @@ public class TimetableHandler {
 		horariosId = extrairIds(listHorarios);
 		locaisId = extrairIds(listLocais);
 	}
-
 	
 	private final void createSolver() {
 		
@@ -153,7 +152,7 @@ public class TimetableHandler {
 		
 		timeslots = new ArrayList<Timeslot>();
 		
-		varProfessores = model.intVarArray("P", disciplinasId.length, professoresId);
+		varProfessores = new IntVar[disciplinasId.length];
 		varDisciplinas = new IntVar[disciplinasId.length];
 		
 		varHorariosDisciplina = new IntVar[varDisciplinas.length][];
@@ -177,6 +176,9 @@ public class TimetableHandler {
 		for (int i = 0; i < varProfessores.length; i++) {
 			
 			varDisciplinas[i] = model.intVar("D[" + i + "]", disciplinasId[i]);
+			Disciplina disciplina = disciplinas.byId(disciplinasId[i]);
+			
+			varProfessores[i] = model.intVar("P[" + i + "]", extrairIds(professores.allByPreferenciaDisciplina(disciplina)));
 			
 			Timeslot timeslot = new Timeslot();
 			timeslot.addProfessor(varProfessores[i]);
@@ -199,8 +201,6 @@ public class TimetableHandler {
 			
 			timeslots.add(timeslot);
 		}
-		
-		manterProfessorQuePossuiPreferenciaConstraint();
 		
 		manterProfessoresComHorarioUnicoConstraint();
 		
@@ -303,65 +303,6 @@ public class TimetableHandler {
 		printOut();
 	}
 	
-	/**
-	 * <b>Restrição Forte:</b> <br>
-	 *  
-	 * Um professor só poderá ser selecionado para ministrar apenas as disciplinas para as quais tenha preferência. 
-	 * Dado um um professor <i>P<sub>i<sub></i> e um conjunto <i>D<sub>j<sub></i> disciplinas disponíveis, 
-	 * é utilizada a restrição {@link Model #table(IntVar, IntVar, Tuples)}, a qual é responsável por selecionar
-	 * para uma variável um valor dentre os disponíveis na coleção.
-	 */
-	
-	private void manterProfessorQuePossuiPreferenciaConstraint() {
-		
-		Tuples tuples = new Tuples(true);
-		
-		for (int i = 0; i < varProfessores.length; i++) {
-			
-			List<DetalheTimetable> detalhes = getDetalhesCriterioDisciplina(disciplinasId[i]);
-			
-			List<Professor> professoresDisciplina = professores.allByPreferenciaDisciplina(disciplinas.byId(disciplinasId[i]));
-			
-			if (detalhes.size() > 0) {
-				
-				for (DetalheTimetable detalhe : detalhes) {
-					
-					if ("Lecionada por".equals(detalhe.getCriterio())) {
-						tuples.add(disciplinasId[i], detalhe.getProfessor().getId());
-						
-					} else {
-						
-						professoresDisciplina.removeIf(new Predicate<Professor>() {
-
-							@Override
-							public boolean test(Professor professor) {
-								return professor.getId() == detalhe.getProfessor().getId();
-							}
-						});
-						
-						int [] professoresId = extrairIds(professoresDisciplina);
-						
-						for (int j = 0; j < professoresId.length; j++) {
-							tuples.add(disciplinasId[i], professoresId[j]);
-						}
-					}
-				}
-				
-			} else {
-				
-				int [] professoresId = extrairIds(professoresDisciplina);
-				
-				for (int j = 0; j < professoresId.length; j++) {
-					tuples.add(disciplinasId[i], professoresId[j]);
-				}
-			}
-		}
-		
-		for (int i = 0; i < varProfessores.length; i++) {			
-			//model.table(varDisciplinas[i], varProfessores[i], tuples).post();
-		}
-	}
-	
 	private void manterHorariosIndisponiveisProfessor() {
 		
 		for (int i = 0; i < timeslots.size(); i ++) {
@@ -378,7 +319,6 @@ public class TimetableHandler {
 				for (DetalheTimetable detalhe : detalhes) {
 					
 					if ("Lecionada por".equals(detalhe.getCriterio())) {
-						//tuples.add(disciplinasId[i], detalhe.getProfessor().getId());
 						
 						professoresDisciplina.removeIf(new Predicate<Professor>() {
 
@@ -406,23 +346,20 @@ public class TimetableHandler {
 				if (professor.getPreferenciasHorario().size() > 0) {
 					
 					int [] horariosDisponiveis = getHorariosDisponiveisProfessor(professor);
-					int [] horariosIndisponiveis = getHorariosIndisponiveisProfessor(professor);
+					//int [] horariosIndisponiveis = getHorariosIndisponiveisProfessor(professor);
+						
+					for (int j = 0; j < horariosDisponiveis.length; j++) {
+						tuples.add(professor.getId(), horariosDisponiveis[j]);
+					}
 					
-				//	for (int k = 0; k < timeslot.getHorarios().size(); k++) {
-						
-						for (int j = 0; j < horariosDisponiveis.length; j++) {
-							tuples.add(timeslot.getDisciplina().getValue(), professor.getId(), horariosDisponiveis[j]);
-						}
-						
-						for (int j = 0; j < horariosIndisponiveis.length; j++) {
-							//tuples.add(timeslot.getDisciplina().getValue(), professor.getId(), horariosIndisponiveis[j]);
-						}
-				//	}
+					/*for (int j = 0; j < horariosIndisponiveis.length; j++) {
+						tuples.add(timeslot.getDisciplina().getValue(), professor.getId(), horariosIndisponiveis[j]);
+					}*/
 
 				} else {
 					
 					for (int j = 0; j < horariosId.length; j++) {
-						tuples.add(timeslot.getDisciplina().getValue(), professor.getId(), j);
+						tuples.add(professor.getId(), j);
 					}
 				}
 			}
@@ -431,7 +368,7 @@ public class TimetableHandler {
 				
 				IntVar horario = timeslot.getHorarios().get(j);
 				
-				model.table(new IntVar[] {timeslot.getDisciplina(), timeslot.getProfessor(), horario}, tuples).post();
+				model.table(new IntVar[] {timeslot.getProfessor(), horario}, tuples).post();
 			}
 		}
 	}
@@ -484,7 +421,7 @@ public class TimetableHandler {
 			
 			model.allDifferent(varHorariosProfessor[i], "NEQS").post();
 			
-			model.count(professoresId[i], varProfessores, model.intVar(0, 3)).post();
+			//model.count(professoresId[i], varProfessores, model.intVar(0, 5)).post();
 		}
 	}
 	

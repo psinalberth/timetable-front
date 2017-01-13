@@ -1,8 +1,5 @@
 package br.edu.ifma.csp.timetable.viewmodel;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -26,7 +23,6 @@ import org.zkoss.zul.Vlayout;
 
 import br.edu.ifma.csp.timetable.dao.HorarioDao;
 import br.edu.ifma.csp.timetable.dao.LocalDao;
-import br.edu.ifma.csp.timetable.dao.MatrizCurricularDao;
 import br.edu.ifma.csp.timetable.dao.ProfessorDao;
 import br.edu.ifma.csp.timetable.handler.TimetableHandler;
 import br.edu.ifma.csp.timetable.model.Aula;
@@ -37,11 +33,9 @@ import br.edu.ifma.csp.timetable.model.Professor;
 import br.edu.ifma.csp.timetable.model.Timetable;
 import br.edu.ifma.csp.timetable.repository.Horarios;
 import br.edu.ifma.csp.timetable.repository.Locais;
-import br.edu.ifma.csp.timetable.repository.MatrizesCurriculares;
 import br.edu.ifma.csp.timetable.repository.Professores;
 import br.edu.ifma.csp.timetable.util.Lookup;
 import br.edu.ifma.csp.timetable.util.Validations;
-import teste.Teste;
 
 public class TimetableViewModel extends ViewModel<Timetable> {
 	
