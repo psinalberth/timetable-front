@@ -79,9 +79,6 @@ public class TimetableHandler {
 	IntVar [] varDisciplinas;
 	IntVar [] varProfessores;
 	IntVar [][] varHorariosPeriodo;
-	//IntVar [][] varHorariosProfessor;
-	IntVar [][] varHorariosDisciplina;
-	IntVar [][] varHorariosLocal;
 	
 	List<Professor> listProfessores;
 	List<Disciplina> listDisciplina;
@@ -155,9 +152,6 @@ public class TimetableHandler {
 		varProfessores = new IntVar[disciplinasId.length];
 		varDisciplinas = new IntVar[disciplinasId.length];
 		
-		varHorariosDisciplina = new IntVar[varDisciplinas.length][];
-		varHorariosLocal = new IntVar[varDisciplinas.length][];
-		
 		periodos = new int[timetable.getMatrizCurricular().getPeriodos().size()][];
 		
 		for (int i = 0; i < timetable.getMatrizCurricular().getPeriodos().size(); i++) {
@@ -184,9 +178,6 @@ public class TimetableHandler {
 			timeslot.addProfessor(varProfessores[i]);
 			timeslot.addDisciplina(varDisciplinas[i]);
 			
-			varHorariosDisciplina[i] = new IntVar[aulas[i]];
-			varHorariosLocal[i] = new IntVar[aulas[i]];
-			
 			for (int j = 0; j < aulas[i]; j++) {
 				
 				IntVar horario = model.intVar(varDisciplinas[i].getName() + "_" + "H" + (j+1), 0, horariosId.length - 1);
@@ -194,9 +185,6 @@ public class TimetableHandler {
 				
 				IntVar local = model.intVar(varDisciplinas[i].getName() + "_" + "L" + (j+1), 0, locaisId.length - 1);
 				timeslot.addLocal(local);
-				
-				varHorariosDisciplina[i][j] = horario;
-				varHorariosLocal[i][j] = local;
 			}
 			
 			timeslots.add(timeslot);
@@ -986,8 +974,8 @@ public class TimetableHandler {
 				
 			for (int j = 0; j < aulas[i]; j++) {
 				
-				int [] tokens = getTokens(varHorariosDisciplina[i][j]);	
-				grades[k].getGrade()[tokens[1]][tokens[0]] = getDisciplina(varDisciplinas[i].getValue()).getSigla() + " " + getLocal(varHorariosLocal[i][j].getValue());
+				int [] tokens = getTokens(timeslots.get(i).getHorarios().get(j));	
+				grades[k].getGrade()[tokens[1]][tokens[0]] = getDisciplina(varDisciplinas[i].getValue()).getSigla() + " " + getLocal(timeslots.get(i).getLocais().get(j).getValue());
 			}
 		}
 		
