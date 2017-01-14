@@ -79,7 +79,7 @@ public class TimetableHandler {
 	IntVar [] varDisciplinas;
 	IntVar [] varProfessores;
 	IntVar [][] varHorariosPeriodo;
-	IntVar [][] varHorariosProfessor;
+	//IntVar [][] varHorariosProfessor;
 	IntVar [][] varHorariosDisciplina;
 	IntVar [][] varHorariosLocal;
 	
@@ -400,29 +400,32 @@ public class TimetableHandler {
 
 	private void manterProfessoresComHorarioUnicoConstraint() {
 		
-		varHorariosProfessor = new IntVar[professoresId.length][];	
+		List<IntVar> list = new ArrayList<IntVar>();
+		
+		List<IntVar> l2 = new ArrayList<IntVar>();
+		
+		for (int i = 0; i < timeslots.size(); i++) {
+			
+			for (int j = 0; j < timeslots.get(i).getHorarios().size(); j++) {
+				
+				IntVar horario = timeslots.get(i).getHorarios().get(j);
+				IntVar professor = timeslots.get(i).getProfessor();
+				
+				IntVar xy = model.intVar("xy", 0, 100000);
+				
+				l2.add(professor);
+				
+				model.sum(new IntVar[]{model.intScaleView(horario, 1000), professor}, "=", xy).post();
+				
+				list.add(xy);
+			}
+		}
 		
 		for (int i = 0; i < professoresId.length; i++) {
-			
-			List<IntVar> horarios = new ArrayList<IntVar>();
-			
-			Professor professor = professores.byId(professoresId[i]);
-			
-			int [] disciplinasProfessorId = extrairIds(disciplinas.allByPreferenciaProfessor(professor));
-			
-			for (int j = 0; j < disciplinasProfessorId.length; j++) {
-				
-				if (getTimeslotDisciplina(disciplinasProfessorId[j]) != null) {
-					horarios.addAll(getTimeslotDisciplina(disciplinasProfessorId[j]).getHorarios());
-				}
-			}
-			
-			varHorariosProfessor[i] = horarios.toArray(new IntVar[horarios.size()]);
-			
-			model.allDifferent(varHorariosProfessor[i], "NEQS").post();
-			
-			//model.count(professoresId[i], varProfessores, model.intVar(0, 5)).post();
+			model.count(professoresId[i], l2.toArray(new IntVar[l2.size()]), model.intVar(0, 12)).post();;
 		}
+		
+		model.allDifferent(list.toArray(new IntVar[list.size()]), "NEQS").post();
 	}
 	
 	/**
