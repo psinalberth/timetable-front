@@ -210,6 +210,10 @@ input[type=checkbox]:checked{
 	border-radius: 0;
 }
 
+.btn.btn-default.low {
+	padding-bottom: 0;
+}
+
 .btn.btn-default:hover {
 	background: transparent;
 	color: #347abe;
@@ -280,6 +284,7 @@ input[type=checkbox]:checked{
 
 .z-notification {
 	width: 300px;
+	cursor: default;
 }
 
 .z-notification-error .z-notification-content {

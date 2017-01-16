@@ -15,6 +15,7 @@ import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.constraints.extension.Tuples;
 import org.chocosolver.solver.search.strategy.Search;
 import org.chocosolver.solver.variables.IntVar;
+import org.chocosolver.util.tools.ArrayUtils;
 
 import br.edu.ifma.csp.timetable.dao.DetalheDisciplinaDao;
 import br.edu.ifma.csp.timetable.dao.DisciplinaDao;
@@ -75,12 +76,7 @@ public class Teste {
 	private TiposLocal tiposLocal;
 	private DetalhesDisciplina detalhesDisciplina;
 	
-	IntVar [] varDisciplinas;
-	IntVar [] varProfessores;
 	IntVar [][] varHorariosPeriodo;
-	IntVar [][] varHorariosProfessor;
-	IntVar [][] varHorariosDisciplina;
-	IntVar [][] varHorariosLocal;
 	
 	List<Professor> listProfessores;
 	List<Disciplina> listDisciplina;
@@ -158,12 +154,6 @@ public class Teste {
 		
 		timeslots = new ArrayList<Timeslot>();
 		
-		varProfessores = model.intVarArray("P", disciplinasId.length, professoresId);
-		varDisciplinas = new IntVar[disciplinasId.length];
-		
-		varHorariosDisciplina = new IntVar[varDisciplinas.length][];
-		varHorariosLocal = new IntVar[varDisciplinas.length][];
-		
 		periodos = new int[numeroPeriodos][];
 		
 		for (int i = 0; i < numeroPeriodos; i++) {
@@ -179,27 +169,24 @@ public class Teste {
 			}
 		}
 		
-		for (int i = 0; i < varProfessores.length; i++) {
+		for (int i = 0; i < disciplinasId.length; i++) {
 			
-			varDisciplinas[i] = model.intVar("D[" + i + "]", disciplinasId[i]);
+			IntVar disciplina = model.intVar("D[" + i + "]", disciplinasId[i]);
+			Disciplina d = disciplinas.byId(disciplinasId[i]);
+			
+			IntVar professor = model.intVar("P[" + i + "]", extrairIds(professores.allByPreferenciaDisciplina(d)));
 			
 			Timeslot timeslot = new Timeslot();
-			timeslot.addProfessor(varProfessores[i]);
-			timeslot.addDisciplina(varDisciplinas[i]);
-			
-			varHorariosDisciplina[i] = new IntVar[aulas[i]];
-			varHorariosLocal[i] = new IntVar[aulas[i]];
+			timeslot.addProfessor(professor);
+			timeslot.addDisciplina(disciplina);
 			
 			for (int j = 0; j < aulas[i]; j++) {
 				
-				IntVar horario = model.intVar(varDisciplinas[i].getName() + "_" + "H" + (j+1), 0, horariosId.length - 1);
+				IntVar horario = model.intVar(disciplina.getName() + "_" + "H" + (j+1), 0, horariosId.length - 1);
 				timeslot.addHorario(horario);
 				
-				IntVar local = model.intVar(varDisciplinas[i].getName() + "_" + "L" + (j+1), 0, locaisId.length - 1);
+				IntVar local = model.intVar(disciplina.getName() + "_" + "L" + (j+1), 0, locaisId.length - 1);
 				timeslot.addLocal(local);
-				
-				varHorariosDisciplina[i][j] = horario;
-				varHorariosLocal[i][j] = local;
 			}
 			
 			timeslots.add(timeslot);
@@ -230,6 +217,7 @@ public class Teste {
 	private final void configureSearch() {
 		
 		solver.makeCompleteStrategy(true);
+		solver.setSearch(Search.domOverWDegSearch(ArrayUtils.flatten(varHorariosPeriodo)), Search.lastConflict(Search.intVarSearch(ArrayUtils.flatten(varHorariosPeriodo))));
 		//solver.setSearch(Search.activityBasedSearch(varProfessores));
 		//solver.setSearch(Search.defaultSearch(model));
 	}
@@ -389,7 +377,7 @@ public class Teste {
 	
 	private void manterHorariosIndisponiveisProfessor() {
 		
-		for (int i = 0; i < timeslots.size(); i ++) {
+for (int i = 0; i < timeslots.size(); i ++) {
 			
 			Tuples tuples = new Tuples(true);
 			
@@ -403,7 +391,6 @@ public class Teste {
 				for (DetalheTimetable detalhe : detalhes) {
 					
 					if ("Lecionada por".equals(detalhe.getCriterio())) {
-						//tuples.add(disciplinasId[i], detalhe.getProfessor().getId());
 						
 						professoresDisciplina.removeIf(new Predicate<Professor>() {
 
@@ -431,23 +418,20 @@ public class Teste {
 				if (professor.getPreferenciasHorario().size() > 0) {
 					
 					int [] horariosDisponiveis = getHorariosDisponiveisProfessor(professor);
-					int [] horariosIndisponiveis = getHorariosIndisponiveisProfessor(professor);
+					//int [] horariosIndisponiveis = getHorariosIndisponiveisProfessor(professor);
+						
+					for (int j = 0; j < horariosDisponiveis.length; j++) {
+						tuples.add(professor.getId(), horariosDisponiveis[j]);
+					}
 					
-				//	for (int k = 0; k < timeslot.getHorarios().size(); k++) {
-						
-						for (int j = 0; j < horariosDisponiveis.length; j++) {
-							tuples.add(timeslot.getDisciplina().getValue(), professor.getId(), horariosDisponiveis[j]);
-						}
-						
-						for (int j = 0; j < horariosIndisponiveis.length; j++) {
-							//tuples.add(timeslot.getDisciplina().getValue(), professor.getId(), horariosIndisponiveis[j]);
-						}
-				//	}
+					/*for (int j = 0; j < horariosIndisponiveis.length; j++) {
+						tuples.add(timeslot.getDisciplina().getValue(), professor.getId(), horariosIndisponiveis[j]);
+					}*/
 
 				} else {
 					
 					for (int j = 0; j < horariosId.length; j++) {
-						tuples.add(timeslot.getDisciplina().getValue(), professor.getId(), j);
+						tuples.add(professor.getId(), j);
 					}
 				}
 			}
@@ -456,7 +440,7 @@ public class Teste {
 				
 				IntVar horario = timeslot.getHorarios().get(j);
 				
-				model.table(new IntVar[] {timeslot.getDisciplina(), timeslot.getProfessor(), horario}, tuples).post();
+				model.table(new IntVar[] {timeslot.getProfessor(), horario}, tuples).post();
 			}
 		}
 	}
@@ -471,32 +455,32 @@ public class Teste {
 
 	private void manterProfessoresComHorarioUnicoConstraint() {
 		
-		varHorariosProfessor = new IntVar[disciplinasId.length][];
+		List<IntVar> list = new ArrayList<IntVar>();
 		
-		for (int i = 0; i < disciplinasId.length; i++) {
+		List<IntVar> l2 = new ArrayList<IntVar>();
+		
+		for (int i = 0; i < timeslots.size(); i++) {
 			
-			List<Professor> list = professores.allByPreferenciaDisciplina(getDisciplina(disciplinasId[i]));
-			
-			for (Professor professor : list) {
+			for (int j = 0; j < timeslots.get(i).getHorarios().size(); j++) {
 				
-				List<IntVar> horarios = new ArrayList<IntVar>();
+				IntVar horario = timeslots.get(i).getHorarios().get(j);
+				IntVar professor = timeslots.get(i).getProfessor();
 				
-				int [] disciplinasProfessorId = extrairIds(disciplinas.allByPreferenciaProfessor(professor));
+				IntVar xy = model.intVar("xy", 0, 100000);
 				
-				for (int j = 0; j < disciplinasProfessorId.length; j++) {
-					
-					if (getTimeslotDisciplina(disciplinasProfessorId[j]) != null) {
-						horarios.addAll(getTimeslotDisciplina(disciplinasProfessorId[j]).getHorarios());
-					}
-				}
+				l2.add(professor);
 				
-				varHorariosProfessor[i] = horarios.toArray(new IntVar[horarios.size()]);
+				model.sum(new IntVar[]{model.intScaleView(horario, 1000), professor}, "=", xy).post();
 				
-				model.allDifferent(varHorariosProfessor[i], "NEQS").post();
+				list.add(xy);
 			}
 		}
 		
-		System.out.println();
+		for (int i = 0; i < professoresId.length; i++) {
+			model.count(professoresId[i], l2.toArray(new IntVar[l2.size()]), model.intVar(0, 12)).post();;
+		}
+		
+		model.allDifferent(list.toArray(new IntVar[list.size()]), "NEQS").post();
 	}
 	
 	/**
@@ -1079,14 +1063,14 @@ public class Teste {
 			grades[k] = new Grade(horas.length, dias.length);
 		 }
 			 
-		for (int i = 0; i < varDisciplinas.length; i++) {
+		for (int i = 0; i < timeslots.size(); i++) {
 				
-			int k = getPeriodoDisciplina(varDisciplinas[i].getValue()) - 1;
+			int k = getPeriodoDisciplina(timeslots.get(i).getDisciplina().getValue()) - 1;
 				
 			for (int j = 0; j < aulas[i]; j++) {
 				
-				int [] tokens = getTokens(varHorariosDisciplina[i][j]);	
-				grades[k].getGrade()[tokens[1]][tokens[0]] = getDisciplina(varDisciplinas[i].getValue()).getSigla() + " " + getLocal(varHorariosLocal[i][j].getValue());
+				int [] tokens = getTokens(timeslots.get(i).getHorarios().get(j));	
+				grades[k].getGrade()[tokens[1]][tokens[0]] = getDisciplina(timeslots.get(i).getDisciplina().getValue()).getSigla() + " " + getLocal(timeslots.get(i).getLocais().get(j).getValue());
 			}
 		}
 		
@@ -1135,7 +1119,7 @@ public class Teste {
 			
 			for (int i = 0; i < periodos[count].length; i++) {
 				
-				System.out.print(getDisciplina(periodos[count][i]).getSigla() + " = " + getProfessor(varProfessores[indexDisciplina].getValue()));
+				System.out.print(getDisciplina(periodos[count][i]).getSigla() + " = " + getProfessor(timeslots.get(indexDisciplina).getProfessor().getValue()));
 				
 				if ((i+1) < periodos[count].length) {
 					System.out.print(", ");

@@ -181,7 +181,7 @@
 								</div>
 								<div class="col-md-1">
 									<div class="form-group">
-										<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="@command('limpar', opc=1)" tooltiptext="Limpar"/>
+										<button iconSclass="fa fa-close" sclass="btn btn-default low" onClick="@command('limpar', opc=1)" tooltiptext="Limpar"/>
 									</div>	
 								</div>
 								<div class="col-md-4">

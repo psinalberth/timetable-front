@@ -10,9 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.PostLoad;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -52,12 +50,6 @@ public class Disciplina extends Entidade {
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="disciplina")
 	private Set<DetalheDisciplina> detalhes = new HashSet<DetalheDisciplina>();
-	
-	@Transient
-	private transient int cargaHoraria;
-	
-	@Transient
-	private transient int creditos;
 
 	public int getId() {
 		return id;
@@ -115,29 +107,8 @@ public class Disciplina extends Entidade {
 		this.detalhes = detalhes;
 	}
 	
-	public int getCargaHoraria() {
-		return cargaHoraria;
-	}
-	
-	public void setCargaHoraria(int cargaHoraria) {
-		this.cargaHoraria = cargaHoraria;
-	}
-	
-	public int getCreditos() {
-		return creditos;
-	}
-	
-	public void setCreditos(int creditos) {
-		this.creditos = creditos;
-	}
-	
 	@Override
 	public String toString() {
 		return this.getDescricao();
-	}
-	
-	@PostLoad
-	public void postLoad() {
-		
 	}
 }

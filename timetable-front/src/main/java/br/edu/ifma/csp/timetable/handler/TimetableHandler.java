@@ -76,8 +76,6 @@ public class TimetableHandler {
 	private TiposLocal tiposLocal;
 	private DetalhesDisciplina detalhesDisciplina;
 	
-	IntVar [] varDisciplinas;
-	IntVar [] varProfessores;
 	IntVar [][] varHorariosPeriodo;
 	
 	List<Professor> listProfessores;
@@ -149,9 +147,6 @@ public class TimetableHandler {
 		
 		timeslots = new ArrayList<Timeslot>();
 		
-		varProfessores = new IntVar[disciplinasId.length];
-		varDisciplinas = new IntVar[disciplinasId.length];
-		
 		periodos = new int[timetable.getMatrizCurricular().getPeriodos().size()][];
 		
 		for (int i = 0; i < timetable.getMatrizCurricular().getPeriodos().size(); i++) {
@@ -167,23 +162,23 @@ public class TimetableHandler {
 			}
 		}
 		
-		for (int i = 0; i < varProfessores.length; i++) {
+		for (int i = 0; i < disciplinasId.length; i++) {
 			
-			varDisciplinas[i] = model.intVar("D[" + i + "]", disciplinasId[i]);
-			Disciplina disciplina = disciplinas.byId(disciplinasId[i]);
+			IntVar disciplina = model.intVar("D[" + i + "]", disciplinasId[i]);
+			Disciplina d = disciplinas.byId(disciplinasId[i]);
 			
-			varProfessores[i] = model.intVar("P[" + i + "]", extrairIds(professores.allByPreferenciaDisciplina(disciplina)));
+			IntVar professor = model.intVar("P[" + i + "]", extrairIds(professores.allByPreferenciaDisciplina(d)));
 			
 			Timeslot timeslot = new Timeslot();
-			timeslot.addProfessor(varProfessores[i]);
-			timeslot.addDisciplina(varDisciplinas[i]);
+			timeslot.addProfessor(professor);
+			timeslot.addDisciplina(disciplina);
 			
 			for (int j = 0; j < aulas[i]; j++) {
 				
-				IntVar horario = model.intVar(varDisciplinas[i].getName() + "_" + "H" + (j+1), 0, horariosId.length - 1);
+				IntVar horario = model.intVar(disciplina.getName() + "_" + "H" + (j+1), 0, horariosId.length - 1);
 				timeslot.addHorario(horario);
 				
-				IntVar local = model.intVar(varDisciplinas[i].getName() + "_" + "L" + (j+1), 0, locaisId.length - 1);
+				IntVar local = model.intVar(disciplina.getName() + "_" + "L" + (j+1), 0, locaisId.length - 1);
 				timeslot.addLocal(local);
 			}
 			
@@ -207,8 +202,6 @@ public class TimetableHandler {
 		manterDisciplinasComAulaLaboratorioConstraint();
 		
 		manterHorariosIndisponiveisProfessor();
-		
-		manterCargaHorariaProfessorConstraint();
 	}
 	
 	private final void configureSearch() {
@@ -746,10 +739,6 @@ public class TimetableHandler {
 		}
 	}
 	
-	private void manterCargaHorariaProfessorConstraint() {
-		
-	}
-	
 	private int [] allByTipoLocal(TipoLocal tipoLocal) {
 		
 		List<Integer> locaisId = new ArrayList<Integer>();
@@ -968,14 +957,14 @@ public class TimetableHandler {
 			grades[k] = new Grade(horas.length, dias.length);
 		 }
 			 
-		for (int i = 0; i < varDisciplinas.length; i++) {
+		for (int i = 0; i < timeslots.size(); i++) {
 				
-			int k = getPeriodoDisciplina(varDisciplinas[i].getValue()) - 1;
+			int k = getPeriodoDisciplina(timeslots.get(i).getDisciplina().getValue()) - 1;
 				
 			for (int j = 0; j < aulas[i]; j++) {
 				
 				int [] tokens = getTokens(timeslots.get(i).getHorarios().get(j));	
-				grades[k].getGrade()[tokens[1]][tokens[0]] = getDisciplina(varDisciplinas[i].getValue()).getSigla() + " " + getLocal(timeslots.get(i).getLocais().get(j).getValue());
+				grades[k].getGrade()[tokens[1]][tokens[0]] = getDisciplina(timeslots.get(i).getDisciplina().getValue()).getSigla() + " " + getLocal(timeslots.get(i).getLocais().get(j).getValue());
 			}
 		}
 		
@@ -1024,7 +1013,7 @@ public class TimetableHandler {
 			
 			for (int i = 0; i < periodos[count].length; i++) {
 				
-				System.out.print(getDisciplina(periodos[count][i]).getSigla() + " = " + getProfessor(varProfessores[indexDisciplina].getValue()));
+				System.out.print(getDisciplina(periodos[count][i]).getSigla() + " = " + getProfessor(timeslots.get(indexDisciplina).getProfessor().getValue()));
 				
 				if ((i+1) < periodos[count].length) {
 					System.out.print(", ");
