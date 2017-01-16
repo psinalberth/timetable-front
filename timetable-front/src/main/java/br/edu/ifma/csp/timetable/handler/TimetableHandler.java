@@ -12,7 +12,9 @@ import java.util.stream.IntStream;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.constraints.extension.Tuples;
+import org.chocosolver.solver.search.strategy.Search;
 import org.chocosolver.solver.variables.IntVar;
+import org.chocosolver.util.tools.ArrayUtils;
 
 import br.edu.ifma.csp.timetable.dao.DetalheDisciplinaDao;
 import br.edu.ifma.csp.timetable.dao.DisciplinaDao;
@@ -205,8 +207,8 @@ public class TimetableHandler {
 	}
 	
 	private final void configureSearch() {
-		//solver.makeCompleteStrategy(true);
-		//solver.setSearch(Search.intVarSearch(new VariableSelectorWithTies<>(new FirstFail(getModel()), new Smallest()), new IntDomainMin()));
+		solver.makeCompleteStrategy(true);
+		solver.setSearch(Search.domOverWDegSearch(ArrayUtils.flatten(varHorariosPeriodo)), Search.lastConflict(Search.intVarSearch(ArrayUtils.flatten(varHorariosPeriodo))));
 	}
 	
 	public void execute() {

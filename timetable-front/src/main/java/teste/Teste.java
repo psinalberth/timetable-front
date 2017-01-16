@@ -232,7 +232,7 @@ public class Teste {
 	}
 
 	
-	private final void solve() {
+	public final void solve() {
 		
 		solver.showStatistics();
 		

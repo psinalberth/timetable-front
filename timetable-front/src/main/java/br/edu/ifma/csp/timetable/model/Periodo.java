@@ -40,9 +40,6 @@ public class Periodo extends Entidade {
 	@Valid
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="periodo", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<DetalheDisciplina> detalhes = new ArrayList<DetalheDisciplina>();
-	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="periodo", cascade=CascadeType.ALL, orphanRemoval=true)
-	private List<Turma> turmas = new ArrayList<Turma>();
 
 	public int getId() {
 		return id;
@@ -74,13 +71,5 @@ public class Periodo extends Entidade {
 	
 	public void setDetalhes(List<DetalheDisciplina> detalhes) {
 		this.detalhes = detalhes;
-	}
-	
-	public List<Turma> getTurmas() {
-		return turmas;
-	}
-	
-	public void setTurmas(List<Turma> turmas) {
-		this.turmas = turmas;
 	}
 }
