@@ -1,16 +1,8 @@
 @CHARSET "UTF-8";
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('../fonts/raleway/Raleway-Black.ttf'),
-	url('../fonts/raleway/Raleway-BlackItalic.ttf'),
-	url('../fonts/raleway/Raleway-BoldItalic.ttf'),
-	url('../fonts/raleway/Raleway-ExtraBold.ttf'),
-	url('../fonts/raleway/Raleway-Bold.ttf'),
-	url('../fonts/raleway/Raleway-Regular.ttf'),
-	url('../fonts/raleway/Raleway-Heavy.ttf'),
-	url('../fonts/raleway/Raleway-Light.ttf'),
-	url('../fonts/raleway/Raleway-Medium.ttf');
+	font-family: 'MyriadPro';
+	src: url('../fonts/MyriadPro-Regular.otf');
 }
 
 /* ------------------ */
@@ -19,8 +11,9 @@
 
 body {
 	/* font-family: 'Open Sans', sans-serif; */
-	font-family: 'Raleway', sans-serif;
-	background: #f8f7ff;
+	font-family: 'MyriadPro', sans-serif;
+	/* background: #e4e4e7; */
+	background: #364760;
 	/* background: rgb(99,182,219); Old browsers
 	background: -moz-linear-gradient(top, rgba(99,182,219,1) 0%, rgba(48,157,207,1) 100%); FF3.6-15
 	background: -webkit-linear-gradient(top, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); Chrome10-25,Safari5.1-6
@@ -122,11 +115,11 @@ input[type=checkbox]:checked{
 }
 
 .navbar-default {
-	background: white;
+	background: #364760;
 }
 
 .form-label, .z-listheader-content, .z-label {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'MyriadPro', sans-serif;
 	color: #5a597b; 
 	font-size: 14px; 
 	font-weight: 600; 
@@ -140,7 +133,7 @@ input[type=checkbox]:checked{
 }
 
 .z-listitem {
-	background: #f2f1f9;
+	background: #e4e4e7;
 }
 
 .z-listbox-odd.z-listitem {
@@ -192,7 +185,7 @@ input[type=checkbox]:checked{
 }
 
 .zk-container {
-	background: transparent;
+	background: #e4e4e7;
 	min-height: 630px; 
 	padding: 0 15px;
 	border-left: 1px solid #e7e7e7;
@@ -212,12 +205,18 @@ input[type=checkbox]:checked{
 }
 
 .sidebar ul li > .z-a {
-	font-family: 'Raleway', sans-serif;
-	font-size: 14px;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 12px/ 1.4;
+	padding: 10px 15px;
 	/* color: #5a5979; */
-	font-weight: 500;
-	 color: #347abe; 
+	/* font-weight: bold; */
+	/* color: #576490; */ 
+	color: #a0acbf;
 	transition: all 0.2s ease-in-out;
+}
+
+.fa {
+	padding-right: 15px;
 }
 
 .sidebar ul li > .z-a:hover, .sidebar ul li > .z-a:focus, .sidebar ul li > .z-a.active {
@@ -421,6 +420,8 @@ input[type=checkbox]:checked{
 
 .z-tabs-content {
 	border: 0;
+	margin: 0 auto;
+	
 	/* border-bottom: 2px solid #347abe; */
 }
 
