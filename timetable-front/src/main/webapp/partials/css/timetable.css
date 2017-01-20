@@ -20,7 +20,7 @@
 body {
 	/* font-family: 'Open Sans', sans-serif; */
 	font-family: 'Raleway', sans-serif;
-	background: #fff;
+	background: #f8f7ff;
 	/* background: rgb(99,182,219); Old browsers
 	background: -moz-linear-gradient(top, rgba(99,182,219,1) 0%, rgba(48,157,207,1) 100%); FF3.6-15
 	background: -webkit-linear-gradient(top, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); Chrome10-25,Safari5.1-6
@@ -114,10 +114,11 @@ input[type=checkbox]:checked{
 .page-title {
 	font-size: 22px;
 	font-family: 'Raleway', sans-serif;
-	font-weight: 600;
-	border-bottom: 2px solid #347abe;
+	font-weight: 400;
+	text-transform: uppercase;
+	/* border-bottom: 2px solid #347abe; */
 	line-height: inherit;
-	color: #777;
+	color: #b3bdc3;
 }
 
 .navbar-default {
@@ -125,11 +126,37 @@ input[type=checkbox]:checked{
 }
 
 .form-label, .z-listheader-content, .z-label {
-	font-family: 'Raleway', sans-serif;
-	color: #347abe; 
+	font-family: 'Roboto', sans-serif;
+	color: #5a597b; 
 	font-size: 14px; 
 	font-weight: 600; 
 	padding: 0;
+}
+
+.z-listbox .z-listbox-header {
+	background: #fefefe;
+	font-size: 16px;
+	padding: 10px 5px 10px 5px;
+}
+
+.z-listitem {
+	background: #f2f1f9;
+}
+
+.z-listbox-odd.z-listitem {
+	background: #ffffff;
+}
+
+.z-listhead-bar {
+	border: 0;
+}
+
+.z-listheader-content {
+	text-transform: uppercase;
+	font-weight: 500;
+	font-size: 14px;
+	color: #b3bdc3;
+	cursor: default;
 }
 
 .header {
@@ -168,17 +195,28 @@ input[type=checkbox]:checked{
 	background: transparent;
 	min-height: 630px; 
 	padding: 0 15px;
-	border-left: 1px dashed #e7e7e7;
+	border-left: 1px solid #e7e7e7;
 }
 
 .sidebar ul li {
-	border-bottom: 1px dashed #e7e7e7;
+	border: 0;
+}
+
+.sidebar ul li span {
+	text-transform: uppercase;
+	color: #b3bdc3;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 500;
+	font-size: 14px;
+	padding: 0px 0px 0px 7px;
 }
 
 .sidebar ul li > .z-a {
 	font-family: 'Raleway', sans-serif;
-	font-size: 16px;
-	color: #347abe;
+	font-size: 14px;
+	/* color: #5a5979; */
+	font-weight: 500;
+	 color: #347abe; 
 	transition: all 0.2s ease-in-out;
 }
 
@@ -416,11 +454,13 @@ input[type=checkbox]:checked{
 /* Listbox */
 
 .z-listbox {
-	border: 0;
+	/* border: 0; */
+	/* box-shadow: 0 10px 6px -6px #777; */
 }
 
 .z-listbox-header-border {
-	border-bottom: 2px solid #777;
+	/* border-bottom: 2px solid #777; */
+	border: 0;
 }
 
 .z-listheader, .z-listbox-header {
@@ -429,8 +469,9 @@ input[type=checkbox]:checked{
 }
 
 .z-listcell-content {
-	font-family: 'Cabin', sans-serif;
-	color: #444;
+	color: #1b263b;
+	font-family: 'Roboto';
+	font-weight: 400;
 	font-size: 15px;
 	height: 22px;
 }
