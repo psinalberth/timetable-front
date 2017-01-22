@@ -3,8 +3,8 @@
 	
 	<tabbox>
 		<tabs>
-			<tab label="Informações Gerais" iconSclass="fa fa-edit" selected="@load(vm.editando)"/>
-			<tab label="Períodos" iconSclass="fa fa-book"/>
+			<tab label="Informações Gerais" iconSclass="fa tab fa-edit" selected="@load(vm.editando)"/>
+			<tab label="Períodos" iconSclass="fa tab fa-book"/>
 		</tabs>
 		
 		<tabpanels>

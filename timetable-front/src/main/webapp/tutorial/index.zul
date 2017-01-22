@@ -1,4 +1,5 @@
 <?page title="Timetable - Tutorial" contentType="text/html;charset=UTF-8"?>
+<?meta name="theme-color" content="#344760" ?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/zul/template.zul"?>
 <zk xmlns:n="native">
 
@@ -42,7 +43,7 @@
 	
 		<div sclass="row">
 			<div class="form-group">
-				<n:h4 class="page-title">Tutorial</n:h4>
+				<n:h4 class="page-title"><span class="fa side fa-comments"/>Tutorial</n:h4>
 			</div>	
 		</div>
 		

@@ -5,9 +5,9 @@
 		<div class="col-lg-12">
 		<tabbox>
 			<tabs>
-				<tab label="Informações Gerais" iconSclass="fa fa-edit" selected="@load(vm.editando)"/>
-				<tab label="Detalhes" iconSclass="fa fa-gear"/>
-				<tab label="Aulas" iconSclass="fa fa-book" visible="@load(vm.solucaoEncontrada)" selected="@load(vm.solucaoEncontrada)"/>
+				<tab label="Informações Gerais" iconSclass="fa tab fa-edit" selected="@load(vm.editando)"/>
+				<tab label="Detalhes" iconSclass="fa tab fa-gear"/>
+				<tab label="Aulas" iconSclass="fa tab fa-book" visible="@load(vm.solucaoEncontrada)" selected="@load(vm.solucaoEncontrada)"/>
 			</tabs>
 			<tabpanels>
 				
