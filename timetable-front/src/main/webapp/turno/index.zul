@@ -7,7 +7,7 @@
 		<div sclass="row">
 		
 			<div class="form-group">
-				<n:h4 class="page-title"><span class="fa side fa-hourglass-2"/>Turno</n:h4>
+				<n:h4 class="page-title"><span class="la side la-hourglass-2"/>Turno</n:h4>
 				<include src="/partials/zul/botoes.zul"/>
 			</div>
 					

@@ -16,15 +16,9 @@
 /* ------------------ */
 
 body {
-	/* font-family: 'Open Sans', sans-serif; */
 	font-family: 'Montserrat', sans-serif;
 	/* background: #e4e4e7; */
 	background: #364760;
-	/* background: rgb(99,182,219); Old browsers
-	background: -moz-linear-gradient(top, rgba(99,182,219,1) 0%, rgba(48,157,207,1) 100%); FF3.6-15
-	background: -webkit-linear-gradient(top, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); Chrome10-25,Safari5.1-6
-	background: linear-gradient(to bottom, rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', endColorstr='#309dcf',GradientType=0 ); IE6-9 */
 	line-height: 1.42857143;
 	margin: 0;
 	padding: 0;
@@ -92,18 +86,6 @@ input[type=checkbox]:checked{
 .table-fixed tbody td, .table-fixed thead > tr> th {
   float: left;
   border-bottom-width: 0;
-}
-
-/* ------------------- */
-/* Definição de Fontes */
-/* ------------------- */
-
-@font-face {
-	font-family: 'FontAwesome';
-	src: url('../partials/fonts/fontawesome-webfont.eot?v=3.0.1');
-  	src: url('../partials/fonts/fontawesome-webfont.eot?#iefix&v=3.0.1') format('embedded-opentype'),
-    url('../partials/fonts/fontawesome-webfont.woff?v=3.0.1') format('woff'),
-    url('../partials/fonts/fontawesome-webfont.ttf?v=3.0.1') format('truetype');
 }
 
 /* ------------------ */
@@ -233,13 +215,13 @@ i {
 	transition: all 0.2s ease-in-out;
 }
 
-.fa.side {
+.la.side {
 	color: #347abe;
 	padding-right: 15px;
 	font-size: 24px !important;
 }
 
-.fa.tab {
+.la.tab {
 	font-size: 18px;
 }
 
@@ -253,7 +235,7 @@ i > a {
 }
 
 .navbar-brand.z-a {
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Montserrat', sans-serif;
 	transition: all 0.3s ease;
 	color: #a0acbf;
 }
@@ -372,13 +354,12 @@ i > a {
 
 .z-notification-info .z-notification-content {
 	background: rgba(94, 191, 88, 0.88);
-	//background: white;
 	color: white;
 	font-size: 20px;
 }
 
 .z-notification-icon.z-icon-times-circle:before {
-	content: '\f208';
+	content: '\f207';
 	color: #523434;
 	font-size: 30px;
 	margin-top: -30px;
@@ -393,7 +374,7 @@ i > a {
 }
 
 .z-notification-icon.z-icon-exclamation-circle:before {
-	
+	content: '\f1cd';
 }
 
 .z-errorbox-content, .z-notification-content {
@@ -404,7 +385,7 @@ i > a {
 }
 
 .z-icon-exclamation-triangle:before {
-	content: '\f12a';
+	content: '\f305';
 }
 
 /* Button */

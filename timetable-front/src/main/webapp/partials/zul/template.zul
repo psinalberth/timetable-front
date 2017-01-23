@@ -6,17 +6,12 @@
 	<n:link rel="stylesheet" href="../partials/css/bootstrap.min.css"></n:link>
 	<n:link rel="stylesheet" href="../partials/css/sb-admin-2.min.css"></n:link>
 	<n:link rel="stylesheet" href="../partials/css/timetable.css"></n:link>
-	<!-- <n:link rel="stylesheet" href="../partials/css/font-awesome.min.css"></n:link> -->
-	<n:link rel="stylesheet" href="../partials/css/linea-arrows.css"></n:link>
-	<n:link rel="stylesheet" href="https://maxcdn.icons8.com/fonts/line-awesome/css/line-awesome-font-awesome.min.css"></n:link>
-	
-	<n:link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,800' rel='stylesheet' type='text/css'></n:link>
-	<n:link href='https://fonts.googleapis.com/css?family=Raleway:400,800,900' rel='stylesheet' type='text/css'></n:link>
-	<n:link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet"></n:link>
+	<n:link rel="stylesheet" href="../partials/css/line-awesome-font-awesome.min.css"></n:link>
+	<n:link rel="stylesheet" href="../partials/css/line-awesome.min.css"></n:link>
 	
 	<div id="wrapper" sclass="ss">
 		
-		<n:nav sclass="navbar navbar-default navbar-static-top" style="margin-bottom: 0">
+		<n:nav sclass="navbar navbar-delault navbar-static-top" style="margin-bottom: 0">
 
 			<div class="navbar-header">
 				<n:button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -28,21 +23,21 @@
 				<a href="" class="navbar-brand">Timetable</a>
 			</div>
 
-			<div class="navbar-default sidebar">
+			<div class="navbar-delault sidebar">
 				<div class="sidebar-nav navbar-collapse">
 					<n:ul class="nav in" id="side-menu">
-						<n:li sclass="li-menu"><a href="/professor/" iconSclass="fa side fa-graduation-cap">Professores</a></n:li>
-						<n:li sclass="li-menu"><a href="/departamento/" iconSclass="fa side fa-building">Departamentos</a></n:li>
-						<n:li sclass="li-menu"><a href="/disciplina/" iconSclass="fa side fa-book">Disciplinas</a></n:li>
-						<n:li sclass="li-menu"><a href="/curso/" iconSclass="fa side fa-university">Cursos</a></n:li>
-						<n:li sclass="li-menu"><a href="/matriz/" iconSclass="fa side fa-file-text-o" >Matrizes Curriculares</a></n:li>
-						<n:li sclass="li-menu"><a href="/timetable/" iconSclass="fa side fa-calendar">Grades de Horário</a></n:li>
+						<n:li sclass="li-menu"><a href="/professor/" iconSclass="la side la-graduation-cap">Professores</a></n:li>
+						<n:li sclass="li-menu"><a href="/departamento/" iconSclass="la side la-building">Departamentos</a></n:li>
+						<n:li sclass="li-menu"><a href="/disciplina/" iconSclass="la side la-book">Disciplinas</a></n:li>
+						<n:li sclass="li-menu"><a href="/curso/" iconSclass="la side la-university">Cursos</a></n:li>
+						<n:li sclass="li-menu"><a href="/matriz/" iconSclass="la side la-file-text-o" >Matrizes Curriculares</a></n:li>
+						<n:li sclass="li-menu"><a href="/timetable/" iconSclass="la side la-calendar">Grades de Horário</a></n:li>
 						<n:hr></n:hr>
-						<n:li sclass="li-menu"><a href="/local/" iconSclass="fa side fa-map-marker">Locais</a></n:li>
-						<n:li sclass="li-menu"><a href="/turno/" iconSclass="fa side fa-hourglass-2">Turnos</a></n:li>
-						<n:li sclass="li-menu"><a href="/horario/" iconSclass="fa side fa-clock-o">Horários</a></n:li>
+						<n:li sclass="li-menu"><a href="/local/" iconSclass="la side la-map-marker">Locais</a></n:li>
+						<n:li sclass="li-menu"><a href="/turno/" iconSclass="la side la-hourglass-2">Turnos</a></n:li>
+						<n:li sclass="li-menu"><a href="/horario/" iconSclass="la side la-clock-o">Horários</a></n:li>
 						<n:hr></n:hr>
-						<n:li sclass="li-menu"><a href="/tutorial/" iconSclass="fa side fa-comments-o">Tutorial</a></n:li>
+						<n:li sclass="li-menu"><a href="/tutorial/" iconSclass="la side la-comments-o">Tutorial</a></n:li>
 					</n:ul>
 				</div>
 			</div>

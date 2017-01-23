@@ -43,7 +43,7 @@
 	
 		<div sclass="row">
 			<div class="form-group">
-				<n:h4 class="page-title"><span class="fa side fa-comments"/>Tutorial</n:h4>
+				<n:h4 class="page-title"><span class="la side la-comments"/>Tutorial</n:h4>
 			</div>	
 		</div>
 		

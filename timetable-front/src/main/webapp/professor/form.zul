@@ -2,9 +2,9 @@
 <zk xmlns:n="native">
 	<tabbox>
 		<tabs>
-			<tab label="Dados Pessoais" iconSclass="fa tab fa-edit" selected="@load(vm.editando)"/>
-			<tab label="Preferências" iconSclass="fa tab fa-star-o"/>
-			<tab label="Indisponibilidade" iconSclass="fa tab fa-calendar-o"/>
+			<tab label="Dados Pessoais" iconSclass="la tab la-edit" selected="@load(vm.editando)"/>
+			<tab label="Preferências" iconSclass="la tab la-star-o"/>
+			<tab label="Indisponibilidade" iconSclass="la tab la-calendar-o"/>
 		</tabs>
 		<tabpanels>
 			
@@ -53,8 +53,8 @@
 						<listheader hflex="min"/>
 						<listheader label="Disciplinas">
 							<hbox style="float: right">
-								<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="@command('adicionarPreferenciaDisciplina')"/>
-									<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="@command('removerPreferenciaDisciplina')"/>
+								<button iconSclass="la la-plus" sclass="btn btn-default" onClick="@command('adicionarPreferenciaDisciplina')"/>
+									<button iconSclass="la la-minus" sclass="btn btn-default" onClick="@command('removerPreferenciaDisciplina')"/>
 							</hbox>
 						</listheader>
 					</listhead>

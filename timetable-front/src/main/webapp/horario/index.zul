@@ -7,7 +7,7 @@
 		<div sclass="row">
 		
 			<div class="form-group">
-				<n:h4 class="page-title"><span class="fa side fa-clock-o"/>Horário</n:h4>
+				<n:h4 class="page-title"><span class="la side la-clock-o"/>Horário</n:h4>
 			</div>
 		
 			<div class="form-group">

@@ -3,8 +3,8 @@
 	
 	<tabbox>
 		<tabs>
-			<tab label="Informações Gerais" iconSclass="fa tab fa-edit" selected="@load(vm.editando)"/>
-			<tab label="Períodos" iconSclass="fa tab fa-book"/>
+			<tab label="Informações Gerais" iconSclass="la tab la-edit" selected="@load(vm.editando)"/>
+			<tab label="Períodos" iconSclass="la tab la-book"/>
 		</tabs>
 		
 		<tabpanels>
@@ -57,8 +57,8 @@
 						<listheader hflex="min"/>
 						<listheader label="Períodos">
 							<hbox style="float: right">
-								<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="@command('adicionarPeriodo')"/>
-								<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="@command('removerPeriodo')"/>
+								<button iconSclass="la la-plus" sclass="btn btn-default" onClick="@command('adicionarPeriodo')"/>
+								<button iconSclass="la la-minus" sclass="btn btn-default" onClick="@command('removerPeriodo')"/>
 							</hbox>
 						</listheader>
 					</listhead>

@@ -5,9 +5,9 @@
 		<div class="col-lg-12">
 		<tabbox>
 			<tabs>
-				<tab label="Informações Gerais" iconSclass="fa tab fa-edit" selected="@load(vm.editando)"/>
-				<tab label="Detalhes" iconSclass="fa tab fa-gear"/>
-				<tab label="Aulas" iconSclass="fa tab fa-book" visible="@load(vm.solucaoEncontrada)" selected="@load(vm.solucaoEncontrada)"/>
+				<tab label="Informações Gerais" iconSclass="la tab la-edit" selected="@load(vm.editando)"/>
+				<tab label="Detalhes" iconSclass="la tab la-gear"/>
+				<tab label="Aulas" iconSclass="la tab la-book" visible="@load(vm.solucaoEncontrada)" selected="@load(vm.solucaoEncontrada)"/>
 			</tabs>
 			<tabpanels>
 				
@@ -51,8 +51,8 @@
 									<listheader width="30px"/>
 									<listheader label="Detalhes">
 										<hbox style="float: right">
-											<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="@command('adicionarDetalhe')  @global-command('setMatrizCurricular', matrizCurricular=vm.entidadeSelecionada.matrizCurricular)"/>
-											<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="@command('removerDetalhe')"/>
+											<button iconSclass="la la-plus" sclass="btn btn-default" onClick="@command('adicionarDetalhe')  @global-command('setMatrizCurricular', matrizCurricular=vm.entidadeSelecionada.matrizCurricular)"/>
+											<button iconSclass="la la-minus" sclass="btn btn-default" onClick="@command('removerDetalhe')"/>
 										</hbox>
 									</listheader>
 								</listhead>
