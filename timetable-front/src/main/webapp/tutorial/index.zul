@@ -30,7 +30,7 @@
 		
 		.caption {
 			display: block;
-			font-family: 'Cabin';
+			font-family: 'MyriadPro';
 			text-align: center;
 			padding-top: 5px;
 			color: #444;

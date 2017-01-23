@@ -37,10 +37,11 @@
 						<n:li sclass="li-menu"><a href="/curso/" iconSclass="fa side fa-university">Cursos</a></n:li>
 						<n:li sclass="li-menu"><a href="/matriz/" iconSclass="fa side fa-file-text-o" >Matrizes Curriculares</a></n:li>
 						<n:li sclass="li-menu"><a href="/timetable/" iconSclass="fa side fa-calendar">Grades de Horário</a></n:li>
-						<n:li sclass="li-menu"><a href="/local/" iconSclass="fa side fa-map-marker">Locais</a></n:li>
 						<n:hr></n:hr>
+						<n:li sclass="li-menu"><a href="/local/" iconSclass="fa side fa-map-marker">Locais</a></n:li>
 						<n:li sclass="li-menu"><a href="/turno/" iconSclass="fa side fa-hourglass-2">Turnos</a></n:li>
 						<n:li sclass="li-menu"><a href="/horario/" iconSclass="fa side fa-clock-o">Horários</a></n:li>
+						<n:hr></n:hr>
 						<n:li sclass="li-menu"><a href="/tutorial/" iconSclass="fa side fa-comments-o">Tutorial</a></n:li>
 					</n:ul>
 				</div>
