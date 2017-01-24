@@ -5,7 +5,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label sclass="form-label filtro" value="Nome"/>
-						<textbox instant="true" sclass="form-input filtro" value="@bind(vm.entidadeFiltro.nome)" onChange="@command('filtrar')"/>
+						<textbox instant="true" sclass="filtro-input" value="@bind(vm.entidadeFiltro.nome)" onChange="@command('filtrar')"/>
 					</div>
 				</div>
 				<div class="col-md-6">

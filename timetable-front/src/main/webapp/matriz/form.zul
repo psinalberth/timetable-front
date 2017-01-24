@@ -29,7 +29,7 @@
 					<div sclass="col-md-3">
 						<div class="form-group">
 							<label sclass="form-label" value="Turno"/>
-							<combobox id="turno" sclass="form-input" model="@load(vm.colTurnos)" 
+							<combobox id="turno" sclass="form-input" model="@load(vm.colTurnos)" readonly="true" autodrop="true"
 									  selectedItem="@load(vm.entidadeSelecionada.turno)" value="@load(vm.entidadeSelecionada.turno.nome)">
 								<template name="model">
 									<comboitem label="@load(each.nome)"/>
@@ -95,8 +95,8 @@
 												<listheader hflex="min"/>
 												<listheader label="Disciplinas">
 													<hbox style="float: right">
-														<button iconSclass="fa fa-plus" sclass="btn btn-default" onClick="@command('adicionaDisciplina', periodo=periodoSelecionado)"/>
-														<button iconSclass="fa fa-minus" sclass="btn btn-default" onClick="@command('removerDisciplina', periodo=periodoSelecionado)"/>
+														<button iconSclass="la la-plus" sclass="btn btn-default" onClick="@command('adicionaDisciplina', periodo=periodoSelecionado)"/>
+														<button iconSclass="la la-minus" sclass="btn btn-default" onClick="@command('removerDisciplina', periodo=periodoSelecionado)"/>
 													</hbox>
 												</listheader>
 											</listhead>

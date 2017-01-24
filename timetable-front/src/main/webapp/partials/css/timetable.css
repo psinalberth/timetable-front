@@ -41,14 +41,14 @@ input[type=radio], .z-radio-content {
 }
 
 input[type=text],input[type=text][readonly]{
-  background: transparent;
+  /* background: transparent;
   outline: none;
   height:22px;
   border: 0;
   border-radius: 0;
   border-bottom: 2px solid #b9b9b9;
   transition: all 0.3s ease;
-  padding: 0px 5px 0px 5px;
+  padding: 0px 5px 0px 5px; */
   /* width: 100%; */
   /* margin-left:1px;
   box-shadow: -8px 10px 0px -7px #b9b9b9, 8px 10px 0px -7px #b9b9b9;
@@ -57,11 +57,11 @@ input[type=text],input[type=text][readonly]{
   /* left: -100%; */
 }
 
-input[type=text]:focus, textarea:focus {
+/* input[type=text]:focus, textarea:focus {
   outline: none;
   border-bottom: 0;
   box-shadow: -8px 10px 0px -7px #344760, 8px 10px 0px -7px #344760;
-}
+} */
 
 input[type=checkbox]:checked{
     content: "\2605";
@@ -164,17 +164,27 @@ input[type=checkbox]:checked{
 	transition: none;
 }
 
-.form-input.filtro {
+.filtro-input {
+	
+	font-family: 'MyriadPro', sans-serif;
+	background: transparent;
+	border: 0;
 	border-bottom: 2px dotted #a0acbf;
+	outline: 0;
+	width: 100%;
+	color: #a0acbf;
+	font-size: 15px;
+	height: 30px;
 }
 
 .z-combobox.form-input.filtro {
 	border-bottom: 2px dotted #a0acbf;
 }
 
-.form-input.filtro:focus {
-	background: #344760;
-	color: #a0acbf;
+.filtro-input:focus {
+ 	border: 0;
+	outline: 0;
+	background: transparent;
 	border-bottom: 2px dotted #a0acbf;
 }
 
@@ -186,7 +196,7 @@ input[type=checkbox]:checked{
 	
 }
 
-.form-input, input[type=checkbox], .z-lookupbox {
+/* .form-input, input[type=checkbox], .z-lookupbox {
 	font-family: 'MyriadPro', sans-serif;
 	color: #444;
 	font-size: 15px;
@@ -195,6 +205,26 @@ input[type=checkbox]:checked{
 	border: 0;
 	margin: 0;
 	padding: 0;
+} */
+
+.form-input, input[type=checkbox] {
+	font-family: 'MyriadPro', sans-serif;
+	background: #fefefe;
+	border: 1px solid #a0acbf;
+	border-radius: 2px;
+	width: 100%;
+	color: #444;
+	font-size: 15px;
+	height: 30px;
+	transition: all ease 0.1s;
+}
+
+.z-bandbox-input, .z-bandbox-button {
+	padding-top: 14px;
+}
+
+.form-input:focus {
+	border: 2px solid #5a597b;
 }
 
 .grid-label {
@@ -430,10 +460,11 @@ hr {
 
 /* Input (Timebox, Combobox, Bandbox) */
 
-.z-timebox-input, .z-combobox-input,.z-bandbox-input, .z-lookupbox-input {
+.z-timebox-input, .z-combobox-input, .z-bandbox-input, .z-lookupbox-input {
 	font-family: 'MyriadPro', sans-serif;
 	color: #444;
 	font-size: 15px;
+	padding-top: 13px;
 	height: 22px;
 	width: 97.3333333%;
 	transition: all 0.3s ease;
@@ -442,15 +473,19 @@ hr {
 /* Input Button (Timebox, Combobox, Bandbox) */
 
 .z-timebox-button, .z-combobox-button, .z-bandbox-button, .z-lookupbox-button {
-	min-height: 22px;
-	height: 22px !important;
+	height: 30px !important;
 	width: 2.66666667%;
-	padding-top: 0;
 	border: 0;
-  	border-radius: 0;
-  	background: transparent;
+	display: none;
+	background: transparent;
+	padding: 0;
+	padding-top: 5px;
  /*  border-bottom: 2px solid #b9b9b9;
   transition: all 0.3s ease; */
+}
+
+.z-bandbox-button:hover {
+	background: transparent;
 }
 
 /* Tabpanel */
