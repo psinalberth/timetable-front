@@ -27,6 +27,7 @@ public abstract class ViewModel<T extends Entidade> {
 	
 	protected Repository<T> repository;
 	protected T entidadeSelecionada;
+	protected T entidadeFiltro;
 	
 	private List<T> col;
 	
@@ -42,8 +43,10 @@ public abstract class ViewModel<T extends Entidade> {
 	public abstract void init(Component view);
 	
 	@Command
-	@NotifyChange({"entidadeSelecionada", "consultando", "removivel", "editando"})
+	@NotifyChange({"entidadeSelecionada", "consultando", "removivel", "editando", "entidadeFiltro"})
 	public void novo() throws InstantiationException, IllegalAccessException {
+		
+		entidadeFiltro = retornaTipo().newInstance();
 		
 		entidadeSelecionada = retornaTipo().newInstance();
 		entidadeSelecionada.setUsuarioUltAlteracao("user");
@@ -76,6 +79,12 @@ public abstract class ViewModel<T extends Entidade> {
 	
 		setEntidadeSelecionada(null);
 		setCol(repository.all());
+	}
+	
+	@Command
+	@NotifyChange({"entidadeFiltro", "col"})
+	public void filtrar() {
+		
 	}
 	
 	@Command
@@ -148,5 +157,13 @@ public abstract class ViewModel<T extends Entidade> {
 	
 	public void setEntidadeSelecionada(T entidadeSelecionada) {
 		this.entidadeSelecionada = entidadeSelecionada;
+	}
+	
+	public T getEntidadeFiltro() {
+		return entidadeFiltro;
+	}
+	
+	public void setEntidadeFiltro(T entidadeFiltro) {
+		this.entidadeFiltro = entidadeFiltro;
 	}
 }

@@ -159,16 +159,23 @@ input[type=checkbox]:checked{
 	padding-top: 10px;
 }
 
-.form-input.filtro {
+.form-label.filtro {
 	color: #a0acbf;
-	border-radius: 2px;
-	box-shadow: inset 0 0 5px #343842;
+	transition: none;
+}
+
+.form-input.filtro {
+	border-bottom: 2px dotted #a0acbf;
+}
+
+.z-combobox.form-input.filtro {
+	border-bottom: 2px dotted #a0acbf;
 }
 
 .form-input.filtro:focus {
 	background: #344760;
 	color: #a0acbf;
-	box-shadow: inset 0 0 5px #343842;
+	border-bottom: 2px dotted #a0acbf;
 }
 
 .section-header {
@@ -328,11 +335,6 @@ i > a {
 	margin: 0;
 	padding: 0;
 	transition: all 0.3s ease;
-}
-
-.z-combobox:focus {
-	/* box-shadow: -8px 10px 0px -7px #b9b9b9, 8px 10px 0px -7px #b9b9b9; */
-	border-bottom: 2px dashed orange;
 }
 
 .z-groupbox-content {

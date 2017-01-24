@@ -25,17 +25,19 @@
 		 			</div>
 		 			<div class="col-md-2">
 			 			<div sclass="form-group">
-			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="fa fa-search" onClick="@command('pesquisar')"/>
-			 				<button sclass="btn btn-default" label="Limpar" iconSclass="fa fa-eraser" onClick="@command('limpar')"/>
+			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="la la-search" onClick="@command('pesquisar')"/>
+			 				<button sclass="btn btn-default" label="Limpar" iconSclass="la la-eraser" onClick="@command('limpar')"/>
 			 			</div>
 		 			</div>
 		 		</div>
 		 		<div sclass="row">
 		 			<div sclass="col-md-12">
-				 		<listbox emptyMessage="Nenhum registro encontrado."
-				 				 onSelect="lookup.value = self.selectedItem.label; lookup.close();"
+		 			
+				 		<listbox emptyMessage="Nenhum registro encontrado." id="list"
+				 				 onSelect="lookup.value = self.selectedItem.label; lookup.close(); vm.filtrar()"
 				 				 mold="paging" autopaging="true" rows="5"
-				 				 model="@load(childVM.col)" selectedItem="@bind(vm.entidadeSelecionada.departamento)">
+				 				 model="@load(childVM.col)"
+				 				 selectedItem="@load(vm.entidadeSelecionada eq null ? vm.entidadeFiltro.departamento : null)">
 				 			<listhead>
 								<listheader label="Código"/>
 								<listheader label="Nome"/>

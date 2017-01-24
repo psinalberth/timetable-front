@@ -4,14 +4,16 @@
 			<div class="col-md-12">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label value="Nome"/>
-						<textbox sclass="form-input filtro"/>
+						<label sclass="form-label filtro" value="Nome"/>
+						<textbox instant="true" sclass="form-input filtro" value="@bind(vm.entidadeFiltro.nome)" onChange="@command('filtrar')"/>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label value="Departamento"/>
-						<textbox sclass="form-input filtro"/>
+						<label sclass="form-label filtro" value="Departamento"/>
+						<combobox sclass="form-input filtro" value="@bind(vm.entidadeFiltro.departamento.nome)"/>
+						<!-- <include src="/partials/zul/lookup/departamentolookup.zul" mode="instant"/> -->
+						<!-- <textbox sclass="form-input filtro" value="@load(vm.entidadeFiltro.departamento.nome)"/> -->
 					</div>
 				</div>
 			</div>
@@ -19,10 +21,6 @@
 	</div>
 	<listbox model="@bind(vm.col)" mold="paging" autopaging="true" rows="10"
 			 selectedItem="@bind(vm.entidadeSelecionada)" onSelect="@command('editar')" emptyMessage="Nenhum registro encontrado.">
-		<listhead>
-			<listheader label="Nome"/>
-			<listheader label="Departamento"/>
-		</listhead>
 		<template name="model" var="obj">
 			<listitem value="@bind(obj)" sclass="list">
 				<listcell label="@load(obj.nome)" sclass="emph"/>
