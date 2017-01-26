@@ -1,15 +1,8 @@
 <zk xmlns:n="native">
 	<bandbox id="lookup" sclass="form-input" autodrop="true" readonly="true" mold="rounded" 
-	         value="@load(vm.entidadeSelecionada.departamento.nome)">
-		<bandpopup>
-		 	<vlayout viewModel="@id('childVM') @init('br.edu.ifma.csp.timetable.viewmodel.lookup.DepartamentoLookupViewModel')" style="padding: 0 15px">
-		 		
-		 		<div class="row">
-		 			<div class="col-md-12">
-		 				<n:h5 class="page-title">Departamento</n:h5>
-		 			</div>
-		 		</div>
-		 		
+	         value="@load(vm.entidadeSelecionada.departamento.nome)" onFocus="self.open()">
+		<bandpopup sclass="col-md-12">
+		 	<vlayout viewModel="@id('childVM') @init('br.edu.ifma.csp.timetable.viewmodel.lookup.DepartamentoLookupViewModel')" style="padding: 10px 5px">		 		
 		 		<div sclass="row">
 		 			<div class="col-md-2">
 			 			<div sclass="form-group">
@@ -37,7 +30,7 @@
 				 				 onSelect="lookup.value = self.selectedItem.label; lookup.close(); vm.filtrar()"
 				 				 mold="paging" autopaging="true" rows="5"
 				 				 model="@load(childVM.col)"
-				 				 selectedItem="@load(vm.entidadeSelecionada eq null ? vm.entidadeFiltro.departamento : null)">
+				 				 selectedItem="@bind(vm.entidadeSelecionada.departamento)">
 				 			<listhead>
 								<listheader label="Código"/>
 								<listheader label="Nome"/>

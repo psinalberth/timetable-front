@@ -11,9 +11,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label sclass="form-label filtro" value="Departamento"/>
-						<combobox sclass="form-input filtro" value="@bind(vm.entidadeFiltro.departamento.nome)"/>
-						<!-- <include src="/partials/zul/lookup/departamentolookup.zul" mode="instant"/> -->
-						<!-- <textbox sclass="form-input filtro" value="@load(vm.entidadeFiltro.departamento.nome)"/> -->
+						<textbox sclass="filtro-input" value="@bind(vm.entidadeFiltro.departamento.nome)" onChange="@command('filtrar')"/>
 					</div>
 				</div>
 			</div>
