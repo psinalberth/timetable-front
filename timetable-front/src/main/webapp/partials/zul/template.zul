@@ -9,9 +9,9 @@
 	<n:link rel="stylesheet" href="../partials/css/line-awesome-font-awesome.min.css"></n:link>
 	<n:link rel="stylesheet" href="../partials/css/line-awesome.min.css"></n:link>
 	
-	<div id="wrapper" sclass="ss">
+	<div id="wrapper" sclass="ss" viewModel="@id('authVM') @init('br.edu.ifma.csp.timetable.viewmodel.auth.AuthViewModel')">
 		
-		<n:nav sclass="navbar navbar-delault navbar-static-top" style="margin-bottom: 0">
+		<n:nav sclass="navbar navbar-default navbar-static-top" style="margin-bottom: 0">
 
 			<div class="navbar-header">
 				<n:button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -22,8 +22,12 @@
 				</n:button>
 				<a href="" class="navbar-brand">Timetable</a>
 			</div>
+			
+			<n:ul class="nav navbar-top-links navbar-right">
+				<label visible="@load(authVM.logged)" value="S"/>
+			</n:ul>
 
-			<div class="navbar-delault sidebar">
+			<div class="navbar-default sidebar">
 				<div class="sidebar-nav navbar-collapse">
 					<n:ul class="nav in" id="side-menu">
 						<n:li sclass="li-menu"><a href="/professor/" iconSclass="la side la-graduation-cap">Professores</a></n:li>
@@ -46,7 +50,87 @@
 		
 		<div class="zk-container page-wrapper" self="@insert(content)">
 		</div>
+	
+	<window mode="modal" 
+			visible="@load(authVM.logged ne true)" width="350px">
 		
+		<tabbox id="tabbox">
+			<tabs>
+				<tab label="Login" iconSclass="la la-sign-in"/>
+				<tab label="Não possuo cadastro" iconSclass="la la-user-plus"/>
+			</tabs>
+			<tabpanels>
+				
+				<tabpanel>
+				
+					<div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label value="Login"/>
+								<textbox sclass="form-input" maxlength="20" value="@bind(authVM.login)"/>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="form-group">
+								<label value="Senha"/>
+								<textbox type="password" sclass="form-input" maxlength="64" value="@bind(authVM.senha)"/>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="col-md-6">
+								<button sclass="btn btn-default" iconSclass="la la-sign-in" label="Entrar" onClick="@command('login')"/>
+							</div>
+							<div class="col-md-6">
+								<button sclass="btn btn-default" iconSclass="la la-eraser" label="Limpar" onClick="@command('limpar')"/>
+							</div>
+						</div>
+						
+					</div>
+					
+				</tabpanel>
+				
+				<tabpanel>
+					
+					<div viewModel="@id('vm') @init('br.edu.ifma.csp.timetable.viewmodel.UsuarioViewModel')">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label value="Nome"/>
+								<textbox sclass="form-input" maxlength="80" value="@save(vm.entidadeSelecionada.nome)"/>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="form-group">
+								<label value="Login"/>
+								<textbox sclass="form-input" maxlength="20" value="@save(vm.entidadeSelecionada.login)"/>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="form-group">
+								<label value="Senha"/>
+								<textbox type="password" sclass="form-input" maxlength="64" value="@save(vm.entidadeSelecionada.senha)"/>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="col-md-6">
+								<button sclass="btn btn-default" iconSclass="la la-check" label="Salvar" onClick="vm.salvar(); tabbox.selectedIndex = 0"/>
+							</div>
+							<div class="col-md-6">
+								<button sclass="btn btn-default" iconSclass="la la-eraser" label="Cancelar" onClick="vm.limpar(); tabbox.selectedIndex = 0"/>
+							</div>
+						</div>
+					</div>
+					
+				</tabpanel>
+				
+			</tabpanels>
+		</tabbox>	
+	</window>
+	
 	</div>
 	
 	<n:script src="../partials/js/jquery.min.js"></n:script>
