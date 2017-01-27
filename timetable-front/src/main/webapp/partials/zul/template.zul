@@ -23,9 +23,18 @@
 				<a href="" class="navbar-brand">Timetable</a>
 			</div>
 			
-			<n:ul class="nav navbar-top-links navbar-right">
-				<label visible="@load(authVM.logged)" value="S"/>
-			</n:ul>
+			<div class="nav navbar-right">
+				<menubar style="width: auto" visible="@load(authVM.logged)">
+					<menu label="@load(authVM.usuario.login)">
+						<menupopup>
+							<menuitem iconSclass="la la-user" label="Perfil" onClick="@global-command('logout')"/>
+							<menuitem iconSclass="la la-cog" label="Configurações" onClick="@global-command('logout')"/>
+							<menuseparator/>
+							<menuitem iconSclass="la la-sign-out" label="Logout" onClick="@command('logout')"/>
+						</menupopup>
+					</menu>
+				</menubar>
+			</div>
 
 			<div class="navbar-default sidebar">
 				<div class="sidebar-nav navbar-collapse">
@@ -51,8 +60,7 @@
 		<div class="zk-container page-wrapper" self="@insert(content)">
 		</div>
 	
-	<window mode="modal" 
-			visible="@load(authVM.logged ne true)" width="350px">
+	<window mode="modal" visible="@load(authVM.logged ne true)" width="350px">
 		
 		<tabbox id="tabbox">
 			<tabs>

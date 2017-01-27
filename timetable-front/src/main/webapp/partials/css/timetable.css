@@ -109,6 +109,10 @@ input[type=checkbox]:checked{
 	border-color: #343842;
 }
 
+.navbar-right {
+	padding: 12px 40px;
+}
+
 .form-label, .z-listheader-content, .z-label {
 	font-family: 'MyriadPro', sans-serif;
 	color: #5a597b; 

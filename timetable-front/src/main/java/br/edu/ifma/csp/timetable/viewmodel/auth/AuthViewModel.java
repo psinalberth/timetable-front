@@ -2,7 +2,6 @@ package br.edu.ifma.csp.timetable.viewmodel.auth;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
@@ -16,6 +15,8 @@ public class AuthViewModel {
 	
 	Usuarios usuarios;
 	
+	private Usuario usuario;
+	
 	private String login;
 	private String senha;
 	
@@ -25,11 +26,21 @@ public class AuthViewModel {
 	}
 	
 	public boolean isLogged() {
-		return Executions.getCurrent().getSession().getAttribute("login") != null;
+		return Executions.getCurrent().getSession().getAttribute("usuario") != null;
+	}
+	
+	public Usuario getUsuario() {
+		
+		setUsuario(null);
+		return usuario;
+	}
+	
+	public void setUsuario(Usuario usuario) {
+		this.usuario = (Usuario) Executions.getCurrent().getSession().getAttribute("usuario");
 	}
 	
 	@Command
-	@NotifyChange("logged")
+	@NotifyChange({"logged", "usuario"})
 	public void login() {
 		
 		Usuario usuario = usuarios.byLogin(getLogin());
@@ -39,15 +50,17 @@ public class AuthViewModel {
 			senha = BCrypt.hashpw(senha, usuario.getSalt());
 			
 			if (senha.equals(usuario.getSenha())) {
-				Executions.getCurrent().getSession().setAttribute("login", usuario.getLogin());
+				Executions.getCurrent().getSession().setAttribute("usuario", usuario);
+				setUsuario(usuario);
 			}
 		}
 	}
 	
-	@GlobalCommand
+	@Command
+	@NotifyChange({"logged", "usuario"})
 	public void logout() {
 		
-		Executions.getCurrent().getSession().removeAttribute("login");
+		Executions.getCurrent().getSession().removeAttribute("usuario");
 		Executions.getCurrent().getSession().invalidate();
 	}
 	
