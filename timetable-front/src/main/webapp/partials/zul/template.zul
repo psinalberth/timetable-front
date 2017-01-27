@@ -60,7 +60,7 @@
 		<div class="zk-container page-wrapper" self="@insert(content)">
 		</div>
 	
-	<window mode="modal" visible="@load(authVM.logged ne true)" width="350px">
+	<window mode="modal" visible="@load(authVM.logged ne true)" width="350px" position="center">
 		
 		<tabbox id="tabbox">
 			<tabs>
