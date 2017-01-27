@@ -13,6 +13,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.WrongValuesException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -20,6 +21,7 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 
 import br.edu.ifma.csp.timetable.model.Entidade;
+import br.edu.ifma.csp.timetable.model.Usuario;
 import br.edu.ifma.csp.timetable.repository.Repository;
 import br.edu.ifma.csp.timetable.util.Validations;
 
@@ -27,7 +29,6 @@ public abstract class ViewModel<T extends Entidade> {
 	
 	protected Repository<T> repository;
 	protected T entidadeSelecionada;
-	protected T entidadeFiltro;
 	
 	private List<T> col;
 	
@@ -37,7 +38,6 @@ public abstract class ViewModel<T extends Entidade> {
 		
 		repository = InitialContext.doLookup("java:module/" + retornaTipo().getSimpleName() + "Dao");
 		setCol(repository.all());
-		novo();
 	}
 	
 	public abstract void init(Component view);
@@ -46,10 +46,10 @@ public abstract class ViewModel<T extends Entidade> {
 	@NotifyChange({"entidadeSelecionada", "consultando", "removivel", "editando", "entidadeFiltro"})
 	public void novo() throws InstantiationException, IllegalAccessException {
 		
-		entidadeFiltro = retornaTipo().newInstance();
+		Usuario usuario = (Usuario) Executions.getCurrent().getSession().getAttribute("usuario") ;
 		
 		entidadeSelecionada = retornaTipo().newInstance();
-		entidadeSelecionada.setUsuarioUltAlteracao("user");
+		entidadeSelecionada.setUsuarioUltAlteracao(usuario.getLogin());
 		entidadeSelecionada.setDataUltAlteracao(new Date());
 	}
 	
@@ -60,6 +60,10 @@ public abstract class ViewModel<T extends Entidade> {
 		try {
 			
 			Validations.validate(entidadeSelecionada, repository);
+			
+			Usuario usuario = (Usuario) Executions.getCurrent().getSession().getAttribute("usuario") ;
+			
+			entidadeSelecionada.setUsuarioUltAlteracao(usuario.getLogin());
 			
 			repository.save(entidadeSelecionada);
 			
@@ -157,13 +161,5 @@ public abstract class ViewModel<T extends Entidade> {
 	
 	public void setEntidadeSelecionada(T entidadeSelecionada) {
 		this.entidadeSelecionada = entidadeSelecionada;
-	}
-	
-	public T getEntidadeFiltro() {
-		return entidadeFiltro;
-	}
-	
-	public void setEntidadeFiltro(T entidadeFiltro) {
-		this.entidadeFiltro = entidadeFiltro;
 	}
 }

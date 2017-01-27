@@ -5,13 +5,13 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label sclass="form-label filtro" value="Nome"/>
-						<textbox instant="true" sclass="filtro-input" value="@bind(vm.entidadeFiltro.nome)" onChange="@command('filtrar')"/>
+						<!-- <textbox instant="true" sclass="filtro-input" value="@bind(vm.entidadeFiltro.nome)" onChange="@command('filtrar')"/> -->
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label sclass="form-label filtro" value="Departamento"/>
-						<textbox sclass="filtro-input" value="@bind(vm.entidadeFiltro.departamento.nome)" onChange="@command('filtrar')"/>
+						<!-- <textbox sclass="filtro-input" value="@bind(vm.entidadeFiltro.departamento.nome)" onChange="@command('filtrar')"/> -->
 					</div>
 				</div>
 			</div>
@@ -21,7 +21,7 @@
 			 selectedItem="@bind(vm.entidadeSelecionada)" onSelect="@command('editar')" emptyMessage="Nenhum registro encontrado.">
 		<template name="model" var="obj">
 			<listitem value="@bind(obj)" sclass="list">
-				<listcell label="@load(obj.nome)" sclass="emph"/>
+				<listcell label="@load(obj.nome)"/>
 				<listcell label="@load(obj.departamento.nome)"/>
 			</listitem>
 		</template>

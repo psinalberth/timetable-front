@@ -3,9 +3,7 @@ package br.edu.ifma.csp.timetable.viewmodel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 
 import org.zkoss.bind.annotation.AfterCompose;
@@ -13,7 +11,6 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.util.Pair;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -258,19 +255,5 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 	@NotifyChange({"col", "entidadeFiltro"})
 	public void filtrar() {
 		
-		if (entidadeFiltro != null) {
-			
-			Map<Pair<String, String>, Object> params = new HashMap<>();
-			
-			if (entidadeFiltro.getNome() != null && !entidadeFiltro.getNome().isEmpty()) {
-				params.put(new Pair<String, String>("nome", "like"), entidadeFiltro.getNome());
-			}
-			
-			if (entidadeFiltro.getDepartamento() != null) {
-				params.put(new Pair<String, String>("departamento.codigo", "="), entidadeFiltro.getDepartamento().getCodigo());
-			}
-			
-			setCol(repository.allBy(params));
-		}
 	}
 }

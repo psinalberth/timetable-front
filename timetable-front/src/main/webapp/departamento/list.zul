@@ -1,5 +1,6 @@
 <zk>
-	<listbox model="@bind(vm.col)" selectedItem="@bind(vm.entidadeSelecionada)" onSelect="@command('editar')" emptyMessage="Nenhum registro encontrado.">
+	<listbox model="@bind(vm.col)" mold="paging" autopaging="true" rows="8" 
+	     selectedItem="@bind(vm.entidadeSelecionada)" onSelect="@command('editar')" emptyMessage="Nenhum registro encontrado.">
 		<listhead>
 			<listheader label="Código" sort="auto(codigo)"/>
 			<listheader label="Nome" sort="auto(nome)"/>

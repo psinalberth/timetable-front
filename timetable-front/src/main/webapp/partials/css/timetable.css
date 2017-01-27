@@ -109,8 +109,9 @@ input[type=checkbox]:checked{
 	border-color: #343842;
 }
 
-.navbar-right {
-	padding: 12px 40px;
+.navbar-top-links li a {
+	min-height: auto;
+	padding: 0;
 }
 
 .form-label, .z-listheader-content, .z-label {
@@ -335,6 +336,38 @@ i > a {
 /* ------------------ */
 /* Classes CSS ZK     */
 /* ------------------ */
+
+.z-menubar {
+	background: transparent;
+	border: 0;
+	padding: 14px 0;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.z-menu {
+	background: transparent;
+}
+
+.z-menu-icon.z-icon-caret-down {
+	display: none;
+}
+
+.z-menu-text, .z-menuitem-text {
+	font-family: 'Montserrat', sans-serif;
+	color: #a0acbf;
+	text-shadow: none;
+}
+
+.z-menupop {
+	float: right;
+}
+
+.z-menuitem-text {
+	padding-left: 10px;
+}
 
 .z-column-content {
 	font-family: 'MyriadPro', sans-serif;

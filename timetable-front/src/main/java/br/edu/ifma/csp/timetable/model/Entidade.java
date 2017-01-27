@@ -31,11 +31,6 @@ public abstract class Entidade implements Serializable {
 	@Column(name="VERSAO", columnDefinition="TINYINT(3)")
 	private int versao;
 	
-	public Entidade() {
-		setDataUltAlteracao(new Date());
-		setUsuarioUltAlteracao("user");
-	}
-	
 	public abstract int getId();
 	
 	public abstract void setId(int id);
@@ -68,6 +63,5 @@ public abstract class Entidade implements Serializable {
 	@PrePersist
 	public void prePersist() {
 		this.setDataUltAlteracao(new Date());
-		this.setUsuarioUltAlteracao("user");
 	}
 }

@@ -23,8 +23,8 @@
 				<a href="" class="navbar-brand">Timetable</a>
 			</div>
 			
-			<div class="nav navbar-right">
-				<menubar style="width: auto" visible="@load(authVM.logged)">
+			<div class="nav navbar-top-links navbar-right">
+				<menubar visible="@load(authVM.logged)">
 					<menu label="@load(authVM.usuario.login)">
 						<menupopup>
 							<menuitem iconSclass="la la-user" label="Perfil" onClick="@global-command('logout')"/>
