@@ -30,18 +30,20 @@ public class AuthViewModel {
 		return Executions.getCurrent().getSession().getAttribute("usuario") != null;
 	}
 	
+	@NotifyChange("usuario")
 	public Usuario getUsuario() {
 		
-		setUsuario(null);
+		this.usuario = (Usuario) Executions.getCurrent().getSession().getAttribute("usuario");
+		
 		return usuario;
 	}
 	
 	public void setUsuario(Usuario usuario) {
-		this.usuario = (Usuario) Executions.getCurrent().getSession().getAttribute("usuario");
+		this.usuario = usuario;
 	}
 	
 	@Command
-	@NotifyChange({"logged", "usuario", "login", "senha"})
+	@NotifyChange({"usuario", "logged"})
 	public void login() {
 		
 		Usuario usuario = usuarios.byLogin(getLogin());
@@ -53,9 +55,13 @@ public class AuthViewModel {
 			if (senha.equals(usuario.getSenha())) {
 				
 				Executions.getCurrent().getSession().setAttribute("usuario", usuario);
-				setUsuario(usuario);
+				
+				this.usuario = usuario; 
+				
 				setLogin(null);
 				setSenha(null);
+				
+				Executions.sendRedirect("/");
 				
 			} else {
 				
@@ -76,7 +82,8 @@ public class AuthViewModel {
 	public void logout() {
 		
 		Executions.getCurrent().getSession().removeAttribute("usuario");
-		Executions.sendRedirect("/curso");
+		Executions.getCurrent().getSession().invalidate();
+		Executions.sendRedirect("/");
 	}
 	
 	@Command

@@ -237,7 +237,7 @@ input[type=checkbox]:checked{
 .grid-label {
 	font-size: 12px;
 	color: #777;
-	font-family: 'Cabin', sans-serif;
+	font-family: 'Montserrat', sans-serif;
 }
 
 .zk-container {
@@ -264,7 +264,7 @@ i {
 	color: #347abe;
 }
 
-.sidebar ul li > .z-a {
+.sidebar ul li > .z-a, .sidebar ul li > a {
 	/* font-family: 'Open Sans', sans-serif; */
 	font-family: 'Montserrat', sans-serif;
 	font-size: 14px;
@@ -291,7 +291,8 @@ i > a {
 	height: 50px;
 }
 
-.sidebar ul li > .z-a:hover, .sidebar ul li > .z-a:focus, .sidebar ul li > .z-a.active {
+.sidebar ul li > .z-a:hover, .sidebar ul li > .z-a:focus, .sidebar ul li > .z-a.active,
+.sidebar ul li > a:hover, .sidebar ul li > a:focus, .sidebar ul li > a.active {
 	background: #343842;
 }
 

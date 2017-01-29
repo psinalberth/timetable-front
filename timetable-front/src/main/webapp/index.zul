@@ -1,9 +1,148 @@
 <?page title="Timetable" contentType="text/html;charset=UTF-8"?>
-<?init class="org.zkoss.zk.ui.util.Composition" arg0="../partials/zul/template.zul"?>
+<?meta name="theme-color" content="#344760" ?>
+<?meta name="viewport" content="width=device-width, initial-scale=1"?>
+
 <zk xmlns:n="native">
-	<div self="@define(content)" sclass="container-fluid">
-		<div sclass="row">
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/bootstrap.min.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/sb-admin-2.min.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/timetable.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/line-awesome-font-awesome.min.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/line-awesome.min.css"></n:link>
+	
+	<div id="wrapper" sclass="ss" viewModel="@id('authVM') @init('br.edu.ifma.csp.timetable.viewmodel.auth.AuthViewModel')">
+		
+		<n:nav sclass="navbar navbar-default navbar-static-top" style="margin-bottom: 0">
+
+			<div class="navbar-header">
+				<n:button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle Navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</n:button>
+				<a href="/" class="navbar-brand">Timetable</a>
+			</div>
 			
+			<div class="nav navbar-top-links navbar-right">
+				<menubar visible="@load(authVM.logged)">
+					<menu label="@load(authVM.usuario.login)">
+						<menupopup>
+							<menuitem iconSclass="la la-user" label="Perfil" onClick="@global-command('logout')"/>
+							<menuitem iconSclass="la la-cog" label="Configurações" onClick="@global-command('logout')"/>
+							<menuseparator/>
+							<menuitem iconSclass="la la-sign-out" label="Logout" onClick="@command('logout')"/>
+						</menupopup>
+					</menu>
+				</menubar>
+			</div>
+
+			<div class="navbar-default sidebar">
+				<div class="sidebar-nav navbar-collapse">
+					<n:ul class="nav in" id="side-menu">
+						<zk self="create" if="${authVM.logged eq true}" forEach="${authVM.usuario.perfil.transacoes}">
+							<n:li sclass="li-menu"><n:a href="../timetable-front${each.path}"><n:i class="${each.icone}"></n:i>${each.descricao}</n:a></n:li>
+						</zk>
+						<n:hr></n:hr>
+						<n:li sclass="li-menu"><a href="/tutorial/" iconSclass="la side la-comments-o">Tutorial</a></n:li> 
+					</n:ul>
+				</div>
+			</div>
+			
+		</n:nav>
+		
+		<div class="zk-container page-wrapper" viewModel="@id('indexVM') @init('br.edu.ifma.csp.timetable.viewmodel.IndexViewModel')">
+			<div class="container-fluid" style="padding-top: 15px">
+				<vlayout visible="@load(authVM.logged)">
+					<label value="@load(indexVM.greeting)"/>
+					<label value="Perfil atual: ${authVM.usuario.perfil.nome}"/>
+				</vlayout>
+			</div>
 		</div>
+	
+	<window mode="modal" visible="@load(authVM.logged ne true)" width="350px" position="center" onCreate="Clients.resize(self)">
+		
+		<tabbox id="tabbox">
+			<tabs>
+				<tab label="Login" iconSclass="la la-sign-in"/>
+				<tab label="Não possuo cadastro" iconSclass="la la-user-plus" onClick="@global-command('novo')"/>
+			</tabs>
+			<tabpanels>
+				
+				<tabpanel>
+				
+					<div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label value="Login"/>
+								<textbox sclass="form-input" maxlength="20" value="@bind(authVM.login)"/>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="form-group">
+								<label value="Senha"/>
+								<textbox type="password" sclass="form-input" maxlength="64" value="@bind(authVM.senha)"/>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="col-md-6">
+								<button sclass="btn btn-default" iconSclass="la la-sign-in" label="Entrar" onClick="@command('login')"/>
+							</div>
+							<div class="col-md-6">
+								<button sclass="btn btn-default" iconSclass="la la-eraser" label="Limpar" onClick="@command('limpar')"/>
+							</div>
+						</div>
+						
+					</div>
+					
+				</tabpanel>
+				
+				<tabpanel>
+					
+					<div viewModel="@id('vm') @init('br.edu.ifma.csp.timetable.viewmodel.UsuarioViewModel')">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label value="Nome"/>
+								<textbox sclass="form-input" maxlength="80" value="@save(vm.entidadeSelecionada.nome)"/>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="form-group">
+								<label value="Login"/>
+								<textbox sclass="form-input" maxlength="20" value="@save(vm.entidadeSelecionada.login)"/>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="form-group">
+								<label value="Senha"/>
+								<textbox type="password" sclass="form-input" maxlength="64" value="@save(vm.entidadeSelecionada.senha)"/>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="col-md-6">
+								<button sclass="btn btn-default" iconSclass="la la-check" label="Salvar" onClick="vm.salvar(); tabbox.selectedIndex = 0"/>
+							</div>
+							<div class="col-md-6">
+								<button sclass="btn btn-default" iconSclass="la la-eraser" label="Cancelar" onClick="@command('limpar')"/>
+							</div>
+						</div>
+					</div>
+					
+				</tabpanel>
+				
+			</tabpanels>
+		</tabbox>	
+	</window>
+	
 	</div>
+	
+	<n:script src="../timetable-front/partials/js/jquery.min.js"></n:script>
+	<n:script src="../timetable-front/partials/js/bootstrap.min.js"></n:script>
+	<n:script src="../timetable-front/partials/js/sb-admin-2.min.js"></n:script>
+	<n:script src="../timetable-front/partials/js/metisMenu.min.js"></n:script>
+	
 </zk>

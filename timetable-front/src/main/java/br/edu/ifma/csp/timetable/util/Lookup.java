@@ -6,7 +6,7 @@ import javax.naming.NamingException;
 public class Lookup {
 	
 	@SuppressWarnings("unchecked")
-	public static<T extends Object> T dao(Class<T> clazz) {
+	public static<T extends Object>T dao(Class<T> clazz) {
 		
 		try {
 			

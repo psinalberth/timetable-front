@@ -2,9 +2,12 @@ package br.edu.ifma.csp.timetable.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -39,6 +42,10 @@ public class Usuario extends Entidade {
 	
 	@Column(name="SALT", length=64)
 	private String salt;
+	
+	@OneToOne(fetch=FetchType.LAZY, orphanRemoval=true)
+	@JoinColumn(name="ID_PERFIL", referencedColumnName="ID_PERFIL", columnDefinition="default")
+	private Perfil perfil;
 
 	@Override
 	public int getId() {
@@ -80,5 +87,13 @@ public class Usuario extends Entidade {
 
 	public void setSalt(String salt) {
 		this.salt = salt;
+	}
+	
+	public Perfil getPerfil() {
+		return perfil;
+	}
+	
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
 	}
 }

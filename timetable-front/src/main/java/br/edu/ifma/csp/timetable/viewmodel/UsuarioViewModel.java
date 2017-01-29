@@ -4,28 +4,35 @@ import java.util.Date;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValuesException;
 import org.zkoss.zk.ui.util.Clients;
 
+import br.edu.ifma.csp.timetable.dao.PerfilDao;
 import br.edu.ifma.csp.timetable.model.Usuario;
+import br.edu.ifma.csp.timetable.repository.Perfis;
+import br.edu.ifma.csp.timetable.util.Lookup;
 import br.edu.ifma.csp.timetable.util.Validations;
 
 public class UsuarioViewModel extends ViewModel<Usuario> {
-
+	
+	private Perfis perfis;
+	
 	@AfterCompose(superclass=true)
 	public void init(Component view) {
-		
+		perfis = Lookup.dao(PerfilDao.class);
 	}
 	
-	@Command
+	@GlobalCommand
 	@NotifyChange("entidadeSelecionada")
 	public void novo() throws InstantiationException, IllegalAccessException {
 		
 		entidadeSelecionada = new Usuario();
 		entidadeSelecionada.setUsuarioUltAlteracao("user");
 		entidadeSelecionada.setDataUltAlteracao(new Date());
+		entidadeSelecionada.setPerfil(perfis.by("nome", "Docente"));
 	}
 	
 	@Command

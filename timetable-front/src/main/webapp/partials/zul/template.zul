@@ -20,7 +20,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</n:button>
-				<a href="" class="navbar-brand">Timetable</a>
+				<a href="/" class="navbar-brand">Timetable</a>
 			</div>
 			
 			<div class="nav navbar-top-links navbar-right">
@@ -39,18 +39,11 @@
 			<div class="navbar-default sidebar">
 				<div class="sidebar-nav navbar-collapse">
 					<n:ul class="nav in" id="side-menu">
-						<n:li sclass="li-menu"><a href="/professor/" iconSclass="la side la-graduation-cap">Professores</a></n:li>
-						<n:li sclass="li-menu"><a href="/departamento/" iconSclass="la side la-building">Departamentos</a></n:li>
-						<n:li sclass="li-menu"><a href="/disciplina/" iconSclass="la side la-book">Disciplinas</a></n:li>
-						<n:li sclass="li-menu"><a href="/curso/" iconSclass="la side la-university">Cursos</a></n:li>
-						<n:li sclass="li-menu"><a href="/matriz/" iconSclass="la side la-file-text-o" >Matrizes Curriculares</a></n:li>
-						<n:li sclass="li-menu"><a href="/timetable/" iconSclass="la side la-calendar">Grades de Horário</a></n:li>
+						<zk forEach="${authVM.usuario.perfil.transacoes}">
+							<n:li sclass="li-menu"><n:a href="..${each.path}"><n:i class="${each.icone}"></n:i>${each.descricao}</n:a></n:li>
+						</zk>
 						<n:hr></n:hr>
-						<n:li sclass="li-menu"><a href="/local/" iconSclass="la side la-map-marker">Locais</a></n:li>
-						<n:li sclass="li-menu"><a href="/turno/" iconSclass="la side la-hourglass-2">Turnos</a></n:li>
-						<n:li sclass="li-menu"><a href="/horario/" iconSclass="la side la-clock-o">Horários</a></n:li>
-						<n:hr></n:hr>
-						<n:li sclass="li-menu"><a href="/tutorial/" iconSclass="la side la-comments-o">Tutorial</a></n:li>
+						<n:li sclass="li-menu"><a href="/tutorial/" iconSclass="la side la-comments-o">Tutorial</a></n:li> 
 					</n:ul>
 				</div>
 			</div>
@@ -60,12 +53,12 @@
 		<div class="zk-container page-wrapper" self="@insert(content)">
 		</div>
 	
-	<window mode="modal" visible="@load(authVM.logged ne true)" width="350px" position="center">
+	<window mode="modal" visible="@load(authVM.logged ne true)" width="350px" position="center" onCreate="Clients.resize(self)">
 		
 		<tabbox id="tabbox">
 			<tabs>
 				<tab label="Login" iconSclass="la la-sign-in"/>
-				<tab label="Não possuo cadastro" iconSclass="la la-user-plus"/>
+				<tab label="Não possuo cadastro" iconSclass="la la-user-plus" onClick="@global-command('novo')"/>
 			</tabs>
 			<tabpanels>
 				
@@ -128,7 +121,7 @@
 								<button sclass="btn btn-default" iconSclass="la la-check" label="Salvar" onClick="vm.salvar(); tabbox.selectedIndex = 0"/>
 							</div>
 							<div class="col-md-6">
-								<button sclass="btn btn-default" iconSclass="la la-eraser" label="Cancelar" onClick="vm.limpar(); tabbox.selectedIndex = 0"/>
+								<button sclass="btn btn-default" iconSclass="la la-eraser" label="Cancelar" onClick="@command('limpar')"/>
 							</div>
 						</div>
 					</div>

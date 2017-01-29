@@ -1,0 +1,15 @@
+<zk>
+	<listbox model="@bind(vm.col)" mold="paging" autopaging="true" rows="8" 
+		     selectedItem="@bind(vm.entidadeSelecionada)" onSelect="@command('editar')" emptyMessage="Nenhum registro encontrado.">
+		<listhead>
+			<listheader label="Nome"/>
+			<listheader label="Descrição"/>
+		</listhead>
+		<template name="model" var="obj">
+			<listitem value="@bind(obj)" sclass="list">
+				<listcell label="@load(obj.nome)"/>
+				<listcell label="@load(obj.descricao)"/>
+			</listitem>
+		</template>
+	</listbox>
+</zk>

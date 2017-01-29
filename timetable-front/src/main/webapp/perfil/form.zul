@@ -1,0 +1,31 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<zk xmlns:n="native">
+	
+	<div class="row">
+		<div class="col-md-6">
+			<div sclass="form-group">
+				<label value="Nome" sclass="form-label" />
+				<textbox sclass="form-input" value="@bind(vm.entidadeSelecionada.nome)"/>
+			</div>
+		</div>
+	</div>
+	
+	<div sclass="form-group">
+		<label value="Descrição" sclass="form-label" />
+		<textbox sclass="form-input" value="@bind(vm.entidadeSelecionada.descricao)"/>
+	</div>
+	
+	<listbox model="@load(vm.colTransacoes)" multiple="true" checkmark="true" selectedItems="@bind(vm.transacoesSelecionadas)"
+			 onSelect="@command('adicionarTransacoes')">
+		<listhead>
+			<listheader label="Transações"/>
+		</listhead>
+		<template name="model" var="obj">
+			<listitem value="@bind(obj)" sclass="list">
+				<listcell label="@load(obj.descricao)"/>
+				<listcell label="@load(obj.path)"/>
+			</listitem>
+		</template>
+	</listbox>
+	
+</zk>
