@@ -87,10 +87,10 @@
 						
 						<div class="col-md-12">
 							<div class="col-md-6">
-								<button sclass="btn btn-default" iconSclass="la la-sign-in" label="Entrar" onClick="@command('login')"/>
+								<button sclass="button la la-sign-in" label="Entrar" onClick="@command('login')"/>
 							</div>
 							<div class="col-md-6">
-								<button sclass="btn btn-default" iconSclass="la la-eraser" label="Limpar" onClick="@command('limpar')"/>
+								<button sclass="button la la-times" label="Limpar" onClick="@command('limpar')"/>
 							</div>
 						</div>
 						
@@ -124,10 +124,10 @@
 						
 						<div class="col-md-12">
 							<div class="col-md-6">
-								<button sclass="btn btn-default" iconSclass="la la-check" label="Salvar" onClick="vm.salvar(); tabbox.selectedIndex = 0"/>
+								<button sclass="button la la-check" label="Salvar" onClick="vm.salvar(); tabbox.selectedIndex = 0"/>
 							</div>
 							<div class="col-md-6">
-								<button sclass="btn btn-default" iconSclass="la la-eraser" label="Cancelar" onClick="@command('limpar')"/>
+								<button sclass="button la la-times" label="Cancelar" onClick="@command('limpar')"/>
 							</div>
 						</div>
 					</div>

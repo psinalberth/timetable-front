@@ -1,13 +1,13 @@
 <zk>
 	<div id="botoesForm" visible="@bind(vm.editando)">
-		<button label="Novo" sclass="btn btn-delault" onClick="@command('novo')" iconSclass="la la-file-o"/>
-		<button label="Salvar"  sclass="btn btn-delault" onClick="@command('salvar')" iconSclass="la la-check"/>
-		<button label="Excluir" sclass="btn btn-delault" onClick="@command('excluir')" iconSclass="la la-trash-o" disabled="@bind(vm.removivel)"/>
-		<button label="Voltar" sclass="btn btn-delault" onClick="@command('pesquisar')" iconSclass="la la-rotate-left"/>
+		<button label="Novo" sclass="button la la-plus" onClick="@command('novo')" tooltiptext="Novo"/>
+		<button label="Salvar" sclass="button la la-check" onClick="@command('salvar')" tooltiptext="Salvar"/>
+		<button label="Excluir" sclass="button la la-trash-o" onClick="@command('excluir')" disabled="@bind(vm.removivel)" tooltiptext="Excluir"/>
+		<button label="Voltar" sclass="button la la-rotate-left" onClick="@command('pesquisar')" tooltiptext="Voltar"/>
 	</div>
 	
 	<div id="botoesList" visible="@bind(vm.consultando)">
-		<button label="Novo" sclass="btn btn-delault" onClick="@command('novo')" iconSclass="la la-file-o"/>
-		<button label="Editar" sclass="btn btn-delault" onClick="@command('editar')" iconSclass="la la-pencil"/>
+		<button label="Novo" sclass="button la la-plus" onClick="@command('novo')"/>
+		<button label="Editar" sclass="button la la-edit" onClick="@command('editar')"/>
 	</div>
 </zk>

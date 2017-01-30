@@ -4,7 +4,7 @@
 		<tabs>
 			<tab label="Dados Pessoais" iconSclass="la tab la-edit" selected="@load(vm.editando)"/>
 			<tab label="Preferências" iconSclass="la tab la-star-o"/>
-			<tab label="Indisponibilidade" iconSclass="la tab la-calendar-o"/>
+			<tab label="Restrições" iconSclass="la tab la-calendar-o"/>
 		</tabs>
 		<tabpanels>
 			
