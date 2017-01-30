@@ -115,7 +115,10 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 	@Command
 	@NotifyChange("entidadeSelecionada")
 	public void removerPreferenciaDisciplina() {
-		entidadeSelecionada.getPreferenciasDisciplina().removeAll(preferenciasDisciplinaSelecionadas);
+		
+		if (preferenciasDisciplinaSelecionadas != null && preferenciasDisciplinaSelecionadas.size() > 0) {
+			entidadeSelecionada.getPreferenciasDisciplina().removeAll(preferenciasDisciplinaSelecionadas);
+		}
 	}
 	
 	@Command

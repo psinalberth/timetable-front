@@ -12,36 +12,23 @@
 				<div class="col-md-12">
 					<div sclass="form-group">
 						<label value="Nome" sclass="form-label" />
-						<textbox id="nome" sclass="form-input" value="@bind(vm.entidadeSelecionada.nome)"/>
+						<textbox sclass="form-input" value="@bind(vm.entidadeSelecionada.nome)"/>
 					</div>
 				</div>
-				
-				<div sclass="row">
 					
-					<div class="col-md-12">
-						<div class="col-md-8">
-							<div sclass="form-group">
-								<label value="Endereço" sclass="form-label"/>
-								<textbox sclass="form-input" id="endereco" value="@bind(vm.entidadeSelecionada.endereco)"/>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div sclass="form-group">
-								<label value="Telefone" sclass="form-label"/>
-								<textbox sclass="form-input" id="telefone"/>
-							</div>
-						</div>
+				<div class="col-md-12">
+					<div sclass="form-group">
+						<label value="Endereço" sclass="form-label"/>
+						<textbox sclass="form-input" value="@bind(vm.entidadeSelecionada.endereco)"/>
 					</div>
 				</div>
-				
-					<div class="col-md-12">
-						<div sclass="form-group">
-							<label value="Departamento" sclass="form-label" />					
-							<include src="/partials/zul/lookup/departamentolookup.zul"/>
-						</div>
+
+				<div class="col-md-12">
+					<div sclass="form-group">
+						<label value="Departamento" sclass="form-label" />					
+						<include src="/partials/zul/lookup/departamentolookup.zul"/>
 					</div>
-				
+				</div>
 					
 			</tabpanel>
 			
