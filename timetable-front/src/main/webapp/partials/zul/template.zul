@@ -11,6 +11,16 @@
 	
 	<div id="wrapper" sclass="ss" viewModel="@id('authVM') @init('br.edu.ifma.csp.timetable.viewmodel.auth.AuthViewModel')">
 		
+		<zscript>
+			<![CDATA[
+			
+				if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+					Executions.sendRedirect("/");
+				}
+			
+			]]>
+		</zscript>
+		
 		<n:nav sclass="navbar navbar-default navbar-static-top" style="margin-bottom: 0">
 
 			<div class="navbar-header">

@@ -1,6 +1,40 @@
 <?page title="Timetable" contentType="text/html;charset=UTF-8"?>
-<zk>
-<window title="Timetable" border="normal">
-New Content Here!
-</window>
+<?meta name="theme-color" content="#344760" ?>
+<?meta name="viewport" content="width=device-width, initial-scale=1"?>
+
+<zk xmlns:n="native">
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/bootstrap.min.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/sb-admin-2.min.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/timetable.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/line-awesome-font-awesome.min.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/line-awesome.min.css"></n:link>
+	
+	<style>
+		
+		.center {
+			display: block;
+			text-align: center;
+			display: block;
+			margin: 0 auto !important;
+			font-family: 'Montserrat', sans-serif;
+		}
+		
+		.label-cap {
+			color: #a0acbf !important;
+			font-size: 14px;
+		}
+		
+	</style>
+		
+	<div class="center">
+		
+		<vlayout spacing="5px" style="vertical-align: middle !important">
+			<n:i class="la la la-compass" style="font-size: 300px"></n:i>
+			<label value="404 - Não encontrado" style="color: #a0acbf; font-size: 60px"/>
+			<div class="label-cap">
+				<n:p>O recurso que você está tentando acessar não foi encontrado. Clique <a href="/">aqui</a> para voltar.</n:p>
+			</div>
+		</vlayout>
+			
+	</div>
 </zk>
