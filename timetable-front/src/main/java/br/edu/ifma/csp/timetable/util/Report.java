@@ -1,6 +1,14 @@
 package br.edu.ifma.csp.timetable.util;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+
+import org.zkoss.util.media.AMedia;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zul.Filedownload;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -16,15 +24,24 @@ public class Report {
 		
 		try {
 			
-			String path = "/usr/local/eclipse/wildfly-8.2.1.Final/standalone/deployments/timetable-front.war/relatorios/";
+			String path = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/relatorios");
 			
-			JasperReport report = JasperCompileManager.compileReport(path + file + ".jrxml");
-			JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(col));
-			JasperExportManager.exportReportToPdfFile(print, path + file + ".pdf");
+			InputStream is = new FileInputStream(path + "/" + file + ".jrxml");
 			
-		} catch (JRException e) {
+			JasperReport jasperReport = JasperCompileManager.compileReport(is);
+			
+			ByteArrayOutputStream output = new ByteArrayOutputStream();
+			
+			JasperPrint print = JasperFillManager.fillReport(jasperReport, null, new JRBeanCollectionDataSource(col));
+			
+			JasperExportManager.exportReportToPdfStream(print, output);
+			
+			AMedia amedia = new AMedia("report", "pdf", "application/pdf", output.toByteArray());
+			Filedownload.save(amedia);
+			
+			
+		} catch (JRException | IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
 }

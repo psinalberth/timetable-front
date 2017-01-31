@@ -9,7 +9,7 @@
 	<n:link rel="stylesheet" href="../partials/css/line-awesome-font-awesome.min.css"></n:link>
 	<n:link rel="stylesheet" href="../partials/css/line-awesome.min.css"></n:link>
 	
-	<div id="wrapper" sclass="ss" viewModel="@id('authVM') @init('br.edu.ifma.csp.timetable.viewmodel.auth.AuthViewModel')">
+	<div id="wrapper" sclass="ss" viewModel="@id('authVM') @init('br.edu.ifma.csp.timetable.viewmodel.auth.AuthViewModel')" visible="@load(authVM.logged)">
 		
 		<zscript>
 			<![CDATA[

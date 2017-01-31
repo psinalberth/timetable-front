@@ -1,10 +1,14 @@
 package br.edu.ifma.csp.timetable.viewmodel.lookup;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.util.Pair;
 
 import br.edu.ifma.csp.timetable.dao.DisciplinaDao;
 import br.edu.ifma.csp.timetable.model.Disciplina;
@@ -32,9 +36,9 @@ public class DisciplinaLookupViewModel extends LookupViewModel<Disciplina> {
 	@NotifyChange("col")
 	private void build() {
 		
+		disciplinas = Lookup.dao(DisciplinaDao.class);
+		
 		if (matrizCurricular != null) {
-			
-			disciplinas = Lookup.dao(DisciplinaDao.class);
 			
 			if (isEletiva()) {
 				setCol(disciplinas.allEletivasByMatrizCurricular(matrizCurricular));
@@ -42,9 +46,23 @@ public class DisciplinaLookupViewModel extends LookupViewModel<Disciplina> {
 			} else {
 				setCol(disciplinas.allByMatrizCurricular(matrizCurricular));
 			}
+		} else {
+			
+			Map<Pair<String, String>, Object> params = new HashMap<Pair<String, String>, Object>();
+			
+			if (getCodigo() != null) {
+				params.put(new Pair<String, String>("codigo", "="), getCodigo());
+			}
+			
+			if (getDescricao() != null && !getDescricao().isEmpty()) {
+				params.put(new Pair<String, String>("descricao", "like"), getDescricao());
+			}
+			
+			setCol(disciplinas.allBy(params));
 		}
 	}
 	
+	@NotifyChange("col")
 	@Command
 	public void pesquisar() {
 		build();

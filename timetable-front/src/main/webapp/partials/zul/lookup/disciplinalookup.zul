@@ -16,7 +16,7 @@
 		 			<div class="col-md-1">
 			 			<div sclass="form-group">
 			 				<label value="Código" sclass="form-label"/>
-			 				<intbox sclass="form-input" value="@bind(childVM.codigo)" maxlength="8" cols="8" onOK="@command('pesquisar')"/>
+			 				<intbox sclass="form-input" value="@bind(childVM.codigo)" maxlength="3" cols="3" onOK="@command('pesquisar')"/>
 			 			</div>
 		 			</div>
 		 			<div class="@bind(childVM.matrizCurricular eq null ? 'col-md-9' : 'col-md-4')">

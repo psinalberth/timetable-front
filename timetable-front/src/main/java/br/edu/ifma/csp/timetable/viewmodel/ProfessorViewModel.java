@@ -108,6 +108,8 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 		
 		PreferenciaDisciplinaProfessor preferencia = new PreferenciaDisciplinaProfessor();
 		preferencia.setProfessor(entidadeSelecionada);
+		preferencia.setDataUltAlteracao(entidadeSelecionada.getDataUltAlteracao());
+		preferencia.setUsuarioUltAlteracao(entidadeSelecionada.getUsuarioUltAlteracao());
 		
 		entidadeSelecionada.getPreferenciasDisciplina().add(0, preferencia);
 	}
@@ -129,6 +131,8 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 		
 		preferencia.setProfessor(entidadeSelecionada);
 		preferencia.setHorario(horario);
+		preferencia.setDataUltAlteracao(entidadeSelecionada.getDataUltAlteracao());
+		preferencia.setUsuarioUltAlteracao(entidadeSelecionada.getUsuarioUltAlteracao());
 		
 		entidadeSelecionada.getPreferenciasHorario().add(preferencia);
 	}

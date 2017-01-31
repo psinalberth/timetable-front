@@ -12,6 +12,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
+import org.zkoss.zk.ui.Executions;
+
 @MappedSuperclass
 public abstract class Entidade implements Serializable {
 
@@ -62,6 +64,13 @@ public abstract class Entidade implements Serializable {
 	@PreUpdate
 	@PrePersist
 	public void prePersist() {
+		
+		Usuario usuario = (Usuario) Executions.getCurrent().getSession().getAttribute("usuario");
+		
+		if (usuario != null) {
+			this.setUsuarioUltAlteracao(usuario.getLogin());
+		}
+		
 		this.setDataUltAlteracao(new Date());
 	}
 }

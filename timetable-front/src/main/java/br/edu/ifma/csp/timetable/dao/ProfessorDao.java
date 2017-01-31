@@ -21,7 +21,7 @@ public class ProfessorDao extends RepositoryDao<Professor> implements Professore
 			"inner join PREFERENCIA_DISCIPLINA_PROFESSOR pre on " + 
 				"pre.ID_PROFESSOR = pro.ID_PROFESSOR " +
 		"group by pro.ID_PROFESSOR " +
-		"order by count(pre.ID_DISCIPLINA) asc";
+		"order by pro.nome asc";
 		
 		return this.manager.createNativeQuery(sql, Professor.class).getResultList();
 	}
