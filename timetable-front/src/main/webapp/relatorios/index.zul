@@ -6,7 +6,7 @@
 		<div sclass="row">
 		
 			<div class="form-group">
-				<n:h4 class="page-title"><span class="la side la-user"/>Perfil</n:h4>
+				<n:h4 class="page-title"><span class="la side la-print"/>Relatórios</n:h4>
 				<button sclass="button la la-print" label="Gerar" onClick="@command('gerar')"/>
 			</div>
 		</div>

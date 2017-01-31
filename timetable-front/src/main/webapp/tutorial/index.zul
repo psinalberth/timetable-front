@@ -8,7 +8,6 @@
 		h4 {
 			color: #347abe;
 			font-weight: bold;
-			padding-bottom: 10px;
 		}
 		
 		h5, h6 {
@@ -43,12 +42,11 @@
 	
 		<div sclass="row">
 			<div class="form-group">
-				<n:h4 class="page-title"><span class="la side la-comments"/>Tutorial</n:h4>
+				<n:h4 class="page-title"><span class="la side la-comments"/>Sobre</n:h4>
 			</div>	
 		</div>
 		
 		<div sclass="row">
-			<n:h4>Sobre</n:h4>
 			<div class="content">
 				<n:p>
 					Esta aplicação tem por finalidade produzir grades de horário semestrais para instituições de

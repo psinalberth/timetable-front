@@ -94,15 +94,16 @@ input[type=checkbox]:checked{
 /* ------------------ */
 
 .page-title {
-	font-size: 22px;
-	font-family: 'Montserrat', sans-serif;
+	font-size: 28px;
+	font-family: 'MyriadPro', sans-serif;
 	font-weight: 400;
-	text-transform: uppercase;
+	/* text-transform: uppercase; */
+	border-top: 2px solid #344760;
 	border-bottom: 2px solid #344760;
 	/* background: #344760; */
 	line-height: inherit;
-	color: #b3bdc3;
-	/* color: #344760; */
+	/* color: #b3bdc3; */
+	color: #344760;
 }
 
 .navbar-default {
@@ -310,7 +311,7 @@ i {
   width: 30px;
   color: #347abe;
   font-size: 18px;
-  padding: 8px 0 12px;
+  padding: 8px 0 10px;
   font-family: 'LineAwesome';
   text-align: center;
   border-radius: 2px 0 0 2px;

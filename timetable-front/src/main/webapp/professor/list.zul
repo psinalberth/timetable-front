@@ -1,24 +1,10 @@
 <zk>
-	<div sclass="filtro">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="col-md-6">
-					<div class="form-group">
-						<label sclass="form-label filtro" value="Nome"/>
-						<!-- <textbox instant="true" sclass="filtro-input" value="@bind(vm.entidadeFiltro.nome)" onChange="@command('filtrar')"/> -->
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="form-group">
-						<label sclass="form-label filtro" value="Departamento"/>
-						<!-- <textbox sclass="filtro-input" value="@bind(vm.entidadeFiltro.departamento.nome)" onChange="@command('filtrar')"/> -->
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<listbox model="@bind(vm.col)" mold="paging" autopaging="true" rows="10"
 			 selectedItem="@bind(vm.entidadeSelecionada)" onSelect="@command('editar')" emptyMessage="Nenhum registro encontrado.">
+		<listhead>
+			<listheader label="Nome"/>
+			<listheader label="Departamento"/>
+		</listhead>
 		<template name="model" var="obj">
 			<listitem value="@bind(obj)" sclass="list">
 				<listcell label="@load(obj.nome)"/>

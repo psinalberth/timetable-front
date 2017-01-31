@@ -8,6 +8,5 @@
 	
 	<div id="botoesList" visible="@bind(vm.consultando)">
 		<button label="Novo" sclass="button la la-plus" onClick="@command('novo')"/>
-		<button label="Editar" sclass="button la la-edit" onClick="@command('editar')"/>
 	</div>
 </zk>

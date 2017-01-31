@@ -15,6 +15,8 @@
 			<![CDATA[
 			
 				if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+					
+					Executions.getCurrent().getSession().invalidate();
 					Executions.sendRedirect("/");
 				}
 			
