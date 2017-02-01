@@ -67,8 +67,6 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 		setColProfessores(professores.all());
 		setColLocais(locais.all());
 		
-		initHorarios();
-		
 		Selectors.wireComponents(view, this, false);
 	}
 	

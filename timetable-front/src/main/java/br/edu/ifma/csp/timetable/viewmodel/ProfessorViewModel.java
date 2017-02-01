@@ -55,8 +55,6 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 		setColHorarios(horarios.all());
 		
 		Selectors.wireComponents(view, this, false);
-		
-		initHorarios();	
 	}
 	
 	@Command
