@@ -158,11 +158,7 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 			
 			Label label = new Label(horario.toString());
 			
-			Span span = new Span();
-			
-			span.appendChild(label);
-			
-			row.getChildren().addAll(Arrays.asList(new Component[] {span, new Span(), new Span(), new Span(), new Span(), new Span()}));
+			row.getChildren().addAll(Arrays.asList(new Component[] {label, new Span(), new Span(), new Span(), new Span(), new Span()}));
 			
 			grid.getRows().getChildren().add(row);
 		}
@@ -193,36 +189,23 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 			
 			Component comp = grid.getCell(rowIndex, columnIndex);
 			
-			if (comp.getClass().equals(Label.class)) {
-				System.out.println(comp.getClass().getSimpleName());
-			}
-			
-			
-			
-			//if (!(comp instanceof Label)) {
+			if (comp != null) {
 				grid.getCell(rowIndex, columnIndex).appendChild(checkbox);
-			//}
+			}
 		}
 	}
 	
 	private int getRowIndex(String label) {
 		
-		for (int i = 0; i < grid.getRows().getChildren().size(); i++) {
+		for (int i = 0; i < colHorariosInicio.size(); i++) {
 			
-			Component c = grid.getCell(i, 0);
+			Date horario = colHorariosInicio.get(i);
 			
-			for (Component x : c.getChildren()) {
-			
-				if (x instanceof Label) {
-					
-					if (((Label)x).getValue().equalsIgnoreCase(label)) {
-						return i;
-					}
-				}
-			}
+			if (horario.toString().equals(label))
+				return i;
 		}
 		
-		return 0;
+		return -1;
 	}
 	
 	private int getColumnIndex(String label) {

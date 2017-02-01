@@ -9,6 +9,8 @@
 		<commons-io>2.4</commons-io>
 		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
 		<packname>-${project.version}-FL-${maven.build.timestamp}</packname>
+		<properties.build.sourceEncoding>UTF-8</properties.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 	<packaging>war</packaging>
 	<name>The timetable-front Project</name>
@@ -144,6 +146,7 @@
 	                        <goal>unpack</goal>
 	                    </goals>
 	                    <configuration>
+	                    	<encoding>${project.build.sourceEncoding}</encoding>
 	                        <artifactItems>
 	                            <artifactItem>
 	                                <groupId>org.wildfly</groupId>
@@ -171,6 +174,7 @@
 	            <artifactId>maven-war-plugin</artifactId>
 	            <version>2.3</version>
 	            <configuration>
+	            	<encoding>${project.build.sourceEncoding}</encoding>
 	                <failOnMissingWebXml>false</failOnMissingWebXml>
 	                <outputDirectory>target/wildfly-8.2.1.Final/standalone/deployments</outputDirectory>
 	                <warName>${project.artifactId}</warName>
@@ -182,6 +186,7 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>7.6.8.v20121106</version>
 				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
 					<webAppConfig>
 						<contextPath>/${project.artifactId}</contextPath>
 						<allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
@@ -195,6 +200,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
+                	<encoding>${project.build.sourceEncoding}</encoding>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
@@ -212,6 +218,7 @@
 						</goals>
 						<configuration>
 							<finalName>timetable-front${packname}</finalName>
+							<encoding>${project.build.sourceEncoding}</encoding>
 							<appendAssemblyId>false</appendAssemblyId>
 							<descriptors>
 								<descriptor>src/main/assembly/webapp.xml</descriptor>
@@ -232,6 +239,7 @@
 			                <goal>exec</goal>
 			            </goals>
 			            <configuration>
+			            	<encoding>${project.build.sourceEncoding}</encoding>
 			                <executable>./src/main/resources/scripts/configure-wildfly.sh</executable>
 			            </configuration>
 			        </execution>
