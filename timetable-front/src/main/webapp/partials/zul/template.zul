@@ -39,8 +39,8 @@
 				<menubar visible="@load(authVM.logged)">
 					<menu label="@load(authVM.usuario.login)">
 						<menupopup>
-							<menuitem iconSclass="la la-user" label="Perfil" onClick="@global-command('logout')"/>
-							<menuitem iconSclass="la la-cog" label="Configurações" onClick="@global-command('logout')"/>
+							<menuitem iconSclass="la la-user" label="Perfil (dev)"/>
+							<menuitem iconSclass="la la-cog" label="Configurações (dev)"/>
 							<menuseparator/>
 							<menuitem iconSclass="la la-sign-out" label="Logout" onClick="@command('logout')"/>
 						</menupopup>

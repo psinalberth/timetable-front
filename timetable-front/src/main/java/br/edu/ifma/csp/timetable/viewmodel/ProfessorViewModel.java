@@ -158,7 +158,11 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 			
 			Label label = new Label(horario.toString());
 			
-			row.getChildren().addAll(Arrays.asList(new Component[] {label, new Span(), new Span(), new Span(), new Span(), new Span()}));
+			Span span = new Span();
+			
+			span.appendChild(label);
+			
+			row.getChildren().addAll(Arrays.asList(new Component[] {span, new Span(), new Span(), new Span(), new Span(), new Span()}));
 			
 			grid.getRows().getChildren().add(row);
 		}
@@ -189,9 +193,15 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 			
 			Component comp = grid.getCell(rowIndex, columnIndex);
 			
-			if (!(comp instanceof Label)) {
-				grid.getCell(rowIndex, columnIndex).appendChild(checkbox);
+			if (comp.getClass().equals(Label.class)) {
+				System.out.println(comp.getClass().getSimpleName());
 			}
+			
+			
+			
+			//if (!(comp instanceof Label)) {
+				grid.getCell(rowIndex, columnIndex).appendChild(checkbox);
+			//}
 		}
 	}
 	
@@ -201,10 +211,13 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 			
 			Component c = grid.getCell(i, 0);
 			
-			if (c instanceof Label) {
-				
-				if (((Label)c).getValue().equalsIgnoreCase(label)) {
-					return i;
+			for (Component x : c.getChildren()) {
+			
+				if (x instanceof Label) {
+					
+					if (((Label)x).getValue().equalsIgnoreCase(label)) {
+						return i;
+					}
 				}
 			}
 		}

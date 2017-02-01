@@ -19,6 +19,7 @@ import org.zkoss.zul.Column;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Row;
+import org.zkoss.zul.Span;
 import org.zkoss.zul.Vlayout;
 
 import br.edu.ifma.csp.timetable.dao.HorarioDao;
@@ -178,6 +179,9 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			
 			Label label = new Label(horario.toString());
 			
+			Span span = new Span();
+			span.appendChild(label);
+			
 			Vlayout layoutSegunda = new Vlayout();
 			layoutSegunda.setSpacing("20px");
 			
@@ -193,7 +197,7 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			Vlayout layoutSexta = new Vlayout();
 			layoutSexta.setSpacing("20px");
 			
-			row.getChildren().addAll(Arrays.asList(new Component[]{label, layoutSegunda, layoutTerca, layoutQuarta, layoutQuinta, layoutSexta}));
+			row.getChildren().addAll(Arrays.asList(new Component[]{span, layoutSegunda, layoutTerca, layoutQuarta, layoutQuinta, layoutSexta}));
 			grid.getRows().getChildren().add(row);
 		}
 		
@@ -260,10 +264,13 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			
 			Component c = grid.getCell(i, 0);
 			
-			if (c instanceof Label) {
-				
-				if (((Label)c).getValue().equalsIgnoreCase(label)) {
-					return i;
+			for (Component x : c.getChildren()) {
+			
+				if (x instanceof Label) {
+					
+					if (((Label)x).getValue().equalsIgnoreCase(label)) {
+						return i;
+					}
 				}
 			}
 		}
