@@ -225,7 +225,9 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			
 				Component cell = grid.getCell(rowIndex, colIndex);
 				
-				cell.appendChild(vlayout);
+				if (!(cell instanceof Label)) {
+					cell.appendChild(vlayout);
+				}
 			}
 		}
 	}

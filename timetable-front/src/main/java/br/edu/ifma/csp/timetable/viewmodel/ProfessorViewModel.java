@@ -187,7 +187,11 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 				}
 			});
 			
-			grid.getCell(rowIndex, columnIndex).appendChild(checkbox);
+			Component comp = grid.getCell(rowIndex, columnIndex);
+			
+			if (!(comp instanceof Label)) {
+				grid.getCell(rowIndex, columnIndex).appendChild(checkbox);
+			}
 		}
 	}
 	
