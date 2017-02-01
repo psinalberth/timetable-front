@@ -44,7 +44,7 @@ public class Usuario extends Entidade {
 	private String salt;
 	
 	@OneToOne(fetch=FetchType.LAZY, orphanRemoval=true)
-	@JoinColumn(name="ID_PERFIL", referencedColumnName="ID_PERFIL", columnDefinition="default")
+	@JoinColumn(name="ID_PERFIL")
 	private Perfil perfil;
 
 	@Override
