@@ -61,10 +61,6 @@ public abstract class ViewModel<T extends Entidade> {
 			
 			Validations.validate(entidadeSelecionada, repository);
 			
-			Usuario usuario = (Usuario) Executions.getCurrent().getSession().getAttribute("usuario") ;
-			
-			entidadeSelecionada.setUsuarioUltAlteracao(usuario.getLogin());
-			
 			repository.save(entidadeSelecionada);
 			
 			pesquisar();
