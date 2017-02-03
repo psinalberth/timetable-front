@@ -59,7 +59,7 @@
 			</div>
 		</div>
 	
-	<window mode="modal" visible="@load(authVM.logged ne true)" width="350px" position="center" onCreate="Clients.resize(self)">
+	<window mode="modal" visible="@load(authVM.logged ne true)" width="350px" position="center" onCreate="@global-command('novo')">
 		
 		<tabbox id="tabbox">
 			<tabs>
@@ -104,30 +104,30 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<label value="Nome"/>
-								<textbox sclass="form-input" maxlength="80" value="@save(vm.entidadeSelecionada.nome)"/>
+								<textbox sclass="form-input" maxlength="80" value="@bind(vm.entidadeSelecionada.nome)"/>
 							</div>
 						</div>
 						
 						<div class="col-md-12">
 							<div class="form-group">
 								<label value="Login"/>
-								<textbox sclass="form-input" maxlength="20" value="@save(vm.entidadeSelecionada.login)"/>
+								<textbox sclass="form-input" maxlength="20" value="@bind(vm.entidadeSelecionada.login)"/>
 							</div>
 						</div>
 						
 						<div class="col-md-12">
 							<div class="form-group">
 								<label value="Senha"/>
-								<textbox type="password" sclass="form-input" maxlength="64" value="@save(vm.entidadeSelecionada.senha)"/>
+								<textbox type="password" sclass="form-input" maxlength="64" value="@bind(vm.entidadeSelecionada.senha)"/>
 							</div>
 						</div>
 						
 						<div class="col-md-12">
 							<div class="col-md-6">
-								<button sclass="button la la-check" label="Salvar" onClick="vm.salvar(); tabbox.selectedIndex = 0"/>
+								<button sclass="button la la-check" label="Salvar" onClick="@command('salvar')"/>
 							</div>
 							<div class="col-md-6">
-								<button sclass="button la la-times" label="Cancelar" onClick="@command('limpar')"/>
+								<button sclass="button la la-times" label="Limpar" onClick="@command('limpar')"/>
 							</div>
 						</div>
 					</div>

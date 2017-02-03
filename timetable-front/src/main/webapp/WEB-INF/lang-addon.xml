@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+
+<language-addon>
+	<addon-name>lookupbox</addon-name>
+	<language-name>xul/html</language-name>
+	<version>
+		<version-uid>0.0.1</version-uid>
+		<zk-version>8.0.1.1</zk-version><!-- or later -->
+	</version>
+	
+	<component>
+		<component-name>lookupbox</component-name>
+		 <extends>bandbox</extends>
+		 <component-class>br.edu.ifma.csp.timetable.component.Lookupbox</component-class>
+		<annotation>
+			<annotation-name>ZKBIND</annotation-name>
+			<property-name>value</property-name>
+			<attribute>
+				<attribute-name>ACCESS</attribute-name>
+				<attribute-value>both</attribute-value>
+			</attribute>
+		</annotation>
+	</component>
+	
+</language-addon>

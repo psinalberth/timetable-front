@@ -38,7 +38,9 @@ public class UsuarioViewModel extends ViewModel<Usuario> {
 	@Command
 	@NotifyChange("entidadeSelecionada")
 	public void limpar() {
-		entidadeSelecionada = null;
+		entidadeSelecionada.setNome(null);
+		entidadeSelecionada.setLogin(null);
+		entidadeSelecionada.setSenha(null);
 	}
 	
 	@Command
@@ -51,12 +53,18 @@ public class UsuarioViewModel extends ViewModel<Usuario> {
 			
 			repository.save(entidadeSelecionada);
 			
-			entidadeSelecionada = null;
+			novo();
 			
 			Clients.showNotification("Informações salvas com sucesso!", Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 1500);
 			
 		} catch(WrongValuesException ex) {
 			Validations.showValidationErrors();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
