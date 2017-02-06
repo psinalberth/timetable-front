@@ -1,0 +1,6 @@
+<div viewModel="@id('indexVM') @init('br.edu.ifma.csp.timetable.viewmodel.IndexViewModel')" class="container-fluid" style="padding-top: 15px">
+	<vlayout visible="@load(authVM.logged)">
+		<label value="@load(indexVM.greeting)"/>
+		<label value="Perfil atual: ${authVM.usuario.perfil.nome}"/>
+	</vlayout>
+</div>

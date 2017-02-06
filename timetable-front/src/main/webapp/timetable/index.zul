@@ -1,25 +1,23 @@
 <?page title="Timetable - Grade de Horário" contentType="text/html;charset=UTF-8"?>
 <?meta name="theme-color" content="#344760" ?>
-<?init class="org.zkoss.zk.ui.util.Composition" arg0="/partials/zul/template.zul"?>
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
 <zk xmlns:n="native">
-	<div self="@define(content)" class="container-fluid" onCreate="Clients.resize(self)" 
-		 viewModel="@id('vm') @init('br.edu.ifma.csp.timetable.viewmodel.TimetableViewModel')"
-		 validationMessages="@id('vmsgs')">
-		<label value="@bind(vmsgs.msg)"/>
+	<div class="container-fluid" onCreate="Clients.resize(self)" 
+		 viewModel="@id('vm') @init('br.edu.ifma.csp.timetable.viewmodel.TimetableViewModel')">
+
 		<div sclass="row">
 		
 			<div class="form-group">
-				<n:h4 class="page-title"><span class="la side la-calendar"/>Grade de Horário</n:h4>
+				<n:h4 class="page-title">Grade de Horário</n:h4>
 				<include src="/partials/zul/botoes.zul"/>
 			</div>
 			
 			<div id="list" visible="@bind(vm.consultando)">
-				<include src="list.zul"/>
+				<include src="../timetable/list.zul"/>
 			</div>
 			
 			<div visible="@bind(vm.editando)">
-				<include id="form" src="form.zul"/>
+				<include id="form" src="../timetable/form.zul"/>
 			</div>
 			
 		</div>

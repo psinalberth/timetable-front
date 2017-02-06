@@ -96,13 +96,9 @@ input[type=checkbox]:checked{
 .page-title {
 	font-size: 28px;
 	font-family: 'MyriadPro', sans-serif;
-	font-weight: 400;
-	/* text-transform: uppercase; */
-	border-top: 2px solid #344760;
-	border-bottom: 2px solid #344760;
-	/* background: #344760; */
+	font-weight: 600;
+	border-bottom: 3px dotted #a0acbf;
 	line-height: inherit;
-	/* color: #b3bdc3; */
 	color: #344760;
 }
 
@@ -278,6 +274,42 @@ i {
 	transition: all 0.2s ease-in-out;
 }
 
+.list-nav.z-listitem {
+	background: #344760;
+	color: #a0acbf;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 14px;
+}
+
+.nav-item.z-label:before {
+	
+	font: normal normal normal 16px/1 LineAwesome;
+	color: #347abe;
+	padding-right: 15px;
+	font-size: 24px !important;
+	transition: all 0.2s ease-in-out;
+}
+
+.nav-item.z-label {
+	color: #a0acbf;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 14px;
+	padding: 6px 15px;
+}
+
+.z-listitem.list-nav:hover .z-listcell, .z-listitem.list-nav.z-listitem-selected>.z-listcell>.z-listcell-content {
+	background: #343842;
+	font-size: 14px !important;	
+}
+
+.z-listbox.listbox-nav {
+	border: 0;
+}
+
+.z-listcell-content > .listcell-nav .z-listcell {
+	background: red;
+}
+
 .button {
   background: #344760;
   display: inline-block;
@@ -319,9 +351,10 @@ i {
 }
 
 .la.side {
-	color: #347abe;
-	padding-right: 15px;
-	font-size: 24px !important;
+	color: #a0acbf;
+	/* padding-right: 20px; */
+	font-weight: bold;
+	/* font-size: 24px !important; */
 }
 
 .la.la-btn {
@@ -335,11 +368,6 @@ i {
 
 .la.tab {
 	font-size: 18px;
-}
-
-i > a {
-	
-	height: 50px;
 }
 
 .sidebar ul li > .z-a:hover, .sidebar ul li > .z-a:focus, .sidebar ul li > .z-a.active,

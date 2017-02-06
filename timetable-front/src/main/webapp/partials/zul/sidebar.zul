@@ -1,0 +1,18 @@
+<zk xmlns:n="native">
+	<div class="navbar-default sidebar" viewModel="@id('vm') @init('br.edu.ifma.csp.timetable.viewmodel.NavigationViewModel')">
+		<div class="sidebar-nav navbar-collapse">
+			<n:ul class="nav in" id="side-menu">
+				
+				<listbox model="@load(vm.transacoes)" sclass="listbox-nav">
+					<template name="model">
+						<listitem sclass="list-nav">
+							<listcell onClick="@global-command('irPara', transacao=each.path)">
+								<label sclass="nav-item ${each.icone}" value="${each.descricao}"/>
+							</listcell>
+						</listitem>
+					</template>
+				</listbox> 
+			</n:ul>
+		</div>
+	</div>
+</zk>

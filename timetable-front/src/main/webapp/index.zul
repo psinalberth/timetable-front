@@ -1,6 +1,7 @@
 <?page title="Timetable" contentType="text/html;charset=UTF-8"?>
 <?meta name="theme-color" content="#344760" ?>
 <?meta name="viewport" content="width=device-width, initial-scale=1"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
 
 <zk xmlns:n="native">
 	<n:link rel="stylesheet" href="../timetable-front/partials/css/bootstrap.min.css"></n:link>
@@ -36,27 +37,15 @@
 				</menubar>
 			</div>
 
-			<div class="navbar-default sidebar" visible="@load(authVM.logged)">
-				<div class="sidebar-nav navbar-collapse">
-					<n:ul class="nav in" id="side-menu">
-						<zk self="create" if="${authVM.logged eq true}" forEach="${authVM.usuario.perfil.transacoes}">
-							<n:li sclass="li-menu"><n:a href="../timetable-front${each.path}"><n:i class="${each.icone}"></n:i>${each.descricao}</n:a></n:li>
-						</zk>
-						<n:hr></n:hr>
-						<n:li sclass="li-menu"><a href="/tutorial/" iconSclass="la side la-comments-o">Tutorial</a></n:li> 
-					</n:ul>
-				</div>
-			</div>
+			<include src="../partials/zul/sidebar.zul"/>
 			
 		</n:nav>
 		
-		<div class="zk-container page-wrapper" viewModel="@id('indexVM') @init('br.edu.ifma.csp.timetable.viewmodel.IndexViewModel')">
-			<div class="container-fluid" style="padding-top: 15px">
-				<vlayout visible="@load(authVM.logged)">
-					<label value="@load(indexVM.greeting)"/>
-					<label value="Perfil atual: ${authVM.usuario.perfil.nome}"/>
-				</vlayout>
-			</div>
+		<div class="zk-container page-wrapper">
+			
+			<include self="@define(content)" viewModel="@id('vm') @init('br.edu.ifma.csp.timetable.viewmodel.NavigationViewModel')"
+				 	 src="@load(vm.fragment)"/>
+	
 		</div>
 	
 	<window mode="modal" visible="@load(authVM.logged ne true)" width="350px" position="center" onCreate="@global-command('novo')">
@@ -81,7 +70,7 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<label value="Senha"/>
-								<textbox type="password" sclass="form-input" maxlength="64" value="@bind(authVM.senha)"/>
+								<textbox type="password" sclass="form-input" maxlength="64" value="@bind(authVM.senha)" onOK="@command('login')"/>
 							</div>
 						</div>
 						

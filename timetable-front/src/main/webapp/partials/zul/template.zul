@@ -9,7 +9,7 @@
 	<n:link rel="stylesheet" href="../partials/css/line-awesome-font-awesome.min.css"></n:link>
 	<n:link rel="stylesheet" href="../partials/css/line-awesome.min.css"></n:link>
 	
-	<div id="wrapper" sclass="ss" viewModel="@id('authVM') @init('br.edu.ifma.csp.timetable.viewmodel.auth.AuthViewModel')" visible="@load(authVM.logged)">
+	<div sclass="ss" viewModel="@id('authVM') @init('br.edu.ifma.csp.timetable.viewmodel.auth.AuthViewModel')" visible="@load(authVM.logged)">
 		
 		<zscript>
 			<![CDATA[
@@ -48,17 +48,7 @@
 				</menubar>
 			</div>
 
-			<div class="navbar-default sidebar">
-				<div class="sidebar-nav navbar-collapse">
-					<n:ul class="nav in" id="side-menu">
-						<zk forEach="${authVM.usuario.perfil.transacoes}">
-							<n:li sclass="li-menu"><n:a href="..${each.path}"><n:i class="${each.icone}"></n:i>${each.descricao}</n:a></n:li>
-						</zk>
-						<n:hr></n:hr>
-						<n:li sclass="li-menu"><a href="/tutorial/" iconSclass="la side la-comments-o">Tutorial</a></n:li> 
-					</n:ul>
-				</div>
-			</div>
+			<include src="/partials/zul/sidebar.zul"/>
 			
 		</n:nav>
 		
