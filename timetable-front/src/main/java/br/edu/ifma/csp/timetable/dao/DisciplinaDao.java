@@ -18,15 +18,19 @@ public class DisciplinaDao extends RepositoryDao<Disciplina> implements Discipli
 		
 		String sql = 
 				
-		"select dis.*, per.CODIGO, det.CREDITOS from DISCIPLINA dis " +
-			"inner join DETALHE_DISCIPLINA det on " +
-				"det.ID_DISCIPLINA = dis.ID_DISCIPLINA and " +
-		        "det.OBRIGATORIA = 1 " +
-			"inner join PERIODO per on " +
-				"per.ID_PERIODO = det.ID_PERIODO " +
-			"inner join MATRIZ_CURRICULAR mat on " +
-				"mat.ID_MATRIZ = per.ID_MATRIZ and " +
-			    "mat.ID_MATRIZ = :matrizId";
+		"select * from DISCIPLINA where ID_DISCIPLINA in ( " +
+			"select distinct(dis.ID_DISCIPLINA) from DISCIPLINA dis " +
+				"inner join PREFERENCIA_DISCIPLINA_PROFESSOR pre on " +
+					"pre.ID_DISCIPLINA = dis.ID_DISCIPLINA " +
+				"inner join DETALHE_DISCIPLINA det on " +
+					"det.ID_DISCIPLINA = dis.ID_DISCIPLINA and " +
+					"det.OBRIGATORIA = 1 " +
+				"inner join PERIODO per on " +
+					"per.ID_PERIODO = det.ID_PERIODO " +
+				"inner join MATRIZ_CURRICULAR mat on " +
+					"mat.ID_MATRIZ = per.ID_MATRIZ and " +
+		            "mat.ID_MATRIZ = :matrizId " +
+			"order by per.CODIGO asc)";
 		
 		return this.manager.createNativeQuery(sql, Disciplina.class).setParameter("matrizId", matriz.getId()).getResultList();
 	}
@@ -69,17 +73,21 @@ public class DisciplinaDao extends RepositoryDao<Disciplina> implements Discipli
 	public List<Disciplina> allEletivasByMatrizCurricular(MatrizCurricular matrizCurricular) {
 		
 		String sql = 
-				
-				"select dis.*, per.CODIGO, det.CREDITOS from DISCIPLINA dis " +
-					"inner join DETALHE_DISCIPLINA det on " +
-						"det.ID_DISCIPLINA = dis.ID_DISCIPLINA and " +
-						"det.OBRIGATORIA = 0 " +
-					"inner join PERIODO per on " +
-						"per.ID_PERIODO = det.ID_PERIODO " +
-					"inner join MATRIZ_CURRICULAR mat on " +
-						"mat.ID_MATRIZ = per.ID_MATRIZ and " +
-					    "mat.ID_MATRIZ = :matrizId";
-				
-				return this.manager.createNativeQuery(sql, Disciplina.class).setParameter("matrizId", matrizCurricular.getId()).getResultList();
+		
+		"select * from DISCIPLINA where ID_DISCIPLINA in ( " +
+			"select distinct(dis.ID_DISCIPLINA) from DISCIPLINA dis " +
+				"inner join PREFERENCIA_DISCIPLINA_PROFESSOR pre on " +
+					"pre.ID_DISCIPLINA = dis.ID_DISCIPLINA " +
+				"inner join DETALHE_DISCIPLINA det on " +
+					"det.ID_DISCIPLINA = dis.ID_DISCIPLINA and " +
+					"det.OBRIGATORIA = 0 " +
+				"inner join PERIODO per on " +
+					"per.ID_PERIODO = det.ID_PERIODO " +
+				"inner join MATRIZ_CURRICULAR mat on " +
+					"mat.ID_MATRIZ = per.ID_MATRIZ and " +
+				    "mat.ID_MATRIZ = :matrizId) " + 
+		"order by CODIGO asc";
+		
+		return this.manager.createNativeQuery(sql, Disciplina.class).setParameter("matrizId", matrizCurricular.getId()).getResultList();
 	}
 }

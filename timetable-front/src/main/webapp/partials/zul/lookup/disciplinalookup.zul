@@ -6,7 +6,7 @@
 		 	<vlayout 
 		 		viewModel='@id("childVM") @init("br.edu.ifma.csp.timetable.viewmodel.lookup.DisciplinaLookupViewModel", 
 		 				   matrizCurricular = vm.entidadeSelecionada.getClass().getSimpleName().equals("Timetable") ? vm.entidadeSelecionada.matrizCurricular : null, 
-		 				   eletiva = vm.entidadeSelecionada.getClass().getSimpleName().equals("Timetable") ? detalheSelecionado.criterioPeriodoEletiva : false)' style="padding: 0 15px">
+		 				   eletiva = vm.entidadeSelecionada.getClass().getSimpleName().equals("Timetable") ? detalheSelecionado.tipoCriterioEletiva : false)' style="padding: 0 15px">
 		 		<div class="row">
 		 			<div class="col-md-12">
 		 				<n:h5 class="page-title">Disciplina</n:h5>
@@ -33,8 +33,8 @@
 		 			</div>
 		 			<div class="col-md-2">
 			 			<div sclass="form-group">
-			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="fa fa-search" onClick="@command('pesquisar')"/>
-			 				<button sclass="btn btn-default" label="Limpar" iconSclass="fa fa-eraser" onClick="@command('limpar')"/>
+			 				<button sclass="btn btn-default" label="Pesquisar" iconSclass="la la-search" onClick="@command('pesquisar')"/>
+			 				<button sclass="btn btn-default" label="Limpar" iconSclass="la la-eraser" onClick="@command('limpar')"/>
 			 			</div>
 		 			</div>
 		 		</div>

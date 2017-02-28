@@ -27,7 +27,6 @@ import org.zkoss.zul.Span;
 import br.edu.ifma.csp.timetable.dao.HorarioDao;
 import br.edu.ifma.csp.timetable.model.Horario;
 import br.edu.ifma.csp.timetable.model.PreferenciaDisciplinaProfessor;
-import br.edu.ifma.csp.timetable.model.PreferenciaHorarioProfessor;
 import br.edu.ifma.csp.timetable.model.Professor;
 import br.edu.ifma.csp.timetable.repository.Horarios;
 import br.edu.ifma.csp.timetable.util.Lookup;
@@ -35,12 +34,11 @@ import br.edu.ifma.csp.timetable.util.Lookup;
 public class ProfessorViewModel extends ViewModel<Professor> {
 	
 	private List<PreferenciaDisciplinaProfessor> preferenciasDisciplinaSelecionadas;
-	private List<PreferenciaHorarioProfessor> preferenciasHorarioSelecionadas;
 	
 	private List<Date> colHorariosInicio;
 	private List<Horario> colHorarios;
 	
-	private Horarios horarios;
+	private Horarios horarios = Lookup.dao(HorarioDao.class);
 	
 	@Wire("#form #grid")
 	private Grid grid;
@@ -48,8 +46,6 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 	@AfterCompose(superclass=true)
 	@NotifyChange({"colHorariosInicio", "colHorarios"})
 	public void init(@ContextParam(ContextType.VIEW) Component view) {
-		
-		horarios = Lookup.dao(HorarioDao.class);
 		
 		setColHorariosInicio(horarios.allHorariosInicio());
 		setColHorarios(horarios.all());
@@ -75,15 +71,14 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 		
 		initHorarios();
 		
-		for (PreferenciaHorarioProfessor preferencia : entidadeSelecionada.getPreferenciasHorario()) {
+		for (Horario horario : entidadeSelecionada.getHorariosIndisponiveis()) {
 			
-			int rowIndex = getRowIndex(preferencia.getHorario().getHoraInicio().toString());
-			int columnIndex = getColumnIndex(preferencia.getHorario().getDia().getDescricao());
+			int rowIndex = getRowIndex(horario.getHoraInicio().toString());
+			int columnIndex = getColumnIndex(horario.getDia().getDescricao());
 			
 			Component comp =  grid.getCell(rowIndex, columnIndex).getChildren().get(0);
 			
 			if (comp instanceof Checkbox) {
-				
 				((Checkbox)comp).setChecked(true);
 			}	
 		}
@@ -123,29 +118,28 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 	
 	@Command
 	@NotifyChange("entidadeSelecionada")
-	public void adicionarPreferenciaHorario(Horario horario) {
+	public void adicionarHorarioIndisponivel(Horario horario) {
 		
-		PreferenciaHorarioProfessor preferencia = new PreferenciaHorarioProfessor();
+		if (entidadeSelecionada.getHorariosIndisponiveis() == null) {
+			entidadeSelecionada.setHorariosIndisponiveis(new ArrayList<Horario>());
+		}
 		
-		preferencia.setProfessor(entidadeSelecionada);
-		preferencia.setHorario(horario);
-		preferencia.setDataUltAlteracao(entidadeSelecionada.getDataUltAlteracao());
-		preferencia.setUsuarioUltAlteracao(entidadeSelecionada.getUsuarioUltAlteracao());
-		
-		entidadeSelecionada.getPreferenciasHorario().add(preferencia);
+		entidadeSelecionada.getHorariosIndisponiveis().add(horario);
 	}
 	
 	@Command
 	@NotifyChange("entidadeSelecionada")
-	public void removerPreferenciaHorario(Horario horario) {
+	public void removerHorarioIndisponivel(Horario horario) {
 		
-		entidadeSelecionada.getPreferenciasHorario().removeIf(new Predicate<PreferenciaHorarioProfessor>() {
+		if (entidadeSelecionada.getHorariosIndisponiveis() != null && entidadeSelecionada.getHorariosIndisponiveis().size() > 0) {
+			entidadeSelecionada.getHorariosIndisponiveis().removeIf(new Predicate<Horario>() {
 
-			@Override
-			public boolean test(PreferenciaHorarioProfessor pref) {
-				return pref.getHorario().getId() == horario.getId();
-			}
-		});
+				@Override
+				public boolean test(Horario tmp) {
+					return tmp.getId() == horario.getId();
+				}
+			});
+		}
 	}
 	
 	private void initHorarios() {
@@ -179,10 +173,10 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 					Horario h = (Horario) checkbox.getAttribute("horario");
 					
 					if (checkbox.isChecked()) {
-						adicionarPreferenciaHorario(h);
+						adicionarHorarioIndisponivel(h);
 						
 					} else {
-						removerPreferenciaHorario(h);
+						removerHorarioIndisponivel(h);
 					}
 				}
 			});
@@ -230,14 +224,6 @@ public class ProfessorViewModel extends ViewModel<Professor> {
 
 	public void setPreferenciasDisciplinaSelecionadas(List<PreferenciaDisciplinaProfessor> preferenciasDisciplinaSelecionadas) {
 		this.preferenciasDisciplinaSelecionadas = preferenciasDisciplinaSelecionadas;
-	}
-
-	public List<PreferenciaHorarioProfessor> getPreferenciasHorarioSelecionadas() {
-		return preferenciasHorarioSelecionadas;
-	}
-
-	public void setPreferenciasHorarioSelecionadas(List<PreferenciaHorarioProfessor> preferenciasHorarioSelecionadas) {
-		this.preferenciasHorarioSelecionadas = preferenciasHorarioSelecionadas;
 	}
 	
 	public List<Date> getColHorariosInicio() {

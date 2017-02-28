@@ -1,0 +1,47 @@
+<zk xmlns:n="native">
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/bootstrap.min.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/sb-admin-2.min.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/timetable.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/line-awesome-font-awesome.min.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/line-awesome.min.css"></n:link>
+	<div id="wrapper" sclass="ss" onCreate="Clients.resize(self)">	
+		<n:nav sclass="navbar navbar-default navbar-static-top" style="margin-bottom: 0">
+			<div class="navbar-header">
+				<n:button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle Navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</n:button>
+				<a href="/" class="navbar-brand">Timetable</a>
+			</div>
+			
+			<div class="nav navbar-top-links navbar-right">
+				<menubar visible="@load(authVM.logged)">
+					<menu label="@load(authVM.usuario.login)">
+						<menupopup>
+							<menuitem iconSclass="la la-user" label="Perfil" onClick="@global-command('logout')"/>
+							<menuitem iconSclass="la la-cog" label="Configurações" onClick="@global-command('logout')"/>
+							<menuseparator/>
+							<menuitem iconSclass="la la-sign-out" label="Logout" onClick="@command('logout')"/>
+						</menupopup>
+					</menu>
+				</menubar>
+			</div>
+	
+			<include src="../partials/zul/sidebar.zul"/>
+			
+		</n:nav>
+		
+		<div class="zk-container page-wrapper">
+			
+			<include self="@define(content)" viewModel="@id('vm') @init('br.edu.ifma.csp.timetable.viewmodel.NavigationViewModel')"
+				 	 src="@load(vm.fragment)" onCreate="Clients.resize(self)"/>
+	
+		</div>
+	</div>
+	<n:script src="../timetable-front/partials/js/jquery.min.js"></n:script>
+	<n:script src="../timetable-front/partials/js/bootstrap.min.js"></n:script>
+	<n:script src="../timetable-front/partials/js/sb-admin-2.min.js"></n:script>
+	<n:script src="../timetable-front/partials/js/metisMenu.min.js"></n:script>	
+</zk>

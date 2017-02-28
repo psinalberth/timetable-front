@@ -18,7 +18,7 @@ import br.edu.ifma.csp.timetable.util.Lookup;
 
 public class DisciplinaLookupViewModel extends LookupViewModel<Disciplina> {
 	
-	private Disciplinas disciplinas;
+	private Disciplinas disciplinas = Lookup.dao(DisciplinaDao.class);
 	
 	private MatrizCurricular matrizCurricular;
 	private Integer codigo;
@@ -35,8 +35,6 @@ public class DisciplinaLookupViewModel extends LookupViewModel<Disciplina> {
 	
 	@NotifyChange("col")
 	private void build() {
-		
-		disciplinas = Lookup.dao(DisciplinaDao.class);
 		
 		if (matrizCurricular != null) {
 			

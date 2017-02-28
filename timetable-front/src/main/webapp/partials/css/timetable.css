@@ -24,6 +24,13 @@ body {
 	padding: 0;
 }
 
+.z-listbox-emptybody td {
+	font-family: 'MyriadPro', sans-serif;
+	font-weight: 600;
+	font-style: normal;
+	color: #344760;
+} 
+
 a, li, .z-window-header, .z-window-content, .z-messagebox > .z-label {
 	font-family: 'Montserrat', sans-serif;
 	font-weight: 600;
@@ -64,7 +71,7 @@ input[type=text][readonly] {
   box-shadow: -8px 10px 0px -7px #344760, 8px 10px 0px -7px #344760;
 } */
 
-input[type=checkbox]:checked{
+input[type=checkbox]:checked {
     content: "\2605";
     text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
     font-size: 15px;
@@ -105,6 +112,10 @@ input[type=checkbox]:checked{
 .navbar-default {
 	background: #364760;
 	border-color: #343842;
+}
+
+.navbar-top-links {
+	padding-left: 15px;
 }
 
 .navbar-top-links li a {
@@ -224,7 +235,7 @@ input[type=checkbox]:checked{
 	transition: all ease 0.1s;
 }
 
-.z-bandbox-input, .z-bandbox-button {
+.z-bandbox-input, .z-bandbox-button, .z-timebox-input {
 	padding-top: 14px;
 }
 
@@ -581,12 +592,26 @@ hr {
 
 /* Input (Timebox, Combobox, Bandbox) */
 
+@-moz-document url-prefix() {
+
+	.z-timebox-input, .z-combobox-input, .z-bandbox-input, .z-lookupbox-input {
+		font-family: 'MyriadPro', sans-serif;
+		color: #444;
+		font-size: 15px;
+		padding-top: 7px !important;
+		height: 25px !important;
+		width: 97.3333333%;
+		transition: all 0.3s ease;
+	}
+}
+
 .z-timebox-input, .z-combobox-input, .z-bandbox-input, .z-lookupbox-input {
 	font-family: 'MyriadPro', sans-serif;
 	color: #444;
 	font-size: 15px;
 	padding-top: 13px;
 	height: 22px;
+	border: 0;
 	width: 97.3333333%;
 	transition: all 0.3s ease;
 }
@@ -705,6 +730,11 @@ hr {
 
 }
 
+.z-paging-info, .z-paging-input, .z-paging-text {
+	font-family: 'MyriadPro', sans serif;
+	font-size: 13px;
+}
+
 @media(max-width:500px) {
 	.btn {
 		width: 100%;
@@ -743,12 +773,6 @@ hr {
 	.z-timebox-button, .z-combobox-button, .z-bandbox-button, .z-lookupbox-button {
 		width: 6.66666667%;
 	}
-}
-
-
-.z-timebox-input {
-	font-family: 'Raleway', sans-serif;
-	width: 100%;
 }
 
 .z-icon-angle-left:before {

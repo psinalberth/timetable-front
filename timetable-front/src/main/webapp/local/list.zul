@@ -5,7 +5,7 @@
 			<listheader label="Nome"/>
 			<listheader label="Tipo de Local"/>
 			<listheader label="Departamento"/>
-			<listheader label="Capacidade"/>
+			<listheader label="Capacidade" hflex="min"/>
 		</listhead>
 		<template name="model" var="obj">
 			<listitem value="@bind(obj)" sclass="list">

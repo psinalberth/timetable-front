@@ -25,6 +25,7 @@ import org.zkoss.zul.Vlayout;
 import br.edu.ifma.csp.timetable.dao.HorarioDao;
 import br.edu.ifma.csp.timetable.dao.LocalDao;
 import br.edu.ifma.csp.timetable.dao.ProfessorDao;
+import br.edu.ifma.csp.timetable.dao.TipoDetalheTimetableDao;
 import br.edu.ifma.csp.timetable.handler.TimetableHandler;
 import br.edu.ifma.csp.timetable.model.Aula;
 import br.edu.ifma.csp.timetable.model.DetalheTimetable;
@@ -32,21 +33,25 @@ import br.edu.ifma.csp.timetable.model.Local;
 import br.edu.ifma.csp.timetable.model.Periodo;
 import br.edu.ifma.csp.timetable.model.Professor;
 import br.edu.ifma.csp.timetable.model.Timetable;
+import br.edu.ifma.csp.timetable.model.TipoDetalheTimetable;
 import br.edu.ifma.csp.timetable.repository.Horarios;
 import br.edu.ifma.csp.timetable.repository.Locais;
 import br.edu.ifma.csp.timetable.repository.Professores;
+import br.edu.ifma.csp.timetable.repository.TiposDetalheTimetable;
 import br.edu.ifma.csp.timetable.util.Lookup;
 import br.edu.ifma.csp.timetable.util.Validations;
 
 public class TimetableViewModel extends ViewModel<Timetable> {
 	
-	private Horarios horarios;
-	private Locais locais;
-	private Professores professores;
+	private Horarios horarios = Lookup.dao(HorarioDao.class);
+	private Locais locais = Lookup.dao(LocalDao.class);
+	private Professores professores = Lookup.dao(ProfessorDao.class);
+	private TiposDetalheTimetable tiposDetalhe = Lookup.dao(TipoDetalheTimetableDao.class);
 	
 	private List<Professor> colProfessores;
 	private List<Local> colLocais;
 	private List<String> colHorariosInicio;
+	private List<TipoDetalheTimetable> colTiposDetalhe;
 	
 	private Local local;
 	private Professor professor;
@@ -58,15 +63,12 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	private List<DetalheTimetable> detalhesSelecionados;
 	
 	@AfterCompose(superclass=true)
-	@NotifyChange({"colProfessores", "colLocais"})
+	@NotifyChange({"colProfessores", "colLocais", "colTiposDetalhe"})
 	public void init(@ContextParam(ContextType.VIEW) Component view) {
-		
-		horarios = Lookup.dao(HorarioDao.class);
-		professores = Lookup.dao(ProfessorDao.class);
-		locais = Lookup.dao(LocalDao.class);
 		
 		setColProfessores(professores.all());
 		setColLocais(locais.all());
+		setColTiposDetalhe(tiposDetalhe.all());
 		
 		Selectors.wireComponents(view, this, false);
 	}
@@ -106,9 +108,9 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 				grid.getRows().getChildren().clear();
 			}
 			
-			buildRows();
+			setPeriodo(entidadeSelecionada.getMatrizCurricular().getPeriodos().get(0));
 			
-			
+			lookup();
 			
 		} catch (WrongValuesException ex) {
 			Validations.showValidationErrors();
@@ -312,7 +314,7 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 							if (v instanceof Vlayout && v.getChildren().size() > 0) {
 								
 								Component local = v.getChildren().get(2);
-								Component comp = v.getChildren().get(1);
+								Component professor = v.getChildren().get(1);
 								Component periodo = v.getChildren().get(3);
 								
 								if (getPeriodo() != null) {
@@ -331,9 +333,9 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 								
 								if (getProfessor() != null) {
 								
-									if (comp instanceof Label) {
+									if (professor instanceof Label) {
 										
-										if (!((Label)comp).getValue().equalsIgnoreCase(getProfessor().getNome())) {
+										if (!((Label)professor).getValue().equalsIgnoreCase(getProfessor().getNome())) {
 											v.setVisible(false);
 										}
 									}
@@ -358,14 +360,20 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 		
 		DetalheTimetable detalheTimetable = new DetalheTimetable();
 		
+		detalheTimetable.setDataUltAlteracao(entidadeSelecionada.getDataUltAlteracao());
+		detalheTimetable.setUsuarioUltAlteracao(entidadeSelecionada.getUsuarioUltAlteracao());
 		detalheTimetable.setTimetable(entidadeSelecionada);
+		
 		entidadeSelecionada.getDetalhes().add(0, detalheTimetable);
 	}
 	
 	@Command
 	@NotifyChange("entidadeSelecionada")
 	public void removerDetalhe() {
-		entidadeSelecionada.getDetalhes().removeAll(detalhesSelecionados);
+		
+		if (detalhesSelecionados != null && detalhesSelecionados.size() > 0) {
+			entidadeSelecionada.getDetalhes().removeAll(detalhesSelecionados);
+		}
 	}
 	
 	public boolean isSolucaoEncontrada() {
@@ -396,14 +404,6 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 		this.professor = professor;
 	}
 	
-	public Periodo getPeriodo() {
-		return periodo;
-	}
-	
-	public void setPeriodo(Periodo periodo) {
-		this.periodo = periodo;
-	}
-
 	public List<Professor> getColProfessores() {
 		return colProfessores;
 	}
@@ -426,5 +426,21 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	
 	public void setColHorariosInicio(List<String> colHorariosInicio) {
 		this.colHorariosInicio = colHorariosInicio;
+	}
+
+	public List<TipoDetalheTimetable> getColTiposDetalhe() {
+		return colTiposDetalhe;
+	}
+
+	public void setColTiposDetalhe(List<TipoDetalheTimetable> colTiposDetalhe) {
+		this.colTiposDetalhe = colTiposDetalhe;
+	}
+
+	public Periodo getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(Periodo periodo) {
+		this.periodo = periodo;
 	}
 }

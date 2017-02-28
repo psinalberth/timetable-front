@@ -14,16 +14,24 @@ import br.edu.ifma.csp.timetable.util.Lookup;
 
 public class AuthViewModel {
 	
-	Usuarios usuarios;
+	Usuarios usuarios = Lookup.dao(UsuarioDao.class);
 	
 	private Usuario usuario;
 	
 	private String login;
 	private String senha;
 	
+	private String fragment;
+	
 	@Init
+	@NotifyChange("fragment")
 	private void init() {
-		usuarios = Lookup.dao(UsuarioDao.class);
+		
+		if (!isLogged()) {
+			setFragment("../partials/zul/login.zul");
+		} else {
+			setFragment("../partials/zul/home.zul");
+		}
 	}
 	
 	public boolean isLogged() {
@@ -43,7 +51,7 @@ public class AuthViewModel {
 	}
 	
 	@Command
-	@NotifyChange({"usuario", "logged"})
+	@NotifyChange({"usuario", "logged", "fragment"})
 	public void login() {
 		
 		Usuario usuario = usuarios.byLogin(getLogin());
@@ -61,7 +69,7 @@ public class AuthViewModel {
 				setLogin(null);
 				setSenha(null);
 				
-				Executions.sendRedirect("/");
+				setFragment("../partials/zul/home.zul");
 				
 			} else {
 				
@@ -70,6 +78,11 @@ public class AuthViewModel {
 				Clients.showNotification("Usuário inválido e/ou senha incorreta.", Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 0);
 				return;
 			}
+		} else if (login == null || login.isEmpty() || senha == null || senha.isEmpty()) {
+				
+			Clients.showNotification("Login e senha são obrigatórios.", Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 0);
+			return;
+			
 		} else {
 			
 			Clients.showNotification("Usuário não encontrado.", Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 0);
@@ -78,12 +91,14 @@ public class AuthViewModel {
 	}
 	
 	@Command
-	@NotifyChange({"logged", "usuario"})
+	@NotifyChange({"logged", "usuario", "fragment"})
 	public void logout() {
 		
 		Executions.getCurrent().getSession().removeAttribute("usuario");
-		Executions.getCurrent().getSession().invalidate();
-		Executions.sendRedirect("/");
+		Executions.getCurrent().getSession().removeAttribute("transacoes");
+		Executions.getCurrent().setVoided(true);
+		
+		setFragment("../partials/zul/login.zul");
 	}
 	
 	@Command
@@ -108,5 +123,13 @@ public class AuthViewModel {
 	
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getFragment() {
+		return fragment;
+	}
+
+	public void setFragment(String fragment) {
+		this.fragment = fragment;
 	}
 }

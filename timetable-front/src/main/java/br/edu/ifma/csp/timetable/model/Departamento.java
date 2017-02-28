@@ -1,15 +1,10 @@
 package br.edu.ifma.csp.timetable.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
@@ -41,12 +36,6 @@ public class Departamento extends Entidade {
 	@NotBlank(message="descricao#A <b>descrição</b> é obrigatória.")
 	@Column(name="DESCRICAO", length=100)
 	private String descricao;
-	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="departamento")
-	private Set<Professor> professores = new HashSet<Professor>();
-	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="departamento")
-	private Set<Curso> cursos = new HashSet<Curso>();
 
 	@Override
 	public int getId() {
@@ -80,21 +69,5 @@ public class Departamento extends Entidade {
 	
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-	
-	public Set<Professor> getProfessores() {
-		return professores;
-	}
-	
-	public void setProfessores(Set<Professor> professores) {
-		this.professores = professores;
-	}
-	
-	public Set<Curso> getCursos() {
-		return cursos;
-	}
-	
-	public void setCursos(Set<Curso> cursos) {
-		this.cursos = cursos;
 	}
 }

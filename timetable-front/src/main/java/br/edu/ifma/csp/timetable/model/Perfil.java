@@ -36,7 +36,7 @@ public class Perfil extends Entidade {
 	@Column(name="DESCRICAO", length=100)
 	private String descricao;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinTable(name="PERMISSAO", joinColumns = {@JoinColumn(name="ID_PERFIL")}, inverseJoinColumns = {@JoinColumn(name="ID_TRANSACAO")})
 	private List<Transacao> transacoes = new ArrayList<Transacao>();
 	

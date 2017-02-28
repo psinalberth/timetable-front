@@ -1,0 +1,90 @@
+<zk xmlns:n="native">
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/bootstrap.min.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/sb-admin-2.min.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/timetable.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/line-awesome-font-awesome.min.css"></n:link>
+	<n:link rel="stylesheet" href="../timetable-front/partials/css/line-awesome.min.css"></n:link>
+
+	<window mode="modal" width="350px" position="center" onCreate="@global-command('novo')">	
+		<tabbox id="tabbox">
+			<tabs>
+				<tab label="Login" iconSclass="la la-sign-in"/>
+				<tab label="Não possuo cadastro" iconSclass="la la-user-plus" onClick="@global-command('novo')"/>
+			</tabs>
+			<tabpanels>
+				
+				<tabpanel>
+				
+					<div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label value="Login"/>
+								<textbox sclass="form-input" maxlength="20" value="@bind(authVM.login)"/>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="form-group">
+								<label value="Senha"/>
+								<textbox type="password" sclass="form-input" maxlength="64" value="@bind(authVM.senha)" onOK="@command('login')"/>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="col-md-6">
+								<button sclass="button la la-sign-in" label="Entrar" onClick="@command('login')"/>
+							</div>
+							<div class="col-md-6">
+								<button sclass="button la la-times" label="Limpar" onClick="@command('limpar')"/>
+							</div>
+						</div>
+						
+					</div>
+					
+				</tabpanel>
+				
+				<tabpanel>
+					
+					<div viewModel="@id('vm') @init('br.edu.ifma.csp.timetable.viewmodel.UsuarioViewModel')">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label value="Nome"/>
+								<textbox sclass="form-input" maxlength="80" value="@bind(vm.entidadeSelecionada.nome)"/>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="form-group">
+								<label value="Login"/>
+								<textbox sclass="form-input" maxlength="20" value="@bind(vm.entidadeSelecionada.login)"/>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="form-group">
+								<label value="Senha"/>
+								<textbox type="password" sclass="form-input" maxlength="64" value="@bind(vm.entidadeSelecionada.senha)"/>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="col-md-6">
+								<button sclass="button la la-check" label="Salvar" onClick="@command('salvar')"/>
+							</div>
+							<div class="col-md-6">
+								<button sclass="button la la-times" label="Limpar" onClick="@command('limpar')"/>
+							</div>
+						</div>
+					</div>
+					
+				</tabpanel>
+				
+			</tabpanels>
+		</tabbox>	
+	</window>
+
+	<n:script src="../timetable-front/partials/js/jquery.min.js"></n:script>
+	<n:script src="../timetable-front/partials/js/bootstrap.min.js"></n:script>
+	<n:script src="../timetable-front/partials/js/sb-admin-2.min.js"></n:script>
+	<n:script src="../timetable-front/partials/js/metisMenu.min.js"></n:script>	
+</zk>

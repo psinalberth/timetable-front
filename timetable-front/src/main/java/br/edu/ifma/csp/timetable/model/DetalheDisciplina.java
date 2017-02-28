@@ -23,11 +23,11 @@ public class DetalheDisciplina extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotNull(message="Os créditos são obrigatórios.")
+	@NotNull(message="Os <b>créditos</b> são obrigatórios.")
 	@Column(name="CREDITOS", columnDefinition="TINYINT(2)")
 	private Integer creditos;
 	
-	@NotNull(message="A carga horária é obrigatória.")
+	@NotNull(message="A <b>carga horária</b> é obrigatória.")
 	@Column(name="CARGA_HORARIA", columnDefinition="TINYINT(3)")
 	private Integer cargaHoraria;
 	
@@ -47,7 +47,7 @@ public class DetalheDisciplina extends Entidade {
 	@JoinColumn(name="ID_PERIODO")
 	private Periodo periodo;
 	
-	@NotNull(message="A disciplina é obrigatória.")
+	@NotNull(message="A <b>disciplina</b> é obrigatória.")
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_DISCIPLINA")
 	private Disciplina disciplina;

@@ -1,7 +1,7 @@
 package br.edu.ifma.csp.timetable.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,7 +51,7 @@ public class Curso extends Entidade {
 	private Departamento departamento;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="curso")
-	private Set<MatrizCurricular> matrizes = new HashSet<MatrizCurricular>();
+	private List<GrupoEletiva> gruposEletiva = new ArrayList<GrupoEletiva>();
 
 	@Override
 	public int getId() {
@@ -94,11 +94,11 @@ public class Curso extends Entidade {
 		this.departamento = departamento;
 	}
 	
-	public Set<MatrizCurricular> getMatrizes() {
-		return matrizes;
+	public List<GrupoEletiva> getGruposEletiva() {
+		return gruposEletiva;
 	}
 	
-	public void setMatrizes(Set<MatrizCurricular> matrizes) {
-		this.matrizes = matrizes;
+	public void setGruposEletiva(List<GrupoEletiva> gruposEletiva) {
+		this.gruposEletiva = gruposEletiva;
 	}
 }

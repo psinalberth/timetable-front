@@ -14,7 +14,7 @@ import javax.validation.Constraint;
 @Constraint(validatedBy={br.edu.ifma.csp.timetable.validator.UniqueValidator.class})
 public @interface Unique {
 	
-	String message() default "codigo#O código selecionado já está em uso.";
+	String message();
 	Class<?>[] groups() default {};
 	Class<?>[] payload() default {};
 }

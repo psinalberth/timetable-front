@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -34,11 +36,11 @@ public class Professor extends Entidade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotBlank(message="nome#O <b>nome</b> é obrigatório.")
+	@NotBlank(message="O <b>nome</b> é obrigatório.")
 	@Column(name="NOME", length=100)
 	private String nome;
 	
-	@NotBlank(message="endereco#O <b>endereço</b> é obrigatório.")
+	@NotBlank(message="O <b>endereço</b> é obrigatório.")
 	@Column(name="ENDERECO", length=140)
 	private String endereco;
 	
@@ -55,9 +57,9 @@ public class Professor extends Entidade {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="professor", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<PreferenciaDisciplinaProfessor> preferenciasDisciplina = new ArrayList<PreferenciaDisciplinaProfessor>();
 	
-	@Valid
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="professor", cascade=CascadeType.ALL, orphanRemoval=true)
-	private List<PreferenciaHorarioProfessor> preferenciasHorario = new ArrayList<PreferenciaHorarioProfessor>();
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@JoinTable(name="HORARIO_INDISPONIVEL_PROFESSOR", joinColumns = {@JoinColumn(name="ID_PROFESSOR")}, inverseJoinColumns = {@JoinColumn(name="ID_HORARIO")})
+	private List<Horario> horariosIndisponiveis = new ArrayList<Horario>();
 
 	@Override
 	public int getId() {
@@ -108,12 +110,12 @@ public class Professor extends Entidade {
 		this.preferenciasDisciplina = preferenciasDisciplina;
 	}
 	
-	public List<PreferenciaHorarioProfessor> getPreferenciasHorario() {
-		return preferenciasHorario;
+	public List<Horario> getHorariosIndisponiveis() {
+		return horariosIndisponiveis;
 	}
-	
-	public void setPreferenciasHorario(List<PreferenciaHorarioProfessor> preferenciasHorario) {
-		this.preferenciasHorario = preferenciasHorario;
+
+	public void setHorariosIndisponiveis(List<Horario> horariosIndisponiveis) {
+		this.horariosIndisponiveis = horariosIndisponiveis;
 	}
 	
 	@Override

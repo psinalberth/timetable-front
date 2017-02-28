@@ -36,6 +36,24 @@
 							</div>
 						</div>
 					</div>
+					
+					<grid>
+						<columns>
+							<column label="Configuração"/>
+							<column label="Valor" hflex="min"/>
+						</columns>
+						<rows>
+							<row>
+								<label value="Mesmo local para a mesma disciplina"/>
+								<checkbox/>
+							</row>
+							<row>
+								<label sclass="form-label" value="Mesmo horário para a mesma disciplina"/>
+								<checkbox/>
+							</row>
+						</rows>
+					</grid>
+					
 				</tabpanel>
 				
 				<tabpanel>
@@ -64,26 +82,25 @@
 												
 												<div sclass="col-md-2">
 													<div sclass="form-group">
-														<label sclass="form-label" value="Entidade"/>
-														<combobox readonly="true" autodrop="true" cols="1" sclass="form-input" 
-																  value="@bind(detalheSelecionado.entidade)" selectedItem="@bind(detalheSelecionado.entidade)"
+														<label sclass="form-label" value="Tipo de Detalhe"/>
+														<combobox readonly="true" autodrop="true" cols="1" sclass="form-input" model="@load(vm.colTiposDetalhe)" 
+																  value="@bind(detalheSelecionado.tipoDetalheTimetable.descricao)" selectedItem="@bind(detalheSelecionado.tipoDetalheTimetable)"
 																  onSelect="@command('onChange')">
-															<comboitem value="Disciplina" label="Disciplina"/>
-															<comboitem value="Período" label="Período"/>
-															<comboitem value="Professor" label="Professor"/>
-															<comboitem value="Local" label="Local"/>
+															<template name="model">
+																<comboitem value="@bind(each.id)" label="@load(each.descricao)"/>
+															</template>
 														</combobox>
 													</div>
 												</div>
 												
 												<div sclass="col-md-10">
 													
-													<div sclass="form-group" visible="@load(detalheSelecionado.criterioDisciplina)">
+													<div sclass="form-group" visible="@load(detalheSelecionado.tipoDetalheDisciplina)">
 														<label sclass="form-label" value="Disciplina"/>
 														<include src="/partials/zul/lookup/disciplinalookup.zul"/>
 													</div>
 													
-													<div sclass="form-group" visible="@load(detalheSelecionado.criterioPeriodo)">
+													<div sclass="form-group" visible="@load(detalheSelecionado.tipoDetalhePeriodo)">
 														<label sclass="form-label" value="Período"/>
 														<combobox readonly="true" autodrop="true" sclass="form-input" model="@load(vm.entidadeSelecionada.matrizCurricular.periodos)"
 																  selectedItem="@bind(detalheSelecionado.periodo)" 
@@ -98,45 +115,30 @@
 												</div>
 											</div>
 											
-											<div sclass="row" visible="@load(detalheSelecionado.criterioDisciplina)">
+											<div sclass="row" visible="@load(detalheSelecionado.tipoDetalheTimetable ne null)">
 												<div sclass="col-md-2">
 													<div sclass="form-group">
 														<label sclass="form-label" value="Critério"/>
-														<combobox readonly="true" autodrop="true" cols="2" sclass="form-input" 
-																  value="@bind(detalheSelecionado.criterio)" selectedItem="@bind(detalheSelecionado.criterio)">
-															<comboitem value="Lecionada por" label="Lecionada por"/>
-															<comboitem value="Não lecionada por" label="Não lecionada"/>
+														<combobox readonly="true" autodrop="true" sclass="form-input" model="@load(detalheSelecionado.tipoDetalheTimetable.tiposCriterioTimetable)" 
+																  value="@bind(detalheSelecionado.tipoCriterioTimetable.descricao)" selectedItem="@bind(detalheSelecionado.tipoCriterioTimetable)"
+																  onSelect="@command('onChange')">
+															<template name="model">
+																<comboitem value="@bind(each.id)" label="@load(each.descricao)"/>
+															</template>
 														</combobox>
 													</div>
 												</div>
 												<div sclass="col-md-10">
-													<div sclass="form-group">
+													
+													<div sclass="form-group" visible="@load(detalheSelecionado.tipoCriterioProfessor)">
 														<label sclass="form-label" value="Professor"/>
 														<include src="/partials/zul/lookup/professorlookup.zul"/>
 													</div>
-												</div>
-											</div>
-											
-											<div sclass="row" visible="@load(detalheSelecionado.criterioPeriodo)">
-												<div sclass="col-md-2">
-													<div sclass="form-group">
-														<label sclass="form-label" value="Critério"/>
-														<combobox readonly="true" autodrop="true" cols="2" sclass="form-input"
-																  onSelect="@command('onChange')" 
-																  value="@bind(detalheSelecionado.criterio)" selectedItem="@bind(detalheSelecionado.criterio)">
-															<comboitem value="Horários após" label="Horários após"/>
-															<comboitem value="Horários até" label="Horários antes"/>
-															<comboitem value="Eletiva" label="Eletiva"/>
-														</combobox>
-													</div>
-												</div>
-												
-												<div sclass="col-md-10">
 													
-													<div sclass="form-group" visible="@load(detalheSelecionado.criterioPeriodoHorario)">
+													<div sclass="form-group" visible="@load(detalheSelecionado.tipoCriterioHorario)">
 														<label sclass="form-label" value="Horário"/>
 														<combobox readonly="true" autodrop="true" sclass="form-input" model="@load(vm.colHorariosInicio)"
-																  selectedItem="@bind(detalheSelecionado.horarioInicio)" value="@bind(detalheSelecionado.horarioInicio)"
+																  selectedItem="@bind(detalheSelecionado.horario)" value="@bind(detalheSelecionado.horario)"
 																  onSelect="@command('onChange')">
 															<template name="model" var="obj">
 																<comboitem label="@load(obj)" value="@load(obj)"/>
@@ -144,7 +146,7 @@
 														</combobox>
 													</div>
 													
-													<div sclass="form-group" visible="@load(detalheSelecionado.criterioPeriodoEletiva)">
+													<div sclass="form-group" visible="@load(detalheSelecionado.tipoCriterioEletiva)">
 														<label sclass="form-label" value="Disciplina"/>
 														<include src="/partials/zul/lookup/disciplinalookup.zul"/>
 													</div>
@@ -167,7 +169,7 @@
 						<groupbox>
 							<caption label="Filtro" sclass="form-label"/>
 							<div class="col-md-12">
-								<div class="col-md-2">
+								<div class="col-md-1">
 									<div class="form-group">	
 										<label sclass="form-label" value="Período"/>
 										<combobox readonly="true" autodrop="true" sclass="form-input" model="@load(vm.entidadeSelecionada.matrizCurricular.periodos)"
@@ -181,7 +183,7 @@
 								</div>
 								<div class="col-md-1">
 									<div class="form-group">
-										<button iconSclass="fa fa-close" sclass="btn btn-default low" onClick="@command('limpar', opc=1)" tooltiptext="Limpar"/>
+										<button iconSclass="fa fa-close" onClick="@command('limpar', opc=1)" tooltiptext="Limpar"/>
 									</div>	
 								</div>
 								<div class="col-md-4">
@@ -198,7 +200,7 @@
 								</div>
 								<div class="col-md-1">
 									<div class="form-group">
-										<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="@command('limpar', opc=2)" tooltiptext="Limpar"/>
+										<button iconSclass="fa fa-close" onClick="@command('limpar', opc=2)" tooltiptext="Limpar"/>
 									</div>	
 								</div>
 								<div class="col-md-3">
@@ -215,7 +217,7 @@
 								</div>
 								<div class="col-md-1">
 									<div class="form-group">
-										<button iconSclass="fa fa-close" sclass="btn btn-default" onClick="@command('limpar', opc=3)" tooltiptext="Limpar"/>
+										<button iconSclass="fa fa-close" onClick="@command('limpar', opc=3)" tooltiptext="Limpar"/>
 									</div>	
 								</div>
 							</div>
@@ -231,9 +233,7 @@
 							<column label="Quinta-Feira"/>
 							<column label="Sexta-Feira"/>
 						</columns>
-						<rows>
-							
-						</rows>
+						<rows></rows>
 					</grid>
 						
 				</tabpanel>

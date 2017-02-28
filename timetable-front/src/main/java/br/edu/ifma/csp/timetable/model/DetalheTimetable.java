@@ -9,9 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name="DETALHE_TIMETABLE")
@@ -24,36 +23,34 @@ public class DetalheTimetable extends Entidade {
 	@Column(name="ID_DETALHE")
 	private int id;
 	
-	@NotBlank(message="A entidade é obrigatória.")
-	@Column(name="ENTIDADE")
-	private String entidade;
+	@NotNull(message="O <b>tipo de detalhe</b> é obrigatório.")
+	@JoinColumn(name="ID_TIPO_DETALHE_TIMETABLE")
+	@ManyToOne(fetch=FetchType.LAZY)
+	private TipoDetalheTimetable tipoDetalheTimetable;
 	
-	@ManyToOne
+	@NotNull
+	@JoinColumn(name="ID_TIPO_CRITERIO_TIMETABLE")
+	@ManyToOne(fetch=FetchType.LAZY)
+	private TipoCriterioTimetable tipoCriterioTimetable;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_PROFESSOR")
 	private Professor professor;
 	
-	@NotBlank(message="O critério é obrigatório.")
-	@Column(name="CRITERIO")
-	private String criterio;
-	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_DISCIPLINA")
 	private Disciplina disciplina;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_LOCAL")
 	private Local local;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_PERIODO")
 	private Periodo periodo;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_HORARIO")
-	private Horario horario;
-	
-	@Column(name="HORARIO_INICIO")
-	private String horarioInicio;
+	@Column(name="HORARIO", length=20)
+	private String horario;
 	
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -70,16 +67,21 @@ public class DetalheTimetable extends Entidade {
 		this.id = id;
 	}
 	
-	public String getEntidade() {
-		return entidade;
+	public TipoDetalheTimetable getTipoDetalheTimetable() {
+		return tipoDetalheTimetable;
 	}
-
-	public void setEntidade(String entidade) {
-		this.entidade = entidade;
-		setCriterio(null);
-		setPeriodo(null);
-		setDisciplina(null);
-		setLocal(null);
+	
+	public void setTipoDetalheTimetable(TipoDetalheTimetable tipoDetalheTimetable) {
+		this.tipoDetalheTimetable = tipoDetalheTimetable;
+		setTipoCriterioTimetable(null);
+	}
+	
+	public TipoCriterioTimetable getTipoCriterioTimetable() {
+		return tipoCriterioTimetable;
+	}
+	
+	public void setTipoCriterioTimetable(TipoCriterioTimetable tipoCriterioTimetable) {
+		this.tipoCriterioTimetable = tipoCriterioTimetable;
 	}
 
 	public Professor getProfessor() {
@@ -115,11 +117,11 @@ public class DetalheTimetable extends Entidade {
 		this.periodo = periodo;
 	}
 
-	public Horario getHorario() {
+	public String getHorario() {
 		return horario;
 	}
 
-	public void setHorario(Horario horario) {
+	public void setHorario(String horario) {
 		this.horario = horario;
 	}
 	
@@ -131,43 +133,67 @@ public class DetalheTimetable extends Entidade {
 		this.timetable = timetable;
 	}
 	
-	public String getCriterio() {
-		return criterio;
+	public boolean isTipoDetalheDisciplina() {
+		
+		if (tipoDetalheTimetable == null)
+			return true;
+		
+		return (tipoDetalheTimetable.getId() == TipoDetalheTimetable.DISCIPLINA);
 	}
 	
-	public void setCriterio(String criterio) {
-		this.criterio = criterio;
+	public boolean isTipoDetalhePeriodo() {
+		
+		if (tipoDetalheTimetable == null)
+			return true;
+		
+		return (tipoDetalheTimetable.getId() == TipoDetalheTimetable.PERIODO);
 	}
 	
-	public String getHorarioInicio() {
-		return horarioInicio;
+	public boolean isTipoCriterioProfessor() {
+		return isTipoDetalheDisciplina() && tipoCriterioTimetable != null && 
+			   (tipoCriterioTimetable.getId() == TipoCriterioTimetable.DISCIPLINA_LECIONADA || 
+			    tipoCriterioTimetable.getId() == TipoCriterioTimetable.DISCIPLINA_NAO_LECIONADA);
 	}
 	
-	public void setHorarioInicio(String horarioInicio) {
-		this.horarioInicio = horarioInicio;
+	public boolean isTipoCriterioEletiva() {
+		return isTipoDetalhePeriodo() && tipoCriterioTimetable != null && tipoCriterioTimetable.getId() == TipoCriterioTimetable.DISCIPLINA_ELETIVA;
 	}
 	
-	public boolean isCriterioDisciplina() {
-		return entidade != null && entidade.equalsIgnoreCase("Disciplina");
+	public boolean isTipoCriterioHorario() {
+		return isTipoDetalhePeriodo() && tipoCriterioTimetable != null &&
+			   (tipoCriterioTimetable.getId() == TipoCriterioTimetable.HORARIO_DE_INICIO_APOS || 
+				tipoCriterioTimetable.getId() == TipoCriterioTimetable.HORARIO_DE_INICIO_ATE);
 	}
 	
-	public boolean isCriterioProfessor() {
-		return entidade != null && entidade.equalsIgnoreCase("Professor");
+	@AssertTrue(message="O <b>critério</b> é obrigatório.")
+	public boolean isTipoCriterioSelecionado() {
+		return tipoDetalheTimetable != null && tipoCriterioTimetable != null;
 	}
 	
-	public boolean isCriterioPeriodo() {
-		return entidade != null && entidade.equalsIgnoreCase("Período");
+	@AssertTrue(message="O <b>professor</b> é obrigatório.")
+	public boolean isProfessorSelecionado() {
+		
+		if (tipoCriterioTimetable == null)
+			return true;
+		
+		return isTipoCriterioProfessor() && professor != null;
 	}
 	
-	public boolean isCriterioPeriodoHorario() {
-		return isCriterioPeriodo() && criterio != null && criterio.contains("Horários");
+	@AssertTrue(message="A <b>disciplina</b> é obrigatória.")
+	public boolean isDisciplinaSelecionada() {
+		
+		if (tipoCriterioTimetable == null)
+			return true;
+		
+		return isTipoCriterioEletiva() && disciplina != null;
 	}
 	
-	public boolean isCriterioPeriodoEletiva() {
-		return isCriterioPeriodo() && criterio != null && criterio.equalsIgnoreCase("Eletiva");
-	}
-	
-	public boolean isCriterioLocal() {
-		return entidade != null && entidade.equalsIgnoreCase("Local");
+	@AssertTrue(message="O <b>horário</b> é obrigatório.")
+	public boolean isHorarioSelecionado() {
+		
+		if (tipoCriterioTimetable == null)
+			return true;
+		
+		return isTipoCriterioHorario() && horario != null;
 	}
 }

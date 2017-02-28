@@ -32,13 +32,11 @@ public class Horario extends Entidade {
 	@Temporal(TemporalType.TIME)
 	@NotNull(message="A <b>hora de início</b> é obrigatória.")
 	@Column(name="HORA_INICIO")
-//	@Unique(message="A hora de início selecionada já está em uso.")
 	private Date horaInicio;
 	
 	@Temporal(TemporalType.TIME)
 	@NotNull(message="A <b>hora de fim</b> é obrigatória.")
 	@Column(name="HORA_FIM")
-//	@Unique(message="A hora de fim selecionada já está em uso.")
 	private Date horaFim;
 
 	public int getId() {

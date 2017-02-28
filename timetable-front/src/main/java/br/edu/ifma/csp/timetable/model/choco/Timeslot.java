@@ -1,4 +1,4 @@
-package br.edu.ifma.csp.timetable.model;
+package br.edu.ifma.csp.timetable.model.choco;
 
 import java.util.ArrayList;
 import java.util.List;

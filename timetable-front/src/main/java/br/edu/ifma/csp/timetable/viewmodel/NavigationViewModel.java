@@ -17,22 +17,26 @@ import br.edu.ifma.csp.timetable.util.Lookup;
 
 public class NavigationViewModel {
 	
-	Usuarios usuarios;
+	Usuarios usuarios = Lookup.dao(UsuarioDao.class);
 	
 	private String fragment;
 	private List<Transacao> transacoes;
 	
+	@SuppressWarnings("unchecked")
 	@Init
 	@Command
 	@NotifyChange({"transacoes", "fragment"})
 	public void init() {
 		
-		usuarios = Lookup.dao(UsuarioDao.class);
-		
 		Usuario usuario = (Usuario) Executions.getCurrent().getSession().getAttribute("usuario");
 		
-		if (usuario != null) {
+		if (Executions.getCurrent().getSession().getAttribute("transacoes") != null) {
+			setTransacoes((List<Transacao>) Executions.getCurrent().getSession().getAttribute("transacoes"));
+			
+		} else if (usuario != null) {
+			
 			setTransacoes(usuario.getPerfil().getTransacoes());
+			Executions.getCurrent().getSession().setAttribute("transacoes", transacoes);
 		}
 		
 		setFragment("../partials/zul/welcome.zul");

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.bind.impl.ReferenceBindingImpl;
 import org.zkoss.zk.ui.Component;
 
 import br.edu.ifma.csp.timetable.dao.TurnoDao;
@@ -45,23 +45,30 @@ public class MatrizCurricularViewModel extends ViewModel<MatrizCurricular> {
 	public void adicionarPeriodo() {
 		
 		Periodo periodo = new Periodo();
+		
 		periodo.setMatrizCurricular(entidadeSelecionada);
+		periodo.setDataUltAlteracao(entidadeSelecionada.getDataUltAlteracao());
+		periodo.setUsuarioUltAlteracao(entidadeSelecionada.getUsuarioUltAlteracao());
 		entidadeSelecionada.getPeriodos().add(periodo);
 	}
 	
 	@NotifyChange("entidadeSelecionada")
 	@Command
 	public void removerPeriodo() {
-		entidadeSelecionada.getPeriodos().removeAll(periodosSelecionados);
+		
+		if (periodosSelecionados != null && periodosSelecionados.size() > 0) {		
+			entidadeSelecionada.getPeriodos().removeAll(periodosSelecionados);
+		}
 	}
 	
 	@NotifyChange("entidadeSelecionada")
 	@Command
-	public void adicionarDisciplina(ReferenceBindingImpl periodo) {
-		
-		Periodo periodoSelecionado = (Periodo) periodo.getValue(null);
+	public void adicionarDisciplina(@BindingParam("periodo") Periodo periodoSelecionado) {
 		
 		DetalheDisciplina detalheDisciplina = new DetalheDisciplina();
+		
+		detalheDisciplina.setDataUltAlteracao(entidadeSelecionada.getDataUltAlteracao());
+		detalheDisciplina.setUsuarioUltAlteracao(entidadeSelecionada.getUsuarioUltAlteracao());
 		detalheDisciplina.setPeriodo(periodoSelecionado);
 		
 		periodoSelecionado.getDetalhes().add(0, detalheDisciplina);
@@ -69,11 +76,11 @@ public class MatrizCurricularViewModel extends ViewModel<MatrizCurricular> {
 	
 	@NotifyChange("entidadeSelecionada")
 	@Command
-	public void removerDisciplina(ReferenceBindingImpl periodo) {
+	public void removerDisciplina(@BindingParam("periodo") Periodo periodoSelecionado) {
 		
-		Periodo periodoSelecionado = (Periodo) periodo.getValue(null);
-		
-		periodoSelecionado.getDetalhes().removeAll(disciplinasSelecionadas);
+		if (disciplinasSelecionadas != null && disciplinasSelecionadas.size() > 0) {
+			periodoSelecionado.getDetalhes().removeAll(disciplinasSelecionadas);
+		}
 	}
 	
 	public void adicionarColPeriodos(int semestres) {

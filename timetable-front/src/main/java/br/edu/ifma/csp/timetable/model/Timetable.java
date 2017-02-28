@@ -44,6 +44,12 @@ public class Timetable extends Entidade {
 	@Column(name="SEMESTRE", columnDefinition="TINYINT(1)")
 	private Integer semestre;
 	
+	@Column(name="MESMO_HORARIO_DISCIPLINA")
+	private boolean mesmoHorarioDisciplina = false;
+	
+	@Column(name="MESMO_LOCAL_DISCIPLINA")
+	private boolean mesmoLocalDisciplina = false;;
+	
 	@Valid
 	private transient List<Aula> aulas = new ArrayList<Aula>();
 	
@@ -100,5 +106,21 @@ public class Timetable extends Entidade {
 	
 	public void setDetalhes(List<DetalheTimetable> detalhes) {
 		this.detalhes = detalhes;
+	}
+
+	public boolean isMesmoHorarioDisciplina() {
+		return mesmoHorarioDisciplina;
+	}
+
+	public void setMesmoHorarioDisciplina(boolean mesmoHorarioDisciplina) {
+		this.mesmoHorarioDisciplina = mesmoHorarioDisciplina;
+	}
+
+	public boolean isMesmoLocalDisciplina() {
+		return mesmoLocalDisciplina;
+	}
+
+	public void setMesmoLocalDisciplina(boolean mesmoLocalDisciplina) {
+		this.mesmoLocalDisciplina = mesmoLocalDisciplina;
 	}
 }

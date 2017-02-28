@@ -14,7 +14,7 @@
 					<div class="col-md-1">
 						<div sclass="form-group">
 							<label sclass="form-label" value="Ano"/>
-							<intbox id="ano" sclass="form-input" maxlength="4" cols="4" value="@bind(vm.entidadeSelecionada.ano)"/>
+							<intbox sclass="form-input" maxlength="4" cols="4" value="@bind(vm.entidadeSelecionada.ano)"/>
 						</div>
 					</div>
 					<div sclass="col-md-11">
@@ -29,7 +29,7 @@
 					<div sclass="col-md-3">
 						<div class="form-group">
 							<label sclass="form-label" value="Turno"/>
-							<combobox id="turno" sclass="form-input" model="@load(vm.colTurnos)" readonly="true" autodrop="true"
+							<combobox sclass="form-input" model="@load(vm.colTurnos)" readonly="true" autodrop="true"
 									  selectedItem="@load(vm.entidadeSelecionada.turno)" value="@load(vm.entidadeSelecionada.turno.nome)">
 								<template name="model">
 									<comboitem label="@load(each.nome)"/>
@@ -41,7 +41,7 @@
 					<div class="col-md-1">
 						<div sclass="form-group">
 							<label sclass="form-label" value="Semestres"/>
-							<intbox id="semestres" sclass="form-input" maxlength="2" value="@bind(vm.entidadeSelecionada.semestres)" 
+							<intbox sclass="form-input" maxlength="2" value="@bind(vm.entidadeSelecionada.semestres)" 
 									onChange="vm.adicionarColPeriodos(self.value)"/>
 						</div>
 					</div>
@@ -95,7 +95,7 @@
 												<listheader hflex="min"/>
 												<listheader label="Disciplinas">
 													<hbox style="float: right">
-														<button iconSclass="la la-plus" sclass="btn btn-default" onClick="@command('adicionaDisciplina', periodo=periodoSelecionado)"/>
+														<button iconSclass="la la-plus" sclass="btn btn-default" onClick="@command('adicionarDisciplina', periodo=periodoSelecionado)"/>
 														<button iconSclass="la la-minus" sclass="btn btn-default" onClick="@command('removerDisciplina', periodo=periodoSelecionado)"/>
 													</hbox>
 												</listheader>
@@ -136,7 +136,7 @@
 																
 																<div sclass="col-md-1">
 																	<div sclass="form-group">
-																		<label value="OBR" sclass="form-label"/>
+																		<label value="OBR" sclass="form-label" tooltiptext="É obrigatória?"/>
 																		<checkbox style="margin: 0; padding: 0" checked="@bind(detalheSelecionado.obrigatoria)" />
 																	</div>
 																</div>
@@ -144,7 +144,7 @@
 																<div sclass="col-md-1" visible="@load(!detalheSelecionado.obrigatoria)">
 																	<div sclass="form-group">
 																		<label value="Grupo" sclass="form-label"/>
-																		<combobox model="@load(vm.colGrupoEletivas)" readonly="true" autodrop="true" 
+																		<combobox sclass="form-input" model="@load(vm.colGrupoEletivas)" readonly="true" autodrop="true" 
 																		          selectedItem="@bind(detalheSelecionado.grupoEletiva)">
 																			<template name="model">
 																				<comboitem label="@load(each)" value="@bind(each)"/>

@@ -7,9 +7,6 @@
 		
 			<div class="form-group">
 				<n:h4 class="page-title">Horário</n:h4>
-			</div>
-		
-			<div class="form-group">
 				<include src="/partials/zul/botoes.zul"/>
 			</div>
 			

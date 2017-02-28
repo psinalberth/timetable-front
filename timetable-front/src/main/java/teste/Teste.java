@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -33,11 +32,10 @@ import br.edu.ifma.csp.timetable.model.Horario;
 import br.edu.ifma.csp.timetable.model.Local;
 import br.edu.ifma.csp.timetable.model.MatrizCurricular;
 import br.edu.ifma.csp.timetable.model.Periodo;
-import br.edu.ifma.csp.timetable.model.PreferenciaHorarioProfessor;
 import br.edu.ifma.csp.timetable.model.Professor;
-import br.edu.ifma.csp.timetable.model.Timeslot;
 import br.edu.ifma.csp.timetable.model.Timetable;
 import br.edu.ifma.csp.timetable.model.TipoLocal;
+import br.edu.ifma.csp.timetable.model.choco.Timeslot;
 import br.edu.ifma.csp.timetable.repository.DetalhesDisciplina;
 import br.edu.ifma.csp.timetable.repository.Disciplinas;
 import br.edu.ifma.csp.timetable.repository.Horarios;
@@ -120,7 +118,7 @@ public class Teste {
 		
 		for (DetalheTimetable detalheTimetable : timetable.getDetalhes()) {
 			
-			if (detalheTimetable.isCriterioPeriodoEletiva()) {
+			if (detalheTimetable.isTipoCriterioEletiva()) {
 				
 				DetalheDisciplina detalheEletiva = 
 				detalhesDisciplina.byMatrizCurricularDisciplina(timetable.getMatrizCurricular(), detalheTimetable.getDisciplina());
@@ -338,7 +336,7 @@ public class Teste {
 	
 	private void manterHorariosPeriodoEntreConstraint() {
 		
-		for (DetalheTimetable detalhe : timetable.getDetalhes()) {
+		/*for (DetalheTimetable detalhe : timetable.getDetalhes()) {
 			
 			Tuples tuples = new Tuples(true);
 			
@@ -372,21 +370,21 @@ public class Teste {
 					}
 				}
 			}
-		}
+		}*/
 	}
 	
 	private void manterHorariosIndisponiveisProfessor() {
 		
-for (int i = 0; i < timeslots.size(); i ++) {
+		for (int i = 0; i < timeslots.size(); i ++) {
 			
 			Tuples tuples = new Tuples(true);
 			
 			Timeslot timeslot = timeslots.get(i);
 			
-			List<DetalheTimetable> detalhes = getDetalhesCriterioDisciplina(timeslot.getDisciplina().getValue());
+			//List<DetalheTimetable> detalhes = getDetalhesCriterioDisciplina(timeslot.getDisciplina().getValue());
 			List<Professor> professoresDisciplina = professores.allByPreferenciaDisciplina(disciplinas.byId(timeslot.getDisciplina().getValue()));
 			
-			if (detalhes.size() > 0) {
+			/*if (detalhes.size() > 0) {
 				
 				for (DetalheTimetable detalhe : detalhes) {
 					
@@ -411,11 +409,11 @@ for (int i = 0; i < timeslots.size(); i ++) {
 						});
 					}
 				}
-			}
+			}*/
 			
 			for (Professor professor : professoresDisciplina) {
 				
-				if (professor.getPreferenciasHorario().size() > 0) {
+				if (professor.getHorariosIndisponiveis() != null && professor.getHorariosIndisponiveis().size() > 0) {
 					
 					int [] horariosDisponiveis = getHorariosDisponiveisProfessor(professor);
 					//int [] horariosIndisponiveis = getHorariosIndisponiveisProfessor(professor);
@@ -790,13 +788,14 @@ for (int i = 0; i < timeslots.size(); i ++) {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private List<DetalheTimetable> getDetalhesCriterioDisciplina(int disciplinaId) {
 		
 		List<DetalheTimetable> list = new ArrayList<DetalheTimetable>();
 		
 		for (DetalheTimetable detalhe : timetable.getDetalhes()) {
 			
-			if (detalhe.isCriterioDisciplina()) {
+			if (detalhe.isTipoDetalheDisciplina()) {
 				
 				if (detalhe.getDisciplina().getId() == disciplinaId) {
 					list.add(detalhe);
@@ -854,7 +853,7 @@ for (int i = 0; i < timeslots.size(); i ++) {
 		
 		List<DetalheDisciplina> listaDetalhes = new ArrayList<DetalheDisciplina>();
 		
-		for (Disciplina disciplina : listDisciplina) {
+		/*for (Disciplina disciplina : listDisciplina) {
 			
 			for (DetalheDisciplina detalhe : disciplina.getDetalhes()) {
 				
@@ -862,7 +861,7 @@ for (int i = 0; i < timeslots.size(); i ++) {
 					listaDetalhes.add(detalhe);
 				}
 			}
-		}
+		}*/
 		
 		return listaDetalhes;
 	}
@@ -889,28 +888,11 @@ for (int i = 0; i < timeslots.size(); i ++) {
 		return listDisciplinas;
 	}
 	
-	private int [] getHorariosIndisponiveisProfessor(Professor professor) {
-		
-		List<Integer> lista = new ArrayList<Integer>();
-		
-		for (int i = 0; i < listHorarios.size(); i++) {
-			
-			for (PreferenciaHorarioProfessor pref : professor.getPreferenciasHorario()) {
-				
-				if (pref.getHorario().getId() == listHorarios.get(i).getId()) {
-					lista.add(i);
-				}
-			}
-		}
-		
-		return Arrays.stream(lista.toArray(new Integer[lista.size()])).mapToInt(Integer::intValue).toArray();
-	}
-	
 	private int [] getHorariosDisponiveisProfessor(Professor professor) {
 		
 		List<Integer> lista = new ArrayList<Integer>(Arrays.asList(IntStream.rangeClosed(0, horariosId.length - 1).boxed().toArray(Integer[]::new)));
 		
-		int [] listaIndisponiveis = getHorariosIndisponiveisProfessor(professor);
+		int [] listaIndisponiveis = extrairIds(professor.getHorariosIndisponiveis());
 		
 		List<Integer> temp = new ArrayList<>(IntStream.of(listaIndisponiveis).boxed().collect(Collectors.toList()));
 		
