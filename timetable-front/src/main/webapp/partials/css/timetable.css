@@ -576,6 +576,32 @@ a:hover {
 	font-size: 16px;	
 }
 
+.z-loading {
+	border: 0;
+}
+
+.z-loading-indicator {
+	border: 0;
+	font-family: 'MyriadPro', sans-serif;
+	font-size: 20px;
+	/* background: hsla(212, 83%, 89%, 1); */
+	background: hsla(199, 94%, 70%, 1);
+	color: #fefefe;
+}
+
+.z-loading-icon {
+	background: 0;
+	width: 30px;
+	height: 24px;
+	animation: fa-spin 2s infinite linear;
+}
+
+.z-loading-icon:before {
+	font-family: 'LineAwesome';
+	content: '\f18c';
+	
+}
+
 hr {
 	border-color: #343842;
 	border: 0.5px dashed #343842;

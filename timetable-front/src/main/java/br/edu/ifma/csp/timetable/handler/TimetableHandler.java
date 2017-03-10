@@ -2,7 +2,6 @@ package br.edu.ifma.csp.timetable.handler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
@@ -463,7 +462,7 @@ public class TimetableHandler {
 			if (detalhe.isTipoCriterioHorario()) {
 				
 				Periodo periodo = detalhe.getPeriodo();
-				String horario = detalhe.getHorario();
+				Date horario = detalhe.getHorario();
 				
 				int horarios [] = recuperaHorarios(detalhe.getTipoCriterioTimetable(), horario);
 				
@@ -1074,42 +1073,23 @@ public class TimetableHandler {
 		return Arrays.stream(lista.toArray(new Integer[lista.size()])).mapToInt(Integer::intValue).toArray();
 	}
 	
-	private int [] recuperaHorarios(TipoCriterioTimetable tipoCriterio, String horario) {
+	private int [] recuperaHorarios(TipoCriterioTimetable tipoCriterio, Date horario) {
 		
 		List<Integer> list = new ArrayList<Integer>();
-		
-		Calendar cal = Calendar.getInstance();
-		
-		cal.set(Calendar.YEAR, 1970);
-		cal.set(Calendar.MONTH, Calendar.JANUARY);
-		cal.set(Calendar.DAY_OF_MONTH, 1);
 		
 		for (int i = 0; i < colHorarios.size(); i++) {
 			
 			Horario h = colHorarios.get(i);
 			
-			String [] tokens = horario.split(":");
-			
-			cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(tokens[0]));
-			cal.set(Calendar.MINUTE, Integer.valueOf(tokens[1]));
-			cal.set(Calendar.SECOND, Integer.valueOf(tokens[2]));
-			
-			Date date = cal.getTime();
-			
-			Calendar cal2 = Calendar.getInstance();
-			cal2.setTime(h.getHoraInicio());
-			
-			Date date2 = cal2.getTime();
-			
 			if (tipoCriterio.getId() == TipoCriterioTimetable.HORARIO_DE_INICIO_ATE) {
 				
-				if (date2.before(date)) {
+				if (h.getHoraInicio().before(horario)) {
 					list.add(i);
 				}
 				
 			} else if (tipoCriterio.getId() == TipoCriterioTimetable.HORARIO_DE_INICIO_APOS) {
 				
-				if (date2.after(date)) {
+				if (h.getHoraInicio().after(horario)) {
 					list.add(i);
 				}
 			}

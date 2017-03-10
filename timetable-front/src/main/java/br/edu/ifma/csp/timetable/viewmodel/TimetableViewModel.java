@@ -1,6 +1,5 @@
 package br.edu.ifma.csp.timetable.viewmodel;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -50,7 +49,7 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	
 	private List<Professor> colProfessores;
 	private List<Local> colLocais;
-	private List<String> colHorariosInicio;
+	private List<Date> colHorariosInicio;
 	private List<TipoDetalheTimetable> colTiposDetalhe;
 	
 	private Local local;
@@ -63,24 +62,15 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	private List<DetalheTimetable> detalhesSelecionados;
 	
 	@AfterCompose(superclass=true)
-	@NotifyChange({"colProfessores", "colLocais", "colTiposDetalhe"})
+	@NotifyChange({"colProfessores", "colLocais", "colTiposDetalhe", "colHorariosInicio"})
 	public void init(@ContextParam(ContextType.VIEW) Component view) {
 		
 		setColProfessores(professores.all());
 		setColLocais(locais.all());
 		setColTiposDetalhe(tiposDetalhe.all());
+		setColHorariosInicio(horarios.allHorariosInicio());
 		
 		Selectors.wireComponents(view, this, false);
-	}
-	
-	@NotifyChange("colHorariosInicio")
-	private void initHorarios() {
-		
-		colHorariosInicio = new ArrayList<String>();
-		
-		for (Date horario : horarios.allHorariosInicio()) {
-			colHorariosInicio.add(horario.toString());
-		}
 	}
 	
 	@Command
@@ -420,11 +410,11 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 		this.colLocais = colLocais;
 	}
 	
-	public List<String> getColHorariosInicio() {
+	public List<Date> getColHorariosInicio() {
 		return colHorariosInicio;
 	}
 	
-	public void setColHorariosInicio(List<String> colHorariosInicio) {
+	public void setColHorariosInicio(List<Date> colHorariosInicio) {
 		this.colHorariosInicio = colHorariosInicio;
 	}
 

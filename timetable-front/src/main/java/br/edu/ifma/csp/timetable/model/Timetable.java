@@ -44,11 +44,13 @@ public class Timetable extends Entidade {
 	@Column(name="SEMESTRE", columnDefinition="TINYINT(1)")
 	private Integer semestre;
 	
+	@NotNull
 	@Column(name="MESMO_HORARIO_DISCIPLINA")
 	private boolean mesmoHorarioDisciplina = false;
 	
+	@NotNull
 	@Column(name="MESMO_LOCAL_DISCIPLINA")
-	private boolean mesmoLocalDisciplina = false;;
+	private boolean mesmoLocalDisciplina = false;
 	
 	@Valid
 	private transient List<Aula> aulas = new ArrayList<Aula>();

@@ -6,8 +6,15 @@
 		<value>timetable</value>
 	</preference>
 	
+	<language-config>
+-	    <addon-uri>/WEB-INF/lang-addon.xml</addon-uri>
+-	</language-config>
+	
 	<session-config>
-    	<device-type>ajax</device-type>    
+		<session-timeout>300</session-timeout>
+    	<device-type>ajax</device-type>
+    	<timeout-message>Sessão expirada. Recarregando página...</timeout-message>
+    	<automatic-timeout/>    
     	<timeout-uri>/</timeout-uri>    
 	</session-config>
 </zk>

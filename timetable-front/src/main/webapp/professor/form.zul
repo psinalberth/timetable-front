@@ -51,6 +51,7 @@
 							<listcell>
 								<div sclass="form-group">
 									<label value="Disciplina" sclass="form-label"/>
+									<!-- <lookupbox readonly="true" sclass="form-input" columns="nome, codigo" value="@bind(detalheSelecionado.disciplina)"/> -->
 									<include src="@load('../partials/zul/lookup/disciplinalookup.zul')"/>							
 								</div>
 							</listcell>

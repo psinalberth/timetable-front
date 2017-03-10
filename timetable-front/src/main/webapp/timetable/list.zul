@@ -1,8 +1,8 @@
 <zk>
 	<listbox model="@bind(vm.col)" selectedItem="@bind(vm.entidadeSelecionada)" onSelect="@command('editar')" emptyMessage="Nenhum registro encontrado.">
 		<listhead>
-			<listheader label="Nome"/>
-			<listheader label="Descrição"/>
+			<listheader label="Matriz Curricular"/>
+			<listheader label="Ano"/>
 		</listhead>
 		<template name="model" var="obj">
 			<listitem value="@bind(obj)" sclass="list">

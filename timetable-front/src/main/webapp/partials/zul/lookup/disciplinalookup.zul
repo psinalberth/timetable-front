@@ -1,6 +1,6 @@
 <zk xmlns:n="native">
 	<bandbox id="lookup" sclass="form-input" autodrop="true" readonly="true" mold="rounded" 
-	         value="@load(detalheSelecionado.disciplina.descricao)">
+	         value="@load(detalheSelecionado.disciplina.descricao)" style="left: 0;">
 		<bandpopup>
 		
 		 	<vlayout 

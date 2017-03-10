@@ -22,7 +22,7 @@
 						<div sclass="col-md-1">
 							<div sclass="form-group">
 								<label sclass="form-label" value="Ano"/>
-								<intbox id="ano" sclass="form-input" maxlength="4" value="@bind(vm.entidadeSelecionada.ano)"/>
+								<intbox sclass="form-input" maxlength="4" value="@bind(vm.entidadeSelecionada.ano)"/>
 							</div>
 						</div>
 						
@@ -45,11 +45,11 @@
 						<rows>
 							<row>
 								<label value="Mesmo local para a mesma disciplina"/>
-								<checkbox/>
+								<checkbox checked="@bind(vm.entidadeSelecionada.mesmoLocalDisciplina)"/>
 							</row>
 							<row>
 								<label sclass="form-label" value="Mesmo horário para a mesma disciplina"/>
-								<checkbox/>
+								<checkbox checked="@bind(vm.entidadeSelecionada.mesmoHorarioDisciplina)"/>
 							</row>
 						</rows>
 					</grid>
@@ -138,7 +138,7 @@
 													<div sclass="form-group" visible="@load(detalheSelecionado.tipoCriterioHorario)">
 														<label sclass="form-label" value="Horário"/>
 														<combobox readonly="true" autodrop="true" sclass="form-input" model="@load(vm.colHorariosInicio)"
-																  selectedItem="@bind(detalheSelecionado.horario)" value="@bind(detalheSelecionado.horario)"
+																  selectedItem="@bind(detalheSelecionado.horario)" value="@load(detalheSelecionado.horario)"
 																  onSelect="@command('onChange')">
 															<template name="model" var="obj">
 																<comboitem label="@load(obj)" value="@load(obj)"/>
