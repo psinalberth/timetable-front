@@ -1,17 +1,13 @@
 <zk xmlns:n="native">
 	<bandbox id="lookup" sclass="form-input" autodrop="true" readonly="true" mold="rounded" 
-	         value="@load(detalheSelecionado.disciplina.descricao)" style="left: 0;">
-		<bandpopup>
+	         value="@load(detalheSelecionado.disciplina.descricao)">
+		<bandpopup sclass="col-md-12">
 		
 		 	<vlayout 
 		 		viewModel='@id("childVM") @init("br.edu.ifma.csp.timetable.viewmodel.lookup.DisciplinaLookupViewModel", 
 		 				   matrizCurricular = vm.entidadeSelecionada.getClass().getSimpleName().equals("Timetable") ? vm.entidadeSelecionada.matrizCurricular : null, 
 		 				   eletiva = vm.entidadeSelecionada.getClass().getSimpleName().equals("Timetable") ? detalheSelecionado.tipoCriterioEletiva : false)' style="padding: 0 15px">
-		 		<div class="row">
-		 			<div class="col-md-12">
-		 				<n:h5 class="page-title">Disciplina</n:h5>
-		 			</div>
-		 		</div>
+			
 		 		<div sclass="row">
 		 			<div class="col-md-1">
 			 			<div sclass="form-group">

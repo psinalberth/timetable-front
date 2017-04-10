@@ -52,6 +52,10 @@ public class Timetable extends Entidade {
 	@Column(name="MESMO_LOCAL_DISCIPLINA")
 	private boolean mesmoLocalDisciplina = false;
 	
+	@NotNull
+	@Column(name="HORARIOS_INDISPONVEIS_PERMITIDOS")
+	private boolean horariosIndisponiveisPermitidos = false;
+	
 	@Valid
 	private transient List<Aula> aulas = new ArrayList<Aula>();
 	
@@ -124,5 +128,13 @@ public class Timetable extends Entidade {
 
 	public void setMesmoLocalDisciplina(boolean mesmoLocalDisciplina) {
 		this.mesmoLocalDisciplina = mesmoLocalDisciplina;
+	}
+
+	public boolean isHorariosIndisponiveisPermitidos() {
+		return horariosIndisponiveisPermitidos;
+	}
+
+	public void setHorariosIndisponiveisPermitidos(boolean horariosIndiponiveisPermitidos) {
+		this.horariosIndisponiveisPermitidos = horariosIndiponiveisPermitidos;
 	}
 }

@@ -73,7 +73,6 @@ public abstract class ViewModel<T extends Entidade> {
 	}
 	
 	@Command
-	@NotifyChange({"entidadeSelecionada", "consultando", "removivel", "editando", "col"})
 	public void salvar() throws WrongValuesException {
 		
 		try {
@@ -81,6 +80,12 @@ public abstract class ViewModel<T extends Entidade> {
 			Validations.validate(entidadeSelecionada, repository);
 			
 			repository.save(entidadeSelecionada);
+			
+			BindUtils.postNotifyChange(null, null, this, "entidadeSelecionada");
+			BindUtils.postNotifyChange(null, null, this, "consultando");
+			BindUtils.postNotifyChange(null, null, this, "removivel");
+			BindUtils.postNotifyChange(null, null, this, "editando");
+			BindUtils.postNotifyChange(null, null, this, "col");
 			
 			pesquisar();
 			

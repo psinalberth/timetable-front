@@ -175,7 +175,7 @@ public class DetalheTimetable extends Entidade {
 		return tipoDetalheTimetable != null && tipoCriterioTimetable != null;
 	}
 	
-	@AssertTrue(message="O <b>professor</b> é obrigatório.")
+	/*@AssertTrue(message="O <b>professor</b> é obrigatório.")*/
 	public boolean isProfessorSelecionado() {
 		
 		if (tipoCriterioTimetable == null)
@@ -184,7 +184,7 @@ public class DetalheTimetable extends Entidade {
 		return isTipoCriterioProfessor() && professor != null;
 	}
 	
-	@AssertTrue(message="A <b>disciplina</b> é obrigatória.")
+	/*@AssertTrue(message="A <b>disciplina</b> é obrigatória.")*/
 	public boolean isDisciplinaSelecionada() {
 		
 		if (tipoCriterioTimetable == null)
@@ -193,7 +193,7 @@ public class DetalheTimetable extends Entidade {
 		return isTipoCriterioEletiva() && disciplina != null;
 	}
 	
-	@AssertTrue(message="O <b>horário</b> é obrigatório.")
+	/*@AssertTrue(message="O <b>horário</b> é obrigatório.")*/
 	public boolean isHorarioSelecionado() {
 		
 		if (tipoCriterioTimetable == null)

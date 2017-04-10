@@ -3,7 +3,9 @@ package br.edu.ifma.csp.timetable.viewmodel;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -74,7 +76,6 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	}
 	
 	@Command
-	@NotifyChange({"entidadeSelecionada", "consultando", "removivel", "editando", "col", "professor", "periodo", "local", "solucaoEncontrada"})
 	public void salvar() {
 		
 		try {
@@ -94,7 +95,6 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			handler.execute();
 			
 			if (!handler.getSolver().solve()) {
-				
 				grid.getRows().getChildren().clear();
 			}
 			
@@ -102,11 +102,22 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			
 			lookup();
 			
+			BindUtils.postNotifyChange(null, null, this, "entidadeSelecionada");
+			BindUtils.postNotifyChange(null, null, this, "consultando");
+			BindUtils.postNotifyChange(null, null, this, "removivel");
+			BindUtils.postNotifyChange(null, null, this, "editando");
+			BindUtils.postNotifyChange(null, null, this, "col");
+			BindUtils.postNotifyChange(null, null, this, "professor");
+			BindUtils.postNotifyChange(null, null, this, "periodo");
+			BindUtils.postNotifyChange(null, null, this, "local");
+			BindUtils.postNotifyChange(null, null, this, "aulasSelecionadas");
+			BindUtils.postNotifyChange(null, null, this, "solucaoEncontrada");
+			
 		} catch (WrongValuesException ex) {
 			Validations.showValidationErrors();
 		}
 		
-		/*String rootDir = "/home/inalberth/csp_casos_teste3/completo";
+		/*String rootDir = "/home/inalberth/csp_casos_teste4/completo";
 
 		MatrizesCurriculares matrizesCurriculares = Lookup.dao(MatrizCurricularDao.class);
 		
@@ -117,16 +128,16 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			
 		}
 		
-		//int tamanho = root.listFiles().length - ;
+		int tamanho = root.listFiles().length + 1;
 		
-		dir = new File(rootDir + File.separatorChar + "cenario$1");
+		dir = new File(rootDir + File.separatorChar + "cenario$" + tamanho);
 		
 		if (dir.mkdir()) {
 		
 			for (int i = 0; i < 50; i++) {
 				
 				Teste teste = new Teste();
-				teste.setNumeroPeriodos(1);
+				teste.setNumeroPeriodos(8);
 				teste.setMatrizCurricular(matrizesCurriculares.byId(84));
 				teste.setTimetable(repository.byId(951));
 				
@@ -159,7 +170,7 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 		}*/
 	}
 	
-	private void buildRows() {
+	private void buildRows(List<Aula> aulas) {
 		
 		List<Date> listaHorarios = horarios.allHorariosInicio();
 		
@@ -193,7 +204,7 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			grid.getRows().getChildren().add(row);
 		}
 		
-		for (Aula aula : entidadeSelecionada.getAulas()) {
+		for (Aula aula : aulas) {
 				
 			Vlayout vlayout = new Vlayout();	
 			
@@ -289,53 +300,14 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	@Command
 	public void lookup() {
 		
-		buildRows();
+		List<Aula> aulasFiltradas = entidadeSelecionada.getAulas().stream()
+				.filter((aula) -> (getPeriodo() != null && getPeriodo().getCodigo() == aula.getPeriodo()) || 
+								  (getProfessor() != null && getProfessor().getId() == aula.getProfessor().getId()) ||
+								  (getLocal() != null && getLocal().getId() == aula.getLocal().getId()) ||
+								  (getPeriodo() == null && getProfessor() == null && getLocal() == null))
+				.collect(Collectors.toList());
 		
-		for (Component c : grid.getRows().getChildren()) {
-			
-			if (c instanceof Row && c.getChildren().size() > 0) {
-			
-				for (Component x : c.getChildren()) {
-					
-					if (x instanceof Vlayout && c.getChildren().size() > 0) {
-						
-						for (Component v : x.getChildren()) {
-							
-							if (v instanceof Vlayout && v.getChildren().size() > 0) {
-								
-								Component local = v.getChildren().get(2);
-								Component professor = v.getChildren().get(1);
-								Component periodo = v.getChildren().get(3);
-								
-								if (getPeriodo() != null) {
-									
-									if (!((Label)periodo).getValue().contains(String.valueOf(getPeriodo().getCodigo()))) {
-										v.setVisible(false);
-									}
-								}
-								
-								if (getLocal() != null) {
-									
-									if (!((Label)local).getValue().equalsIgnoreCase(getLocal().getNome())) {
-										v.setVisible(false);
-									}
-								}
-								
-								if (getProfessor() != null) {
-								
-									if (professor instanceof Label) {
-										
-										if (!((Label)professor).getValue().equalsIgnoreCase(getProfessor().getNome())) {
-											v.setVisible(false);
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+		buildRows(aulasFiltradas);
 	}
 	
 	@Command

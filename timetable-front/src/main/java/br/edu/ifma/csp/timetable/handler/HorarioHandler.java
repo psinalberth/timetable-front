@@ -10,7 +10,7 @@ public class HorarioHandler {
 	
 	private Horarios horarios = Lookup.dao(HorarioDao.class);
 	
-	public void metodo(Horario horario) {
+	public void save(Horario horario) {
 		
 		for (Dia dia : Dia.values()) {
 			
@@ -21,5 +21,9 @@ public class HorarioHandler {
 			
 			horarios.save(h);
 		}
+	}
+	
+	public void delete(Horario horario) {
+		
 	}
 }

@@ -34,7 +34,7 @@ public class HorarioViewModel extends ViewModel<Horario> {
 			Validations.validate(entidadeSelecionada, repository);
 			
 			HorarioHandler handler = new HorarioHandler();
-			handler.metodo(entidadeSelecionada);
+			handler.save(entidadeSelecionada);
 			
 		} catch (WrongValuesException ex) {
 			Validations.showValidationErrors();

@@ -51,6 +51,10 @@
 								<label sclass="form-label" value="Mesmo horário para a mesma disciplina"/>
 								<checkbox checked="@bind(vm.entidadeSelecionada.mesmoHorarioDisciplina)"/>
 							</row>
+							<row>
+								<label sclass="form-label" value="Horários indisponíveis permitidos"/>
+								<checkbox checked="@bind(vm.entidadeSelecionada.horariosIndisponiveisPermitidos)"/>
+							</row>
 						</rows>
 					</grid>
 					
