@@ -4,7 +4,7 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2016-10-27T20:57:55.093-0300")
+@Generated(value="Dali", date="2017-04-14T08:28:34.255-0300")
 @StaticMetamodel(Aula.class)
 public class Aula_ extends Entidade_ {
 	public static volatile SingularAttribute<Aula, Integer> id;
@@ -13,4 +13,5 @@ public class Aula_ extends Entidade_ {
 	public static volatile SingularAttribute<Aula, Local> local;
 	public static volatile SingularAttribute<Aula, Horario> horario;
 	public static volatile SingularAttribute<Aula, Timetable> timetable;
+	public static volatile SingularAttribute<Aula, Integer> periodo;
 }

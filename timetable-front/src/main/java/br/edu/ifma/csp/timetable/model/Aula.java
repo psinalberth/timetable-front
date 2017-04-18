@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -48,7 +47,8 @@ public class Aula extends Entidade {
 	@JoinColumn(name="ID_TIMETABLE")
 	private Timetable timetable;
 	
-	@Transient
+	@NotNull
+	@Column(name="PERIODO", columnDefinition="TINYINT(2)")
 	private int periodo;
 	
 	public int getId() {

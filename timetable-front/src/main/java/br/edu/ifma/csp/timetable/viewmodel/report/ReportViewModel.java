@@ -30,6 +30,7 @@ public class ReportViewModel {
 		
 		List<DadosRelatorioProfessorDisciplina> dados = repository.recuperarDados();
 		
+		
 		if (!dados.isEmpty()) {
 			Report.render("rel_professor_disciplina", dados);
 			

@@ -9,7 +9,18 @@
 		
 			<div class="form-group">
 				<n:h4 class="page-title">Grade de Horário</n:h4>
-				<include src="/partials/zul/botoes.zul"/>
+				
+				<div id="botoesForm" visible="@bind(vm.editando)">
+					<button label="Novo" sclass="button la la-plus" onClick="@command('novo')" tooltiptext="Novo"/>
+					<button label="Salvar" sclass="button la la-check" onClick="@command('salvar')" tooltiptext="Salvar"/>
+					<button label="Excluir" sclass="button la la-trash-o" onClick="@command('excluir')" disabled="@bind(vm.removivel)" tooltiptext="Excluir"/>
+					<button label="Imprimir" sclass="button la la-print" onClick="@command('imprimir')" visible="@{vm.solucaoEncontrada}" tooltiptext="Imprimir"/>
+					<button label="Voltar" sclass="button la la-rotate-left" onClick="@command('pesquisar')" tooltiptext="Voltar"/>
+				</div>
+	
+				<div id="botoesList" visible="@bind(vm.consultando)">
+					<button label="Novo" sclass="button la la-plus" onClick="@command('novo')"/>
+				</div>
 			</div>
 			
 			<div id="list" visible="@bind(vm.consultando)">

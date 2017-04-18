@@ -60,6 +60,10 @@ public class Professor extends Entidade {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinTable(name="HORARIO_INDISPONIVEL_PROFESSOR", joinColumns = {@JoinColumn(name="ID_PROFESSOR")}, inverseJoinColumns = {@JoinColumn(name="ID_HORARIO")})
 	private List<Horario> horariosIndisponiveis = new ArrayList<Horario>();
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@JoinTable(name="DISCIPLINA_LECIONAVEL_PROFESSOR", joinColumns = {@JoinColumn(name="ID_PROFESSOR")}, inverseJoinColumns = {@JoinColumn(name="ID_DISCIPLINA")})
+	private List<Disciplina> disciplinasLecionaveis = new ArrayList<Disciplina>();
 
 	@Override
 	public int getId() {
@@ -121,5 +125,13 @@ public class Professor extends Entidade {
 	@Override
 	public String toString() {
 		return this.getNome();
+	}
+
+	public List<Disciplina> getDisciplinasLecionaveis() {
+		return disciplinasLecionaveis;
+	}
+
+	public void setDisciplinasLecionaveis(List<Disciplina> disciplinasLecionaveis) {
+		this.disciplinasLecionaveis = disciplinasLecionaveis;
 	}
 }

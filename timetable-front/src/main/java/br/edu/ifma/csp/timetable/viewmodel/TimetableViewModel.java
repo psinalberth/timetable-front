@@ -15,18 +15,22 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValuesException;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Column;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Row;
 import org.zkoss.zul.Span;
+import org.zkoss.zul.Timer;
 import org.zkoss.zul.Vlayout;
 
 import br.edu.ifma.csp.timetable.dao.HorarioDao;
 import br.edu.ifma.csp.timetable.dao.LocalDao;
 import br.edu.ifma.csp.timetable.dao.ProfessorDao;
 import br.edu.ifma.csp.timetable.dao.TipoDetalheTimetableDao;
+import br.edu.ifma.csp.timetable.dao.report.RelatorioAulasMatrizCurricularDao;
 import br.edu.ifma.csp.timetable.handler.TimetableHandler;
 import br.edu.ifma.csp.timetable.model.Aula;
 import br.edu.ifma.csp.timetable.model.DetalheTimetable;
@@ -35,11 +39,14 @@ import br.edu.ifma.csp.timetable.model.Periodo;
 import br.edu.ifma.csp.timetable.model.Professor;
 import br.edu.ifma.csp.timetable.model.Timetable;
 import br.edu.ifma.csp.timetable.model.TipoDetalheTimetable;
+import br.edu.ifma.csp.timetable.model.report.DadosRelatorioAulasMatrizCurricular;
 import br.edu.ifma.csp.timetable.repository.Horarios;
 import br.edu.ifma.csp.timetable.repository.Locais;
 import br.edu.ifma.csp.timetable.repository.Professores;
 import br.edu.ifma.csp.timetable.repository.TiposDetalheTimetable;
+import br.edu.ifma.csp.timetable.repository.report.ReportRepository;
 import br.edu.ifma.csp.timetable.util.Lookup;
+import br.edu.ifma.csp.timetable.util.Report;
 import br.edu.ifma.csp.timetable.util.Validations;
 
 public class TimetableViewModel extends ViewModel<Timetable> {
@@ -60,6 +67,9 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	
 	@Wire("#form #grid")
 	private Grid grid;
+	
+	@Wire("#form #timer")
+	private Timer timer;
 	
 	private List<DetalheTimetable> detalhesSelecionados;
 	
@@ -86,21 +96,32 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			setPeriodo(null);
 			setLocal(null);
 			
-			repository.save(entidadeSelecionada);
-			
-			entidadeSelecionada = repository.byId(entidadeSelecionada.getId());
-			
 			TimetableHandler handler = new TimetableHandler();
 			handler.setTimetable(entidadeSelecionada);
 			handler.execute();
+			
+			Clients.clearBusy();
 			
 			if (!handler.getSolver().solve()) {
 				grid.getRows().getChildren().clear();
 			}
 			
+			repository.save(entidadeSelecionada);
+			
+			entidadeSelecionada = repository.byId(entidadeSelecionada.getId());
+			
+			//Events.echoEvent("onAddEvent", timer, null);
+			
+			Clients.showBusy("Wait a minute...");
+			
+			timer.start();
+			
 			setPeriodo(entidadeSelecionada.getMatrizCurricular().getPeriodos().get(0));
 			
 			lookup();
+			
+			timer.stop();
+			Clients.clearBusy();
 			
 			BindUtils.postNotifyChange(null, null, this, "entidadeSelecionada");
 			BindUtils.postNotifyChange(null, null, this, "consultando");
@@ -113,11 +134,13 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			BindUtils.postNotifyChange(null, null, this, "aulasSelecionadas");
 			BindUtils.postNotifyChange(null, null, this, "solucaoEncontrada");
 			
+			Clients.showNotification("Solução encontrada!", Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 1000);
+			
 		} catch (WrongValuesException ex) {
 			Validations.showValidationErrors();
 		}
 		
-		/*String rootDir = "/home/inalberth/csp_casos_teste4/completo";
+		/*String rootDir = "/home/inalberth/monografia/csp_casos_teste5/completo4";
 
 		MatrizesCurriculares matrizesCurriculares = Lookup.dao(MatrizCurricularDao.class);
 		
@@ -128,9 +151,13 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			
 		}
 		
-		int tamanho = root.listFiles().length + 1;
+		int tamanho = root.listFiles() != null ? root.listFiles().length + 1 : 1;
 		
 		dir = new File(rootDir + File.separatorChar + "cenario$" + tamanho);
+		
+		Timetable timetable = repository.byId(951);
+		timetable.setMesmoHorarioDisciplina(false);
+		timetable.setMesmoLocalDisciplina(true);
 		
 		if (dir.mkdir()) {
 		
@@ -139,7 +166,8 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 				Teste teste = new Teste();
 				teste.setNumeroPeriodos(8);
 				teste.setMatrizCurricular(matrizesCurriculares.byId(84));
-				teste.setTimetable(repository.byId(951));
+				
+				teste.setTimetable(timetable);
 				
 				teste.execute();
 				
@@ -168,6 +196,41 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 				}
 			}
 		}*/
+	}
+	
+	@Command
+	public void imprimir() {
+		
+		ReportRepository<DadosRelatorioAulasMatrizCurricular> reportRepository = Lookup.dao(RelatorioAulasMatrizCurricularDao.class);
+		
+		List<DadosRelatorioAulasMatrizCurricular> dados = reportRepository.recuperarDados();
+		
+		if (!dados.isEmpty()) {
+			Report.render("rel_aulas", dados);
+			
+		}
+	}
+	
+	@Listen("onAddEvent = #form #timer")
+	public void doSomething() {
+		timer.start();
+	}
+	
+	@Command
+	public void dispose() {
+		timer.stop();
+		Clients.clearBusy();
+	}
+	
+	@Command
+	@NotifyChange({"entidadeSelecionada", "consultando", "removivel", "editando", "solucaoEncontrada", "periodo", "professor", "local"})
+	public void editar() {
+		
+		setPeriodo(entidadeSelecionada.getMatrizCurricular().getPeriodos().get(0));
+		setLocal(null);
+		setProfessor(null);
+		
+		lookup();
 	}
 	
 	private void buildRows(List<Aula> aulas) {

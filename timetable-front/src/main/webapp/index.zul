@@ -6,7 +6,7 @@
 <zk>
 	
 	<include self="@define(content)" viewModel="@id('authVM') @init('br.edu.ifma.csp.timetable.viewmodel.auth.AuthViewModel')"
-			 src="@load(authVM.fragment)"/>
+			 src="@load(authVM.fragment)" onBookmarkChange="Clients.resize(self)"/>
 
 </zk>
 	

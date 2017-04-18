@@ -57,7 +57,8 @@ public class Timetable extends Entidade {
 	private boolean horariosIndisponiveisPermitidos = false;
 	
 	@Valid
-	private transient List<Aula> aulas = new ArrayList<Aula>();
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="timetable", cascade=CascadeType.ALL ,orphanRemoval=true)
+	private List<Aula> aulas = new ArrayList<Aula>();
 	
 	@Valid
 	@NotFound(action=NotFoundAction.IGNORE)

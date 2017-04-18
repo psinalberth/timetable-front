@@ -6,6 +6,11 @@
 		<value>timetable</value>
 	</preference>
 	
+	<library-property>
+		<name>org.zkoss.zul.progressbox.position</name>
+		<value>center</value>
+	</library-property>
+	
 	<language-config>
 -	    <addon-uri>/WEB-INF/lang-addon.xml</addon-uri>
 -	</language-config>

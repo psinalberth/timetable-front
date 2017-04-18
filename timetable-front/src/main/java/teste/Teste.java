@@ -369,7 +369,7 @@ public class Teste {
 	
 	private void manterHorariosIndisponiveisProfessor() {
 		
-		for (int i = 0; i < timeslots.size(); i ++) {
+for (int i = 0; i < timeslots.size(); i ++) {
 			
 			Tuples tuples = new Tuples(true);
 			
@@ -410,15 +410,19 @@ public class Teste {
 				if (professor.getHorariosIndisponiveis() != null && professor.getHorariosIndisponiveis().size() > 0) {
 					
 					int [] horariosDisponiveis = getHorariosDisponiveisProfessor(professor);
-					//int [] horariosIndisponiveis = getHorariosIndisponiveisProfessor(professor);
 						
 					for (int j = 0; j < horariosDisponiveis.length; j++) {
 						tuples.add(professor.getId(), horariosDisponiveis[j]);
 					}
 					
-					/*for (int j = 0; j < horariosIndisponiveis.length; j++) {
-						tuples.add(timeslot.getDisciplina().getValue(), professor.getId(), horariosIndisponiveis[j]);
-					}*/
+					if (getTimetable().isHorariosIndisponiveisPermitidos()) {
+						
+						int [] horariosIndisponiveis = getHorariosIndisponiveisProfessor(professor);
+						
+						for (int j = 0; j < horariosIndisponiveis.length; j++) {
+							tuples.add(professor.getId(), horariosIndisponiveis[j]);
+						}	
+					}
 
 				} else {
 					
@@ -540,7 +544,7 @@ public class Teste {
 	
 	private void manterHorariosAlternadosConstraint() {
 		
-		for (int i = 0; i < timeslots.size(); i++) {
+for (int i = 0; i < timeslots.size(); i++) {
 			
 			Timeslot timeslot = timeslots.get(i);
 			
@@ -563,22 +567,25 @@ public class Teste {
 				IntVar local6 = timeslot.getLocais().get(5);
 				
 				model.arithm(local1, "=", local2).post();
-//				model.arithm(local2, "=", local3).post();
-//				model.arithm(local3, "=", local4).post();
-//				model.arithm(local4, "=", local5).post();
 				model.arithm(local5, "=", local6).post();
+				
+				if (getTimetable().isMesmoLocalDisciplina()) {
+					model.arithm(local2, "=", local3).post();
+					model.arithm(local3, "=", local4).post();
+					model.arithm(local4, "=", local5).post();
+				}
 				
 				model.or(
 						model.and(
 								model.arithm(horario3, "-", horario1, "=", 2),
-								model.arithm(horario4, "-", horario3, "=", 16),
+								model.arithm(horario4, "-", horario3, getTimetable().isMesmoHorarioDisciplina() ? "=" : ">=", 16),
 								model.arithm(horario6, "-", horario4, "=", 2),
 								model.arithm(local2, "=", local3),
 								model.arithm(local4, "=", local5)),
 						
 						model.and(
-								model.arithm(horario3, "-", horario2, "=", 17),
-								model.arithm(horario5, "-", horario4, "=", 17),
+								model.arithm(horario3, "-", horario2, getTimetable().isMesmoHorarioDisciplina() ? "=" : ">=", 17),
+								model.arithm(horario5, "-", horario4, getTimetable().isMesmoHorarioDisciplina() ? "=" : ">=", 17),
 								model.arithm(local3, "=", local4)
 								)
 						).post();
@@ -599,13 +606,16 @@ public class Teste {
 				
 				model.arithm(horario3, "-", horario1, "=", 2).post();
 				model.notMember(horario3, new int [] {0, 9, 18, 27, 36}).post();
-				model.arithm(horario4, "-", horario3, "=", 16).post();
+				model.arithm(horario4, "-", horario3, getTimetable().isMesmoHorarioDisciplina() ? "=" : ">=", 16).post();
 				model.arithm(horario5, "-", horario4, "=", 1).post();
 				
 				model.arithm(local1, "=", local2).post();
 				model.arithm(local2, "=", local3).post();
-			//	model.arithm(local3, "=", local4).post();
 				model.arithm(local4, "=", local5).post();
+				
+				if (getTimetable().isMesmoLocalDisciplina()) {
+					model.arithm(local3, "=", local4).post();
+				}
 								
 			} else if (aula == 4) {
 				
@@ -620,12 +630,15 @@ public class Teste {
 				IntVar local4 = timeslot.getLocais().get(3);
 				
 				model.arithm(horario2, "-", horario1, "=", 1).post();
-				model.arithm(horario3, "-", horario2, "=", 17).post();
+				model.arithm(horario3, "-", horario2,  getTimetable().isMesmoHorarioDisciplina() ? "=" : ">=", 17).post();
 				model.arithm(horario4, "-", horario3, "=", 1).post();
 				
 				model.arithm(local1, "=", local2).post();
-			//	model.arithm(local2, "=", local3).post();
 				model.arithm(local3, "=", local4).post();
+				
+				if (getTimetable().isMesmoLocalDisciplina()) {
+					model.arithm(local2, "=", local3).post();
+				}
 				
 			} else if (aula == 3) {
 				

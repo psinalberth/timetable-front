@@ -1,6 +1,8 @@
 <?page contentType="text/html;charset=UTF-8"?>
 <zk xmlns:n="native">
-
+	
+	<timer id="timer" onCreate="self.stop()" onTimer="@command('dispose')" delay="2000" repeats="true"/>
+	
 	<div class="row">
 		<div class="col-lg-12">
 		<tabbox>
@@ -187,7 +189,9 @@
 								</div>
 								<div class="col-md-1">
 									<div class="form-group">
-										<button iconSclass="fa fa-close" onClick="@command('limpar', opc=1)" tooltiptext="Limpar"/>
+										<div class="form-group">
+										<button iconSclass="la la-close" onClick="@command('limpar', opc=1)" tooltiptext="Limpar"/>
+										</div>
 									</div>	
 								</div>
 								<div class="col-md-4">
