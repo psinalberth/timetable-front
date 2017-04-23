@@ -1,0 +1,36 @@
+<window visible="@load(vm.editandoPreRequisitos)" mode="modal" closable="false" title="Pré-Requisitos">
+	<div sclass="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label value="Descrição"/>
+				<textbox sclass="form-input" value="@bind(vm.filtroDescricao)" onOK="@command('filtrarPreRequisitos')"/>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<listbox checkmark="true" multiple="true" mold="paging" model="@load(vm.colDisciplinas)"
+				     autopaging="true" rows="10" selectedItems="@bind(vm.preRequisitosSelecionados)">
+				<listhead>
+					<listheader hflex="min"/>
+					<listheader label="Código"/>
+					<listheader label="Sigla"/>
+					<listheader label="Descrição">
+						<hbox style="float: right">
+							<button iconSclass="la la-check" sclass="btn btn-default" onClick="@command('associarPreRequisitos')"/>
+							<button iconSclass="la la-close" sclass="btn btn-default"/>
+						</hbox>
+					</listheader>
+				</listhead>
+				<template name="model" var="obj">
+					<listitem value="@bind(obj)" sclass="list">
+						<listcell/>
+						<listcell label="@load(obj.codigo)"/>
+						<listcell label="@load(obj.sigla)"/>
+						<listcell label="@load(obj.descricao)"/>
+					</listitem>
+				</template>
+			</listbox>
+		</div>
+	</div>
+</window>

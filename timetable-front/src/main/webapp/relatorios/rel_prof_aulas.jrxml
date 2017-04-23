@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2017-04-17T06:59:21 -->
+<!-- 2017-04-18T19:35:50 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_prof_aulas" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="20" uuid="d6e23f1f-4fd0-4f61-b4ef-619fc532692f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL Local"/>
@@ -42,7 +42,7 @@ order by
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Arial"/>
+						<font fontName="DejaVu Sans" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Disciplina]]></text>
 				</staticText>
@@ -57,7 +57,7 @@ order by
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Arial"/>
+						<font fontName="DejaVu Sans" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Professor]]></text>
 				</staticText>
@@ -66,7 +66,9 @@ order by
 		<groupFooter>
 			<band height="2">
 				<staticText>
-					<reportElement x="0" y="0" width="800" height="2" uuid="0a0c61e9-f5c9-4abd-8061-11aed28d9feb"/>
+					<reportElement x="0" y="0" width="802" height="2" uuid="0a0c61e9-f5c9-4abd-8061-11aed28d9feb">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
 					<box>
 						<topPen lineWidth="1.0"/>
 					</box>

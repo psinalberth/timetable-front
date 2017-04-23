@@ -1,0 +1,27 @@
+<zk>
+	<div sclass="row">													 	
+	 	<div class="col-md-12">
+			<listbox checkmark="true" multiple="true" mold="paging" model="@bind(detalheSelecionado.preRequisitos)"
+					 autopaging="true" rows="2" nonselectableTags="*">
+					 
+				<listhead>
+					<listheader hflex="min"/>
+					<listheader label="Pré-Requisitos">
+						<hbox style="float: right">
+							<button iconSclass="la la-plus" sclass="btn btn-default" onClick="@command('adicionarPreRequisito', detalhe=detalheSelecionado)"/>
+							<button iconSclass="la la-minus" sclass="btn btn-default" onClick="@command('removerPreRequisito', detalhe=detalheSelecionado)"/>
+						</hbox>
+					</listheader>
+				</listhead>
+				<template name="model" var="disciplinaSelecionada">
+					<listitem>
+						<listcell/>
+						<listcell>
+							<bandbox sclass="form-input" value="@load(disciplinaSelecionada)" readonly="true"/>
+			 			</listcell>
+				 	</listitem>
+				 </template>	
+			</listbox>
+		</div>
+	</div>
+</zk>

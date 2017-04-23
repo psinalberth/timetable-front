@@ -583,22 +583,27 @@ a:hover {
 .z-loading-indicator {
 	border: 0;
 	font-family: 'MyriadPro', sans-serif;
-	font-size: 20px;
+	font-size: 22px;
 	/* background: hsla(212, 83%, 89%, 1); */
 	background: hsla(199, 94%, 70%, 1);
 	color: #fefefe;
 }
 
-.z-loading-icon {
+ .z-loading-icon {
 	background: 0;
-	width: 30px;
-	height: 24px;
 	animation: fa-spin 2s infinite linear;
+}
+
+.z-apply-loading-icon, .z-loading-icon, .z-renderdefer {
+	width: 1.28571429em;
+	height: inherit;
+	text-align: center;
 }
 
 .z-loading-icon:before {
 	font-family: 'LineAwesome';
 	content: '\f18c';
+	width: 1.28571429em;
 	
 }
 

@@ -1,5 +1,9 @@
 package br.edu.ifma.csp.timetable.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.AssertFalse;
@@ -52,9 +58,9 @@ public class DetalheDisciplina extends Entidade {
 	@JoinColumn(name="ID_DISCIPLINA")
 	private Disciplina disciplina;
 	
-	public DetalheDisciplina() {
-	
-	}
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+	@JoinTable(name="PRE_REQUISITO_DISCIPLINA", joinColumns = {@JoinColumn(name="ID_DETALHE")}, inverseJoinColumns = {@JoinColumn(name="ID_DISCIPLINA")})
+	private List<Disciplina> preRequisitos = new ArrayList<Disciplina>();
 	
 	public int getId() {
 		return id;
@@ -123,5 +129,13 @@ public class DetalheDisciplina extends Entidade {
 	@AssertFalse(message="O grupo de eletivas é obrigatório.")
 	public boolean isGrupoEletivasObrigatorio() {
 		return ((!isObrigatoria()) && getGrupoEletiva() == null);
+	}
+
+	public List<Disciplina> getPreRequisitos() {
+		return preRequisitos;
+	}
+
+	public void setPreRequisitos(List<Disciplina> preRequisitos) {
+		this.preRequisitos = preRequisitos;
 	}
 }

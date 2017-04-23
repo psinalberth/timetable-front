@@ -14,6 +14,7 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValuesException;
+import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -110,9 +111,7 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			
 			entidadeSelecionada = repository.byId(entidadeSelecionada.getId());
 			
-			//Events.echoEvent("onAddEvent", timer, null);
-			
-			Clients.showBusy("Wait a minute...");
+			Events.echoEvent("onAddEvent", timer, null);
 			
 			timer.start();
 			
@@ -364,11 +363,41 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	public void lookup() {
 		
 		List<Aula> aulasFiltradas = entidadeSelecionada.getAulas().stream()
-				.filter((aula) -> (getPeriodo() != null && getPeriodo().getCodigo() == aula.getPeriodo()) || 
+				/*.filter((aula) -> (getPeriodo() != null && getPeriodo().getCodigo() == aula.getPeriodo()) || 
 								  (getProfessor() != null && getProfessor().getId() == aula.getProfessor().getId()) ||
 								  (getLocal() != null && getLocal().getId() == aula.getLocal().getId()) ||
 								  (getPeriodo() == null && getProfessor() == null && getLocal() == null))
-				.collect(Collectors.toList());
+				.collect(Collectors.toList());*/
+				.filter(aula -> {
+					
+					if (getPeriodo() != null && getPeriodo().getCodigo() == aula.getPeriodo() && 
+						getProfessor() != null && getProfessor().getId() == aula.getProfessor().getId() && 
+						getLocal() != null && getLocal().getId() == aula.getLocal().getId())
+						return true;
+					
+					if (getPeriodo() != null && getPeriodo().getCodigo() == aula.getPeriodo() && 
+					    getProfessor() != null && getProfessor().getId() == aula.getProfessor().getId())
+						return true;
+					
+					if (getProfessor() != null && getProfessor().getId() == aula.getProfessor().getId() && 
+						getLocal() != null && getLocal().getId() == aula.getLocal().getId())
+						return true;
+					
+					if (getPeriodo() != null && getPeriodo().getCodigo() == aula.getPeriodo() && 
+						getLocal() != null && getLocal().getId() == aula.getLocal().getId())
+						return true;
+					
+					if (getPeriodo() != null && getPeriodo().getCodigo() == aula.getPeriodo())
+						return true;
+					
+					if (getProfessor() != null && getProfessor().getId() == aula.getProfessor().getId())
+						return true;
+					
+					if (getLocal() != null && getLocal().getId() == aula.getLocal().getId())
+						return true;
+					
+					return false;
+				}).collect(Collectors.toList());
 		
 		buildRows(aulasFiltradas);
 	}

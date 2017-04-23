@@ -71,6 +71,8 @@ import teste.Grade;
  */
 public class TimetableHandler {
 	
+	private static final int CARGA_HORARIA_MAXIMA = 14;
+
 	private Timetable timetable;
 	
 	private Disciplinas disciplinas = Lookup.dao(DisciplinaDao.class);
@@ -451,7 +453,7 @@ public class TimetableHandler {
 		}
 		
 		for (int i = 0; i < professoresId.length; i++) {
-			model.count(professoresId[i], l2.toArray(new IntVar[l2.size()]), model.intVar(0, 12)).post();;
+			model.count(professoresId[i], l2.toArray(new IntVar[l2.size()]), model.intVar(0, CARGA_HORARIA_MAXIMA)).post();;
 		}
 		
 		model.allDifferent(list.toArray(new IntVar[list.size()]), "NEQS").post();
