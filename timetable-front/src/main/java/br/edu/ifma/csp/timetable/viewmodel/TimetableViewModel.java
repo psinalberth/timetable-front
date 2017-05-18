@@ -139,7 +139,7 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			Validations.showValidationErrors();
 		}
 		
-		/*String rootDir = "/home/inalberth/monografia/csp_casos_teste5/completo4";
+		/*String rootDir = "/home/inalberth/monografia/csp_casos_teste6/completo4";
 
 		MatrizesCurriculares matrizesCurriculares = Lookup.dao(MatrizCurricularDao.class);
 		
@@ -156,7 +156,7 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 		
 		Timetable timetable = repository.byId(951);
 		timetable.setMesmoHorarioDisciplina(false);
-		timetable.setMesmoLocalDisciplina(true);
+		timetable.setMesmoLocalDisciplina(false);
 		
 		if (dir.mkdir()) {
 		
@@ -363,41 +363,10 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	public void lookup() {
 		
 		List<Aula> aulasFiltradas = entidadeSelecionada.getAulas().stream()
-				/*.filter((aula) -> (getPeriodo() != null && getPeriodo().getCodigo() == aula.getPeriodo()) || 
-								  (getProfessor() != null && getProfessor().getId() == aula.getProfessor().getId()) ||
-								  (getLocal() != null && getLocal().getId() == aula.getLocal().getId()) ||
-								  (getPeriodo() == null && getProfessor() == null && getLocal() == null))
-				.collect(Collectors.toList());*/
-				.filter(aula -> {
-					
-					if (getPeriodo() != null && getPeriodo().getCodigo() == aula.getPeriodo() && 
-						getProfessor() != null && getProfessor().getId() == aula.getProfessor().getId() && 
-						getLocal() != null && getLocal().getId() == aula.getLocal().getId())
-						return true;
-					
-					if (getPeriodo() != null && getPeriodo().getCodigo() == aula.getPeriodo() && 
-					    getProfessor() != null && getProfessor().getId() == aula.getProfessor().getId())
-						return true;
-					
-					if (getProfessor() != null && getProfessor().getId() == aula.getProfessor().getId() && 
-						getLocal() != null && getLocal().getId() == aula.getLocal().getId())
-						return true;
-					
-					if (getPeriodo() != null && getPeriodo().getCodigo() == aula.getPeriodo() && 
-						getLocal() != null && getLocal().getId() == aula.getLocal().getId())
-						return true;
-					
-					if (getPeriodo() != null && getPeriodo().getCodigo() == aula.getPeriodo())
-						return true;
-					
-					if (getProfessor() != null && getProfessor().getId() == aula.getProfessor().getId())
-						return true;
-					
-					if (getLocal() != null && getLocal().getId() == aula.getLocal().getId())
-						return true;
-					
-					return false;
-				}).collect(Collectors.toList());
+			.filter(aula -> getPeriodo() != null && getPeriodo().getCodigo() == aula.getPeriodo())
+			/*.filter(aula -> getProfessor() != null && getProfessor().getId() == aula.getProfessor().getId())
+			.filter(aula -> getLocal() != null && getLocal().getId() == aula.getLocal().getId())*/
+			.collect(Collectors.toList());
 		
 		buildRows(aulasFiltradas);
 	}

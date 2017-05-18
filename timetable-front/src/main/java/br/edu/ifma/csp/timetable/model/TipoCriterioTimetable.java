@@ -24,6 +24,7 @@ public class TipoCriterioTimetable extends Entidade {
 	public static final int DISCIPLINA_ELETIVA = 3;
 	public static final int HORARIO_DE_INICIO_APOS = 4;
 	public static final int HORARIO_DE_INICIO_ATE = 5;
+	public static final int OFERTA_SEMANAL_UNICA = 6;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 
 import br.edu.ifma.csp.timetable.model.Disciplina;
 import br.edu.ifma.csp.timetable.model.MatrizCurricular;
+import br.edu.ifma.csp.timetable.model.Periodo;
 import br.edu.ifma.csp.timetable.model.Professor;
 import br.edu.ifma.csp.timetable.repository.Disciplinas;
 
@@ -89,5 +90,21 @@ public class DisciplinaDao extends RepositoryDao<Disciplina> implements Discipli
 		"order by CODIGO asc";
 		
 		return this.manager.createNativeQuery(sql, Disciplina.class).setParameter("matrizId", matrizCurricular.getId()).getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Disciplina> allEletivasByMatrizCurricular(MatrizCurricular matrizCurricular, Periodo periodo) {
+		
+		String sql = 
+				
+		"select dis.* from DISCIPLINA dis " +
+			"inner join VW_DISCIPLINAS_ELETIVAS_PERIODO vw on " +
+				"vw.ID_DISCIPLINA = dis.ID_DISCIPLINA and " +
+				"(vw.PERIODO is null or vw.PERIODO < :periodo ) " + 
+		"order by dis.CODIGO asc";
+		
+		return this.manager.createNativeQuery(sql, Disciplina.class)
+				.setParameter("periodo", periodo.getCodigo()).getResultList();
 	}
 }

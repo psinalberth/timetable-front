@@ -49,7 +49,7 @@
 			
 			<tabpanel>
 				<listbox checkmark="true" multiple="true" mold="paging" model="@bind(vm.entidadeSelecionada.periodos)"
-						 emptyMessage="Nenhum registro adicionado." autopaging="true" style="height: 100%"
+						 emptyMessage="Nenhum registro adicionado." autopaging="false"
 						 nonselectableTags="*"
 						 selectedItems="@bind(vm.periodosSelecionados)">
 					<listhead>
@@ -80,8 +80,8 @@
 											</div>
 										
 											<listbox checkmark="true" multiple="true" mold="paging" model="@bind(periodoSelecionado.detalhes)"
-													 emptyMessage="Nenhum registro selecionado." autopaging="true"
-													 rows="1" nonselectableTags="*"
+													 emptyMessage="Nenhum registro selecionado." autopaging="false"
+													 rows="5" nonselectableTags="*"
 													 selectedItems="@bind(vm.disciplinasSelecionadas)">
 												<listhead>
 													<listheader hflex="min"/>
@@ -96,8 +96,25 @@
 													<listitem>
 														<listcell/>
 														<listcell>
-															<include src="../matriz/detalhe_disciplina.zul"/>
-															<include src="../matriz/pre_requisito.zul"/>
+															<div sclass="row">
+																<div class="col-md-9">
+																	<div sclass="form-group">
+																		<label value="Disciplina" sclass="form-label"/>
+																		<bandbox sclass="form-input" value="@load(detalheSelecionado.disciplina)" readonly="true"/>
+																	</div>
+																</div>
+																
+																<div sclass="col-md-1">
+																	<div sclass="form-group">
+																		<label value="OBR" sclass="form-label" tooltiptext="É obrigatória?"/>
+																		<checkbox style="margin: 0; padding-top: -10px" checked="@bind(detalheSelecionado.obrigatoria)" />
+																	</div>
+																</div>
+																
+																<div class="col-md-2">
+																	<button sclass="btn" label="Ver detalhes" onClick="@command('exibirDetalhesDisciplina', detalhe=detalheSelecionado)"/>
+																</div>
+															</div>
 														</listcell>
 													</listitem>
 												</template>
@@ -110,6 +127,7 @@
 					</template>
 				</listbox>
 				<include src="../matriz/win.zul"/>
+				<include src="../matriz/disciplina.zul"/>
 			</tabpanel>
 		</tabpanels>
 		

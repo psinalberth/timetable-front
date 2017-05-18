@@ -92,6 +92,8 @@ public class TimetableHandler {
 	
 	List<Timeslot> timeslots;
 	
+	List<Timeslot> timeslotsDisciplinasHorarioUnico;
+	
 	int [] disciplinasId;
 	int [] professoresId;
 	int [] horariosId;
@@ -186,6 +188,8 @@ public class TimetableHandler {
 			
 			timeslots.add(timeslot);
 		}
+		
+		manterDisciplinaMesmoDia();
 		
 		manterProfessoresComHorarioUnicoConstraint();
 		
@@ -564,6 +568,12 @@ public class TimetableHandler {
 			
 			Timeslot timeslot = timeslots.get(i);
 			
+			if (timeslotsDisciplinasHorarioUnico != null) {
+				
+				if (timeslotsDisciplinasHorarioUnico.contains(timeslot))
+					continue;
+			}
+			
 			int aula = aulas[i];
 			
 			if (aula == 6) {
@@ -889,6 +899,41 @@ public class TimetableHandler {
 	
 	private int [] getDisciplinasPorPeriodo(int periodo) {
 		return periodos[periodo-1];
+	}
+	
+	private void manterDisciplinaMesmoDia() {
+		
+		timeslotsDisciplinasHorarioUnico = new ArrayList<Timeslot>();
+		
+		for (DetalheTimetable detalhe : getTimetable().getDetalhes()) {
+			
+			if (detalhe.getTipoCriterioTimetable().getId() == TipoCriterioTimetable.OFERTA_SEMANAL_UNICA) {
+				
+				Timeslot timeslot = getTimeslotDisciplina(detalhe.getDisciplina().getId());
+				
+				timeslotsDisciplinasHorarioUnico.add(timeslot);
+				
+				if (timeslot != null) {
+					
+					for (int i = 0; i < timeslot.getHorarios().size(); i++) {
+						
+						IntVar h1 = timeslot.getHorarios().get(i);
+						IntVar l1 = timeslot.getLocais().get(i);
+						IntVar h2 = null;
+						IntVar l2 = null;
+						
+						if ((i + 1) < timeslot.getHorarios().size()) {
+							
+							h2 = timeslot.getHorarios().get(i + 1);
+							l2 = timeslot.getLocais().get(i + 1);
+							
+							model.arithm(h2, "-", h1, "=", 1).post();
+							model.arithm(l2, "=", l1).post();
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	private List<Timeslot> getTimeslotsPeriodo(int periodo) {

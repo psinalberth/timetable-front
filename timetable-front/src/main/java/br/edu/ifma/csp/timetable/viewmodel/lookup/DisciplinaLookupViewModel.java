@@ -2,17 +2,18 @@ package br.edu.ifma.csp.timetable.viewmodel.lookup;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.Pair;
 
 import br.edu.ifma.csp.timetable.dao.DisciplinaDao;
+import br.edu.ifma.csp.timetable.model.DetalheTimetable;
 import br.edu.ifma.csp.timetable.model.Disciplina;
-import br.edu.ifma.csp.timetable.model.MatrizCurricular;
+import br.edu.ifma.csp.timetable.model.TipoCriterioTimetable;
 import br.edu.ifma.csp.timetable.repository.Disciplinas;
 import br.edu.ifma.csp.timetable.util.Lookup;
 
@@ -20,30 +21,33 @@ public class DisciplinaLookupViewModel extends LookupViewModel<Disciplina> {
 	
 	private Disciplinas disciplinas = Lookup.dao(DisciplinaDao.class);
 	
-	private MatrizCurricular matrizCurricular;
+	private DetalheTimetable detalhe;
 	private Integer codigo;
 	private String sigla;
 	private String descricao;
-	private boolean eletiva;
 	
 	@AfterCompose(superclass=true)
-	public void init(@BindingParam("matrizCurricular") MatrizCurricular matrizCurricular, @BindingParam("eletiva") boolean eletiva) {
-		this.matrizCurricular = matrizCurricular;
-		this.eletiva = eletiva;
+	public void init(@BindingParam("detalhe") DetalheTimetable detalhe) {
+		this.detalhe = detalhe;
 		build();
 	}
 	
 	@NotifyChange("col")
 	private void build() {
 		
-		if (matrizCurricular != null) {
+		if (getDetalhe() != null && getDetalhe().getPeriodo() != null) {
 			
-			if (isEletiva()) {
-				setCol(disciplinas.allEletivasByMatrizCurricular(matrizCurricular));
+			if (getDetalhe().getTipoCriterioTimetable() != null && getDetalhe().getTipoCriterioTimetable().getId() == TipoCriterioTimetable.DISCIPLINA_ELETIVA) {
+				setCol(disciplinas.allEletivasByMatrizCurricular(getDetalhe().getPeriodo().getMatrizCurricular(), getDetalhe().getPeriodo()));
 				
 			} else {
-				setCol(disciplinas.allByMatrizCurricular(matrizCurricular));
+				setCol(disciplinas.allByMatrizCurricular(getDetalhe().getPeriodo().getMatrizCurricular()));
 			}
+			
+			if (codigo != null) {
+				setCol(getCol().stream().filter(d -> d.getCodigo() == codigo).collect(Collectors.toList()));
+			}
+			
 		} else {
 			
 			Map<Pair<String, String>, Object> params = new HashMap<Pair<String, String>, Object>();
@@ -70,16 +74,6 @@ public class DisciplinaLookupViewModel extends LookupViewModel<Disciplina> {
 	public void limpar() {
 	
 	}
-	
-	public MatrizCurricular getMatrizCurricular() {
-		return matrizCurricular;
-	}
-	
-	@GlobalCommand
-	@NotifyChange("matrizCurricular")
-	public void setMatrizCurricular(@BindingParam("matrizCurricular") MatrizCurricular matrizCurricular) {
-		this.matrizCurricular = matrizCurricular;
-	}
 
 	public Integer getCodigo() {
 		return codigo;
@@ -104,12 +98,12 @@ public class DisciplinaLookupViewModel extends LookupViewModel<Disciplina> {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
-	public void setEletiva(boolean eletiva) {
-		this.eletiva = eletiva;
+
+	public DetalheTimetable getDetalhe() {
+		return detalhe;
 	}
-	
-	public boolean isEletiva() {
-		return eletiva;
+
+	public void setDetalhe(DetalheTimetable detalhe) {
+		this.detalhe = detalhe;
 	}
 }

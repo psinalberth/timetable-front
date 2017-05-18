@@ -1,4 +1,4 @@
-<window visible="@load(vm.editandoPreRequisitos)" mode="modal" closable="false" title="Pré-Requisitos">
+<window visible="@load(vm.editandoPreRequisitos)" mode="modal" closable="false" title="Pré-Requisitos" width="900px">
 	<div sclass="row">
 		<div class="col-md-12">
 			<div class="form-group">

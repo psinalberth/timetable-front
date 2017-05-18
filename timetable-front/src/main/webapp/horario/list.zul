@@ -10,8 +10,8 @@
 		<template name="model" var="obj">
 			<listitem value="@bind(obj)" sclass="list">
 				<listcell label="@load(obj.dia.descricao)"/>
-				<listcell label="@load(obj.horaInicio)"/>
-				<listcell label="@load(obj.horaFim)"/>
+				<listcell label="@load(obj.horaInicio) @converter('formattedTime', format='HH:mm:ss')"/>
+				<listcell label="@load(obj.horaFim) @converter('formattedTime', format='HH:mm:ss')"/>
 			</listitem>
 		</template>
 	</listbox>

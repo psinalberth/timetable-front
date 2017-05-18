@@ -147,7 +147,7 @@
 																  selectedItem="@bind(detalheSelecionado.horario)" value="@load(detalheSelecionado.horario)"
 																  onSelect="@command('onChange')">
 															<template name="model" var="obj">
-																<comboitem label="@load(obj)" value="@load(obj)"/>
+																<comboitem label="@load(obj) @converter('formattedTime', format='HH:mm:ss')" value="@load(obj)"/>
 															</template>
 														</combobox>
 													</div>

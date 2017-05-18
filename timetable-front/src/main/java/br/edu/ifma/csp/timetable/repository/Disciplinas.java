@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.edu.ifma.csp.timetable.model.Disciplina;
 import br.edu.ifma.csp.timetable.model.MatrizCurricular;
+import br.edu.ifma.csp.timetable.model.Periodo;
 import br.edu.ifma.csp.timetable.model.Professor;
 
 public interface Disciplinas extends Repository<Disciplina> {
@@ -47,4 +48,6 @@ public interface Disciplinas extends Repository<Disciplina> {
 	 * {@code null} caso não existem disciplinas relacionadas à matriz curricular.
 	 */
 	public List<Disciplina> allEletivasByMatrizCurricular(MatrizCurricular matrizCurricular);
+
+	public List<Disciplina> allEletivasByMatrizCurricular(MatrizCurricular matrizCurricular, Periodo periodo);
 }

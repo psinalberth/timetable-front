@@ -35,6 +35,7 @@ public class MatrizCurricularViewModel extends ViewModel<MatrizCurricular> {
 	
 	private String filtroDescricao;
 	private boolean isEditandoPreRequisitos;
+	private boolean editandoDetalheDisciplina;
 	private DetalheDisciplina detalheSelecionado;
 	
 	@NotifyChange({"colTurnos", "colGrupoEletivas"})
@@ -94,6 +95,20 @@ public class MatrizCurricularViewModel extends ViewModel<MatrizCurricular> {
 		}
 	}
 	
+	@NotifyChange({"detalheSelecionado", "editandoDetalheDisciplina"})
+	@Command
+	public void exibirDetalhesDisciplina(@BindingParam("detalhe") DetalheDisciplina detalheSelecionado) {
+		setDetalheSelecionado(detalheSelecionado);
+		setEditandoDetalheDisciplina(true);
+	}
+	
+	@NotifyChange({"detalheSelecionado", "editandoDetalheDisciplina"})
+	@Command
+	public void ocultarDetalhesDisciplina() {
+		setDetalheSelecionado(null);
+		setEditandoDetalheDisciplina(false);
+	}
+	
 	@NotifyChange({"detalheSelecionado", "editandoPreRequisitos"})
 	@Command
 	public void adicionarPreRequisito(@BindingParam("detalhe") DetalheDisciplina detalheSelecionado, @BindingParam("disciplina") Disciplina disciplina) {
@@ -108,7 +123,8 @@ public class MatrizCurricularViewModel extends ViewModel<MatrizCurricular> {
 		
 	}
 	
-	@NotifyChange({"detalheSelecionado", "editandoPreRequisitos", "entidadeSelecionada", "preRequisitosSelecionados"})
+	@NotifyChange({"detalheSelecionado", "editandoPreRequisitos", "entidadeSelecionada", 
+				   "preRequisitosSelecionados", "filtroDescricao", "colDisciplinas"})
 	@Command
 	public void associarPreRequisitos() {
 		
@@ -116,6 +132,8 @@ public class MatrizCurricularViewModel extends ViewModel<MatrizCurricular> {
 		
 		setPreRequisitosSelecionados(null);
 		setEditandoPreRequisitos(false);
+		setColDisciplinas(disciplinas.all());
+		setFiltroDescricao(null);
 	}
 	
 	@Command
@@ -207,5 +225,13 @@ public class MatrizCurricularViewModel extends ViewModel<MatrizCurricular> {
 
 	public void setFiltroDescricao(String filtroDescricao) {
 		this.filtroDescricao = filtroDescricao;
+	}
+
+	public boolean isEditandoDetalheDisciplina() {
+		return editandoDetalheDisciplina;
+	}
+
+	public void setEditandoDetalheDisciplina(boolean editandoDetalheDisciplina) {
+		this.editandoDetalheDisciplina = editandoDetalheDisciplina;
 	}
 }

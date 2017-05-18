@@ -22,7 +22,7 @@ public class RelatorioProfessorDisciplinaDao implements ReportRepository<DadosRe
 		
 		String sql = 
 				
-		"select CONCAT('SI', LPAD(dis.CODIGO, 3, '0'),' - ', dis.DESCRICAO) disciplina, prof.NOME professor, dep.NOME departamento " + 
+		"select CONCAT(cur.CODIGO, LPAD(dis.CODIGO, 3, '0'),' - ', dis.DESCRICAO) disciplina, prof.NOME professor, dep.NOME departamento " + 
 			"from DISCIPLINA dis " +
 				"inner join PREFERENCIA_DISCIPLINA_PROFESSOR pref on " +
 					"pref.ID_DISCIPLINA = dis.ID_DISCIPLINA " +

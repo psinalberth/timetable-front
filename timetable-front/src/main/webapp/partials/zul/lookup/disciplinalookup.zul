@@ -5,8 +5,8 @@
 		
 		 	<vlayout 
 		 		viewModel='@id("childVM") @init("br.edu.ifma.csp.timetable.viewmodel.lookup.DisciplinaLookupViewModel", 
-		 				   matrizCurricular = vm.entidadeSelecionada.getClass().getSimpleName().equals("Timetable") ? vm.entidadeSelecionada.matrizCurricular : null, 
-		 				   eletiva = vm.entidadeSelecionada.getClass().getSimpleName().equals("Timetable") ? detalheSelecionado.tipoCriterioEletiva : false)' style="padding: 0 15px">
+		 				   detalhe = vm.entidadeSelecionada.getClass().getSimpleName().equals("Timetable") ? detalheSelecionado : null )' 
+		 				   style="padding: 0 15px">
 			
 		 		<div sclass="row">
 		 			<div class="col-md-1">
@@ -15,16 +15,16 @@
 			 				<intbox sclass="form-input" value="@bind(childVM.codigo)" maxlength="3" cols="3" onOK="@command('pesquisar')"/>
 			 			</div>
 		 			</div>
-		 			<div class="@bind(childVM.matrizCurricular eq null ? 'col-md-9' : 'col-md-4')">
+		 			<div class="@bind(childVM.detalhe.periodo eq null ? 'col-md-9' : 'col-md-4')">
 			 			<div sclass="form-group">
 			 				<label value="Descrição" sclass="form-label"/>
 			 				<textbox sclass="form-input" value="@bind(childVM.descricao)" onOK="@command('pesquisar')"/>
 			 			</div>
 		 			</div>
-		 			<div class="col-md-5" visible="@bind(childVM.matrizCurricular ne null)">
+		 			<div class="col-md-5" visible="@bind(childVM.detalhe.periodo ne null)">
 			 			<div sclass="form-group">
 			 				<label value="Matriz Curricular" sclass="form-label"/>
-			 				<textbox sclass="form-input" value="@bind(childVM.matrizCurricular)" disabled="true"/>
+			 				<textbox sclass="form-input" value="@bind(childVM.detalhe.periodo.matrizCurricular)" disabled="true"/>
 			 			</div>
 		 			</div>
 		 			<div class="col-md-2">
