@@ -12,7 +12,7 @@
 			<div sclass="form-group">
 				<label value="Disciplina" sclass="form-label"/>
 				<combobox sclass="form-input" readonly="true" model="@load(vm.colDisciplinas)" 
-				          selectedItem="@bind(vm.detalheSelecionado.disciplina)" value="@bind(vm.detalheSelecionado.disciplina)">
+				          selectedItem="@bind(vm.detalheSelecionado.disciplina)" value="@bind(vm.detalheSelecionado.disciplina.descricao)">
 					<template name="model">
 						<comboitem label="@load(each.descricao)" value="@bind(each)"/>
 					</template>
@@ -61,6 +61,6 @@
 		</div>
 	</div>
 	
-	<include src="../matriz/pre_requisito.zul" visible="@load(vm.detalheSelecionado.preRequisitos.size() > 0)"/>
+	<include src="../matriz/pre_requisito.zul"/>
 	
 </window>

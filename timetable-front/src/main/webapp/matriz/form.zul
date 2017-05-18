@@ -100,7 +100,7 @@
 																<div class="col-md-9">
 																	<div sclass="form-group">
 																		<label value="Disciplina" sclass="form-label"/>
-																		<bandbox sclass="form-input" value="@load(detalheSelecionado.disciplina)" readonly="true"/>
+																		<bandbox sclass="form-input" value="@load(detalheSelecionado.disciplina.descricao)" readonly="true"/>
 																	</div>
 																</div>
 																

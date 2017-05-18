@@ -27,9 +27,9 @@
 				<div class="col-md-6">
 					<div class="form-group">
 				<label value="Professor"/>
-				<combobox sclass="form-input" readonly="true" model="@load(vm.colTiposRelatorio)">
+				<combobox sclass="form-input" readonly="true" model="@load(vm.colProfessores)" selectedItem="@bind(vm.professor)">
 					<template name="model">
-						<comboitem label="@load(each.descricao)" value="@load(each)"/>
+						<comboitem label="@load(each.nome)" value="@load(each)"/>
 					</template>
 				</combobox>
 			</div>
@@ -37,7 +37,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 				<label value="Disciplina"/>
-				<combobox sclass="form-input" readonly="true" model="@load(vm.colTiposRelatorio)">
+				<combobox sclass="form-input" readonly="true" model="@load(vm.colDisciplinas)" selectedItem="@bind(vm.disciplina)">
 					<template name="model">
 						<comboitem label="@load(each.descricao)" value="@load(each)"/>
 					</template>
@@ -49,8 +49,8 @@
 			<div sclass="row">
 				<div class="col-md-6">
 					<div class="form-group">
-				<label value="Local"/>
-				<combobox sclass="form-input" readonly="true" model="@load(vm.colTiposRelatorio)">
+				<label value="Curso"/>
+				<combobox sclass="form-input" readonly="true" model="@load(vm.colCursos)" selectedItem="@bind(vm.curso)">
 					<template name="model">
 						<comboitem label="@load(each.descricao)" value="@load(each)"/>
 					</template>

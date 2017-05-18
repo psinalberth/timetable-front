@@ -46,7 +46,6 @@ import br.edu.ifma.csp.timetable.repository.Locais;
 import br.edu.ifma.csp.timetable.repository.Professores;
 import br.edu.ifma.csp.timetable.repository.TiposLocal;
 import br.edu.ifma.csp.timetable.util.Lookup;
-import teste.Grade;
 
 /**
  * Modelo de Timetable utilizado na resolução do Problema de Alocação de Horários do IFMA. <br>
@@ -265,21 +264,8 @@ public class TimetableHandler {
 			
 			System.out.println("Solução " + (count + 1));
 			
-		//	prettyOut();
-			
 			count += 1;
 		}
-		
-		/*for (int i = 0; i < 2; i++) {
-			
-			if (solver.solve()) {
-				
-				
-				
-				prettyOut();
-				//timetable.setAulas(recuperaAulas());
-			}
-		}*/
 	}
 	
 	public Disciplina getDisciplina(int disciplina) {
@@ -331,7 +317,7 @@ public class TimetableHandler {
 	}
 	
 	public void prettyOut() {
-		printOut();
+		
 	}
 	
 	private void manterHorariosIndisponiveisProfessor() {
@@ -1020,123 +1006,6 @@ public class TimetableHandler {
 				}
 			}
 		}
-	}
-	
-	private void printOut() {
-		
-		String [] dias = {"Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira"};
-		String [] horas = {"15:10", "16:00", "16:50", "17:40", "18:30", "19:20", "20:10", "21:00", "21:50"};
-			 
-		Grade [] grades = new Grade[periodos.length];
-		
-		int count = 0;
-		
-		int indexDisciplina = 0;
-		 
-		for (int k = 0; k < periodos.length; k++) { 
-			grades[k] = new Grade(horas.length, dias.length);
-		 }
-			 
-		for (int i = 0; i < timeslots.size(); i++) {
-				
-			int k = getPeriodoDisciplina(timeslots.get(i).getDisciplina().getValue()) - 1;
-				
-			for (int j = 0; j < aulas[i]; j++) {
-				
-				int [] tokens = getTokens(timeslots.get(i).getHorarios().get(j));	
-				grades[k].getGrade()[tokens[1]][tokens[0]] = getDisciplina(timeslots.get(i).getDisciplina().getValue()).getSigla() + " " + getLocal(timeslots.get(i).getLocais().get(j).getValue());
-			}
-		}
-		
-		for (Grade grade : grades) {
-			
-			System.out.println("Período: SI." + (count + 1));
-			
-			System.out.print("\n+-----+-------------------------+-------------------------+-------------------------+");
-			System.out.println("-------------------------+-------------------------+");
-			System.out.format("%2s", "|HORAS|");
-			
-			for (int i = 0; i < dias.length; i++) {
-				
-				System.out.format("%-25s", dias[i]);
-				
-				if ((i+1) < dias.length) {
-					System.out.print("|");
-				}
-			}
-			
-			System.out.print("|");
-			System.out.print("\n+-----+-------------------------+-------------------------+-------------------------+");
-			System.out.println("-------------------------+-------------------------+");
-			
-			for (int i = 0; i < grade.getGrade().length; i++) {
-				
-				for (int j = 0; j < grade.getGrade()[i].length; j++) {
-					
-					if (j == 0) {
-						System.out.format("%2s" , "|" + horas[i] + "|");
-					}
-					
-					System.out.format("%-25s", grade.getGrade()[i][j] != null ? grade.getGrade()[i][j] : "");
-					
-					if ((j+1) < grade.getGrade()[i].length) {
-						System.out.print("|");
-					}
-				}
-				
-				System.out.print("|");
-				System.out.print("\n+-----+-------------------------+-------------------------+-------------------------+");
-				System.out.println("-------------------------+-------------------------+");
-			}
-			
-			System.out.println();
-			
-			for (int i = 0; i < periodos[count].length; i++) {
-				
-				System.out.print(getDisciplina(periodos[count][i]).getSigla() + " = " + getProfessor(timeslots.get(indexDisciplina).getProfessor().getValue()));
-				
-				if ((i+1) < periodos[count].length) {
-					System.out.print(", ");
-				}
-				
-				if (i == 4)
-					System.out.println();
-				
-				indexDisciplina += 1;
-			}
-			
-			System.out.println("\n");
-			
-			count += 1;
-			
-		}
-		
-		System.out.println();
-	}
-
-	private int [] getTokens(IntVar horario) {
-		
-		int [] tokens = new int[2];
-		
-		String [] dias = {"Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira"};
-		String [] horas = {"15:10", "16:00", "16:50", "17:40", "18:30", "19:20", "20:10", "21:00", "21:50"};
-		
-		String str = getHorario(horario.getValue()).toString();
-		
-		for (int i = 0; i < dias.length; i++) {
-			
-			if (str.split(" ")[0].equals(dias[i])) {
-				tokens[0] = i;
-			}
-		}
-		
-		for (int i = 0; i < horas.length; i++) {
-			if (str.split(" ")[1].contains(horas[i])) {
-				tokens[1] = i;
-			}
-		}
-		
-		return tokens;
 	}
 	
 	private int getPeriodoDisciplina(int disciplina) {

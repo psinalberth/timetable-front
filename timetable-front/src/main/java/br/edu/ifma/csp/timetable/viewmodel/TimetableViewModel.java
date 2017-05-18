@@ -138,63 +138,6 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 		} catch (WrongValuesException ex) {
 			Validations.showValidationErrors();
 		}
-		
-		/*String rootDir = "/home/inalberth/monografia/csp_casos_teste6/completo4";
-
-		MatrizesCurriculares matrizesCurriculares = Lookup.dao(MatrizCurricularDao.class);
-		
-		File root = new File(rootDir);
-		File dir = null;
-		
-		if (root.mkdir()) {
-			
-		}
-		
-		int tamanho = root.listFiles() != null ? root.listFiles().length + 1 : 1;
-		
-		dir = new File(rootDir + File.separatorChar + "cenario$" + tamanho);
-		
-		Timetable timetable = repository.byId(951);
-		timetable.setMesmoHorarioDisciplina(false);
-		timetable.setMesmoLocalDisciplina(false);
-		
-		if (dir.mkdir()) {
-		
-			for (int i = 0; i < 50; i++) {
-				
-				Teste teste = new Teste();
-				teste.setNumeroPeriodos(8);
-				teste.setMatrizCurricular(matrizesCurriculares.byId(84));
-				
-				teste.setTimetable(timetable);
-				
-				teste.execute();
-				
-				teste.getSolver().showStatistics();
-				
-				if (teste.getSolver().solve()) {
-					
-					teste.prettyOut();
-					
-					try {
-						
-						File file = new File(dir.getAbsolutePath() + File.separatorChar + "data.dat");
-						
-						if (!file.exists()) {
-							file.createNewFile();
-						}
-						
-						FileWriter fw = new FileWriter(file, true);
-						
-						fw.write((i+1) + " " + teste.getSolver().getTimeCount() + "\n");
-						fw.close();
-						
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}*/
 	}
 	
 	@Command
@@ -362,11 +305,25 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	@Command
 	public void lookup() {
 		
-		List<Aula> aulasFiltradas = entidadeSelecionada.getAulas().stream()
-			.filter(aula -> getPeriodo() != null && getPeriodo().getCodigo() == aula.getPeriodo())
-			/*.filter(aula -> getProfessor() != null && getProfessor().getId() == aula.getProfessor().getId())
-			.filter(aula -> getLocal() != null && getLocal().getId() == aula.getLocal().getId())*/
-			.collect(Collectors.toList());
+		List<Aula> aulasFiltradas = entidadeSelecionada.getAulas();
+		
+		if (getPeriodo() != null) {
+			
+			aulasFiltradas = aulasFiltradas.stream()
+				.filter(aula -> getPeriodo().getCodigo() == aula.getPeriodo()).collect(Collectors.toList());
+		}
+		
+		if (getProfessor() != null) {
+			
+			aulasFiltradas = aulasFiltradas.stream()
+				.filter(aula -> getProfessor().getId() == aula.getProfessor().getId()).collect(Collectors.toList());
+		}
+		
+		if (getLocal() != null) {
+			
+			aulasFiltradas = aulasFiltradas.stream()
+				.filter(aula -> getLocal().getId() == aula.getLocal().getId()).collect(Collectors.toList());
+		}
 		
 		buildRows(aulasFiltradas);
 	}
