@@ -16,7 +16,7 @@ import br.edu.ifma.csp.timetable.model.choco.Timeslot;
  */
 public class HorarioOrdenado {
 	
-	public static Model postConstraint(Model model, List<Timeslot> timeslots) {
+	public static void postConstraint(Model model, List<Timeslot> timeslots) {
 		
 		for (int i = 0; i < timeslots.size(); i++) {
 			
@@ -32,7 +32,5 @@ public class HorarioOrdenado {
 				}
 			}
 		}
-		
-		return model;
 	}
 }

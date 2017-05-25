@@ -6,7 +6,6 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zhtml.Messagebox;
-import org.zkoss.zk.ui.util.Clients;
 
 import br.edu.ifma.csp.timetable.dao.CursoDao;
 import br.edu.ifma.csp.timetable.dao.DisciplinaDao;
@@ -62,21 +61,14 @@ public class ReportViewModel {
 	@NotifyChange("arquivo")
 	public void gerar() {
 		
-		if (getCurso() == null) {
-			
-			Clients.showNotification("O <b>curso</b> é obrigatório.", Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 0);
+		List<DadosRelatorioProfessorDisciplina> dados = repository.recuperarDados();
+		
+		
+		if (!dados.isEmpty()) {
+			Report.render("rel_professor_disciplina", dados);
 			
 		} else {
-		
-			List<DadosRelatorioProfessorDisciplina> dados = repository.recuperarDados();
-			
-			
-			if (!dados.isEmpty()) {
-				Report.render("rel_professor_disciplina", dados);
-				
-			} else {
-				Messagebox.show("Nenhuma informação encontrada para este relatório", "Timetable", Messagebox.OK, Messagebox.INFORMATION);
-			}
+			Messagebox.show("Nenhuma informação encontrada para este relatório", "Timetable", Messagebox.OK, Messagebox.INFORMATION);
 		}
 	}
 

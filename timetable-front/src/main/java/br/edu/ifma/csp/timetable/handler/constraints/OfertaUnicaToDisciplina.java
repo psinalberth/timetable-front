@@ -12,7 +12,7 @@ import br.edu.ifma.csp.timetable.model.choco.Timeslot;
 
 public class OfertaUnicaToDisciplina {
 	
-	public static Model postConstraint(Model model, Timetable timetable, List<Timeslot> timeslots, List<Timeslot> timeslotsDisciplinasHorarioUnico) {
+	public static void postConstraint(Model model, Timetable timetable, List<Timeslot> timeslots, List<Timeslot> timeslotsDisciplinasHorarioUnico) {
 		
 		for (DetalheTimetable detalhe : timetable.getDetalhes()) {
 			
@@ -43,8 +43,6 @@ public class OfertaUnicaToDisciplina {
 				}
 			}
 		}
-		
-		return model;
 	}
 	
 	private static Timeslot getTimeslotDisciplina(List<Timeslot> timeslots, int disciplina) {

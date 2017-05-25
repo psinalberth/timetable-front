@@ -25,7 +25,7 @@ import br.edu.ifma.csp.timetable.util.Lookup;
 
 public class HorarioIndisponivel {
 	
-	public static Model postConstraint(Model model, List<Timeslot> timeslots, Timetable timetable, List<Horario> colHorarios, int [] horariosId) {
+	public static void postConstraint(Model model, List<Timeslot> timeslots, Timetable timetable, List<Horario> colHorarios, int [] horariosId) {
 		
 		Disciplinas disciplinas = Lookup.dao(DisciplinaDao.class);
 		Professores professores = Lookup.dao(ProfessorDao.class);
@@ -100,8 +100,6 @@ public class HorarioIndisponivel {
 				model.table(new IntVar[] {timeslot.getProfessor(), horario}, tuples).post();
 			}
 		}
-		
-		return model;
 	}
 	
 	private static int [] getHorariosIndisponiveisProfessor(Professor professor, List<Horario> colHorarios) {

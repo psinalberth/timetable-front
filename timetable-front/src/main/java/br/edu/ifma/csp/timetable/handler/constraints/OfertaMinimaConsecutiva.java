@@ -20,7 +20,7 @@ import br.edu.ifma.csp.timetable.model.choco.Timeslot;
  */
 public class OfertaMinimaConsecutiva {
 	
-	public static Model postConstraint(Model model, List<Timeslot> timeslots, List<Timeslot> timeslotsDisciplinasHorarioUnico, Timetable timetable, int [] aulas) {
+	public static void postConstraint(Model model, List<Timeslot> timeslots, List<Timeslot> timeslotsDisciplinasHorarioUnico, Timetable timetable, int [] aulas) {
 		
 		for (int i = 0; i < timeslots.size(); i++) {
 			
@@ -155,7 +155,5 @@ public class OfertaMinimaConsecutiva {
 				model.arithm(local1, "=", local2).post();
 			}
 		}
-		
-		return model;
 	}
 }

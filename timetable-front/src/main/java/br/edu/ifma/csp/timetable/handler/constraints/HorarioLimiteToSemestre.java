@@ -17,7 +17,7 @@ import br.edu.ifma.csp.timetable.model.choco.Timeslot;
 
 public class HorarioLimiteToSemestre {
 	
-	public static Model postConstraint(Model model, List<Timeslot> timeslots, Timetable timetable, List<Horario> colHorarios, int [][] periodos) {
+	public static void postConstraint(Model model, List<Timeslot> timeslots, Timetable timetable, List<Horario> colHorarios, int [][] periodos) {
 		
 		for (DetalheTimetable detalhe : timetable.getDetalhes()) {
 			
@@ -51,8 +51,6 @@ public class HorarioLimiteToSemestre {
 				}
 			}
 		}
-		
-		return model;
 	}
 	
 	private static int [] recuperaHorarios(TipoCriterioTimetable tipoCriterio, Date horario, List<Horario> colHorarios) {

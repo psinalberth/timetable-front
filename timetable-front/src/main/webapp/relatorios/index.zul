@@ -9,67 +9,6 @@
 				<n:h4 class="page-title">Relatórios</n:h4>
 				<button sclass="button la la-print" label="Gerar" onClick="@command('gerar')"/>
 			</div>
-			
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<label value="Tipo de Relatório"/>
-						<combobox sclass="form-input" readonly="true" model="@load(vm.colTiposRelatorio)">
-							<template name="model">
-								<comboitem label="@load(each.descricao)" value="@load(each)"/>
-							</template>
-						</combobox>
-					</div>
-				</div>
-			</div>
-			
-			<div sclass="row">
-				<div class="col-md-6">
-					<div class="form-group">
-				<label value="Professor"/>
-				<combobox sclass="form-input" readonly="true" model="@load(vm.colProfessores)" selectedItem="@bind(vm.professor)">
-					<template name="model">
-						<comboitem label="@load(each.nome)" value="@load(each)"/>
-					</template>
-				</combobox>
-			</div>
-				</div>
-				<div class="col-md-6">
-					<div class="form-group">
-				<label value="Disciplina"/>
-				<combobox sclass="form-input" readonly="true" model="@load(vm.colDisciplinas)" selectedItem="@bind(vm.disciplina)">
-					<template name="model">
-						<comboitem label="@load(each.descricao)" value="@load(each)"/>
-					</template>
-				</combobox>
-			</div>
-				</div>
-			</div>
-			
-			<div sclass="row">
-				<div class="col-md-6">
-					<div class="form-group">
-				<label value="Curso"/>
-				<combobox sclass="form-input" readonly="true" model="@load(vm.colCursos)" selectedItem="@bind(vm.curso)">
-					<template name="model">
-						<comboitem label="@load(each.descricao)" value="@load(each)"/>
-					</template>
-				</combobox>
-			</div>
-				</div>
-				<div class="col-md-6">
-					<div class="form-group">
-				<label value="Disciplina"/>
-				<combobox sclass="form-input" readonly="true" model="@load(vm.colTiposRelatorio)">
-					<template name="model">
-						<comboitem label="@load(each.descricao)" value="@load(each)"/>
-					</template>
-				</combobox>
-			</div>
-				</div>
-			</div>
-			
-			
 		</div>
 	</div>
 </zk>

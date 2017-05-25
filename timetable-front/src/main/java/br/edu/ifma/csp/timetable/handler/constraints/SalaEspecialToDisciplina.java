@@ -21,7 +21,7 @@ import br.edu.ifma.csp.timetable.util.Lookup;
 
 public class SalaEspecialToDisciplina {
 	
-	public static Model postConstraint(Model model, List<Timeslot> timeslots, List<DetalheDisciplina> colDetalhes, Timetable timetable) {
+	public static void postConstraint(Model model, List<Timeslot> timeslots, List<DetalheDisciplina> colDetalhes, Timetable timetable) {
 		
 		TiposLocal tiposLocal = Lookup.dao(TipoLocalDao.class);
 		Locais locais = Lookup.dao(LocalDao.class);
@@ -63,8 +63,6 @@ public class SalaEspecialToDisciplina {
 				model.table(timeslot.getDisciplina(), timeslot.getLocais().get(j), tuples).post();
 			}
 		}
-		
-		return model;
 	}
 	
 	private static int [] allByDepartamento(List<Local> colLocais, Departamento departamento) {

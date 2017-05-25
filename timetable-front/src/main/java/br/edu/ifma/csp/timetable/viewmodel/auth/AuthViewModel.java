@@ -71,6 +71,8 @@ public class AuthViewModel {
 				
 				setFragment("../partials/zul/home.zul");
 				
+				Executions.sendRedirect("/");
+				
 			} else {
 				
 				setSenha(null);

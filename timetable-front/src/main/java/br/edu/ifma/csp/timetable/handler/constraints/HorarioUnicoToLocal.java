@@ -25,7 +25,7 @@ import br.edu.ifma.csp.timetable.model.choco.Timeslot;
  */
 public class HorarioUnicoToLocal {
 	
-	public static Model postConstraint(Model model, List<Timeslot> timeslots) {
+	public static void postConstraint(Model model, List<Timeslot> timeslots) {
 		
 		List<IntVar> list = new ArrayList<IntVar>();
 				
@@ -45,7 +45,5 @@ public class HorarioUnicoToLocal {
 		}
 		
 		model.allDifferent(list.toArray(new IntVar[list.size()]), "NEQS").post();
-		
-		return model;
 	}
 }

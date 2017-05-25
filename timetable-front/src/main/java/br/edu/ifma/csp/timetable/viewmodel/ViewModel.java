@@ -45,6 +45,16 @@ public abstract class ViewModel<T extends Entidade> {
 	
 	private List<T> col;
 	
+	/**
+	 * Obtém o objeto DAO correspondente ao tipo de {@code entidadeSelecionada} através do serviço de nomeação, além de recuperar todos 
+	 * os objetos salvos de mesma tipagem. Ao final, são atualizadas todas as propriedades da classe {@link ViewModel} correspondente 
+	 * através da annotation {@link NotifyChange}.
+	 * 
+	 * @throws NamingException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	
 	@AfterCompose
 	@NotifyChange("*")
 	public void initViewModel() throws NamingException, InstantiationException, IllegalAccessException {
@@ -56,6 +66,7 @@ public abstract class ViewModel<T extends Entidade> {
 	public abstract void init(Component view);
 	
 	/**
+	 * Cria um novo objeto, obtendo-se a tipagem do mesmo através do método {@link #retornaTipo()}.
 	 * 
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
@@ -71,6 +82,13 @@ public abstract class ViewModel<T extends Entidade> {
 		entidadeSelecionada.setUsuarioUltAlteracao(usuario.getLogin());
 		entidadeSelecionada.setDataUltAlteracao(new Date());
 	}
+	
+	/**
+	 * Persiste um objeto ({@code entidadeSelecionada}) na base de dados. Antes de persistit, valida o objeto através do 
+	 * método {@link Validations #validate(Entidade, Repository)}. Ao final da validação, o objeto é persistido e são atualizadas
+	 * as propriedades do objeto, coleção de objetos de mesma tipagem de {@code entidadeSelecionada}, além dos controles da tela como
+	 * o botão {@code Excluir} e ainda alternar entre edição e visualização de objetos.
+	 */
 	
 	@Command
 	public void salvar() throws WrongValuesException {
@@ -96,6 +114,10 @@ public abstract class ViewModel<T extends Entidade> {
 		}
 	}
 	
+	/**
+	 * Recupera todos os objetos salvos na base de dados de mesma tipagem de {@code entidadeSelecionada}.
+	 */
+	
 	@Command
 	@GlobalCommand
 	@NotifyChange("*")
@@ -111,11 +133,19 @@ public abstract class ViewModel<T extends Entidade> {
 		
 	}
 	
+	/**
+	 * Método utilizado para alternar entre a listagem de objetos salvos e o detalhamento (formulário) de um único objeto.
+	 */
+	
 	@Command
 	@NotifyChange({"entidadeSelecionada", "consultando", "removivel", "editando"})
 	public void editar() {
 		
 	}
+	
+	/**
+	 * Remove um objeto ({@code entidadeSelecionada}) da base de dados após confirmação do usuário.
+	 */
 	
 	@Command
 	@NotifyChange({"entidadeSelecionada", "consultando", "removivel", "editando", "col"})
