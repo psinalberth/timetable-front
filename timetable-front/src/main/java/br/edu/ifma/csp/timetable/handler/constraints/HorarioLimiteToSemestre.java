@@ -106,6 +106,10 @@ public class HorarioLimiteToSemestre {
 	}
 	
 	private static int [] getDisciplinasPorPeriodo(int[][] periodos, int periodo) {
+		
+		if (periodo >= periodos.length)
+			return new int[]{};
+		
 		return periodos[periodo-1];
 	}
 }

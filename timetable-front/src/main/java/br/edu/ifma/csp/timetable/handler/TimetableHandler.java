@@ -2,11 +2,12 @@ package br.edu.ifma.csp.timetable.handler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.chocosolver.solver.Model;
-import org.chocosolver.solver.Solution;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.exception.ContradictionException;
 import org.chocosolver.solver.search.loop.monitors.IMonitorContradiction;
@@ -22,6 +23,7 @@ import br.edu.ifma.csp.timetable.dao.LocalDao;
 import br.edu.ifma.csp.timetable.dao.ProfessorDao;
 import br.edu.ifma.csp.timetable.handler.constraints.HorarioConsecutivo;
 import br.edu.ifma.csp.timetable.handler.constraints.HorarioIndisponivel;
+import br.edu.ifma.csp.timetable.handler.constraints.HorarioIndisponivelProfessor;
 import br.edu.ifma.csp.timetable.handler.constraints.HorarioLimiteToSemestre;
 import br.edu.ifma.csp.timetable.handler.constraints.HorarioOrdenado;
 import br.edu.ifma.csp.timetable.handler.constraints.HorarioUnicoToLocal;
@@ -80,6 +82,7 @@ public class TimetableHandler {
 	private DetalhesDisciplina detalhesDisciplina = Lookup.dao(DetalheDisciplinaDao.class);
 	
 	IntVar [][] varHorariosPeriodo;
+	IntVar [][] varHorariosProfessor;
 	
 	List<Professor> colProfessores;
 	List<Disciplina> colDisciplinas;
@@ -90,6 +93,8 @@ public class TimetableHandler {
 	List<Timeslot> timeslots;
 	
 	List<Timeslot> timeslotsDisciplinasHorarioUnico;
+	
+	List<IntVar> totalPenalizacoes;
 	
 	int [] disciplinasId;
 	int [] professoresId;
@@ -145,7 +150,11 @@ public class TimetableHandler {
 		
 		init();
 		
+		Set<Integer> hash = new HashSet<Integer>();
+		
 		timeslots = new ArrayList<Timeslot>();
+		
+		totalPenalizacoes = new ArrayList<IntVar>();
 		
 		periodos = new int[timetable.getMatrizCurricular().getPeriodos().size()][];
 		
@@ -169,9 +178,10 @@ public class TimetableHandler {
 		for (int i = 0; i < disciplinasId.length; i++) {
 			
 			IntVar disciplina = model.intVar("D[" + i + "]", disciplinasId[i]);
-			Disciplina d = disciplinas.byId(disciplinasId[i]);
 			
-			IntVar professor = model.intVar("P[" + i + "]", extrairIds(professores.allByPreferenciaDisciplina(d)));
+			IntVar professor = model.intVar("P[" + i + "]", extrairIds(professores.allByPreferenciaDisciplina(colDisciplinas.get(i))));
+			
+			// hash.addAll(IntStream.of(model.getDomainUnion(professor)).boxed().collect(Collectors.toList()));
 			
 			Timeslot timeslot = new Timeslot();
 			
@@ -189,6 +199,12 @@ public class TimetableHandler {
 			
 			timeslots.add(timeslot);
 		}
+		
+		//varHorariosProfessor = model.intVarMatrix(hash.size(), 14, 0, horariosId.length - 1);
+		
+		/*for (int i = 0; i < hash.size(); i++) {
+			varHorariosProfessor[i] = model.intVarArray(colHorarios.size(), 0, horariosId.length - 1);
+		}*/
 		
 		OfertaUnicaToDisciplina.postConstraint(model, timetable, timeslots, timeslotsDisciplinasHorarioUnico);
 		
@@ -208,7 +224,16 @@ public class TimetableHandler {
 		
 		SalaEspecialToDisciplina.postConstraint(model, timeslots, colDetalhes, timetable);
 		
-		HorarioIndisponivel.postConstraint(model, timeslots, timetable, colHorarios, horariosId);
+		if (timetable.isHorariosIndisponiveisPermitidos()) {
+			HorarioIndisponivelProfessor.postConstraint(model, timeslots, timetable, colHorarios, horariosId, totalPenalizacoes);
+			
+			IntVar penalty = model.intVar("penalty", 0, 100, false);
+			model.sum(totalPenalizacoes.toArray(new IntVar[totalPenalizacoes.size()]), "<", penalty).post();
+			model.setObjective(Model.MINIMIZE, penalty);
+			
+		} else {
+			HorarioIndisponivel.postConstraint(model, timeslots, timetable, colHorarios, horariosId);
+		}
 	}
 	
 	private final void configureSearch() {
@@ -236,14 +261,14 @@ public class TimetableHandler {
 		
 		int count = 0;
 		
-		Solution solution = new Solution(getModel());
+		//Solution solution = new Solution(getModel());
 		
 		solver.plugMonitor(new IMonitorContradiction() {
 			
 			@Override
 			public void onContradiction(ContradictionException cex) {
-				cex.printStackTrace();
-				System.out.println(cex.c);
+			//	cex.printStackTrace();
+			//	System.out.println(cex.c);
 				
 			}
 		});
@@ -252,22 +277,26 @@ public class TimetableHandler {
 			
 			@Override
 			public void onSolution() {
-				solution.record();
+			//	solution.record();
 				prettyOut();
 			}
 		});
 		
-		while (count < 3 && solver.solve()) {
+//		while (count < 3 && solver.solve()) {
+		
+		if (solver.solve()) {
 			
-			getColAulas().add(recuperaAulas());
+			//getColAulas().add(recuperaAulas());
 			
-			if (count == 0) {
+			timetable.setAulas(recuperaAulas());
+			
+			/*if (count == 0) {
 				timetable.setAulas(getColAulas().get(count));
 			}
 			
 			System.out.println("Solução " + (count + 1));
 			
-			count += 1;
+			count += 1;*/
 		}
 	}
 	
@@ -321,6 +350,16 @@ public class TimetableHandler {
 	
 	public void prettyOut() {
 		
+		for (IntVar var : totalPenalizacoes) {
+			System.out.println(var);
+		}
+		
+		/*for (int i = 0; i < varHorariosProfessor.length; i++) {
+			
+			for (int j = 0; j < varHorariosProfessor[i].length; j++) {
+				System.out.println(varHorariosProfessor[i][j]);
+			}
+		}*/
 	}
 	
 	private List<DetalheDisciplina> allByPeriodo(List<DetalheDisciplina> detalhes, Periodo periodo) { 
@@ -336,6 +375,7 @@ public class TimetableHandler {
 			for (int i = 0; i < timeslot.getHorarios().size(); i++) {
 				
 				Aula aula = new Aula();
+				
 				aula.setDisciplina(getDisciplina(timeslot.getDisciplina().getValue()));
 				aula.setProfessor(getProfessor(timeslot.getProfessor().getValue()));
 				aula.setLocal(getLocal(timeslot.getLocais().get(i).getValue()));

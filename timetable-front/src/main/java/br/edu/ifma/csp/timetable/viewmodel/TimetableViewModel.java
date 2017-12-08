@@ -49,6 +49,7 @@ import br.edu.ifma.csp.timetable.repository.report.ReportRepository;
 import br.edu.ifma.csp.timetable.util.Lookup;
 import br.edu.ifma.csp.timetable.util.Report;
 import br.edu.ifma.csp.timetable.util.Validations;
+import teste.Teste;
 
 public class TimetableViewModel extends ViewModel<Timetable> {
 	
@@ -89,6 +90,23 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 	@Command
 	public void salvar() {
 		
+		Timetable timetable = repository.byId(951);
+		timetable.setMesmoHorarioDisciplina(false);
+		timetable.setMesmoLocalDisciplina(false);
+		
+		Teste teste = new Teste();
+		teste.setNumeroPeriodos(2);
+		teste.setMatrizCurricular(timetable.getMatrizCurricular());
+		
+		teste.setTimetable(timetable);
+		teste.execute();
+		teste.getSolver().showStatistics();
+		
+		if (teste.getSolver().solve()) {
+			teste.prettyOut();
+			return;
+		}
+		
 		try {
 			
 			Validations.validate(entidadeSelecionada, repository);
@@ -103,9 +121,9 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			
 			Clients.clearBusy();
 			
-			if (!handler.getSolver().solve()) {
+			//if (!handler.getSolver().solve()) {
 				grid.getRows().getChildren().clear();
-			}
+			//}
 			
 			repository.save(entidadeSelecionada);
 			
@@ -132,6 +150,8 @@ public class TimetableViewModel extends ViewModel<Timetable> {
 			BindUtils.postNotifyChange(null, null, this, "local");
 			BindUtils.postNotifyChange(null, null, this, "aulasSelecionadas");
 			BindUtils.postNotifyChange(null, null, this, "solucaoEncontrada");
+			
+			lookup();
 			
 			Clients.showNotification("Solução encontrada!", Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 1000);
 			
